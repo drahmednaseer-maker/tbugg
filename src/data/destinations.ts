@@ -89,5 +89,19 @@ export const destinations: Destination[] = [
     images: ["/shandur-polo.jpg", "/spring-gulshan.jpg", "/autumn-jamalabad.jpg"],
     tourSlug: "fairy-meadows-nanga-parbat",
   },
+  {
+    id: "charakusa",
+    name: "Charakusa Valley",
+    region: "Hushe, Gilgit-Baltistan",
+    description: "K6 & K7 granite giants towering above pristine glacier — Pakistan's most dramatic and least-visited alpine wilderness",
+    tag: "Expedition",
+    images: [
+      "/destinations/charakusa/charakusa_basecamp.jpg",
+      "/destinations/skardu/katpana_desert.jpg",
+      "/destinations/skardu/indus_river.jpg",
+    ],
+    tourSlug: "charakusa-valley-exploration",
+  },
 ];
+
 

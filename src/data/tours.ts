@@ -596,6 +596,142 @@ export const tours: Tour[] = [
     difficulty: "Moderate",
     featured: true,
   },
+  {
+    id: "19",
+    slug: "charakusa-valley-exploration",
+    title: "Charakusa Valley Exploration",
+    destination: "Hushe, Skardu",
+    country: "Pakistan",
+    duration: 11,
+    price: 0,
+    originalPrice: 0,
+    rating: 5.0,
+    reviewCount: 42,
+    category: "adventure",
+    image: "/destinations/charakusa/charakusa_basecamp.jpg",
+    images: [
+      "/destinations/charakusa/charakusa_basecamp.jpg",
+      "/destinations/skardu/katpana_desert.jpg",
+      "/destinations/skardu/indus_river.jpg",
+      "/destinations/hunza/rakaposhi_sunset.jpg",
+    ],
+    shortDescription:
+      "One of Pakistan's most secluded alpine wonders — stand beneath K6 & K7 in the raw, untouched Charakusa Glacier Valley, accessible only by a multi-day trek from the remote Hushe Valley.",
+    description:
+      "Tucked deep in the eastern Karakoram, the Charakusa Valley is Pakistan's best-kept trekking secret. The journey begins in Skardu and winds through the Hushe Valley — home to authentic Balti villages — before ascending through rocky moraines, glacial streams, and wildflower meadows to the breathtaking Charakusa Basecamp at ~4,200m. Here, the granite spires of K6 (7,282m) and K7 (6,934m) dominate the skyline alongside Laila Peak, Link Sar, and Namika. Unlike Concordia or Fairy Meadows, Charakusa sees very few visitors — offering solitude, raw wilderness, and photographic drama that rivals the world's great mountain trails. TravelBug.pk handles every permit, porter, and camp so you experience only the magic.",
+    highlights: [
+      "K6 (7,282m) & K7 (6,934m) base camp — world-class granite giants",
+      "Charakusa Glacier — pristine, rarely-visited ice highway",
+      "Laila Peak, Link Sar & Namika views from basecamp",
+      "Hushe Valley — authentic Balti culture & hospitality",
+      "Rocky moraine & glacier crossing (no technical climbing needed)",
+      "Alpine meadows & glacial streams en route",
+      "Zero crowds — pure Karakoram wilderness",
+      "Astrophotography at 4,200m (Milky Way overhead)",
+      "Shangrila / Upper Kachura Lake excursion (optional, Day 2)",
+      "Buffer/contingency day for weather flexibility",
+    ],
+    included: [
+      "Islamabad–Skardu flight (or road backup)",
+      "All accommodation — hotel in Skardu & camps on trail",
+      "All meals (BF/L/D) throughout the trek",
+      "Experienced TravelBug mountain guide",
+      "Licensed porters for all equipment",
+      "Full camping gear (tents, sleeping bags, mats)",
+      "Trekking permits & army registration (foreigners)",
+      "Emergency first-aid kit & satellite communication",
+      "Skardu–Hushe jeep transfer (both ways)",
+    ],
+    excluded: [
+      "International flights to Islamabad",
+      "Travel & evacuation insurance (mandatory)",
+      "Personal trekking gear & clothing",
+      "Optional Skardu excursions (Shangrila etc.)",
+      "Gratuities for guide & porters",
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: "Islamabad → Skardu",
+        description:
+          "Fly into Skardu — the mountain capital of Baltistan. Transfer to hotel, rest, and enjoy an orientation briefing over dinner. The evening is yours to explore the Skardu bazaar.",
+        activities: ["Flight Islamabad to Skardu", "Hotel transfer & check-in", "Orientation briefing", "Dinner in Skardu"],
+      },
+      {
+        day: 2,
+        title: "Rest & Preparation Day in Skardu",
+        description:
+          "A full day for acclimatisation, gear checks, and permit paperwork. For foreign trekkers, army registration is completed today. In the afternoon, an optional excursion to Shangrila Resort or Upper Kachura Lake makes for a stunning warm-up.",
+        activities: ["Permits & army registration (foreigners)", "Trek gear checking & briefing", "Optional: Shangrila / Upper Kachura Lake", "Rest & preparation"],
+      },
+      {
+        day: 3,
+        title: "Skardu → Hushe Village",
+        description:
+          "An early departure for the legendary Skardu–Hushe jeep drive (6–7 hours) along the Shyok River gorge — one of Pakistan's most dramatic road journeys. Arrival in Hushe, the last village before the mountains swallow the trail. Overnight in camps or a local guesthouse.",
+        activities: ["Early breakfast & jeep departure", "Shyok River gorge scenic drive", "Arrival at Hushe village (3,050m)", "Camp / guesthouse setup"],
+      },
+      {
+        day: 4,
+        title: "Hushe → Saischo Camp",
+        description:
+          "Today's 4–5 hour hike is an easy-to-moderate introduction to the Charakusa trail — granite spires and pine trees frame the path as the Hushe River guides you upward to Saischo camp.",
+        activities: ["4–5 hour easy/moderate hike", "Hushe River trail", "Granite spire & pine forest scenery", "Camp at Saischo (3,330m)"],
+      },
+      {
+        day: 5,
+        title: "Saischo → Ankam",
+        description:
+          "A longer, more demanding 5–6 hour stage taking you through wild rocky terrain and the outer edge of the Charakusa Glacier. Wildflowers, waterfalls, and the first dramatic views of the K6/K7 massif reward the effort.",
+        activities: ["5–6 hour hike", "Rocky moraine & glacier terrain", "Wildflowers & waterfall scenery", "First K6/K7 views", "Camp at Ankam (~3,700m)"],
+      },
+      {
+        day: 6,
+        title: "Ankam → Charakusa Basecamp",
+        description:
+          "The final 4–5 hour push to Charakusa Basecamp at approximately 4,200m. As you crest the last moraine, K6 and K7's colossal granite walls fill the sky — a moment that stops every trekker in their tracks.",
+        activities: ["4–5 hour hike", "Upper Charakusa Glacier crossing", "Arrival at Charakusa Basecamp (~4,200m)", "Camp setup with K6/K7 views"],
+      },
+      {
+        day: 7,
+        title: "Exploration & Photography Day",
+        description:
+          "A full rest and exploration day at basecamp. Spend it photographing the spectacular peaks in different light, exploring the glacier, making short acclimatisation hikes, or simply absorbing the profound silence of one of the world's most remote valleys. Additional days here can be arranged.",
+        activities: ["Glacier exploration hike", "K6/K7/Laila Peak photography", "Short alpine hikes", "Astrophotography (night)", "Optional: extra basecamp days"],
+      },
+      {
+        day: 8,
+        title: "Basecamp → Saischo",
+        description:
+          "Begin the return journey — the long 6–7 hour descent back to Saischo camp. The familiar trail looks entirely different heading down, and new angles of the peaks reveal themselves.",
+        activities: ["6–7 hour descent hike", "Glacier & moraine return trail", "Final K6/K7 panoramas", "Camp at Saischo"],
+      },
+      {
+        day: 9,
+        title: "Saischo → Skardu",
+        description:
+          "A gentle 2-hour walk back to Hushe village, followed by the 5–6 hour jeep drive along the Shyok back to Skardu. Hot showers, real beds, and celebration dinner await.",
+        activities: ["2-hour descent to Hushe", "5–6 hour Hushe–Skardu jeep drive", "Hotel check-in", "Celebration dinner in Skardu"],
+      },
+      {
+        day: 10,
+        title: "Skardu → Islamabad",
+        description:
+          "Morning flight back to Islamabad, weather permitting. Road alternative (via KKH) is arranged if flights are cancelled due to mountain weather — a common and entirely scenic occurrence.",
+        activities: ["Skardu–Islamabad flight", "Road backup via KKH if required", "End of programme"],
+      },
+      {
+        day: 11,
+        title: "Buffer / Contingency Day",
+        description:
+          "A built-in buffer day to absorb flight delays, weather holds, or any extra time you'd like at basecamp or in Skardu. This makes the Charakusa itinerary reliable even during unpredictable mountain weather windows.",
+        activities: ["Weather / flight contingency", "Optional extra Skardu sightseeing", "Rest day if not needed"],
+      },
+    ],
+    maxGroupSize: 10,
+    difficulty: "Challenging",
+    featured: true,
+  },
 ];
 
 
