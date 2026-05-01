@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80">
+  <!-- "travel" text in dark purple -->
+  <text x="0" y="62" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-weight="900" font-size="68" fill="#4B3F8C" letter-spacing="-2">travel</text>
+  <!-- "bu" text in green -->
+  <text x="194" y="62" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-weight="900" font-size="68" fill="#4BC8A0" letter-spacing="-2">bu</text>
+  <!-- compass circle replacing 'g' -->
+  <circle cx="293" cy="40" r="32" fill="none" stroke="#4BC8A0" stroke-width="6"/>
+  <!-- compass rose -->
+  <circle cx="293" cy="40" r="4" fill="#4BC8A0"/>
+  <!-- N needle -->
+  <polygon points="293,12 289,38 293,34 297,38" fill="#4BC8A0"/>
+  <!-- S needle -->
+  <polygon points="293,68 289,42 293,46 297,42" fill="#4BC8A0" opacity="0.5"/>
+  <!-- E needle -->
+  <polygon points="321,40 295,36 299,40 295,44" fill="#4BC8A0" opacity="0.5"/>
+  <!-- W needle -->
+  <polygon points="265,40 291,36 287,40 291,44" fill="#4BC8A0" opacity="0.5"/>
+  <!-- bug antennae above compass -->
+  <line x1="283" y1="10" x2="278" y2="2" stroke="#4BC8A0" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="278" cy="2" r="2.5" fill="#4BC8A0"/>
+  <line x1="303" y1="10" x2="308" y2="2" stroke="#4BC8A0" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="308" cy="2" r="2.5" fill="#4BC8A0"/>
+</svg>

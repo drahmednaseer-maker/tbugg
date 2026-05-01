@@ -1,26 +1,318 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-navy: #0B1628;
+  --color-navy-light: #0f2040;
+  --color-forest: #0D2B1F;
+  --color-gold: #FFC20A;
+  --color-gold-light: #FFD34A;
+  --color-beige: #F5EFE6;
+  --color-sand: #E8DDD0;
+  --color-charcoal: #1a2035;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --animate-fade-up: fadeUp 0.6s ease forwards;
+  --animate-fade-in: fadeIn 0.5s ease forwards;
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes pulse-gold {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.4); }
+    50% { box-shadow: 0 0 0 12px rgba(201, 168, 76, 0); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-navy);
+  color: #fff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Global Background Image — appears on every page ─── */
+/* z-index: -1 keeps it BEHIND all page content and the fixed header */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url('/hero-bg.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-navy);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-light);
+}
+
+/* Selection color */
+::selection {
+  background: rgba(201, 168, 76, 0.3);
+  color: #fff;
+}
+
+/* Glass effect utility */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-dark {
+  background: rgba(11, 22, 40, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Gold gradient text */
+.gold-text {
+  background: linear-gradient(135deg, #FFC20A, #FFD34A, #FFC20A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated gradient background */
+.hero-gradient {
+  background: linear-gradient(135deg, rgba(11,22,40,0.95) 0%, rgba(13,43,31,0.7) 50%, rgba(11,22,40,0.85) 100%);
+}
+
+/* Section transitions */
+.section-fade {
+  animation: var(--animate-fade-up);
+}
+
+/* Card shine effect */
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+.card-shine::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -75%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  transition: left 0.6s ease;
+}
+.card-shine:hover::after {
+  left: 125%;
+}
+
+/* ─── MOBILE RESPONSIVENESS ──────────────────────────────────────────────── */
+
+/* Marquee strip cards */
+.marquee-card { flex: 0 0 180px; height: 110px; }
+@media (max-width: 640px) {
+  .marquee-card { flex: 0 0 130px; height: 85px; }
+}
+
+/* Hero section */
+@media (max-width: 768px) {
+  #hero { min-height: 100svh; }
+  #hero .hero-content { padding: 100px 22px 0 !important; }
+  #hero .hero-pin-area { display: none !important; }
+}
+
+/* Tour builder section */
+@media (max-width: 768px) {
+  #tour-builder { padding: 56px 0 60px !important; }
+  #tour-builder > div { padding: 0 20px !important; }
+  #tour-builder .tb-header { margin-bottom: 32px !important; }
+  #tour-builder .tb-header h2 { font-size: clamp(24px, 7vw, 36px) !important; }
+}
+
+/* TourBuilder step 1 — destinations + map grid */
+.tb-step1-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .tb-step1-grid { grid-template-columns: 1fr !important; }
+  .tb-step1-grid .tb-map-col { display: none !important; }
+}
+
+/* TourBuilder step 2,3,4 panels */
+.tb-panel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 640px) {
+  .tb-panel-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Step contact form — full width on small screens */
+.tb-form-wrap { max-width: 520px; margin: 0 auto 48px; }
+@media (max-width: 540px) {
+  .tb-form-wrap { max-width: 100% !important; }
+}
+
+/* Footer grid */
+.footer-main-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.4fr;
+  gap: 48px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .footer-main-grid { grid-template-columns: 1fr 1fr !important; gap: 36px !important; }
+}
+@media (max-width: 540px) {
+  .footer-main-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+}
+
+/* Footer outer padding */
+.footer-inner { padding: 72px 40px 56px; }
+@media (max-width: 768px) {
+  .footer-inner { padding: 48px 22px 40px !important; }
+}
+
+/* WhyChooseUs bento grid */
+.why-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 900px) {
+  .why-bento-grid { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 540px) {
+  .why-bento-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Featured Destinations grid */
+.fd-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+@media (max-width: 900px) {
+  .fd-grid { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 540px) {
+  .fd-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+}
+
+/* Tour packages grid */
+.tp-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+@media (max-width: 900px) {
+  .tp-grid { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 540px) {
+  .tp-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+}
+
+/* Testimonials grid */
+.test-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 900px) {
+  .test-grid { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 540px) {
+  .test-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+}
+
+/* Section universal padding */
+.tb-section-pad { padding: 80px 40px; }
+@media (max-width: 768px) {
+  .tb-section-pad { padding: 56px 22px !important; }
+}
+
+/* CTA banner */
+@media (max-width: 640px) {
+  #cta .cta-flex { flex-direction: column !important; align-items: flex-start !important; gap: 24px !important; padding: 36px 28px !important; }
+  #cta .cta-flex h2 { font-size: clamp(24px, 7vw, 36px) !important; }
+}
+
+/* Testimonials */
+@media (max-width: 768px) {
+  #testimonials { padding: 56px 0 !important; }
+  #testimonials > div > div:first-child { padding: 0 20px !important; }
+}
+
+/* WhyChooseUs stats row (4-col) */
+.why-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+@media (max-width: 900px) {
+  .why-stats-row { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 480px) {
+  .why-stats-row { grid-template-columns: 1fr 1fr !important; gap: 10px !important; padding: 28px 20px !important; }
+}
+
+
