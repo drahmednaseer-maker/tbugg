@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { MapPin, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { destinations } from "@/data/destinations";
 
 const tagColors: Record<string, { bg: string; text: string; glow: string }> = {
@@ -54,7 +54,7 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
       style={{ position: "relative" }}
     >
       <Link
-        href={`/tours?dest=${encodeURIComponent(dest.name)}`}
+        href={`/destinations/${dest.id}`}
         id={`dest-${dest.id}`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -187,28 +187,20 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
           transform: hovered ? "translateY(0)" : "translateY(4px)",
           transition: "transform 0.35s ease",
         }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "5px" }}>
-            <MapPin style={{ width: 12, height: 12, color: "#FFC20A", flexShrink: 0 }} />
-            <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 600, letterSpacing: "0.04em" }}>
-              {dest.region}
-            </span>
-          </div>
-          <h3 style={{ color: "white", fontWeight: 900, fontSize: "20px", lineHeight: 1.15, marginBottom: "6px" }}>
-            {dest.name}
-          </h3>
           <p style={{
-            color: "rgba(255,255,255,0.6)", fontSize: "12px", lineHeight: 1.55,
-            maxHeight: hovered ? "60px" : "0px",
+            color: "rgba(255,255,255,0.65)", fontSize: "13px", lineHeight: 1.6,
+            maxHeight: hovered ? "80px" : "0px",
             overflow: "hidden",
             opacity: hovered ? 1 : 0,
             transition: "max-height 0.4s ease, opacity 0.3s ease",
+            marginBottom: hovered ? "10px" : 0,
           }}>
             {dest.description}
           </p>
 
           {/* Explore CTA — only on hover */}
           <div style={{
-            marginTop: hovered ? "12px" : "0",
+            marginTop: hovered ? "4px" : "0",
             opacity: hovered ? 1 : 0,
             maxHeight: hovered ? "40px" : "0",
             overflow: "hidden",
@@ -282,7 +274,7 @@ export default function FeaturedDestinations() {
           transition={{ delay: 0.3 }}
         >
           <Link
-            href="/tours"
+            href="/destinations"
             style={{
               display: "inline-flex", alignItems: "center", gap: "10px",
               padding: "16px 44px", borderRadius: "14px",

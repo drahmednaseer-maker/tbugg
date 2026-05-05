@@ -8,6 +8,12 @@ import { Camera, Users, ChevronLeft, ChevronRight, MessageCircle, Star } from "l
 // All photos from Asmar's photography collection
 const slides = [
   {
+    image: "/charakusa_valley_hero_1777639621396.png",
+    title: "Charakusa Trek",
+    caption: "A vertical wilderness of granite towers and glaciers — the ultimate photographer's playground",
+    type: "Exclusive Expedition",
+  },
+  {
     image: "/spring-passu.jpg",
     title: "Spring Blossoms, Passu — Hunza",
     caption: "Every photo tells a story — we make sure yours is unforgettable",
@@ -220,8 +226,9 @@ export default function TourPackages() {
           </div>
 
           {/* Main slide */}
-          <div
-            style={{ position: "relative", borderRadius: "28px", overflow: "hidden", height: "520px", cursor: "pointer" }}
+          <Link
+            href="/tours"
+            style={{ position: "relative", borderRadius: "28px", overflow: "hidden", height: "520px", cursor: "pointer", display: "block", textDecoration: "none" }}
             onMouseEnter={() => setAutoplay(false)}
             onMouseLeave={() => setAutoplay(true)}
           >
@@ -330,7 +337,7 @@ export default function TourPackages() {
                 );
               })}
             </div>
-          </div>
+          </Link>
 
 
 
@@ -349,7 +356,7 @@ export default function TourPackages() {
               </p>
             </div>
             <Link
-              href="#trip-planner"
+              href="#tour-builder"
               style={{
                 display: "inline-flex", alignItems: "center", gap: "10px",
                 padding: "16px 36px", borderRadius: "14px",

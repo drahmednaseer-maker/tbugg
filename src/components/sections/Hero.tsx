@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
+import { X, ChevronLeft, ZoomIn } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 
 const particles = [
@@ -102,69 +102,26 @@ export default function Hero() {
         ))}
       </div>
 
-      {/* ── Journey pins ───────────────────────────────────────────────────── */}
-      <div className="absolute inset-0 z-10 pointer-events-none hidden lg:block">
-        <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} viewBox="0 0 100 100" preserveAspectRatio="none">
-          <path d="M 80 22 Q 88 32, 80 46" fill="none" stroke="rgba(255,255,255,0.22)"
-            strokeWidth="0.5" strokeDasharray="1.4 1.8" />
-          <text fontSize="3.5" textAnchor="middle" dominantBaseline="middle">
-            ✈️
-            <animateMotion dur="5s" repeatCount="indefinite" rotate="auto" path="M 80 22 Q 88 32, 80 46" />
-          </text>
-        </svg>
-
-        {/* Your Home */}
-        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.9 }}
-          style={{ position: "absolute", top: "18%", right: "12%", display: "flex", alignItems: "center", gap: "10px" }}>
-          <div style={{ position: "relative", flexShrink: 0 }}>
-            <motion.div animate={{ scale: [1, 1.9, 1], opacity: [0.35, 0, 0.35] }} transition={{ duration: 2.8, repeat: Infinity }}
-              style={{ position: "absolute", inset: -5, borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.5)" }} />
-            <div style={{ width: 13, height: 13, borderRadius: "50%", background: "rgba(255,255,255,0.9)", boxShadow: "0 0 12px rgba(255,255,255,0.5)" }} />
-          </div>
-          <div style={{ background: "rgba(7,14,28,0.78)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "14px", padding: "10px 16px" }}>
-            <p style={{ color: "rgba(255,255,255,0.45)", fontWeight: 700, fontSize: "9px", margin: "0 0 3px", letterSpacing: "0.1em", textTransform: "uppercase" }}>🌐 Your Home</p>
-            <p style={{ color: "white", fontWeight: 800, fontSize: "14px", margin: 0 }}>Wherever You Are</p>
-          </div>
-        </motion.div>
-
-        {/* Pakistan */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1.4 }}
-          style={{ position: "absolute", top: "44%", right: "12%", display: "flex", alignItems: "center", gap: "12px" }}>
-          <div style={{ position: "relative", flexShrink: 0 }}>
-            <motion.div animate={{ scale: [1, 2.2, 1], opacity: [0.5, 0, 0.5] }} transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
-              style={{ position: "absolute", inset: -7, borderRadius: "50%", border: "2px solid #01411C" }} />
-            <div style={{ width: 18, height: 18, borderRadius: "50%", background: "linear-gradient(135deg, #01411C, #016027)", boxShadow: "0 0 20px #01411C80", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ fontSize: "8px" }}>🇵🇰</span>
-            </div>
-          </div>
-          <div style={{ background: "linear-gradient(135deg, rgba(1,65,28,0.9), rgba(7,14,28,0.92))", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(1,96,39,0.6)", borderRadius: "16px", padding: "14px 20px", boxShadow: "0 0 32px rgba(1,65,28,0.35)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
-              <span style={{ fontSize: "18px" }}>🇵🇰</span>
-              <p style={{ color: "white", fontWeight: 900, fontSize: "18px", margin: 0 }}>Pakistan</p>
-            </div>
-            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "11px", margin: "0 0 8px", fontStyle: "italic" }}>The world&apos;s greatest undiscovered destination</p>
-            <div style={{ display: "flex", gap: "6px" }}>
-              {["K2", "Hunza", "Skardu", "Swat"].map(tag => (
-                <span key={tag} style={{ fontSize: "9px", fontWeight: 800, color: "#4ade80", background: "rgba(74,222,128,0.1)", border: "1px solid rgba(74,222,128,0.25)", padding: "2px 8px", borderRadius: "20px" }}>{tag}</span>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </div>
 
       {/* ── Hero text ──────────────────────────────────────────────────────── */}
       <div className="hero-content relative z-10 w-full" style={{ paddingLeft: "clamp(22px, 15%, 14%)", paddingRight: "5%", paddingTop: "120px", paddingBottom: "280px" }}>
         <div className="max-w-2xl">
-          <div className="overflow-hidden mb-6">
+          <div className="overflow-hidden mb-4">
             <motion.h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
               Explore Pakistan
             </motion.h1>
           </div>
-          <div className="overflow-hidden mb-8">
-            <motion.h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight"
+          <div className="overflow-hidden mb-2">
+            <motion.h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
-              Your Next <span style={{ color: "#FFC20A" }}>Adventure</span>
+              Your Next
+            </motion.h1>
+          </div>
+          <div className="overflow-hidden mb-8">
+            <motion.h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight"
+              initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }}>
+              <span style={{ color: "#FFC20A" }}>Adventure Destination</span>
             </motion.h1>
           </div>
           <motion.p className="text-lg text-white/65 leading-loose max-w-xl"

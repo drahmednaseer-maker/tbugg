@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { MessageCircle, ArrowRight } from "lucide-react";
 
 export default function CTABanner() {
@@ -112,8 +113,8 @@ export default function CTABanner() {
                 Start Planning on WhatsApp
                 <ArrowRight style={{ width: 16, height: 16 }} />
               </a>
-              <a
-                href="#team"
+              <Link
+                href="/about#team"
                 id="cta-team-btn"
                 style={{
                   display: "inline-flex", alignItems: "center", justifyContent: "center",
@@ -128,7 +129,7 @@ export default function CTABanner() {
                 onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.05)"; (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.75)"; }}
               >
                 Meet the Photographers
-              </a>
+              </Link>
             </div>
           </div>
         </motion.div>

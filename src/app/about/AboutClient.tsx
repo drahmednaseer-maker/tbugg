@@ -11,14 +11,14 @@ const guides = [
     role: "Lead Tour Guide & Founder",
     expertise: "Gilgit-Baltistan, Karakoram, Hunza, Skardu, K2 Region",
     bio: "A seasoned mountaineer and cultural expert with years of experience leading private expeditions across Pakistan's most extraordinary landscapes. Asmar's deep local knowledge and passion for storytelling transform every journey into an unforgettable experience.",
-    initials: "AH",
+    image: "/asmar.png",
   },
   {
-    name: "Uzair",
+    name: "Uzair Ahmed",
     role: "Senior Tour Guide",
     expertise: "Kashmir, Neelum Valley, Swat, Chitral, Lahore Heritage",
     bio: "With extensive field experience across Pakistan's diverse terrains, Uzair specialises in culturally immersive itineraries. His attention to detail and genuine warmth make every client feel like a guest, not a tourist.",
-    initials: "UZ",
+    image: "/uzair.png",
   },
 ];
 
@@ -261,7 +261,7 @@ export default function AboutClient() {
       </section>
 
       {/* ── OUR GUIDES ── */}
-      <section style={{ padding: "80px 32px" }}>
+      <section id="team" style={{ padding: "80px 32px" }}>
         <div style={{ maxWidth: "72rem", margin: "0 auto" }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
@@ -277,39 +277,56 @@ export default function AboutClient() {
           </motion.div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "28px" }}>
-            {guides.map(({ name, role, expertise, bio, initials }, i) => (
+            {guides.map(({ name, role, expertise, bio, image }, i) => (
               <motion.div
                 key={name}
                 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.15 }}
                 style={{
                   padding: "32px", borderRadius: "24px",
-                  background: "rgba(255,255,255,0.04)",
+                  background: "rgba(255,255,255,0.03)",
                   border: "1px solid rgba(255,194,10,0.15)",
-                  display: "flex", flexDirection: "column", gap: "18px",
+                  display: "flex", flexDirection: "column", gap: "20px",
+                  position: "relative",
+                  overflow: "hidden",
                 }}
               >
                 {/* Avatar + name */}
-                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
                   <div style={{
-                    width: "64px", height: "64px", borderRadius: "50%", flexShrink: 0,
-                    background: "linear-gradient(135deg, #FFC20A, #FFD34A)",
-                    display: "flex", alignItems: "center", justifyContent: "center",
+                    width: "80px", height: "80px", borderRadius: "50%", flexShrink: 0,
+                    overflow: "hidden",
+                    border: "3px solid #FFC20A",
                     boxShadow: "0 8px 24px rgba(255,194,10,0.35)",
+                    background: "#0B1628",
                   }}>
-                    <span style={{ color: "#0B1628", fontWeight: 900, fontSize: "22px" }}>{initials}</span>
+                    <img 
+                      src={image} 
+                      alt={name} 
+                      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }} 
+                    />
                   </div>
                   <div>
-                    <p style={{ margin: "0 0 3px", color: "white", fontWeight: 800, fontSize: "18px" }}>{name}</p>
-                    <p style={{ margin: 0, color: "#FFC20A", fontWeight: 600, fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.08em" }}>{role}</p>
+                    <p style={{ margin: "0 0 3px", color: "white", fontWeight: 900, fontSize: "20px" }}>{name}</p>
+                    <p style={{ margin: 0, color: "#FFC20A", fontWeight: 700, fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.1em" }}>{role}</p>
                   </div>
                 </div>
+                
                 {/* Expertise */}
-                <div style={{ padding: "10px 14px", borderRadius: "10px", background: "rgba(255,194,10,0.07)", border: "1px solid rgba(255,194,10,0.12)" }}>
-                  <p style={{ margin: "0 0 3px", color: "rgba(255,255,255,0.4)", fontSize: "10px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em" }}>Specialises In</p>
-                  <p style={{ margin: 0, color: "rgba(255,255,255,0.75)", fontSize: "13px", fontWeight: 600 }}>{expertise}</p>
+                <div style={{ padding: "12px 16px", borderRadius: "12px", background: "rgba(255,194,10,0.05)", border: "1px solid rgba(255,194,10,0.1)" }}>
+                  <p style={{ margin: "0 0 4px", color: "rgba(255,255,255,0.4)", fontSize: "10px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em" }}>Expertise</p>
+                  <p style={{ margin: 0, color: "rgba(255,255,255,0.8)", fontSize: "13px", fontWeight: 600, lineHeight: 1.4 }}>{expertise}</p>
                 </div>
+
                 {/* Bio */}
                 <p style={{ margin: 0, color: "rgba(255,255,255,0.55)", fontSize: "14px", lineHeight: 1.75 }}>{bio}</p>
+
+                {/* Subtle Glow */}
+                <div style={{ 
+                  position: "absolute", top: "-50px", right: "-50px", 
+                  width: "120px", height: "120px", borderRadius: "50%", 
+                  background: "rgba(255,194,10,0.05)", filter: "blur(40px)",
+                  pointerEvents: "none"
+                }} />
               </motion.div>
             ))}
           </div>

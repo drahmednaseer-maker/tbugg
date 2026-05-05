@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import ToursClient from "./ToursClient";
 
 export const metadata: Metadata = {
@@ -8,5 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default function ToursPage() {
-  return <ToursClient />;
+  return (
+    <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
+      <ToursClient />
+    </Suspense>
+  );
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -415,40 +416,60 @@ function DestinationCard({ tour, onGetQuote }: { tour: Tour; onGetQuote: (title:
       }}
       whileHover={{ borderColor: "rgba(255,194,10,0.25)", boxShadow: "0 20px 60px rgba(0,0,0,0.4)" }}
     >
-      {/* Image */}
-      <div style={{ position: "relative", height: "240px", overflow: "hidden" }}>
-        <img
-          src={tour.image}
-          alt={tour.title}
-          style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.7s" }}
-          onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
-          onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
-        />
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "linear-gradient(to top, rgba(11,22,40,0.95) 0%, rgba(11,22,40,0.3) 50%, transparent 100%)",
-        }} />
-        {/* Rating badge */}
-        <div style={{
-          position: "absolute", top: "14px", right: "14px",
-          display: "flex", alignItems: "center", gap: "5px",
-          background: "rgba(0,0,0,0.5)", backdropFilter: "blur(8px)",
-          border: "1px solid rgba(255,255,255,0.1)", borderRadius: "20px",
-          padding: "5px 10px",
-        }}>
-          <Star style={{ width: "12px", height: "12px", fill: "#FFC20A", color: "#FFC20A" }} />
-          <span style={{ color: "white", fontSize: "12px", fontWeight: 700 }}>{tour.rating}</span>
-          <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px" }}>({tour.reviewCount})</span>
-        </div>
-        {/* Destination label */}
-        <div style={{ position: "absolute", bottom: "16px", left: "18px", right: "18px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "4px" }}>
-            <MapPin style={{ width: "13px", height: "13px", color: "#FFC20A" }} />
-            <span style={{ color: "#FFC20A", fontSize: "12px", fontWeight: 600 }}>{tour.destination}, Pakistan</span>
+      {/* Image — clicking navigates to full details */}
+      <Link href={`/tours/${tour.slug}`} style={{ display: "block", textDecoration: "none" }}>
+        <div style={{ position: "relative", height: "240px", overflow: "hidden", cursor: "pointer" }}>
+          <img
+            src={tour.image}
+            alt={tour.title}
+            style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.7s" }}
+            onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.08)")}
+            onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
+          />
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(to top, rgba(11,22,40,0.95) 0%, rgba(11,22,40,0.3) 50%, transparent 100%)",
+            transition: "background 0.3s",
+          }} />
+          {/* "View Details" hover hint */}
+          <div style={{
+            position: "absolute", inset: 0,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            opacity: 0, transition: "opacity 0.3s",
+          }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+            onMouseLeave={e => (e.currentTarget.style.opacity = "0")}
+          >
+            <span style={{
+              background: "rgba(255,194,10,0.9)", color: "#0B1628",
+              padding: "10px 20px", borderRadius: "30px",
+              fontWeight: 700, fontSize: "13px", letterSpacing: "0.05em",
+            }}>
+              View Full Details →
+            </span>
           </div>
-          <h3 style={{ margin: 0, color: "white", fontSize: "18px", fontWeight: 800, lineHeight: 1.3 }}>{tour.title}</h3>
+          {/* Rating badge */}
+          <div style={{
+            position: "absolute", top: "14px", right: "14px",
+            display: "flex", alignItems: "center", gap: "5px",
+            background: "rgba(0,0,0,0.5)", backdropFilter: "blur(8px)",
+            border: "1px solid rgba(255,255,255,0.1)", borderRadius: "20px",
+            padding: "5px 10px",
+          }}>
+            <Star style={{ width: "12px", height: "12px", fill: "#FFC20A", color: "#FFC20A" }} />
+            <span style={{ color: "white", fontSize: "12px", fontWeight: 700 }}>{tour.rating}</span>
+            <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px" }}>({tour.reviewCount})</span>
+          </div>
+          {/* Destination label */}
+          <div style={{ position: "absolute", bottom: "16px", left: "18px", right: "18px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "4px" }}>
+              <MapPin style={{ width: "13px", height: "13px", color: "#FFC20A" }} />
+              <span style={{ color: "#FFC20A", fontSize: "12px", fontWeight: 600 }}>{tour.destination}, Pakistan</span>
+            </div>
+            <h3 style={{ margin: 0, color: "white", fontSize: "18px", fontWeight: 800, lineHeight: 1.3 }}>{tour.title}</h3>
+          </div>
         </div>
-      </div>
+      </Link>
 
       {/* Content */}
       <div style={{ padding: "22px 22px 0" }}>
@@ -589,24 +610,57 @@ function DestinationCard({ tour, onGetQuote }: { tour: Tour; onGetQuote: (title:
    MAIN PAGE
 ───────────────────────────────────────────── */
 export default function ToursClient() {
-  const [search, setSearch] = useState("");
+  const searchParams = useSearchParams();
+  const themeParam = searchParams.get("theme") || "";
+  const [search, setSearch] = useState(searchParams.get("search") || "");
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [preselectedTour, setPreselectedTour] = useState("");
 
-  const filtered = useMemo(() =>
-    tours.filter(t =>
-      !search ||
-      t.title.toLowerCase().includes(search.toLowerCase()) ||
-      t.destination.toLowerCase().includes(search.toLowerCase()) ||
-      t.shortDescription.toLowerCase().includes(search.toLowerCase())
-    ),
-    [search]
-  );
+  // Reset search when theme changes
+  useEffect(() => { setSearch(""); }, [themeParam]);
 
-  const openQuote = (tourTitle = "") => {
+  const filtered = useMemo(() => {
+    let list = tours;
+    // Filter by category (Luxury, Adventure, Budget)
+    const catParam = searchParams.get("cat");
+    if (catParam) {
+      list = list.filter(t => t.category === catParam);
+    }
+    // Filter by theme (from landing page category cards)
+    if (themeParam) {
+      list = list.filter(t => t.themes?.includes(themeParam));
+    }
+    // Then filter by search
+    if (search) {
+      const s = search.toLowerCase();
+      list = list.filter(t =>
+        t.title.toLowerCase().includes(s) ||
+        t.destination.toLowerCase().includes(s) ||
+        t.shortDescription.toLowerCase().includes(s) ||
+        t.category.toLowerCase().includes(s)
+      );
+    }
+    return list;
+  }, [search, themeParam, searchParams]);
+
+  const openQuote = useCallback((tourTitle = "") => {
     setPreselectedTour(tourTitle);
     setQuoteOpen(true);
+  }, []);
+
+  // Theme display info
+  const themeColors: Record<string, { bg: string; text: string; label: string; desc: string }> = {
+    Blossoms:   { bg: "#F472B6", text: "#fff", label: "🌸 Blossom Season Tours", desc: "Cherry & apricot blossoms paint the valleys pink — Pakistan's most magical spring spectacle" },
+    Autumn:     { bg: "#F97316", text: "#fff", label: "🍂 Autumn Colour Tours", desc: "Golden forests, amber deserts, and mirror-still rivers — Pakistan at its most painterly" },
+    Cultural:   { bg: "#7C3AED", text: "#fff", label: "🏛 Cultural Experience Tours", desc: "Mughal forts, Sufi shrines, and living indigenous cultures — Pakistan's 5,000-year heritage" },
+    Coastal:    { bg: "#0891B2", text: "#fff", label: "🌊 Coastal & Beach Tours", desc: "Arabian Sea coastlines, pristine beaches, and dramatic rock formations of Balochistan" },
+    Karakorams: { bg: "#0F766E", text: "#fff", label: "⛰ Karakoram Peaks Tours", desc: "K2, Broad Peak, Charakusa — the world's greatest concentration of high peaks" },
+    Adventure:  { bg: "#2563EB", text: "#fff", label: "🧗 Adventure Tours", desc: "Glacier crossings, high-altitude treks, and remote valleys far from the tourist trail" },
+    Religious:  { bg: "#D97706", text: "#fff", label: "🕌 Religious & Heritage Tours", desc: "Ancient Buddhist ruins, grand mosques, and Sufi dargahs — Pakistan's sacred landscape" },
+    Sports:     { bg: "#DC2626", text: "#fff", label: "🏇 Sports & Festival Tours", desc: "Polo at 3,700m, mountain marathons, and electrifying cultural festivals" },
+    Expedition: { bg: "#374151", text: "#fff", label: "🏔 Expedition Tours", desc: "Serious multi-day wilderness expeditions to Pakistan's most remote peaks" },
   };
+  const activeTheme = themeParam ? themeColors[themeParam] : null;
 
   return (
     <div style={{ minHeight: "100vh" }}>
@@ -615,7 +669,44 @@ export default function ToursClient() {
         {quoteOpen && <QuoteModal isOpen={quoteOpen} onClose={() => setQuoteOpen(false)} preselectedTour={preselectedTour} />}
       </AnimatePresence>
 
-      {/* Hero */}
+      {/* Themed banner — shown only when arriving from a category card */}
+      {activeTheme && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          style={{
+            background: `linear-gradient(135deg, ${activeTheme.bg}22, ${activeTheme.bg}08)`,
+            borderBottom: `1px solid ${activeTheme.bg}44`,
+            padding: "100px 32px 28px",
+          }}
+        >
+          <div style={{ maxWidth: "80rem", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
+            <div>
+              <span style={{
+                display: "inline-block", padding: "4px 14px", borderRadius: "20px",
+                background: activeTheme.bg, color: activeTheme.text,
+                fontSize: "12px", fontWeight: 800, letterSpacing: "0.08em",
+                textTransform: "uppercase", marginBottom: "8px",
+              }}>{themeParam}</span>
+              <h2 style={{ margin: "0 0 4px", color: "white", fontSize: "22px", fontWeight: 900 }}>{activeTheme.label}</h2>
+              <p style={{ margin: 0, color: "rgba(255,255,255,0.5)", fontSize: "14px" }}>{activeTheme.desc}</p>
+            </div>
+            <Link
+              href="/tours"
+              style={{
+                padding: "10px 20px", borderRadius: "10px", fontSize: "13px", fontWeight: 600,
+                border: "1px solid rgba(255,255,255,0.15)", background: "rgba(255,255,255,0.06)",
+                color: "rgba(255,255,255,0.7)", textDecoration: "none", whiteSpace: "nowrap",
+              }}
+            >
+              ← View All Tours
+            </Link>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Hero — hidden when a theme is active */}
+      {!activeTheme && (
       <section style={{ paddingTop: "160px", paddingBottom: "60px", position: "relative", overflow: "hidden", paddingLeft: "32px", paddingRight: "32px" }}>
         <div style={{ position: "absolute", inset: 0 }}>
           <img src="/destinations/hunza/rakaposhi_sunset.jpg" alt="Pakistan mountains" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.12 }} />
@@ -651,6 +742,7 @@ export default function ToursClient() {
           </motion.button>
         </div>
       </section>
+      )}
 
       {/* Search Bar */}
       <section style={{

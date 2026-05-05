@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
+
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, ChevronDown, ArrowRight, Briefcase } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight, Briefcase } from "lucide-react";
 import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
 
@@ -46,6 +46,7 @@ const tourCategories = [
 
 const navLinks = [
   { href: "/", label: "HOME" },
+  { href: "/destinations", label: "DESTINATIONS" },
   { href: "/tours", label: "TOURS", hasDropdown: true },
   { href: "/about", label: "ABOUT US" },
   { href: "/contact", label: "CONTACT US" },
@@ -74,61 +75,36 @@ export default function Header() {
       {/* ─── FLOATING PILL NAVBAR ─────────────────────────────────── */}
       <motion.header
         className={cn(
-          "fixed left-1/2 -translate-x-1/2 z-[60] transition-all duration-500 w-[95%] max-w-7xl",
+          "fixed left-1/2 -translate-x-1/2 z-[60] transition-all duration-300 w-[95%] max-w-7xl h-[72px]",
           scrolled ? "top-4" : "top-8"
         )}
-        initial={{ y: -100, opacity: 0 }}
+        initial={{ y: 0, opacity: 1 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
-        {/* THE PILL SHAPE — glassmorphism */}
+        {/* Pill background — separate so dropdown can overflow */}
         <div
           style={{
-            position: "relative",
-            height: "72px",
+            position: "absolute", inset: 0,
             borderRadius: "999px",
             border: "1.5px solid rgba(255,255,255,0.22)",
             background: "rgba(8, 16, 34, 0.88)",
             backdropFilter: "blur(32px) saturate(180%)",
             WebkitBackdropFilter: "blur(32px) saturate(180%)",
             boxShadow: "0 8px 48px rgba(0,0,0,0.5), inset 0 1.5px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(255,255,255,0.04), 0 0 0 1px rgba(255,255,255,0.04)",
+            overflow: "hidden",
+            pointerEvents: "none",
           }}
-        >
-          {/* INNER CONTENT CONTAINER */}
-          <div className="relative z-10 h-full flex items-center justify-between px-6 md:px-8 lg:px-10">
+        />
+        {/* Inner content */}
+        <div className="relative z-10 h-full flex items-center justify-between px-8 lg:px-10">
 
-            {/* 1. LEFT SIDE: Logo + Phone Numbers */}
-            <div className="flex items-center gap-4 shrink-0">
-              {/* Logo */}
-              <Link href="/" id="nav-logo" className="flex items-center gap-3 group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden shadow-2xl ring-2 ring-white/10 group-hover:scale-105 transition-transform">
-                  <Image src="/logo.png" alt="TravelBug" width={80} height={80} className="w-full h-full object-contain p-1.5" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-white font-black text-lg tracking-tighter leading-none">
-                    TRAVEL<span className="text-[#FACC15]">BUG</span>
-                  </span>
-                  <span className="text-[10px] text-white/40 font-bold tracking-[0.2em] ml-0.5">.PK</span>
-                </div>
+            {/* 1. LEFT SIDE: Text Logo */}
+            <div className="flex items-center shrink-0">
+              <Link href="/" id="nav-logo" className="flex items-center group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                <span className="text-white font-black text-xl tracking-tighter leading-none">
+                  TRAVEL<span className="text-[#FACC15]">BUG</span><span className="text-white/40 text-[11px] font-bold tracking-widest ml-1">.PK</span>
+                </span>
               </Link>
-
-              {/* Divider */}
-              <div className="hidden xl:block h-8 w-px bg-white/10" />
-
-              {/* Phone Numbers */}
-              <div className="hidden xl:flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-[#FACC15] flex items-center justify-center text-slate-950 shadow-lg shrink-0">
-                  <Phone className="w-3.5 h-3.5 fill-current" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[9px] text-white/40 font-bold tracking-widest uppercase">Contact Us</span>
-                  <div className="flex items-center gap-2">
-                    <a href="tel:+923248888889" className="text-white text-[12px] font-bold hover:text-[#FACC15] transition-colors tracking-tight">0324 8888889</a>
-                    <span className="text-white/20">|</span>
-                    <a href="tel:+923344334411" className="text-white text-[12px] font-bold hover:text-[#FACC15] transition-colors tracking-tight">0334 4334411</a>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* 2. NAVIGATION (Center) */}
@@ -263,7 +239,7 @@ export default function Header() {
               </ul>
             </nav>
 
-            {/* 3. RIGHT SIDE: My Trips + Book Now Circle + Mobile Toggle */}
+            {/* 3. RIGHT SIDE: My Trips + Mobile Toggle */}
             <div className="flex items-center gap-3 shrink-0">
 
               {/* My Trips pill */}
@@ -286,15 +262,6 @@ export default function Header() {
                 My Trips
               </button>
 
-              <Link
-                href="/tours"
-                id="nav-book-btn"
-                title="Book Now"
-                className="hidden lg:flex w-11 h-11 items-center justify-center bg-[#FACC15] text-slate-950 rounded-full hover:bg-yellow-300 transition-all shadow-lg shadow-[#FACC15]/20 hover:scale-110"
-              >
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-
               {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
@@ -304,7 +271,6 @@ export default function Header() {
               </button>
             </div>
           </div>
-        </div>
       </motion.header>
 
       {/* ─── MOBILE DRAWER ───────────────────────────────────────── */}
@@ -321,11 +287,8 @@ export default function Header() {
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="flex items-center justify-between px-8 pb-8 border-b border-white/5">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-                    <Image src="/logo.png" alt="TravelBug" width={60} height={60} className="w-full h-full object-contain p-1" />
-                  </div>
-                  <span className="text-white font-black text-lg tracking-tighter">TRAVEL<span className="text-[#FACC15]">BUG</span></span>
+                <div className="flex items-center">
+                  <span className="text-white font-black text-[16px] tracking-tight">TRAVEL<span className="text-[#FACC15]">BUG</span><span className="text-white/40 text-[11px] font-bold tracking-widest">.PK</span></span>
                 </div>
                 <button onClick={() => setMobileOpen(false)} className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 text-white/50">
                   <X className="w-5 h-5" />
@@ -334,9 +297,9 @@ export default function Header() {
 
               <div className="flex-1 overflow-y-auto px-8 py-10">
                 <ul className="space-y-8">
-                  {navLinks.map(({ href, label, children }) => (
+                  {navLinks.map(({ href, label, hasDropdown }) => (
                     <li key={href}>
-                      {children ? (
+                      {hasDropdown ? (
                         <div className="space-y-4">
                           <button onClick={() => setToursOpen(!toursOpen)}
                             className={cn("w-full flex items-center justify-between text-[16px] font-black tracking-widest transition-colors", toursOpen ? "text-[#FACC15]" : "text-white")}>
@@ -345,11 +308,14 @@ export default function Header() {
                           </button>
                           {toursOpen && (
                             <ul className="pl-4 space-y-6 pt-2 border-l border-white/5">
-                              {children.map(c => (
+                              {tourCategories.map(c => (
                                 <li key={c.href}>
                                   <Link href={c.href} className="text-white/50 font-bold block text-sm hover:text-[#FACC15] transition-colors">{c.label.toUpperCase()}</Link>
                                 </li>
                               ))}
+                              <li>
+                                <Link href="/tours" className="text-[#FACC15] font-black block text-sm hover:text-white transition-colors">VIEW ALL TOURS →</Link>
+                              </li>
                             </ul>
                           )}
                         </div>

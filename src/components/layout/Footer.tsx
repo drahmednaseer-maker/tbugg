@@ -4,19 +4,19 @@ import Link from "next/link";
 import { Camera, Share2, Link2, MessageCircle, Mail, Phone, MapPin } from "lucide-react";
 
 const destinations = [
-  { href: "#destinations", label: "Hunza Valley" },
-  { href: "#destinations", label: "Skardu & Baltistan" },
-  { href: "#destinations", label: "Chitral & Kalash" },
-  { href: "#destinations", label: "Karakoram Peaks" },
-  { href: "#destinations", label: "Shandur Polo" },
+  { href: "/destinations/hunza", label: "Hunza Valley" },
+  { href: "/destinations/skardu", label: "Skardu & Baltistan" },
+  { href: "/destinations/chitral", label: "Chitral & Kalash" },
+  { href: "/destinations/karakorams", label: "Karakoram Peaks" },
+  { href: "/destinations/shandur", label: "Shandur Polo" },
 ];
 
 const quickLinks = [
-  { href: "#team",         label: "Meet the Photographers" },
-  { href: "#destinations", label: "Destinations" },
-  { href: "#why-us",       label: "Why TravelBug" },
-  { href: "#testimonials", label: "Traveler Stories" },
-  { href: "#cta",          label: "Plan My Tour" },
+  { href: "/about#team",    label: "Meet the Photographers" },
+  { href: "/destinations",    label: "Destinations" },
+  { href: "/why-travelbug",  label: "Why TravelBug" },
+  { href: "/traveler-stories", label: "Traveler Stories" },
+  { href: "/#cta",           label: "Plan My Tour" },
 ];
 
 const socials = [
@@ -107,7 +107,7 @@ export default function Footer() {
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "12px" }}>
               {quickLinks.map(({ href, label }) => (
                 <li key={label}>
-                  <a
+                  <Link
                     href={href}
                     style={{
                       color: "rgba(255,255,255,0.45)", fontSize: "13px",
@@ -117,7 +117,7 @@ export default function Footer() {
                     onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.45)"}
                   >
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -134,7 +134,7 @@ export default function Footer() {
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "12px" }}>
               {destinations.map(({ href, label }) => (
                 <li key={label}>
-                  <a
+                  <Link
                     href={href}
                     style={{
                       color: "rgba(255,255,255,0.45)", fontSize: "13px",
@@ -144,7 +144,7 @@ export default function Footer() {
                     onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.45)"}
                   >
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

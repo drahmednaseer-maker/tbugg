@@ -21,6 +21,7 @@ export interface Tour {
   maxGroupSize: number;
   difficulty: "Easy" | "Moderate" | "Challenging";
   featured?: boolean;
+  themes?: string[]; // landing-page category tags e.g. ["Blossoms","Karakorams"]
 }
 
 export interface ItineraryDay {
