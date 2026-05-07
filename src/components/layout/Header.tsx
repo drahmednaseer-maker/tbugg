@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, ArrowRight, Briefcase } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight, Briefcase, Phone, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
 
@@ -72,11 +72,42 @@ export default function Header() {
 
   return (
     <>
+      {/* ─── TOP CONTACT STRIP ─────────────────────────────────── */}
+      <div
+        className={cn(
+          "fixed top-0 left-0 right-0 z-[61] transition-all duration-300",
+          scrolled ? "opacity-0 -translate-y-full pointer-events-none" : "opacity-100 translate-y-0"
+        )}
+        style={{
+          background: "rgba(250, 204, 21, 0.06)",
+          borderBottom: "1px solid rgba(250, 204, 21, 0.1)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+        }}
+      >
+        <div className="flex items-center justify-center gap-4 sm:gap-10 px-4" style={{ height: "32px", width: "100%" }}>
+          <a href="tel:+923248888889" className="flex items-center gap-1 sm:gap-1.5 group" style={{ textDecoration: "none" }}>
+            <Phone className="w-3 h-3 shrink-0" style={{ color: "#FACC15" }} />
+            <span style={{ fontSize: "10px", fontWeight: 700, color: "rgba(255,255,255,0.6)", letterSpacing: "0.02em", transition: "color 0.2s" }} className="group-hover:!text-white sm:text-[11px]">0324 8888889</span>
+          </a>
+          <span style={{ width: "1px", height: "12px", background: "rgba(255,255,255,0.15)" }} />
+          <a href="tel:+923344334411" className="flex items-center gap-1 sm:gap-1.5 group" style={{ textDecoration: "none" }}>
+            <Phone className="w-3 h-3 shrink-0" style={{ color: "#FACC15" }} />
+            <span style={{ fontSize: "10px", fontWeight: 700, color: "rgba(255,255,255,0.6)", letterSpacing: "0.02em", transition: "color 0.2s" }} className="group-hover:!text-white sm:text-[11px]">0334 4334411</span>
+          </a>
+          <span className="hidden sm:block" style={{ width: "1px", height: "12px", background: "rgba(255,255,255,0.15)" }} />
+          <a href="mailto:travelbugpakistan@gmail.com" className="hidden sm:flex items-center gap-1.5 group" style={{ textDecoration: "none" }}>
+            <Mail className="w-3 h-3 shrink-0" style={{ color: "#FACC15" }} />
+            <span style={{ fontSize: "11px", fontWeight: 700, color: "rgba(255,255,255,0.6)", letterSpacing: "0.02em", transition: "color 0.2s" }} className="group-hover:!text-white">travelbugpakistan@gmail.com</span>
+          </a>
+        </div>
+      </div>
+
       {/* ─── FLOATING PILL NAVBAR ─────────────────────────────────── */}
       <motion.header
         className={cn(
           "fixed left-1/2 -translate-x-1/2 z-[60] transition-all duration-300 w-[95%] max-w-7xl h-[72px]",
-          scrolled ? "top-4" : "top-8"
+          scrolled ? "top-4" : "top-[44px]"
         )}
         initial={{ y: 0, opacity: 1 }}
         animate={{ y: 0, opacity: 1 }}
@@ -96,7 +127,7 @@ export default function Header() {
           }}
         />
         {/* Inner content */}
-        <div className="relative z-10 h-full flex items-center justify-between px-8 lg:px-10">
+        <div className="relative z-10 h-full flex items-center justify-between" style={{ paddingLeft: 'clamp(20px, 5vw, 80px)', paddingRight: 'clamp(20px, 5vw, 80px)' }}>
 
             {/* 1. LEFT SIDE: Text Logo */}
             <div className="flex items-center shrink-0">
