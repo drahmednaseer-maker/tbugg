@@ -8,16 +8,16 @@ import { Heart, Mountain, Award, Users, ArrowRight, CheckCircle2, MapPin, Star, 
 const guides = [
   {
     name: "Mr. Asmar Hussain",
-    role: "Lead Tour Guide & Founder",
-    expertise: "Gilgit-Baltistan, Karakoram, Hunza, Skardu, K2 Region",
-    bio: "A seasoned mountaineer and cultural expert with years of experience leading private expeditions across Pakistan's most extraordinary landscapes. Asmar's deep local knowledge and passion for storytelling transform every journey into an unforgettable experience.",
+    role: "Sony Brand Ambassador & Co-Founder",
+    expertise: "Landscape & Portrait Photography · Karakoram, Hindukush & Himalayan Ranges",
+    bio: "A professional landscape and portrait photographer with years of experience capturing the raw beauty of the Karakorams, Hindukush, and Himalayas. Asmar's intimate knowledge of light, terrain, and hidden vantage points across Pakistan's greatest mountain ranges transforms every journey into a visual masterpiece — and an unforgettable adventure.",
     image: "/asmar.png",
   },
   {
     name: "Uzair Ahmed",
-    role: "Senior Tour Guide",
-    expertise: "Kashmir, Neelum Valley, Swat, Chitral, Lahore Heritage",
-    bio: "With extensive field experience across Pakistan's diverse terrains, Uzair specialises in culturally immersive itineraries. His attention to detail and genuine warmth make every client feel like a guest, not a tourist.",
+    role: "Founder & Photographer",
+    expertise: "High Altitude Expeditions · K2 Base Camp, Karakoram & 6,000m+ Summits",
+    bio: "A professional photographer and accomplished mountaineer with multiple 6,000m+ peak summits under his belt. Uzair professionally leads tours to K2 Base Camp and high-altitude mountains across the Karakoram, combining elite mountaineering skills with a photographer's eye. His calm confidence on the mountain and genuine warmth off it make every expedition safe, extraordinary, and deeply personal.",
     image: "/uzair.png",
   },
 ];
@@ -208,12 +208,17 @@ export default function AboutClient() {
                   position: "absolute", inset: 0,
                   background: "linear-gradient(to top, rgba(11,22,40,0.95) 0%, rgba(11,22,40,0.3) 60%, transparent 100%)",
                 }} />
-                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "20px" }}>
+                <div style={{
+                  position: "absolute", bottom: 0, left: 0, right: 0,
+                  padding: "20px",
+                  height: "80px",
+                  display: "flex", flexDirection: "column", justifyContent: "flex-end",
+                }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px" }}>
                     <MapPin style={{ width: "12px", height: "12px", color: "#FFC20A" }} />
                     <span style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>{name}</span>
                   </div>
-                  <p style={{ margin: 0, color: "rgba(255,255,255,0.7)", fontSize: "13px" }}>{places}</p>
+                  <p style={{ margin: 0, color: "rgba(255,255,255,0.7)", fontSize: "13px", lineHeight: 1.4 }}>{places}</p>
                 </div>
               </motion.div>
             ))}

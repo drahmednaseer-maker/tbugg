@@ -5,6 +5,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote, ExternalLink } from "lucide-react";
 import { testimonials } from "@/data/testimonials";
 
+/** Get initials from a full name */
+function getInitials(name: string) {
+  return name
+    .split(" ")
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+}
+
+/** Deterministic accent colour per testimonial */
+const palette = ["#FFC20A", "#4ECDC4", "#FF6B6B", "#A78BFA", "#F472B6", "#38BDF8", "#34D399", "#FB923C"];
+
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -150,16 +163,25 @@ export default function Testimonials() {
               {/* Divider */}
               <div style={{ width: "100%", height: "1px", background: "rgba(255,255,255,0.06)", marginBottom: "28px" }} />
 
-              {/* Author row */}
+              {/* Author row — no avatar image, just name & details */}
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", flexWrap: "wrap" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+                  {/* Initials circle */}
                   <div style={{
-                    width: "52px", height: "52px", borderRadius: "50%",
-                    overflow: "hidden", flexShrink: 0,
-                    border: "2px solid rgba(255,194,10,0.3)",
-                    boxShadow: "0 0 0 4px rgba(255,194,10,0.08)",
+                    width: "46px", height: "46px", borderRadius: "50%",
+                    background: `linear-gradient(135deg, ${palette[current % palette.length]}33, ${palette[current % palette.length]}66)`,
+                    border: `2px solid ${palette[current % palette.length]}55`,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    flexShrink: 0,
                   }}>
-                    <img src={t.avatar} alt={t.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <span style={{
+                      color: palette[current % palette.length],
+                      fontWeight: 800,
+                      fontSize: "14px",
+                      letterSpacing: "0.05em",
+                    }}>
+                      {getInitials(t.name)}
+                    </span>
                   </div>
                   <div>
                     <p style={{ color: "white", fontWeight: 800, fontSize: "15px", marginBottom: "3px" }}>{t.name}</p>
@@ -211,49 +233,22 @@ export default function Testimonials() {
           ))}
         </div>
 
-        {/* ── Dot + Avatar strip ── */}
-        <div style={{ marginTop: "36px", display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
-
-          {/* Dots */}
-          <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goTo(i)}
-                style={{
-                  width: i === current ? "28px" : "7px",
-                  height: "7px", borderRadius: "999px",
-                  background: i === current ? "#FFC20A" : "rgba(255,255,255,0.15)",
-                  border: "none", cursor: "pointer",
-                  transition: "all 0.3s ease",
-                  padding: 0,
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Avatar strip */}
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            {testimonials.map((test, i) => (
-              <button
-                key={test.id}
-                onClick={() => goTo(i)}
-                style={{
-                  width: i === current ? "48px" : "36px",
-                  height: i === current ? "48px" : "36px",
-                  borderRadius: "50%", overflow: "hidden",
-                  border: i === current ? "2px solid #FFC20A" : "2px solid transparent",
-                  opacity: i === current ? 1 : 0.35,
-                  transition: "all 0.3s ease",
-                  cursor: "pointer",
-                  background: "none",
-                  padding: 0,
-                }}
-              >
-                <img src={test.avatar} alt={test.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              </button>
-            ))}
-          </div>
+        {/* ── Dots only (no avatar strip) ── */}
+        <div style={{ marginTop: "36px", display: "flex", justifyContent: "center", gap: "8px", alignItems: "center" }}>
+          {testimonials.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              style={{
+                width: i === current ? "28px" : "7px",
+                height: "7px", borderRadius: "999px",
+                background: i === current ? "#FFC20A" : "rgba(255,255,255,0.15)",
+                border: "none", cursor: "pointer",
+                transition: "all 0.3s ease",
+                padding: 0,
+              }}
+            />
+          ))}
         </div>
 
       </div>
