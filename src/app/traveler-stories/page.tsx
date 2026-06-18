@@ -72,11 +72,17 @@ export default function TravelerStoriesPage() {
               <div style={{ width: "100%", height: "1px", background: "rgba(255,255,255,0.06)", marginBottom: "24px" }} />
 
               <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                <img 
-                  src={t.avatar} 
-                  alt={t.name} 
-                  style={{ width: "48px", height: "48px", borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,194,10,0.3)" }} 
-                />
+                {t.avatar ? (
+                  <img loading="lazy" decoding="async"
+                    src={t.avatar}
+                    alt={t.name}
+                    style={{ width: "48px", height: "48px", borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,194,10,0.3)" }}
+                  />
+                ) : (
+                  <div aria-hidden="true" style={{ width: "48px", height: "48px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(255,194,10,0.15)", border: "2px solid rgba(255,194,10,0.3)", color: "#FFC20A", fontSize: "18px", fontWeight: 800, flexShrink: 0 }}>
+                    {t.name?.charAt(0) ?? "T"}
+                  </div>
+                )}
                 <div>
                   <h4 style={{ color: "white", fontSize: "15px", fontWeight: 800, marginBottom: "2px" }}>{t.name}</h4>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px", color: "rgba(255,255,255,0.4)", fontSize: "11px" }}>

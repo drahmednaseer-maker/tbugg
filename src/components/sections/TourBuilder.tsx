@@ -209,7 +209,7 @@ function NightModal({
       >
         {/* Photo header */}
         <div style={{ position: "relative", height: "140px" }}>
-          <img src={dest.image} alt={dest.name}
+          <img loading="lazy" decoding="async" src={dest.image} alt={dest.name}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
             onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
           />
@@ -464,16 +464,16 @@ export default function TourBuilder() {
   const [sent,          setSent]          = useState(false);
 
   // Full E.164 number — handles:
-  //   "3001234567"  → "+923001234567"
-  //   "03001234567" → "+923001234567"  (strips leading 0)
-  //   "+923001234567" → "+923001234567" (user typed full number)
-  //   "923001234567"  → "+923001234567" (user omitted +)
+  //   "3001234567"  → "+923248888889"
+  //   "03001234567" → "+923248888889"  (strips leading 0)
+  //   "+923248888889" → "+923248888889" (user typed full number)
+  //   "923248888889"  → "+923248888889" (user omitted +)
   const fullPhone = (() => {
     const raw = localPhone.trim();
     if (!raw) return "";
     if (raw.startsWith("+")) return raw; // already E.164
     const dialDigits = country.dialCode.replace("+", "");
-    if (raw.startsWith(dialDigits)) return "+" + raw; // e.g. 923001234567
+    if (raw.startsWith(dialDigits)) return "+" + raw; // e.g. 923248888889
     return country.dialCode + raw.replace(/^0+/, "");  // normal local number
   })();
 
@@ -813,7 +813,7 @@ export default function TourBuilder() {
                     return (
                       <button key={d.id} onClick={() => clickDest(d)} style={pill(selected)}>
                         <div style={{ width: 40, height: 40, borderRadius: 10, overflow: "hidden", flexShrink: 0, border: "1px solid rgba(255,255,255,0.08)" }}>
-                          <img src={d.image} alt={d.name} style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                          <img loading="lazy" decoding="async" src={d.image} alt={d.name} style={{ width: "100%", height: "100%", objectFit: "cover" }}
                             onError={e => { (e.target as HTMLImageElement).style.background = "#1a2740"; }} />
                         </div>
                         <div style={{ flex: 1, minWidth: 0 }}>
@@ -854,7 +854,7 @@ export default function TourBuilder() {
                           style={{ display: "flex", alignItems: "center", gap: "8px", padding: "8px", borderRadius: "10px", marginBottom: "6px", background: dragTo === i ? "rgba(255,194,10,0.07)" : "transparent", border: "1px solid transparent", transition: "all 0.15s", cursor: "grab" }}
                         >
                           <GripVertical style={{ width: 14, height: 14, color: "rgba(255,255,255,0.15)", flexShrink: 0 }} />
-                          <img src={d.image} alt={d.name} style={{ width: 28, height: 28, borderRadius: 7, objectFit: "cover", flexShrink: 0 }} />
+                          <img loading="lazy" decoding="async" src={d.image} alt={d.name} style={{ width: 28, height: 28, borderRadius: 7, objectFit: "cover", flexShrink: 0 }} />
                           <span style={{ flex: 1, color: "white", fontSize: "12px", fontWeight: 700 }}>{d.name}</span>
                           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
                             <Moon style={{ width: 11, height: 11, color: "#FFC20A" }} />
@@ -1061,7 +1061,7 @@ export default function TourBuilder() {
                     return (
                       <div key={dest.id} style={{ borderRadius: "16px", border: "1px solid rgba(255,255,255,0.06)", overflow: "hidden" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "14px 18px", background: "rgba(255,255,255,0.02)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-                          <img src={dest.image} alt={dest.name} style={{ width: 34, height: 34, borderRadius: 9, objectFit: "cover" }} />
+                          <img loading="lazy" decoding="async" src={dest.image} alt={dest.name} style={{ width: 34, height: 34, borderRadius: 9, objectFit: "cover" }} />
                           <div style={{ flex: 1 }}>
                             <p style={{ color: "white", fontWeight: 800, fontSize: "14px", margin: "0 0 2px" }}>{dest.name}</p>
                             <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px", margin: 0 }}>{dest.nights} night{dest.nights !== 1 ? "s" : ""}</p>
@@ -1127,7 +1127,7 @@ export default function TourBuilder() {
                   {route.map((d, i) => (
                     <div key={d.id} style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
                       <div style={{ width: 22, height: 22, borderRadius: "50%", background: "#FFC20A", color: "#0B1628", fontSize: "10px", fontWeight: 900, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{i + 1}</div>
-                      <img src={d.image} alt={d.name} style={{ width: 32, height: 32, borderRadius: 8, objectFit: "cover" }} />
+                      <img loading="lazy" decoding="async" src={d.image} alt={d.name} style={{ width: 32, height: 32, borderRadius: 8, objectFit: "cover" }} />
                       <span style={{ flex: 1, color: "white", fontSize: "13px", fontWeight: 700 }}>{d.name}</span>
                       <span style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 700 }}>{d.nights}N</span>
                     </div>

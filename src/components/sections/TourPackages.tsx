@@ -8,7 +8,7 @@ import { Camera, Users, ChevronLeft, ChevronRight, MessageCircle, Star } from "l
 // All photos from Asmar's photography collection
 const slides = [
   {
-    image: "/charakusa_valley_hero_1777639621396.png",
+    image: "/destinations/charakusa/charakusa_basecamp.jpg",
     title: "Charakusa Trek",
     caption: "A vertical wilderness of granite towers and glaciers — the ultimate photographer's playground",
     type: "Exclusive Expedition",

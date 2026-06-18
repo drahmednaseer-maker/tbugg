@@ -85,7 +85,7 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
               willChange: "opacity",
             }}
           >
-            <img
+            <img loading="lazy" decoding="async"
               src={src}
               alt={dest.name}
               style={{

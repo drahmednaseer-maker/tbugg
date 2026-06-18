@@ -5,7 +5,7 @@ import Link from "next/link";
 import { MessageCircle, ArrowRight } from "lucide-react";
 
 export default function CTABanner() {
-  const whatsappUrl = "https://wa.me/923001234567?text=Hi%20TravelBug!%20I'd%20like%20to%20plan%20a%20custom%20tour%20of%20Pakistan.";
+  const whatsappUrl = "https://wa.me/923248888889?text=Hi%20TravelBug!%20I'd%20like%20to%20plan%20a%20custom%20tour%20of%20Pakistan.";
 
   return (
     <section id="cta" style={{ padding: "80px 40px", background: "#070E1C" }} className="tb-section-pad">

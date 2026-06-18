@@ -42,7 +42,7 @@ export default function DestinationsPage() {
               }}
             >
               {/* Image */}
-              <img 
+              <img loading="lazy" decoding="async" 
                 src={dest.images[0]} 
                 alt={dest.name} 
                 className="hover-scale"

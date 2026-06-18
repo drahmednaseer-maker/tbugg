@@ -127,7 +127,7 @@ export default function PhotoGallery() {
                 (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,255,255,0.07)";
               }}
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src={photo.src}
                 alt={photo.label}
                 draggable={false}

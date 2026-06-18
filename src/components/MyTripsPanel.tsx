@@ -76,7 +76,7 @@ function ItineraryCard({
         {/* Thumbnail stack */}
         <div style={{ display: "flex", position: "relative", width: 44, height: 36, flexShrink: 0 }}>
           {it.route.slice(0, 3).map((d, i) => (
-            <img
+            <img loading="lazy" decoding="async"
               key={d.id}
               src={d.image}
               alt={d.name}

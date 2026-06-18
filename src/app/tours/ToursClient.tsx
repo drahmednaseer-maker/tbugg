@@ -39,7 +39,29 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    await new Promise(r => setTimeout(r, 1800));
+    // Deliver the full tour inquiry to the business via WhatsApp with all details pre-filled.
+    const lines = [
+      "*New tour inquiry — TravelBug.pk*",
+      "",
+      `Name: ${form.name}`,
+      `Phone/WhatsApp: ${form.phone}${form.isWhatsApp === "yes" || form.isWhatsApp === "whatsapp" ? " (WhatsApp)" : ""}`,
+      form.email ? `Email: ${form.email}` : "",
+      "",
+      `Destination: ${form.destination || "Not specified"}`,
+      form.otherPlaces ? `Other places: ${form.otherPlaces}` : "",
+      form.startDate ? `Start date: ${form.startDate}` : "",
+      `Nights: ${form.nights}`,
+      `Travelers: ${form.adults} adult(s), ${form.children} child(ren)`,
+      form.hotelCategory ? `Hotel category: ${form.hotelCategory}` : "",
+      form.roomType ? `Room type: ${form.roomType}` : "",
+      form.meals ? `Meals: ${form.meals}` : "",
+      form.transport ? `Transport: ${form.transport}` : "",
+      form.specialRequirements ? `Special requirements: ${form.specialRequirements}` : "",
+      form.heardFrom ? `Heard from: ${form.heardFrom}` : "",
+    ].filter(Boolean);
+    const waUrl = `https://wa.me/923248888889?text=${encodeURIComponent(lines.join("\n"))}`;
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+    await new Promise(r => setTimeout(r, 600));
     setSubmitted(true);
     setLoading(false);
   };
@@ -369,7 +391,7 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
                   </button>
                   {/* WhatsApp alternative */}
                   <a
-                    href={`https://wa.me/923001234567?text=Hi!%20I%27d%20like%20to%20plan%20a%20trip%20to%20${encodeURIComponent(form.destination || "Pakistan")}`}
+                    href={`https://wa.me/923248888889?text=Hi!%20I%27d%20like%20to%20plan%20a%20trip%20to%20${encodeURIComponent(form.destination || "Pakistan")}`}
                     target="_blank" rel="noopener noreferrer"
                     style={{
                       padding: "16px 20px", borderRadius: "14px", background: "#22c55e",

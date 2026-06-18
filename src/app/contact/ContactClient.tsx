@@ -38,7 +38,20 @@ export default function ContactClient() {
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1500));
+    // Deliver the lead to the business via WhatsApp with all details pre-filled.
+    const lines = [
+      "*New inquiry — TravelBug.pk contact form*",
+      "",
+      `Name: ${form.name}`,
+      `Email: ${form.email}`,
+      form.phone ? `Phone/WhatsApp: ${form.phone}` : "",
+      form.subject ? `Subject: ${form.subject}` : "",
+      "",
+      `Message: ${form.message}`,
+    ].filter(Boolean);
+    const waUrl = `https://wa.me/${WA_NUM}?text=${encodeURIComponent(lines.join("\n"))}`;
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+    await new Promise((r) => setTimeout(r, 600));
     setSubmitted(true);
     setLoading(false);
   };

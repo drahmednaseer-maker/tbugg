@@ -104,8 +104,8 @@ export default function Hero() {
 
 
       {/* ── Hero text ──────────────────────────────────────────────────────── */}
-      <div className="hero-content relative z-10 w-full" style={{ paddingLeft: "clamp(22px, 15%, 14%)", paddingRight: "5%", paddingTop: "120px", paddingBottom: "280px" }}>
-        <div className="max-w-2xl">
+      <div className="hero-content relative z-10 w-full flex flex-col items-center justify-center text-center" style={{ paddingLeft: "5%", paddingRight: "5%", paddingTop: "100px", paddingBottom: "220px" }}>
+        <div className="max-w-2xl mx-auto text-center">
           <div className="overflow-hidden mb-4">
             <motion.h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
@@ -124,7 +124,7 @@ export default function Hero() {
               <span style={{ color: "#FFC20A" }}>Adventure Destination</span>
             </motion.h1>
           </div>
-          <motion.p className="text-lg text-white/65 leading-loose max-w-xl"
+          <motion.p className="text-lg text-white/65 leading-loose max-w-xl mx-auto"
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }}>
             From the majestic peaks of Karakorams &amp; Hindukush to the serene landscapes of Gwadar —
             we design unforgettable journeys across Pakistan.

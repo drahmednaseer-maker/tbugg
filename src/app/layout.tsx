@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Providers from "@/components/Providers";
+import ServiceWorkerCleanup from "@/components/ServiceWorkerCleanup";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -19,6 +20,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://travelbug.pk"),
+  alternates: { canonical: "/" },
   title: {
     default: "TravelBug.pk — Pakistan's #1 Customized Tour Specialists",
     template: "%s | TravelBug.pk",
@@ -53,6 +56,32 @@ export const metadata: Metadata = {
   },
 };
 
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "TravelAgency",
+  "@id": "https://travelbug.pk/#organization",
+  name: "TravelBug.pk",
+  description:
+    "Photographer-led, 100% customized tours across Pakistan — Hunza, Skardu, Minimarg, Kashmir, Lahore & beyond.",
+  url: "https://travelbug.pk",
+  logo: "https://travelbug.pk/logo.png",
+  image: "https://travelbug.pk/destinations/hunza/attabad_lake.jpg",
+  foundingDate: "2018",
+  priceRange: "$$",
+  telephone: "+923248888889",
+  email: "travelbugpakistan@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "B-89, Post Office Rd, Wah Cantt",
+    addressLocality: "Wah Cantt",
+    addressRegion: "Punjab",
+    postalCode: "47040",
+    addressCountry: "PK",
+  },
+  areaServed: { "@type": "Country", name: "Pakistan" },
+  sameAs: [] as string[],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -61,7 +90,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${plusJakarta.variable} ${playfair.variable}`}>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
         <Providers>
+          <ServiceWorkerCleanup />
           <Header />
           <main>{children}</main>
           <Footer />
