@@ -313,63 +313,74 @@ export default function Header() {
               onClick={() => setMobileOpen(false)} />
 
             <motion.aside
-              className="fixed top-0 right-0 bottom-0 z-[70] w-80 lg:hidden flex flex-col pt-8 bg-slate-900 shadow-2xl"
+              className="fixed top-0 right-0 bottom-0 z-[70] w-[82%] max-w-[330px] lg:hidden flex flex-col bg-slate-900 shadow-2xl"
               initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="flex items-center justify-between px-8 pb-8 border-b border-white/5">
-                <div className="flex items-center">
-                  <span className="text-white font-black text-[16px] tracking-tight">TRAVEL<span className="text-[#FACC15]">BUG</span><span className="text-white/40 text-[11px] font-bold tracking-widest">.PK</span></span>
-                </div>
-                <button onClick={() => setMobileOpen(false)} className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 text-white/50">
+              {/* Header */}
+              <div className="flex items-center justify-between px-5 h-[60px] border-b border-white/10 shrink-0">
+                <span className="text-white font-black text-[17px] tracking-tight">TRAVEL<span className="text-[#FACC15]">BUG</span><span className="text-white/40 text-[10px] font-bold tracking-widest ml-0.5">.PK</span></span>
+                <button onClick={() => setMobileOpen(false)} aria-label="Close menu" className="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 text-white/70 hover:bg-white/20 transition-colors">
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              <div className="flex-1 overflow-y-auto px-8 py-10">
-                <ul className="space-y-8">
+              {/* Nav rows */}
+              <nav className="flex-1 overflow-y-auto px-3 py-3">
+                <ul className="space-y-0.5">
                   {navLinks.map(({ href, label, hasDropdown }) => (
                     <li key={href}>
                       {hasDropdown ? (
-                        <div className="space-y-4">
+                        <div>
                           <button onClick={() => setToursOpen(!toursOpen)}
-                            className={cn("w-full flex items-center justify-between text-[16px] font-black tracking-widest transition-colors", toursOpen ? "text-[#FACC15]" : "text-white")}>
+                            className={cn("w-full flex items-center justify-between px-4 py-3 rounded-xl text-[14px] font-semibold tracking-wide transition-colors", toursOpen ? "text-[#FACC15] bg-[#FACC15]/10" : "text-white/85 hover:bg-white/5")}>
                             {label}
-                            <ChevronDown className={cn("w-5 h-5 transition-transform", toursOpen && "rotate-180")} />
+                            <ChevronDown className={cn("w-4 h-4 transition-transform opacity-60", toursOpen && "rotate-180 opacity-100")} />
                           </button>
-                          {toursOpen && (
-                            <ul className="pl-4 space-y-6 pt-2 border-l border-white/5">
-                              {tourCategories.map(c => (
-                                <li key={c.href}>
-                                  <Link href={c.href} className="text-white/50 font-bold block text-sm hover:text-[#FACC15] transition-colors">{c.label.toUpperCase()}</Link>
+                          <AnimatePresence initial={false}>
+                            {toursOpen && (
+                              <motion.ul
+                                initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                                className="overflow-hidden pl-3 mt-0.5"
+                              >
+                                {tourCategories.map(c => (
+                                  <li key={c.href}>
+                                    <Link href={c.href} className="flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-[13px] text-white/55 font-medium hover:text-[#FACC15] hover:bg-white/5 transition-colors">
+                                      <span className="text-[#FACC15]/70">{c.icon}</span>{c.label}
+                                    </Link>
+                                  </li>
+                                ))}
+                                <li>
+                                  <Link href="/tours" className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-[13px] text-[#FACC15] font-bold hover:bg-white/5 transition-colors">
+                                    View all tours <ArrowRight className="w-3.5 h-3.5" />
+                                  </Link>
                                 </li>
-                              ))}
-                              <li>
-                                <Link href="/tours" className="text-[#FACC15] font-black block text-sm hover:text-white transition-colors">VIEW ALL TOURS →</Link>
-                              </li>
-                            </ul>
-                          )}
+                              </motion.ul>
+                            )}
+                          </AnimatePresence>
                         </div>
                       ) : (
-                        <Link href={href} className={cn("text-[16px] font-black tracking-widest block transition-colors", isActive(href) ? "text-[#FACC15]" : "text-white opacity-60 hover:opacity-100")}>{label}</Link>
+                        <Link href={href} className={cn("flex items-center justify-between px-4 py-3 rounded-xl text-[14px] font-semibold tracking-wide transition-colors", isActive(href) ? "text-[#FACC15] bg-[#FACC15]/10" : "text-white/85 hover:bg-white/5")}>
+                          {label}
+                          <ArrowRight className="w-4 h-4 opacity-25" />
+                        </Link>
                       )}
                     </li>
                   ))}
                 </ul>
-              </div>
+              </nav>
 
-              <div className="p-8 border-t border-white/5 space-y-8 bg-black/20">
-                <div className="flex flex-col gap-5">
-                  <div className="flex items-center gap-4">
-                    <div className="w-11 h-11 rounded-full bg-[#FACC15] flex items-center justify-center text-slate-900">
-                      <Phone className="w-5 h-5 fill-current" />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[10px] text-white/40 font-black uppercase tracking-widest">Call Now</span>
-                      <a href="tel:+923248888889" className="text-white text-[16px] font-black tracking-tight">0324 8888889</a>
-                      <a href="tel:+923344334411" className="text-white text-[16px] font-black tracking-tight">0334 4334411</a>
-                    </div>
-                  </div>
+              {/* Footer CTA + contact */}
+              <div className="px-4 py-4 border-t border-white/10 space-y-3 bg-black/20 shrink-0">
+                <a href="https://wa.me/923248888889?text=Hi%20TravelBug!%20I%27d%20like%20to%20plan%20a%20trip%20to%20Pakistan." target="_blank" rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#FACC15] text-slate-950 font-bold text-[14px] active:scale-95 transition-transform">
+                  <Phone className="w-4 h-4 fill-current" /> Plan My Trip
+                </a>
+                <div className="flex items-center justify-center gap-3 text-[12px]">
+                  <a href="tel:+923248888889" className="text-white/55 font-semibold hover:text-white transition-colors">0324 8888889</a>
+                  <span className="w-px h-3 bg-white/15" />
+                  <a href="tel:+923344334411" className="text-white/55 font-semibold hover:text-white transition-colors">0334 4334411</a>
                 </div>
               </div>
             </motion.aside>
