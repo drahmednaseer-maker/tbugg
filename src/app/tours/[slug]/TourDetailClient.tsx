@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
-  Star, Clock, Users, ArrowLeft, Check, X, MapPin,
+  Clock, Users, ArrowLeft, Check, X, MapPin,
   ChevronLeft, ChevronRight, Calendar, ChevronDown, ChevronUp,
   Mountain, Compass, Camera,
 } from "lucide-react";
@@ -77,13 +77,6 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
             >
               <img src={images[imgIndex]} alt={tour.title} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center", display: "block" }} />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-              {/* Rating */}
-              <div className="absolute top-5 left-5 flex items-center gap-2 bg-black/50 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
-                <Star className="w-4 h-4 fill-[#FFC20A] text-[#FFC20A]" />
-                <span className="text-white font-bold text-sm">{tour.rating}</span>
-                <span className="text-white/50 text-xs">({tour.reviewCount} reviews)</span>
-              </div>
 
               {/* Difficulty */}
               <div className="absolute top-5 right-5 px-4 py-2 rounded-full backdrop-blur-md border text-xs font-bold uppercase tracking-widest"

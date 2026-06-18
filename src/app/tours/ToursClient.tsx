@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
   Search, X, MapPin, Clock, Users, ChevronDown, ChevronUp,
-  ArrowRight, Star, Phone, Mail, Calendar, CheckCircle2,
+  ArrowRight, Phone, Mail, Calendar, CheckCircle2,
   Home, Utensils, Car, User, MessageSquare, Send, Globe
 } from "lucide-react";
 import { tours } from "@/data/tours";
@@ -469,18 +469,6 @@ function DestinationCard({ tour, onGetQuote }: { tour: Tour; onGetQuote: (title:
             }}>
               View Full Details →
             </span>
-          </div>
-          {/* Rating badge */}
-          <div style={{
-            position: "absolute", top: "14px", right: "14px",
-            display: "flex", alignItems: "center", gap: "5px",
-            background: "rgba(0,0,0,0.5)", backdropFilter: "blur(8px)",
-            border: "1px solid rgba(255,255,255,0.1)", borderRadius: "20px",
-            padding: "5px 10px",
-          }}>
-            <Star style={{ width: "12px", height: "12px", fill: "#FFC20A", color: "#FFC20A" }} />
-            <span style={{ color: "white", fontSize: "12px", fontWeight: 700 }}>{tour.rating}</span>
-            <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px" }}>({tour.reviewCount})</span>
           </div>
           {/* Destination label */}
           <div style={{ position: "absolute", bottom: "16px", left: "18px", right: "18px" }}>

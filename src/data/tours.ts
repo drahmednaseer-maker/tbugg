@@ -327,10 +327,9 @@ export const tours: Tour[] = [
     rating: 4.5,
     reviewCount: 891,
     category: "budget",
-    image: "https://images.unsplash.com/photo-1586500036706-41963de24d8b?w=800&q=80",
+    image: "/destinations/nathiagali/nathiagali.jpg",
     images: [
-      "https://images.unsplash.com/photo-1586500036706-41963de24d8b?w=1200&q=80",
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80",
+      "/destinations/nathiagali/nathiagali.jpg",
     ],
     shortDescription: "Pine-scented hills, colonial architecture, and cool mountain air just 2 hours from Islamabad.",
     description: "For Islamabad's residents, Murree and Nathia Gali are the weekend mountain escape — colonial-era hill stations where pine forests part to reveal panoramic views of the Himalayan foothills.",
