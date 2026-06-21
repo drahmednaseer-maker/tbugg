@@ -4,12 +4,21 @@ import WhyChooseUs from "@/components/sections/WhyChooseUs";
 export const metadata: Metadata = {
   title: "Why TravelBug.pk — Our Philosophy | Photographer-Led Tours",
   description: "Learn what makes TravelBug.pk different. Photographer-led, small group, and 100% custom-tailored journeys across Pakistan.",
+  alternates: { canonical: "/why-travelbug" },
 };
 
 export default function WhyTravelBugPage() {
   return (
     <main style={{ minHeight: "100vh", background: "#060B18" }}>
       <div style={{ paddingTop: "120px" }}>
+        <header style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px 20px", textAlign: "center" }}>
+          <h1 style={{ color: "white", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 800, lineHeight: 1.15, margin: 0 }}>
+            Why Travel With TravelBug.pk
+          </h1>
+          <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "18px", lineHeight: 1.7, maxWidth: "640px", margin: "16px auto 0" }}>
+            Photographer-led, small-group, and 100% custom-tailored journeys across Pakistan — built around your pace, your interests, and the best light.
+          </p>
+        </header>
         <WhyChooseUs />
       </div>
       

@@ -21,7 +21,6 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://travelbug.pk"),
-  alternates: { canonical: "/" },
   title: {
     default: "TravelBug.pk — Pakistan's #1 Customized Tour Specialists",
     template: "%s | TravelBug.pk",
@@ -79,7 +78,10 @@ const orgJsonLd = {
     addressCountry: "PK",
   },
   areaServed: { "@type": "Country", name: "Pakistan" },
-  sameAs: [] as string[],
+  sameAs: [
+    "https://www.instagram.com/asmarsphotography",
+    "https://www.facebook.com/asmarsphotography",
+  ] as string[],
 };
 
 export default function RootLayout({

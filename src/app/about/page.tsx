@@ -4,7 +4,8 @@ import AboutClient from "./AboutClient";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Learn the story behind TravelBug — 15 years of crafting extraordinary journeys. Meet our team and discover our mission to inspire curious travelers worldwide.",
+    "Learn the story behind TravelBug — crafting extraordinary, photographer-led journeys across Pakistan since 2018. Meet our team and discover our mission to inspire curious travelers.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

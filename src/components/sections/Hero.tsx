@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ZoomIn } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 
 const particles = [
@@ -88,7 +88,7 @@ export default function Hero() {
 
       {/* ── Background ─────────────────────────────────────────────────────── */}
       <div className="absolute inset-0 z-0">
-        <img src="/hero-bg.jpg" alt="Pakistan" className="w-full h-full object-cover scale-110"
+        <img src="/hero-bg.jpg" alt="Scenic mountain landscape in northern Pakistan" fetchPriority="high" loading="eager" decoding="async" className="w-full h-full object-cover scale-110"
           style={{ animation: "float 20s ease-in-out infinite" }} />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0B1628]/95 via-[#0B1628]/60 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0B1628] via-transparent to-[#0B1628]/20" />
@@ -110,19 +110,20 @@ export default function Hero() {
             <motion.h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
               Explore Pakistan
+              <span className="sr-only"> — Your Next Adventure Destination. Photographer-led, 100% customized tours of Pakistan.</span>
             </motion.h1>
           </div>
-          <div className="overflow-hidden mb-2">
-            <motion.h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
+          <div className="overflow-hidden mb-2" aria-hidden="true">
+            <motion.div className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
               Your Next
-            </motion.h1>
+            </motion.div>
           </div>
-          <div className="overflow-hidden mb-8">
-            <motion.h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight"
+          <div className="overflow-hidden mb-8" aria-hidden="true">
+            <motion.div className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight"
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }}>
               <span style={{ color: "#FFC20A" }}>Adventure Destination</span>
-            </motion.h1>
+            </motion.div>
           </div>
           <motion.p className="text-lg text-white/65 leading-loose max-w-xl mx-auto"
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }}>

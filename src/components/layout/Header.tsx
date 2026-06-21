@@ -47,7 +47,7 @@ const tourCategories = [
 const navLinks = [
   { href: "/", label: "HOME" },
   { href: "/destinations", label: "DESTINATIONS" },
-  { href: "/tours", label: "TOURS", hasDropdown: true },
+  { href: "/tours", label: "TOURS" },
   { href: "/about", label: "ABOUT US" },
   { href: "/contact", label: "CONTACT US" },
 ];
