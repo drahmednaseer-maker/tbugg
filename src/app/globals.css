@@ -332,3 +332,43 @@ body::before {
 }
 
 
+
+/* ═══════════ FX: site-wide animation system (Andy Hardy style) ═══════════ */
+
+/* Hide native cursor on desktop — custom golden cursor takes over */
+@media (pointer: fine) {
+  html.fx-cursor, html.fx-cursor * { cursor: none !important; }
+  html.fx-cursor input, html.fx-cursor textarea, html.fx-cursor select { cursor: text !important; }
+}
+
+/* Auto-reveal: text & cards rise in */
+.fx-el {
+  opacity: 0;
+  transform: translateY(34px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+/* Auto-reveal: images scale-settle in */
+.fx-img {
+  opacity: 0;
+  transform: scale(1.06) translateY(20px);
+  transition: opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1), transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.fx-el.fx-in, .fx-img.fx-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Headings get a slightly bigger, slower rise */
+h1.fx-el, h2.fx-el { transform: translateY(48px); transition-duration: 1.05s; }
+
+/* Interactive lift for cards & photos (desktop) */
+@media (pointer: fine) {
+  [data-fx-lift] { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease; }
+  [data-fx-lift]:hover { transform: translateY(-8px) scale(1.015); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-el, .fx-img { opacity: 1 !important; transform: none !important; transition: none !important; }
+}

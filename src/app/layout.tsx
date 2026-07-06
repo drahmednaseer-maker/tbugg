@@ -6,6 +6,9 @@ import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Providers from "@/components/Providers";
 import ServiceWorkerCleanup from "@/components/ServiceWorkerCleanup";
+import SmoothScroll from "@/components/fx/SmoothScroll";
+import CustomCursor from "@/components/fx/CustomCursor";
+import AutoReveal from "@/components/fx/AutoReveal";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -98,6 +101,9 @@ export default function RootLayout({
         />
         <Providers>
           <ServiceWorkerCleanup />
+          <SmoothScroll />
+          <CustomCursor />
+          <AutoReveal />
           <Header />
           <main>{children}</main>
           <Footer />

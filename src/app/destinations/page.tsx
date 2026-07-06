@@ -34,11 +34,13 @@ export default function DestinationsPage() {
         {/* Grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))", gap: "32px" }}>
           {destinations.map((dest) => (
-            <Link 
+            <Link
               key={dest.id}
               href={`/destinations/${dest.id}`}
+              data-cursor="view"
+              data-fx-lift
               style={{
-                position: "relative", height: "450px", borderRadius: "24px", 
+                position: "relative", height: "450px", borderRadius: "24px",
                 overflow: "hidden", display: "block", textDecoration: "none"
               }}
             >

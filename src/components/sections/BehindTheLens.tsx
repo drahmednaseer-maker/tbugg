@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Camera } from "lucide-react";
+import { ParallaxY } from "@/components/fx/Parallax";
 
 const team = [
   {
@@ -65,8 +66,9 @@ export default function BehindTheLens() {
         {/* Team cards */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
           {team.map((person, i) => (
+            <ParallaxY key={person.name} amount={i === 0 ? 26 : -26}>
             <motion.div
-              key={person.name}
+              data-fx-lift
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -165,6 +167,7 @@ export default function BehindTheLens() {
                 </div>
               </div>
             </motion.div>
+            </ParallaxY>
           ))}
         </div>
 

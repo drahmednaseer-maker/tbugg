@@ -109,6 +109,7 @@ export default function PhotoGallery() {
           {[...PHOTOS, ...PHOTOS].map((photo, i) => (
             <div
               key={i}
+              data-cursor="view"
               onClick={() => openLightbox(i % PHOTOS.length)}
               style={{
                 flex: "0 0 240px",

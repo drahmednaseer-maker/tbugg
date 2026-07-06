@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MapPin, ArrowRight, Camera, Globe, Calendar, Clock, Users, Star } from "lucide-react";
 import { Destination } from "@/data/destinations";
 import { tours } from "@/data/tours";
+import { ParallaxY } from "@/components/fx/Parallax";
 
 export default function DestinationClient({ destination }: { destination: Destination }) {
   // Find tours that match this destination
@@ -23,11 +24,14 @@ export default function DestinationClient({ destination }: { destination: Destin
           transition={{ duration: 1.2 }}
           style={{ position: "absolute", inset: 0 }}
         >
-          <img
-            src={destination.images[0]}
-            alt={destination.name}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
+          <ParallaxY amount={70} style={{ position: "absolute", inset: 0 }}>
+            <img
+              src={destination.images[0]}
+              alt={destination.name}
+              data-no-fx
+              style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(1.18)" }}
+            />
+          </ParallaxY>
           <div style={{
             position: "absolute", inset: 0,
             background: "linear-gradient(to bottom, rgba(11,22,40,0.3) 0%, rgba(11,22,40,0.9) 100%)"
@@ -74,6 +78,8 @@ export default function DestinationClient({ destination }: { destination: Destin
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.2 }}
+                  data-cursor="view"
+                  data-fx-lift
                   style={{ borderRadius: "20px", overflow: "hidden", height: "300px" }}
                 >
                   <img src={img} alt={`${destination.name} ${i}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />

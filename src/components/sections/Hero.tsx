@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 
@@ -63,6 +63,58 @@ export default function Hero() {
   const [paused,   setPaused]   = useState(false);
   const [lightbox, setLightbox] = useState<number | null>(null);
 
+  /* ── Mouse-move parallax (desktop only, respects reduced-motion) ── */
+  const parallaxOn = useRef(false);
+  useEffect(() => {
+    parallaxOn.current =
+      window.matchMedia("(pointer: fine)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }, []);
+
+  const mx = useMotionValue(0);            /* -0.5 … 0.5 */
+  const my = useMotionValue(0);
+  const gx = useMotionValue(-600);         /* glow px position */
+  const gy = useMotionValue(-600);
+  const [glowOn, setGlowOn] = useState(false);
+
+  const smx = useSpring(mx, { stiffness: 55, damping: 18, mass: 0.6 });
+  const smy = useSpring(my, { stiffness: 55, damping: 18, mass: 0.6 });
+  const sgx = useSpring(gx, { stiffness: 120, damping: 22, mass: 0.4 });
+  const sgy = useSpring(gy, { stiffness: 120, damping: 22, mass: 0.4 });
+
+  /* Background drifts opposite the cursor (far layer = big, slow) */
+  const bgX = useTransform(smx, [-0.5, 0.5], [26, -26]);
+  const bgY = useTransform(smy, [-0.5, 0.5], [18, -18]);
+  /* Particles float between layers */
+  const ptX = useTransform(smx, [-0.5, 0.5], [42, -42]);
+  const ptY = useTransform(smy, [-0.5, 0.5], [28, -28]);
+  /* Headline leans toward the cursor with a subtle 3D tilt (near layer) */
+  const txX = useTransform(smx, [-0.5, 0.5], [-16, 16]);
+  const txY = useTransform(smy, [-0.5, 0.5], [-12, 12]);
+  const rotY = useTransform(smx, [-0.5, 0.5], [-4, 4]);
+  const rotX = useTransform(smy, [-0.5, 0.5], [3.5, -3.5]);
+
+  const onHeroMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    if (!parallaxOn.current) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    mx.set((e.clientX - r.left) / r.width - 0.5);
+    my.set((e.clientY - r.top) / r.height - 0.5);
+    gx.set(e.clientX - r.left);
+    gy.set(e.clientY - r.top);
+    setGlowOn(true);
+  }, [mx, my, gx, gy]);
+
+  const onHeroLeave = useCallback(() => {
+    mx.set(0); my.set(0); setGlowOn(false);
+  }, [mx, my]);
+
+  /* ── Scroll-driven parallax: hero recedes cinematically as you scroll ── */
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const scrollBgY = useTransform(scrollYProgress, [0, 1], [0, 110]);
+  const scrollTextY = useTransform(scrollYProgress, [0, 1], [0, 190]);
+  const scrollTextOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
+
   /* Pause marquee while page is scrolling */
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
@@ -84,28 +136,43 @@ export default function Hero() {
   }, [lightbox]);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden" id="hero">
+    <section className="relative min-h-screen flex items-center overflow-hidden" id="hero"
+      ref={heroRef} onMouseMove={onHeroMove} onMouseLeave={onHeroLeave}>
 
-      {/* ── Background ─────────────────────────────────────────────────────── */}
-      <div className="absolute inset-0 z-0">
+      {/* ── Background (far parallax layer: mouse + scroll) ────────────────── */}
+      <motion.div className="absolute inset-0 z-0" style={{ y: scrollBgY }}>
+      <motion.div className="absolute inset-0" style={{ x: bgX, y: bgY, scale: 1.08 }}>
         <img src="/hero-bg.jpg" alt="Scenic mountain landscape in northern Pakistan" fetchPriority="high" loading="eager" decoding="async" className="w-full h-full object-cover scale-110"
           style={{ animation: "float 20s ease-in-out infinite" }} />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0B1628]/95 via-[#0B1628]/60 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0B1628] via-transparent to-[#0B1628]/20" />
-      </div>
+      </motion.div>
+      </motion.div>
 
-      {/* ── Particles ──────────────────────────────────────────────────────── */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      {/* ── Cursor spotlight glow ──────────────────────────────────────────── */}
+      <motion.div className="absolute z-[5] pointer-events-none" aria-hidden="true"
+        style={{
+          x: sgx, y: sgy, translateX: "-50%", translateY: "-50%",
+          width: 560, height: 560, borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(255,194,10,0.13) 0%, rgba(255,194,10,0.05) 35%, transparent 70%)",
+          mixBlendMode: "screen",
+          opacity: glowOn ? 1 : 0,
+          transition: "opacity 0.5s ease",
+        }} />
+
+      {/* ── Particles (mid parallax layer) ─────────────────────────────────── */}
+      <motion.div className="absolute inset-0 z-0 overflow-hidden pointer-events-none" style={{ x: ptX, y: ptY }}>
         {particles.map((p, i) => (
           <div key={i} className="absolute w-1 h-1 rounded-full bg-[#FFC20A]/20"
             style={{ left: p.left, top: p.top, animation: `float ${p.dur}s ease-in-out ${p.delay}s infinite` }} />
         ))}
-      </div>
+      </motion.div>
 
 
-      {/* ── Hero text ──────────────────────────────────────────────────────── */}
-      <div className="hero-content relative z-10 w-full flex flex-col items-center justify-center text-center" style={{ paddingLeft: "5%", paddingRight: "5%", paddingTop: "100px", paddingBottom: "220px" }}>
-        <div className="max-w-2xl mx-auto text-center">
+      {/* ── Hero text (near parallax layer + 3D tilt) ──────────────────────── */}
+      <motion.div className="hero-content relative z-10 w-full flex flex-col items-center justify-center text-center" style={{ paddingLeft: "5%", paddingRight: "5%", paddingTop: "100px", paddingBottom: "220px", perspective: "1200px", y: scrollTextY, opacity: scrollTextOpacity }}>
+        <motion.div className="max-w-2xl mx-auto text-center"
+          style={{ x: txX, y: txY, rotateX: rotX, rotateY: rotY, transformStyle: "preserve-3d" }}>
           <div className="overflow-hidden mb-4">
             <motion.h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
@@ -130,8 +197,8 @@ export default function Hero() {
             From the majestic peaks of Karakorams &amp; Hindukush to the serene landscapes of Gwadar —
             we design unforgettable journeys across Pakistan.
           </motion.p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* ── PHOTO MARQUEE STRIP ────────────────────────────────────────────── */}
       <motion.div
@@ -167,6 +234,7 @@ export default function Hero() {
               {[...PHOTOS, ...PHOTOS].map((photo, i) => (
                 <div
                   key={i}
+                  data-cursor="view"
                   onClick={() => setLightbox(i % PHOTOS.length)}
                   style={{
                     flex: "0 0 180px",

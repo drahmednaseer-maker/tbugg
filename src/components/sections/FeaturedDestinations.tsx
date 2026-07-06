@@ -56,6 +56,7 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
       <Link
         href={`/destinations/${dest.id}`}
         id={`dest-${dest.id}`}
+        data-cursor="view"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         style={{

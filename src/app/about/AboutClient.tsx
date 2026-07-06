@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Heart, Mountain, Award, Users, ArrowRight, CheckCircle2, MapPin, Star, Phone, Mail } from "lucide-react";
+import { ParallaxY } from "@/components/fx/Parallax";
 
 /* ── Our Guides ── */
 const guides = [
@@ -69,11 +70,14 @@ export default function AboutClient() {
       {/* ── HERO ── */}
       <section style={{ paddingTop: "160px", paddingBottom: "80px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0 }}>
-          <img
-            src="/destinations/hunza/hunza_autumn1.jpg"
-            alt="Hunza Valley Pakistan"
-            style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.2 }}
-          />
+          <ParallaxY amount={60} style={{ position: "absolute", inset: 0 }}>
+            <img
+              src="/destinations/hunza/hunza_autumn1.jpg"
+              alt="Hunza Valley Pakistan"
+              data-no-fx
+              style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.2, transform: "scale(1.16)" }}
+            />
+          </ParallaxY>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, #0B1628 0%, rgba(11,22,40,0.6) 50%, #0B1628 100%)" }} />
         </div>
 
