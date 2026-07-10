@@ -15,6 +15,7 @@ const tagColors: Record<string, { bg: string; text: string; glow: string }> = {
   "Adventure":   { bg: "#2563EB", text: "#fff", glow: "rgba(37,99,235,0.4)"   },
   "Religious":   { bg: "#D97706", text: "#fff", glow: "rgba(217,119,6,0.4)"   },
   "Sports":      { bg: "#DC2626", text: "#fff", glow: "rgba(220,38,38,0.4)"   },
+  "Expedition":  { bg: "#0D9488", text: "#fff", glow: "rgba(13,148,136,0.45)" },
 };
 
 // Preload images so hover switching is instant
@@ -56,7 +57,6 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
       <Link
         href={`/destinations/${dest.id}`}
         id={`dest-${dest.id}`}
-        data-cursor="view"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         style={{
@@ -188,8 +188,18 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
           transform: hovered ? "translateY(0)" : "translateY(4px)",
           transition: "transform 0.35s ease",
         }}>
+          {/* Persistent title */}
+          <h3 style={{
+            color: "#fff", fontSize: "20px", fontWeight: 800, lineHeight: 1.2,
+            margin: 0, letterSpacing: "-0.01em",
+            textShadow: "0 2px 12px rgba(0,0,0,0.7)",
+          }}>
+            {dest.cardTitle ?? dest.name}
+          </h3>
+
           <p style={{
             color: "rgba(255,255,255,0.65)", fontSize: "13px", lineHeight: 1.6,
+            marginTop: "8px",
             maxHeight: hovered ? "80px" : "0px",
             overflow: "hidden",
             opacity: hovered ? 1 : 0,

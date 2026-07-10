@@ -14,6 +14,7 @@ const destinations = [
 const quickLinks = [
   { href: "/about#team",    label: "Meet the Photographers" },
   { href: "/destinations",    label: "Destinations" },
+  { href: "/pakistan-tours",  label: "International Travellers" },
   { href: "/why-travelbug",  label: "Why TravelBug" },
   { href: "/traveler-stories", label: "Traveler Stories" },
   { href: "/#cta",           label: "Plan My Tour" },

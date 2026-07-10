@@ -6,9 +6,7 @@ import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Providers from "@/components/Providers";
 import ServiceWorkerCleanup from "@/components/ServiceWorkerCleanup";
-import SmoothScroll from "@/components/fx/SmoothScroll";
-import CustomCursor from "@/components/fx/CustomCursor";
-import AutoReveal from "@/components/fx/AutoReveal";
+import { testimonials } from "@/data/testimonials";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -81,10 +79,45 @@ const orgJsonLd = {
     addressCountry: "PK",
   },
   areaServed: { "@type": "Country", name: "Pakistan" },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: (
+      testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length
+    ).toFixed(1),
+    reviewCount: testimonials.length,
+    bestRating: 5,
+    worstRating: 1,
+  },
+  review: testimonials.slice(0, 5).map((t) => ({
+    "@type": "Review",
+    author: { "@type": "Person", name: t.name },
+    reviewRating: { "@type": "Rating", ratingValue: t.rating, bestRating: 5 },
+    reviewBody: t.review,
+  })),
   sameAs: [
     "https://www.instagram.com/asmarsphotography",
     "https://www.facebook.com/asmarsphotography",
   ] as string[],
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://travelbug.pk/#website",
+  name: "TravelBug.pk",
+  url: "https://travelbug.pk",
+  description:
+    "Photographer-led, 100% customized tours across Pakistan — Hunza, Skardu, Kashmir, Lahore & beyond.",
+  inLanguage: "en",
+  publisher: { "@id": "https://travelbug.pk/#organization" },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: "https://travelbug.pk/tours?q={search_term_string}",
+    },
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export default function RootLayout({
@@ -99,11 +132,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
         <Providers>
           <ServiceWorkerCleanup />
-          <SmoothScroll />
-          <CustomCursor />
-          <AutoReveal />
           <Header />
           <main>{children}</main>
           <Footer />

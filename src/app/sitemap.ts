@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { tours } from "@/data/tours";
 import { destinations } from "@/data/destinations";
+import { markets } from "@/data/markets";
 
 const BASE_URL = "https://travelbug.pk";
 
@@ -15,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/about", priority: 0.6, changeFrequency: "monthly" as const },
     { path: "/traveler-stories", priority: 0.6, changeFrequency: "monthly" as const },
     { path: "/contact", priority: 0.8, changeFrequency: "monthly" as const },
+    { path: "/pakistan-tours", priority: 0.9, changeFrequency: "weekly" as const },
   ].map((r) => ({
     url: `${BASE_URL}${r.path}`,
     lastModified: now,
@@ -36,5 +38,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...tourRoutes, ...destinationRoutes];
+  const marketRoutes = markets.map((m) => ({
+    url: `${BASE_URL}/pakistan-tours/${m.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...tourRoutes, ...destinationRoutes, ...marketRoutes];
 }

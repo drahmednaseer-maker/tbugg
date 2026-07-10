@@ -3,9 +3,10 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { MapPin, ArrowRight, Camera, Globe, Calendar, Clock, Users, Star } from "lucide-react";
-import { Destination } from "@/data/destinations";
+import { Destination, Expedition } from "@/data/destinations";
 import { tours } from "@/data/tours";
-import { ParallaxY } from "@/components/fx/Parallax";
+import { generalFaqs, destinationFaqs } from "@/data/faqs";
+import FAQSection from "@/components/sections/FAQSection";
 
 export default function DestinationClient({ destination }: { destination: Destination }) {
   // Find tours that match this destination
@@ -24,14 +25,11 @@ export default function DestinationClient({ destination }: { destination: Destin
           transition={{ duration: 1.2 }}
           style={{ position: "absolute", inset: 0 }}
         >
-          <ParallaxY amount={70} style={{ position: "absolute", inset: 0 }}>
-            <img
-              src={destination.images[0]}
-              alt={destination.name}
-              data-no-fx
-              style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(1.18)" }}
-            />
-          </ParallaxY>
+          <img
+            src={destination.images[0]}
+            alt={destination.name}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
           <div style={{
             position: "absolute", inset: 0,
             background: "linear-gradient(to bottom, rgba(11,22,40,0.3) 0%, rgba(11,22,40,0.9) 100%)"
@@ -78,8 +76,6 @@ export default function DestinationClient({ destination }: { destination: Destin
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.2 }}
-                  data-cursor="view"
-                  data-fx-lift
                   style={{ borderRadius: "20px", overflow: "hidden", height: "300px" }}
                 >
                   <img src={img} alt={`${destination.name} ${i}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -166,6 +162,18 @@ export default function DestinationClient({ destination }: { destination: Destin
         </div>
       </section>
 
+      {/* Premium Expedition Itinerary (only when data exists) */}
+      {destination.expedition && (
+        <ExpeditionSection expedition={destination.expedition} name={destination.name} tourSlug={destination.tourSlug} />
+      )}
+
+      {/* FAQ — destination-specific questions plus key travel essentials */}
+      <FAQSection
+        faqs={[...(destinationFaqs[destination.id] ?? []), ...generalFaqs.slice(0, 3)]}
+        heading={`${destination.name} — Travel FAQs`}
+        subheading={`Common questions about visiting ${destination.name} with TravelBug.pk.`}
+      />
+
       {/* Footer CTA */}
       <section style={{ padding: "80px 40px", textAlign: "center" }}>
         <div style={{ maxWidth: "800px", margin: "0 auto", background: "linear-gradient(135deg, rgba(255,194,10,0.1) 0%, transparent 100%)", padding: "60px", borderRadius: "32px", border: "1px solid rgba(255,194,10,0.15)" }}>
@@ -185,5 +193,332 @@ export default function DestinationClient({ destination }: { destination: Destin
         </div>
       </section>
     </div>
+  );
+}
+
+function ExpeditionSection({
+  expedition,
+  name,
+  tourSlug,
+}: {
+  expedition: Expedition;
+  name: string;
+  tourSlug: string;
+}) {
+  const matchedTour = tours.find((t) => t.slug === tourSlug);
+  const stats = [
+    { icon: Clock, label: "Duration", value: `${expedition.durationDays} Days / ${expedition.nights} Nights` },
+    { icon: Star, label: "Difficulty", value: expedition.difficulty },
+    { icon: Calendar, label: "Best Season", value: expedition.bestSeason },
+    { icon: MapPin, label: "Max Altitude", value: expedition.maxAltitude },
+    { icon: Users, label: "Departures", value: expedition.groupType },
+  ];
+
+  return (
+    <section
+      id="itinerary"
+      style={{
+        padding: "100px 40px",
+        borderTop: "1px solid rgba(255,255,255,0.06)",
+        background: "linear-gradient(180deg, rgba(255,194,10,0.03) 0%, transparent 40%)",
+      }}
+    >
+      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
+            <div style={{ width: 30, height: 2, background: "#FFC20A" }} />
+            <span style={{ color: "#FFC20A", fontSize: "12px", fontWeight: 800, letterSpacing: "0.25em", textTransform: "uppercase" }}>
+              The Full Expedition
+            </span>
+          </div>
+          <h2 style={{ fontSize: "clamp(28px, 4.5vw, 44px)", fontWeight: 900, color: "white", lineHeight: 1.1, margin: "0 0 18px", maxWidth: "820px" }}>
+            {expedition.title}
+          </h2>
+          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "18px", lineHeight: 1.6, maxWidth: "760px", margin: 0 }}>
+            {expedition.tagline}
+          </p>
+        </motion.div>
+
+        {/* Stat cards */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+            gap: "16px",
+            margin: "44px 0",
+          }}
+        >
+          {stats.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06 }}
+                style={{
+                  background: "rgba(255,255,255,0.03)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: "16px",
+                  padding: "22px 20px",
+                }}
+              >
+                <Icon style={{ width: 20, height: 20, color: "#FFC20A", marginBottom: "14px" }} />
+                <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 6px" }}>
+                  {s.label}
+                </p>
+                <p style={{ color: "white", fontSize: "15px", fontWeight: 700, margin: 0, lineHeight: 1.35 }}>
+                  {s.value}
+                </p>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Overview */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          style={{ color: "rgba(255,255,255,0.72)", fontSize: "17px", lineHeight: 1.85, maxWidth: "900px", margin: "0 0 64px" }}
+        >
+          {expedition.overview}
+        </motion.p>
+
+        {/* Highlights */}
+        <h3 style={{ fontSize: "24px", fontWeight: 900, color: "white", margin: "0 0 24px" }}>
+          Expedition <span style={{ color: "#FFC20A" }}>Highlights</span>
+        </h3>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: "16px",
+            marginBottom: "72px",
+          }}
+        >
+          {expedition.highlights.map((h, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -14 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05 }}
+              style={{
+                display: "flex",
+                gap: "14px",
+                alignItems: "flex-start",
+                background: "rgba(255,255,255,0.02)",
+                border: "1px solid rgba(255,255,255,0.06)",
+                borderRadius: "14px",
+                padding: "18px 20px",
+              }}
+            >
+              <Star style={{ width: 18, height: 18, fill: "#FFC20A", color: "#FFC20A", flexShrink: 0, marginTop: 2 }} />
+              <span style={{ color: "rgba(255,255,255,0.78)", fontSize: "15px", lineHeight: 1.55 }}>{h}</span>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Day-by-day timeline */}
+        <h3 style={{ fontSize: "24px", fontWeight: 900, color: "white", margin: "0 0 36px" }}>
+          Day-by-Day <span style={{ color: "#FFC20A" }}>Itinerary</span>
+        </h3>
+        <div style={{ position: "relative" }}>
+          {/* vertical connecting line */}
+          <div
+            style={{
+              position: "absolute",
+              left: "23px",
+              top: "12px",
+              bottom: "12px",
+              width: "2px",
+              background: "linear-gradient(180deg, #FFC20A, rgba(255,194,10,0.15))",
+            }}
+          />
+          <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+            {expedition.itinerary.map((d, i) => (
+              <motion.div
+                key={d.day}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: Math.min(i * 0.04, 0.3) }}
+                style={{ display: "grid", gridTemplateColumns: "48px 1fr", gap: "22px", position: "relative" }}
+              >
+                {/* Day badge */}
+                <div
+                  style={{
+                    width: "48px",
+                    height: "48px",
+                    borderRadius: "50%",
+                    background: "linear-gradient(135deg, #FFC20A, #FFD34A)",
+                    color: "#0B1628",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontWeight: 900,
+                    flexShrink: 0,
+                    zIndex: 2,
+                    boxShadow: "0 6px 20px rgba(255,194,10,0.25)",
+                    lineHeight: 1,
+                  }}
+                >
+                  <span style={{ fontSize: "8px", letterSpacing: "0.1em", opacity: 0.7 }}>DAY</span>
+                  <span style={{ fontSize: "17px" }}>{String(d.day).padStart(2, "0")}</span>
+                </div>
+
+                {/* Day card */}
+                <div
+                  style={{
+                    background: "rgba(255,255,255,0.03)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    borderRadius: "18px",
+                    padding: "22px 24px",
+                  }}
+                >
+                  <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "12px", alignItems: "center", marginBottom: "10px" }}>
+                    <h4 style={{ color: "white", fontSize: "17px", fontWeight: 800, margin: 0 }}>{d.route}</h4>
+                    <span
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "7px",
+                        background: d.stay === "hotel" ? "rgba(255,194,10,0.12)" : "rgba(110,231,183,0.1)",
+                        border: `1px solid ${d.stay === "hotel" ? "rgba(255,194,10,0.3)" : "rgba(110,231,183,0.25)"}`,
+                        color: d.stay === "hotel" ? "#FFC20A" : "#6EE7B7",
+                        borderRadius: "999px",
+                        padding: "5px 12px",
+                        fontSize: "12px",
+                        fontWeight: 700,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      <span style={{ width: 6, height: 6, borderRadius: "50%", background: "currentColor", display: "inline-block" }} />
+                      {d.overnight}
+                    </span>
+                  </div>
+                  <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "14px", fontStyle: "italic", margin: "0 0 14px", lineHeight: 1.5 }}>
+                    {d.summary}
+                  </p>
+                  <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
+                    {d.activities.map((a, j) => (
+                      <li key={j} style={{ display: "flex", gap: "10px", alignItems: "flex-start", color: "rgba(255,255,255,0.72)", fontSize: "14px", lineHeight: 1.5 }}>
+                        <span style={{ color: "#FFC20A", flexShrink: 0, marginTop: 1 }}>›</span>
+                        <span>{a}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Included / Excluded */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gap: "24px",
+            marginTop: "72px",
+          }}
+        >
+          <div
+            style={{
+              background: "rgba(110,231,183,0.04)",
+              border: "1px solid rgba(110,231,183,0.15)",
+              borderRadius: "20px",
+              padding: "28px 30px",
+            }}
+          >
+            <h4 style={{ color: "white", fontSize: "18px", fontWeight: 800, margin: "0 0 20px" }}>What's Included</h4>
+            <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "12px" }}>
+              {expedition.included.map((item, i) => (
+                <li key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start", color: "rgba(255,255,255,0.75)", fontSize: "14px", lineHeight: 1.5 }}>
+                  <span style={{ color: "#6EE7B7", fontWeight: 900, flexShrink: 0 }}>✓</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div
+            style={{
+              background: "rgba(255,255,255,0.02)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              borderRadius: "20px",
+              padding: "28px 30px",
+            }}
+          >
+            <h4 style={{ color: "white", fontSize: "18px", fontWeight: 800, margin: "0 0 20px" }}>Not Included</h4>
+            <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "12px" }}>
+              {expedition.excluded.map((item, i) => (
+                <li key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start", color: "rgba(255,255,255,0.55)", fontSize: "14px", lineHeight: 1.5 }}>
+                  <span style={{ color: "rgba(255,255,255,0.35)", fontWeight: 900, flexShrink: 0 }}>✕</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div
+          style={{
+            marginTop: "60px",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "16px",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+          }}
+        >
+          <Link
+            href="/contact"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "10px",
+              padding: "16px 32px",
+              borderRadius: "14px",
+              background: "linear-gradient(135deg, #FFC20A, #FFD34A)",
+              color: "#0B1628",
+              fontWeight: 800,
+              textDecoration: "none",
+              boxShadow: "0 8px 32px rgba(255,194,10,0.3)",
+            }}
+          >
+            Enquire About This Expedition <ArrowRight style={{ width: 18, height: 18 }} />
+          </Link>
+          {matchedTour && (
+            <Link
+              href={`/tours/${matchedTour.slug}`}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "10px",
+                padding: "16px 32px",
+                borderRadius: "14px",
+                background: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(255,255,255,0.15)",
+                color: "white",
+                fontWeight: 700,
+                textDecoration: "none",
+              }}
+            >
+              View Matching Tour <ArrowRight style={{ width: 18, height: 18 }} />
+            </Link>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }

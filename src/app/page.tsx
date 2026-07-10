@@ -6,6 +6,8 @@ import TourPackages from "@/components/sections/TourPackages";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import Testimonials from "@/components/sections/Testimonials";
 import CTABanner from "@/components/sections/CTABanner";
+import FAQSection from "@/components/sections/FAQSection";
+import { generalFaqs } from "@/data/faqs";
 
 export const metadata: Metadata = {
   title: "TravelBug.pk — Photographer-Led Custom Tours of Pakistan",
@@ -23,6 +25,7 @@ export default function HomePage() {
       <TourPackages />
       <WhyChooseUs />
       <Testimonials />
+      <FAQSection faqs={generalFaqs} />
       <CTABanner />
     </>
   );

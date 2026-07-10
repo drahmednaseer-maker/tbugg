@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { MessageCircle, ArrowRight } from "lucide-react";
-import { ParallaxY } from "@/components/fx/Parallax";
 
 export default function CTABanner() {
   const whatsappUrl = "https://wa.me/923248888889?text=Hi%20TravelBug!%20I'd%20like%20to%20plan%20a%20custom%20tour%20of%20Pakistan.";
@@ -25,20 +24,16 @@ export default function CTABanner() {
             alignItems: "center",
           }}
         >
-          {/* Background photo — drifts on scroll (parallax) */}
-          <ParallaxY amount={42} style={{ position: "absolute", inset: 0 }}>
-            <img
-              src="/spring-passu.jpg"
-              alt="Pakistan landscape"
-              data-no-fx
-              style={{
-                position: "absolute", inset: 0,
-                width: "100%", height: "100%",
-                objectFit: "cover",
-                transform: "scale(1.22)",
-              }}
-            />
-          </ParallaxY>
+          {/* Background photo */}
+          <img
+            src="/spring-passu.jpg"
+            alt="Pakistan landscape"
+            style={{
+              position: "absolute", inset: 0,
+              width: "100%", height: "100%",
+              objectFit: "cover",
+            }}
+          />
           {/* Overlay */}
           <div style={{
             position: "absolute", inset: 0,

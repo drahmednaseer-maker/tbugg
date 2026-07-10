@@ -439,7 +439,7 @@ function DestinationCard({ tour, onGetQuote }: { tour: Tour; onGetQuote: (title:
       whileHover={{ borderColor: "rgba(255,194,10,0.25)", boxShadow: "0 20px 60px rgba(0,0,0,0.4)" }}
     >
       {/* Image — clicking navigates to full details */}
-      <Link href={`/tours/${tour.slug}`} data-cursor="view" style={{ display: "block", textDecoration: "none" }}>
+      <Link href={`/tours/${tour.slug}`} style={{ display: "block", textDecoration: "none" }}>
         <div style={{ position: "relative", height: "240px", overflow: "hidden", cursor: "pointer" }}>
           <img
             src={tour.image}
