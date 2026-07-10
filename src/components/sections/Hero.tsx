@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 
@@ -88,7 +89,7 @@ export default function Hero() {
 
       {/* ── Background ─────────────────────────────────────────────────────── */}
       <div className="absolute inset-0 z-0">
-        <img src="/hero-bg.jpg" alt="Scenic mountain landscape in northern Pakistan" fetchPriority="high" loading="eager" decoding="async" className="w-full h-full object-cover scale-110"
+        <Image src="/hero-bg.jpg" alt="Scenic mountain landscape in northern Pakistan" fill priority sizes="100vw" className="object-cover scale-110"
           style={{ animation: "float 20s ease-in-out infinite" }} />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0B1628]/95 via-[#0B1628]/60 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0B1628] via-transparent to-[#0B1628]/20" />

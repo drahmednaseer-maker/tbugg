@@ -54,6 +54,13 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  // Set these in Vercel env vars once you claim the site in Google Search Console / Bing.
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+      : {},
+  },
 };
 
 const orgJsonLd = {
