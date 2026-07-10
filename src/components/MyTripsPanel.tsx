@@ -189,7 +189,7 @@ function ItineraryCard({
                   🗺️ Open in Planner
                 </button>
                 <button
-                  onClick={() => window.open(`https://wa.me/923248888889?text=${encodeURIComponent(waLines.join("\n"))}`, "_blank")}
+                  onClick={() => window.open(`https://wa.me/923344334411?text=${encodeURIComponent(waLines.join("\n"))}`, "_blank")}
                   style={{ width: 36, height: 36, borderRadius: "10px", background: "linear-gradient(135deg, #25D366, #128C7E)", border: "none", color: "white", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
                   title="Discuss on WhatsApp"
                 >
@@ -384,7 +384,7 @@ export default function MyTripsPanel({ onClose }: { onClose: () => void }) {
             <p style={{ color: "rgba(255,255,255,0.2)", fontSize: "10px", margin: 0 }}>Trips saved privately in your browser</p>
           </div>
           <button
-            onClick={() => window.open("https://wa.me/923248888889", "_blank")}
+            onClick={() => window.open("https://wa.me/923344334411", "_blank")}
             style={{ padding: "8px 14px", borderRadius: "10px", background: "linear-gradient(135deg, #25D366, #128C7E)", border: "none", color: "white", fontWeight: 700, fontSize: "11px", cursor: "pointer", display: "flex", alignItems: "center", gap: "6px" }}
           >
             <MessageCircle style={{ width: 11, height: 11 }} />

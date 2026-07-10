@@ -7,10 +7,10 @@ import { Mail, Phone, MapPin, Clock, Send, CheckCircle2, MessageSquare } from "l
 /* ─── Real TravelBug.pk Contact Details ─── */
 const PHONE1 = "+92 324 8888889";
 const PHONE2 = "+92 334 4334411";
-const EMAIL   = "travelbugpakistan@gmail.com";
+const EMAIL   = "Info@travelbug.pk";
 const ADDRESS_LINE1 = "B-89, Post Office Rd, Wah Cantt";
 const ADDRESS_LINE2 = "Punjab 47040, Pakistan";
-const WA_NUM  = "923248888889";
+const WA_NUM  = "923344334411";
 
 export default function ContactClient() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });

@@ -24,7 +24,7 @@ const socials = [
   { icon: Camera,         href: "https://www.instagram.com/asmarsphotography", label: "Instagram" },
   { icon: Share2,         href: "https://www.facebook.com/asmarsphotography",  label: "Facebook" },
   { icon: Link2,          href: "#",                                            label: "YouTube"   },
-  { icon: MessageCircle,  href: "https://wa.me/923248888889",                  label: "WhatsApp"  },
+  { icon: MessageCircle,  href: "https://wa.me/923344334411",                  label: "WhatsApp"  },
 ];
 
 export default function Footer() {
@@ -190,12 +190,12 @@ export default function Footer() {
               <li style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                 <Mail style={{ width: 15, height: 15, color: "#FFC20A", flexShrink: 0 }} />
                 <a
-                  href="mailto:travelbugpakistan@gmail.com"
+                  href="mailto:Info@travelbug.pk"
                   style={{ color: "rgba(255,255,255,0.45)", fontSize: "13px", textDecoration: "none", transition: "color 0.2s" }}
                   onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = "white"}
                   onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.45)"}
                 >
-                  travelbugpakistan@gmail.com
+                  Info@travelbug.pk
                 </a>
               </li>
             </ul>

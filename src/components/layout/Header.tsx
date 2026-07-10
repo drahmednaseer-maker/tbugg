@@ -96,9 +96,9 @@ export default function Header() {
             <span style={{ fontSize: "10px", fontWeight: 700, color: "rgba(255,255,255,0.6)", letterSpacing: "0.02em", transition: "color 0.2s" }} className="group-hover:!text-white sm:text-[11px]">0334 4334411</span>
           </a>
           <span className="hidden sm:block" style={{ width: "1px", height: "12px", background: "rgba(255,255,255,0.15)" }} />
-          <a href="mailto:travelbugpakistan@gmail.com" className="hidden sm:flex items-center gap-1.5 group" style={{ textDecoration: "none" }}>
+          <a href="mailto:Info@travelbug.pk" className="hidden sm:flex items-center gap-1.5 group" style={{ textDecoration: "none" }}>
             <Mail className="w-3 h-3 shrink-0" style={{ color: "#FACC15" }} />
-            <span style={{ fontSize: "11px", fontWeight: 700, color: "rgba(255,255,255,0.6)", letterSpacing: "0.02em", transition: "color 0.2s" }} className="group-hover:!text-white">travelbugpakistan@gmail.com</span>
+            <span style={{ fontSize: "11px", fontWeight: 700, color: "rgba(255,255,255,0.6)", letterSpacing: "0.02em", transition: "color 0.2s" }} className="group-hover:!text-white">Info@travelbug.pk</span>
           </a>
         </div>
       </div>
@@ -373,7 +373,7 @@ export default function Header() {
 
               {/* Footer CTA + contact */}
               <div className="px-4 py-4 border-t border-white/10 space-y-3 bg-black/20 shrink-0">
-                <a href="https://wa.me/923248888889?text=Hi%20TravelBug!%20I%27d%20like%20to%20plan%20a%20trip%20to%20Pakistan." target="_blank" rel="noopener noreferrer"
+                <a href="https://wa.me/923344334411?text=Hi%20TravelBug!%20I%27d%20like%20to%20plan%20a%20trip%20to%20Pakistan." target="_blank" rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#FACC15] text-slate-950 font-bold text-[14px] active:scale-95 transition-transform">
                   <Phone className="w-4 h-4 fill-current" /> Plan My Trip
                 </a>

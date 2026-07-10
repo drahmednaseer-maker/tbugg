@@ -409,7 +409,7 @@ export default function AboutClient() {
             </div>
             <div>
               <p style={{ margin: "0 0 3px", color: "rgba(255,255,255,0.4)", fontSize: "11px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em" }}>Email Us</p>
-              <p style={{ margin: 0, color: "white", fontWeight: 700, fontSize: "16px" }}>travelbugpakistan@gmail.com</p>
+              <p style={{ margin: 0, color: "white", fontWeight: 700, fontSize: "16px" }}>Info@travelbug.pk</p>
             </div>
           </div>
           <div style={{

@@ -69,7 +69,7 @@ const orgJsonLd = {
   foundingDate: "2018",
   priceRange: "$$",
   telephone: "+923248888889",
-  email: "travelbugpakistan@gmail.com",
+  email: "Info@travelbug.pk",
   address: {
     "@type": "PostalAddress",
     streetAddress: "B-89, Post Office Rd, Wah Cantt",

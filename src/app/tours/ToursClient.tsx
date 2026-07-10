@@ -59,7 +59,7 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
       form.specialRequirements ? `Special requirements: ${form.specialRequirements}` : "",
       form.heardFrom ? `Heard from: ${form.heardFrom}` : "",
     ].filter(Boolean);
-    const waUrl = `https://wa.me/923248888889?text=${encodeURIComponent(lines.join("\n"))}`;
+    const waUrl = `https://wa.me/923344334411?text=${encodeURIComponent(lines.join("\n"))}`;
     window.open(waUrl, "_blank", "noopener,noreferrer");
     await new Promise(r => setTimeout(r, 600));
     setSubmitted(true);
@@ -391,7 +391,7 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
                   </button>
                   {/* WhatsApp alternative */}
                   <a
-                    href={`https://wa.me/923248888889?text=Hi!%20I%27d%20like%20to%20plan%20a%20trip%20to%20${encodeURIComponent(form.destination || "Pakistan")}`}
+                    href={`https://wa.me/923344334411?text=Hi!%20I%27d%20like%20to%20plan%20a%20trip%20to%20${encodeURIComponent(form.destination || "Pakistan")}`}
                     target="_blank" rel="noopener noreferrer"
                     style={{
                       padding: "16px 20px", borderRadius: "14px", background: "#22c55e",

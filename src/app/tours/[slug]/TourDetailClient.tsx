@@ -373,7 +373,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
                   </Link>
 
                   <a
-                    href={`https://wa.me/923248888889?text=Hi!%20I'm%20interested%20in%20${encodeURIComponent(tour.title)}`}
+                    href={`https://wa.me/923344334411?text=Hi!%20I'm%20interested%20in%20${encodeURIComponent(tour.title)}`}
                     target="_blank" rel="noopener noreferrer"
                     id="whatsapp-quote-btn"
                     style={{

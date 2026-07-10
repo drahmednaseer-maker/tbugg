@@ -626,7 +626,7 @@ export default function TourBuilder() {
     }
 
     setSent(true);
-    window.open(`https://wa.me/923248888889?text=${encodeURIComponent(lines.join("\n"))}`, "_blank");
+    window.open(`https://wa.me/923344334411?text=${encodeURIComponent(lines.join("\n"))}`, "_blank");
   };
 
   // Email enquiry
@@ -671,7 +671,7 @@ export default function TourBuilder() {
     }
 
     setSent(true);
-    window.open("mailto:travelbugpakistan@gmail.com?subject=" + subject + "&body=" + body, "_blank");
+    window.open("mailto:Info@travelbug.pk?subject=" + subject + "&body=" + body, "_blank");
   };
 
   // ─── Card wrapper shared style ─────────────────────────────────────────────
