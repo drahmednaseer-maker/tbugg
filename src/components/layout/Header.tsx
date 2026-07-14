@@ -332,38 +332,38 @@ export default function Header() {
                 </button>
               </div>
 
-              {/* Body: navigation + contact + CTA, vertically centered */}
-              <div className="flex-1 overflow-y-auto flex flex-col">
-                <div className="menu-body my-auto py-6">
-                  <nav className="px-5">
-                    <p className="text-[11px] font-black tracking-[0.16em] text-white/30 uppercase mb-3.5 px-2">Explore</p>
-                    <ul className="space-y-2">
-                      {navLinks.map(({ href, label, Icon }) => {
-                        const active = isActive(href);
-                        return (
-                          <li key={href}>
-                            <Link href={href}
-                              className={cn(
-                                "menu-row flex items-center gap-4 px-4 py-3.5 rounded-2xl border transition-all duration-200 group",
-                                active ? "bg-[#FACC15]/[0.12] border-[#FACC15]/25" : "border-transparent hover:bg-white/5"
-                              )}>
-                              <span className={cn("w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors",
-                                active ? "bg-[#FACC15]/20" : "bg-white/[0.06] group-hover:bg-white/10")}>
-                                <Icon className="w-[19px] h-[19px]" style={{ color: active ? "#FACC15" : "rgba(255,255,255,0.75)" }} />
-                              </span>
-                              <span className={cn("flex-1 text-[15px] font-bold tracking-wide", active ? "text-[#FACC15]" : "text-white/90")}>{label}</span>
-                              <ArrowRight className={cn("w-4 h-4 shrink-0 transition-all duration-200", active ? "text-[#FACC15]" : "text-white/25 -translate-x-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-0")} />
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </nav>
+              {/* Body: nav at top, contact + CTA pulled toward the bottom-centre */}
+              <div className="menu-body flex-1 overflow-y-auto flex flex-col">
+                <nav className="pt-5">
+                  <p className="text-[11px] font-black tracking-[0.16em] text-white/30 uppercase mb-3.5 px-2">Explore</p>
+                  <ul className="space-y-2">
+                    {navLinks.map(({ href, label, Icon }) => {
+                      const active = isActive(href);
+                      return (
+                        <li key={href}>
+                          <Link href={href}
+                            className={cn(
+                              "menu-row flex items-center gap-4 py-3.5 rounded-2xl border transition-all duration-200 group",
+                              active ? "bg-[#FACC15]/[0.12] border-[#FACC15]/25" : "border-transparent hover:bg-white/5"
+                            )}>
+                            <span className={cn("w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors",
+                              active ? "bg-[#FACC15]/20" : "bg-white/[0.06] group-hover:bg-white/10")}>
+                              <Icon className="w-[19px] h-[19px]" style={{ color: active ? "#FACC15" : "rgba(255,255,255,0.75)" }} />
+                            </span>
+                            <span className={cn("flex-1 text-[15px] font-bold tracking-wide", active ? "text-[#FACC15]" : "text-white/90")}>{label}</span>
+                            <ArrowRight className={cn("w-4 h-4 shrink-0 transition-all duration-200", active ? "text-[#FACC15]" : "text-white/25 -translate-x-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-0")} />
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </nav>
 
-                  <div className="px-5 pt-8">
+                <div className="menu-lower">
+                  <div>
                     <p className="text-[11px] font-black tracking-[0.16em] text-white/30 uppercase mb-3.5 px-2">Get in touch</p>
                     <div className="space-y-1.5">
-                      <a href="tel:+923344334411" className="menu-row flex items-center gap-4 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors">
+                      <a href="tel:+923344334411" className="menu-row flex items-center gap-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors">
                         <span className="w-10 h-10 rounded-xl bg-[#22c55e]/[0.12] border border-[#22c55e]/25 flex items-center justify-center shrink-0">
                           <Phone className="w-[18px] h-[18px]" style={{ color: "#22c55e" }} />
                         </span>
@@ -372,13 +372,13 @@ export default function Header() {
                           <span className="text-[11px] text-white/40 mt-0.5">Call / WhatsApp</span>
                         </span>
                       </a>
-                      <a href="tel:+923248888889" className="menu-row flex items-center gap-4 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors">
+                      <a href="tel:+923248888889" className="menu-row flex items-center gap-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors">
                         <span className="w-10 h-10 rounded-xl bg-white/[0.06] flex items-center justify-center shrink-0">
                           <Phone className="w-[18px] h-[18px]" style={{ color: "rgba(255,255,255,0.7)" }} />
                         </span>
                         <span className="text-[15px] font-bold text-white/90">0324 8888889</span>
                       </a>
-                      <a href="mailto:Info@travelbug.pk" className="menu-row flex items-center gap-4 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors">
+                      <a href="mailto:Info@travelbug.pk" className="menu-row flex items-center gap-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors">
                         <span className="w-10 h-10 rounded-xl bg-[#FACC15]/[0.1] border border-[#FACC15]/20 flex items-center justify-center shrink-0">
                           <Mail className="w-[18px] h-[18px]" style={{ color: "#FACC15" }} />
                         </span>
@@ -387,11 +387,11 @@ export default function Header() {
                     </div>
                   </div>
 
-                  {/* Primary CTA — big & central */}
-                  <div className="px-5 pt-9">
+                  {/* Primary CTA — big, centred near the bottom */}
+                  <div className="menu-cta">
                     <a href="https://wa.me/923344334411?text=Hi%20TravelBug!%20I%27d%20like%20to%20plan%20a%20trip%20to%20Pakistan." target="_blank" rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2.5 w-full py-4 rounded-2xl bg-[#FACC15] text-slate-950 font-black text-[16px] active:scale-95 transition-transform shadow-lg shadow-[#FACC15]/25">
-                      <MessageCircle className="w-5 h-5" /> Plan My Trip on WhatsApp
+                      className="flex items-center justify-center gap-2.5 w-full py-5 rounded-2xl bg-[#FACC15] text-slate-950 font-black text-[17px] active:scale-95 transition-transform shadow-lg shadow-[#FACC15]/30">
+                      <MessageCircle className="w-6 h-6" /> Plan My Trip on WhatsApp
                     </a>
                   </div>
                 </div>

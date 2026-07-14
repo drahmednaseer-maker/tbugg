@@ -351,5 +351,16 @@ body::before {
 .menu-hdr  { padding-left: 22px !important; padding-right: 22px !important; }
 .menu-body { padding-left: 14px !important; padding-right: 14px !important; }
 .menu-row  { padding-left: 16px !important; padding-right: 16px !important; }
+/* push the contact + CTA group toward the bottom-centre of the drawer */
+.menu-lower { margin-top: auto !important; padding-bottom: 30px !important; }
+.menu-cta   { padding-top: 22px !important; }
+
+/* Contact page — stack the form/sidebar split and the field pairs on mobile */
+@media (max-width: 860px) {
+  .contact-main { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 560px) {
+  .contact-2col { grid-template-columns: 1fr !important; }
+}
 
 

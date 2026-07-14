@@ -195,7 +195,7 @@ export default function ContactClient() {
 
       {/* ── MAIN CONTENT: FORM + MAP ── */}
       <section style={{ padding: "0 32px 80px" }}>
-        <div style={{ maxWidth: "80rem", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px", alignItems: "start" }}>
+        <div className="contact-main" style={{ maxWidth: "80rem", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px", alignItems: "start" }}>
 
           {/* ── Contact Form ── */}
           <motion.div
@@ -230,7 +230,7 @@ export default function ContactClient() {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                  <div className="contact-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                     <div>
                       <label style={labelStyle}>Full Name *</label>
                       <input name="name" value={form.name} onChange={handleChange} placeholder="Your full name"
@@ -244,7 +244,7 @@ export default function ContactClient() {
                       {errors.email && <p style={{ color: "#f87171", fontSize: "12px", marginTop: "5px" }}>{errors.email}</p>}
                     </div>
                   </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                  <div className="contact-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                     <div>
                       <label style={labelStyle}>Phone / WhatsApp</label>
                       <input name="phone" value={form.phone} onChange={handleChange} placeholder="+92 300 1234567" style={inputStyle} />
