@@ -346,4 +346,10 @@ body::before {
   .why-stats-row { grid-template-columns: 1fr 1fr !important; gap: 10px !important; padding: 28px 20px !important; }
 }
 
+/* Mobile menu drawer padding — the unlayered "* { padding:0 }" reset (top of file)
+   beats Tailwind's layered px-* utilities, so the drawer's padding must be set here. */
+.menu-hdr  { padding-left: 22px !important; padding-right: 22px !important; }
+.menu-body { padding-left: 14px !important; padding-right: 14px !important; }
+.menu-row  { padding-left: 16px !important; padding-right: 16px !important; }
+
 
