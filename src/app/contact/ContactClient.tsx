@@ -96,7 +96,7 @@ export default function ContactClient() {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
             style={{ color: "rgba(255,255,255,0.5)", fontSize: "16px", lineHeight: 1.7, maxWidth: "520px", margin: "0 auto" }}
           >
-            Our Pakistan travel specialists are ready to craft a journey built entirely around you. Reach out — we respond within 2 hours.
+            Our Pakistan travel specialists are ready to craft a journey built entirely around you. Reach out any time — we&apos;re online 24/7.
           </motion.p>
         </div>
       </section>
@@ -145,7 +145,7 @@ export default function ContactClient() {
               <div>
                 <p style={{ margin: "0 0 2px", color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em" }}>Email</p>
                 <p style={{ margin: "0 0 1px", color: "white", fontWeight: 700, fontSize: "14px" }}>{EMAIL}</p>
-                <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: "12px" }}>Reply within 2 hours</p>
+                <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: "12px" }}>We reply any time, any day</p>
               </div>
             </motion.a>
 
@@ -205,7 +205,7 @@ export default function ContactClient() {
             {/* Form header */}
             <div style={{ padding: "28px 32px", borderBottom: "1px solid rgba(255,255,255,0.07)", background: "rgba(255,255,255,0.02)" }}>
               <h2 style={{ margin: "0 0 6px", fontSize: "20px", fontWeight: 800, color: "white" }}>Send Us a Message</h2>
-              <p style={{ margin: 0, color: "rgba(255,255,255,0.4)", fontSize: "14px" }}>We&apos;ll get back to you within 2 hours</p>
+              <p style={{ margin: 0, color: "rgba(255,255,255,0.4)", fontSize: "14px" }}>We&apos;re online 24/7 — we&apos;ll get right back to you</p>
             </div>
 
             <div style={{ padding: "28px 32px" }}>
@@ -219,7 +219,7 @@ export default function ContactClient() {
                   </div>
                   <h3 style={{ margin: "0 0 8px", fontSize: "20px", fontWeight: 800, color: "white" }}>Message Sent!</h3>
                   <p style={{ margin: "0 0 20px", color: "rgba(255,255,255,0.5)", fontSize: "14px" }}>
-                    Thank you, <strong style={{ color: "white" }}>{form.name}</strong>! Our team will contact you within 2 hours on WhatsApp or email.
+                    Thank you, <strong style={{ color: "white" }}>{form.name}</strong>! Our team will contact you shortly on WhatsApp or email.
                   </p>
                   <button
                     onClick={() => { setSubmitted(false); setForm({ name: "", email: "", phone: "", subject: "", message: "" }); }}

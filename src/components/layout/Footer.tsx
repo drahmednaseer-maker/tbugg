@@ -61,7 +61,7 @@ export default function Footer() {
             </p>
 
             {/* Social icons */}
-            <div style={{ display: "flex", gap: "10px" }}>
+            <div className="footer-socials" style={{ display: "flex", gap: "10px" }}>
               {socials.map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
@@ -205,7 +205,7 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-        <div style={{
+        <div className="footer-bottom" style={{
           maxWidth: "1200px", margin: "0 auto",
           padding: "20px 40px",
           display: "flex", alignItems: "center",

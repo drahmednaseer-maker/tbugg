@@ -254,7 +254,12 @@ body::before {
   .footer-main-grid { grid-template-columns: 1fr 1fr !important; gap: 36px !important; }
 }
 @media (max-width: 540px) {
-  .footer-main-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .footer-main-grid { grid-template-columns: 1fr !important; gap: 32px !important; text-align: center; }
+  .footer-main-grid p { margin-left: auto !important; margin-right: auto !important; }
+  .footer-main-grid ul { align-items: center !important; }
+  .footer-main-grid li { justify-content: center !important; }
+  .footer-socials { justify-content: center !important; }
+  .footer-bottom { justify-content: center !important; text-align: center; }
 }
 
 /* Footer outer padding */
