@@ -180,7 +180,7 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
                   </div>
                   <span style={{ color: "white", fontWeight: 700, fontSize: "15px" }}>Your Details</span>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
+                <div className="contact-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
                   <div>
                     <label style={labelStyle}>Full Name *</label>
                     <input required name="name" value={form.name} onChange={handleChange} placeholder="Muhammad Asmar" style={inputStyle} />
@@ -212,7 +212,7 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
                   </div>
                   <span style={{ color: "white", fontWeight: 700, fontSize: "15px" }}>Destination & Dates</span>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
+                <div className="contact-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
                   <div style={{ gridColumn: "1 / -1" }}>
                     <label style={labelStyle}>Primary Destination *</label>
                     <select required name="destination" value={form.destination} onChange={handleChange} style={selectStyle}>
@@ -246,7 +246,7 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
                   </div>
                   <span style={{ color: "white", fontWeight: 700, fontSize: "15px" }}>Group Size</span>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
+                <div className="contact-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
                   <div>
                     <label style={labelStyle}>Number of Adults *</label>
                     <select required name="adults" value={form.adults} onChange={handleChange} style={selectStyle}>
@@ -270,7 +270,7 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
                   </div>
                   <span style={{ color: "white", fontWeight: 700, fontSize: "15px" }}>Hotel & Room Preferences</span>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
+                <div className="contact-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
                   <div>
                     <label style={labelStyle}>Hotel Category *</label>
                     <select required name="hotelCategory" value={form.hotelCategory} onChange={handleChange} style={selectStyle}>
@@ -306,7 +306,7 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
                   </div>
                   <span style={{ color: "white", fontWeight: 700, fontSize: "15px" }}>Meals & Transport</span>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
+                <div className="contact-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
                   <div>
                     <label style={labelStyle}>Meal Plan *</label>
                     <select required name="meals" value={form.meals} onChange={handleChange} style={selectStyle}>
