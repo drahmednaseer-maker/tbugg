@@ -761,7 +761,7 @@ export default function ToursClient() {
         borderBottom: "1px solid rgba(255,255,255,0.08)",
         padding: "16px 32px",
       }}>
-        <div style={{ maxWidth: "80rem", margin: "0 auto", display: "flex", gap: "16px", alignItems: "center" }}>
+        <div className="tours-searchbar" style={{ maxWidth: "80rem", margin: "0 auto", display: "flex", gap: "16px", alignItems: "center" }}>
           <div style={{
             flex: 1, display: "flex", alignItems: "center", gap: "12px",
             background: "rgba(255,255,255,0.06)", border: "1.5px solid rgba(255,255,255,0.1)",

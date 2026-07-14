@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ZoomIn, Star, ArrowRight, MessageCircle, Check } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 
 const particles = [
@@ -84,8 +84,58 @@ export default function Hero() {
     return () => window.removeEventListener("keydown", handle);
   }, [lightbox]);
 
+  /* ── Draggable auto-scroll marquee ──────────────────────────────────────
+     Auto-scrolls gently; a finger swipe (or mouse drag) takes control and
+     pauses it, and it resumes as soon as the touch/drag is released. */
+  const marqueeRef = useRef<HTMLDivElement>(null);
+  const pausedRef  = useRef(false);
+  const dragRef    = useRef({ x: 0, left: 0, active: false });
+  const movedRef   = useRef(false);
+  useEffect(() => { pausedRef.current = paused; }, [paused]);
+  useEffect(() => {
+    const el = marqueeRef.current;
+    if (!el) return;
+    const SPEED = 90; // px per second
+    let pos  = el.scrollLeft;
+    let last = performance.now();
+    let raf  = 0;
+    const step = (now: number) => {
+      const dt = now - last; last = now;
+      if (!pausedRef.current) {
+        pos += (SPEED * dt) / 1000;
+        const half = el.scrollWidth / 2;          // one copy of the (duplicated) set
+        if (half > 0 && pos >= half) pos -= half;  // seamless loop
+        el.scrollLeft = pos;
+      } else {
+        pos = el.scrollLeft;                        // stay in sync with the user's finger
+      }
+      raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+  const onMarqueeDown = (e: React.MouseEvent) => {
+    const el = marqueeRef.current; if (!el) return;
+    dragRef.current = { x: e.clientX, left: el.scrollLeft, active: true };
+    movedRef.current = false;
+    el.style.cursor = "grabbing";
+    setPaused(true);
+  };
+  const onMarqueeMove = (e: React.MouseEvent) => {
+    const el = marqueeRef.current;
+    if (!el || !dragRef.current.active) return;
+    const dx = e.clientX - dragRef.current.x;
+    if (Math.abs(dx) > 5) movedRef.current = true;
+    el.scrollLeft = dragRef.current.left - dx;
+  };
+  const endMarqueeDrag = () => {
+    const el = marqueeRef.current;
+    dragRef.current.active = false;
+    if (el) el.style.cursor = "grab";
+  };
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden" id="hero">
+    <section className="relative lg:min-h-screen flex flex-col overflow-hidden" id="hero">
 
       {/* ── Background ─────────────────────────────────────────────────────── */}
       <div className="absolute inset-0 z-0">
@@ -105,32 +155,75 @@ export default function Hero() {
 
 
       {/* ── Hero text ──────────────────────────────────────────────────────── */}
-      <div className="hero-content relative z-10 w-full flex flex-col items-center justify-center text-center" style={{ paddingLeft: "5%", paddingRight: "5%", paddingTop: "100px", paddingBottom: "220px" }}>
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="overflow-hidden mb-4">
-            <motion.h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
+      <div className="hero-content relative z-10 w-full lg:flex-1 flex flex-col items-center justify-start lg:justify-end text-center" style={{ paddingLeft: "5%", paddingRight: "5%", paddingTop: "132px", paddingBottom: "24px" }}>
+        <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
+
+          {/* Eyebrow badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}
+            style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "7px 16px", marginBottom: "26px", borderRadius: "999px", background: "rgba(255,194,10,0.10)", border: "1px solid rgba(255,194,10,0.28)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)" }}>
+            <Star style={{ width: 13, height: 13, color: "#FFC20A", fill: "#FFC20A" }} />
+            <span style={{ color: "#FFD34A", fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>Photographer-Led Custom Tours</span>
+          </motion.div>
+
+          <div className="overflow-hidden mb-3">
+            <motion.h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
               Explore Pakistan
               <span className="sr-only"> — Your Next Adventure Destination. Photographer-led, 100% customized tours of Pakistan.</span>
             </motion.h1>
           </div>
           <div className="overflow-hidden mb-2" aria-hidden="true">
-            <motion.div className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
+            <motion.div className="text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
               Your Next
             </motion.div>
           </div>
-          <div className="overflow-hidden mb-8" aria-hidden="true">
-            <motion.div className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight"
+          <div className="overflow-hidden mb-7" aria-hidden="true">
+            <motion.div className="text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight"
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }}>
               <span style={{ color: "#FFC20A" }}>Adventure Destination</span>
             </motion.div>
           </div>
-          <motion.p className="text-lg text-white/65 leading-loose max-w-xl mx-auto"
-            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }}>
+
+          <motion.p className="text-lg text-white/65 leading-loose max-w-xl mx-auto" style={{ textAlign: "center" }}
+            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.35 }}>
             From the majestic peaks of Karakorams &amp; Hindukush to the serene landscapes of Gwadar —
             we design unforgettable journeys across Pakistan.
           </motion.p>
+
+          {/* Primary CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.45 }}
+            style={{ display: "flex", flexWrap: "wrap", gap: "14px", justifyContent: "center", marginTop: "36px" }}>
+            <a href="#tour-builder"
+              style={{ display: "inline-flex", alignItems: "center", gap: "9px", padding: "15px 30px", borderRadius: "999px", background: "linear-gradient(135deg, #FFD34A, #FFC20A)", color: "#0B1628", fontSize: "15px", fontWeight: 800, textDecoration: "none", boxShadow: "0 10px 30px rgba(255,194,10,0.28)", transition: "transform 0.2s, box-shadow 0.2s" }}
+              onMouseEnter={(e) => { const el = e.currentTarget; el.style.transform = "translateY(-2px)"; el.style.boxShadow = "0 14px 40px rgba(255,194,10,0.45)"; }}
+              onMouseLeave={(e) => { const el = e.currentTarget; el.style.transform = "translateY(0)"; el.style.boxShadow = "0 10px 30px rgba(255,194,10,0.28)"; }}>
+              Plan My Trip
+              <ArrowRight style={{ width: 17, height: 17 }} />
+            </a>
+            <a href="https://wa.me/923344334411?text=Hi%20TravelBug!%20I%27d%20like%20to%20plan%20a%20custom%20tour%20of%20Pakistan." target="_blank" rel="noopener noreferrer"
+              style={{ display: "inline-flex", alignItems: "center", gap: "9px", padding: "15px 28px", borderRadius: "999px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.18)", color: "white", fontSize: "15px", fontWeight: 700, textDecoration: "none", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)", transition: "background 0.2s, border-color 0.2s" }}
+              onMouseEnter={(e) => { const el = e.currentTarget; el.style.background = "rgba(37,211,102,0.16)"; el.style.borderColor = "rgba(37,211,102,0.55)"; }}
+              onMouseLeave={(e) => { const el = e.currentTarget; el.style.background = "rgba(255,255,255,0.06)"; el.style.borderColor = "rgba(255,255,255,0.18)"; }}>
+              <MessageCircle style={{ width: 17, height: 17, color: "#25D366" }} />
+              Chat on WhatsApp
+            </a>
+          </motion.div>
+
+          {/* Trust badges */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }}
+            style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px", marginTop: "38px" }}>
+            {["100% Customized", "Photographer-Led", "Karakoram to Gwadar"].map((t, i) => (
+              <div key={i} style={{ display: "inline-flex", alignItems: "center", gap: "7px", padding: "8px 15px", borderRadius: "999px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)" }}>
+                <Check style={{ width: 14, height: 14, color: "#FFC20A" }} />
+                <span style={{ color: "rgba(255,255,255,0.78)", fontSize: "13px", fontWeight: 600 }}>{t}</span>
+              </div>
+            ))}
+          </motion.div>
+
         </div>
       </div>
 
@@ -139,10 +232,10 @@ export default function Hero() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, delay: 1.0 }}
-        style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 20 }}
+        style={{ position: "relative", zIndex: 20, width: "100%" }}
       >
         {/* Fade gradient above */}
-        <div style={{ height: "70px", background: "linear-gradient(to bottom, transparent, rgba(6,11,24,0.85))", pointerEvents: "none" }} />
+        <div style={{ height: "18px", background: "linear-gradient(to bottom, transparent, rgba(6,11,24,0.85))", pointerEvents: "none" }} />
 
         <div style={{ background: "rgba(6,11,24,0.88)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", borderTop: "1px solid rgba(255,255,255,0.07)", padding: "16px 0 20px" }}>
 
@@ -154,25 +247,31 @@ export default function Hero() {
 
           {/* Marquee */}
           <div
+            ref={marqueeRef}
+            className="hero-marquee"
             onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-            style={{ overflow: "hidden", width: "100%" }}
+            onMouseLeave={() => { endMarqueeDrag(); setPaused(false); }}
+            onMouseDown={onMarqueeDown}
+            onMouseMove={onMarqueeMove}
+            onMouseUp={endMarqueeDrag}
+            onTouchStart={() => setPaused(true)}
+            onTouchEnd={() => setPaused(false)}
+            onTouchCancel={() => setPaused(false)}
+            style={{ overflowX: "auto", overflowY: "hidden", width: "100%", scrollbarWidth: "none", WebkitOverflowScrolling: "touch", touchAction: "pan-x", cursor: "grab" }}
           >
             <div style={{
               display: "flex",
               gap: "12px",
               width: "max-content",
-              animation: "marquee 55s linear infinite",
-              animationPlayState: paused ? "paused" : "running",
             }}>
               {[...PHOTOS, ...PHOTOS].map((photo, i) => (
                 <div
                   key={i}
-                  onClick={() => setLightbox(i % PHOTOS.length)}
+                  onClick={() => { if (movedRef.current) { movedRef.current = false; return; } setLightbox(i % PHOTOS.length); }}
                   style={{
-                    flex: "0 0 180px",
-                    height: "110px",
-                    borderRadius: "14px",
+                    flex: "0 0 clamp(190px, 25vw, 400px)",
+                    height: "clamp(150px, 19.5vw, 310px)",
+                    borderRadius: "16px",
                     overflow: "hidden",
                     position: "relative",
                     cursor: "zoom-in",
@@ -197,6 +296,11 @@ export default function Hero() {
                 >
                   <img src={photo.src} alt={photo.label} draggable={false}
                     style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0, pointerEvents: "none" }} />
+
+                  {/* Location label */}
+                  <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "30px 14px 12px", background: "linear-gradient(to top, rgba(6,11,24,0.94), rgba(6,11,24,0))", pointerEvents: "none" }}>
+                    <p style={{ color: "white", fontSize: "13.5px", fontWeight: 700, margin: 0, textShadow: "0 1px 6px rgba(0,0,0,0.9)" }}>{photo.label}</p>
+                  </div>
 
                   {/* Zoom icon on hover */}
                   <div className="ph-icon" style={{ position: "absolute", top: 7, right: 7, width: 24, height: 24, borderRadius: "50%", background: "rgba(255,194,10,0.88)", display: "flex", alignItems: "center", justifyContent: "center", opacity: 0, transform: "scale(0.8)", transition: "opacity 0.25s, transform 0.25s" }}>
@@ -260,10 +364,7 @@ export default function Hero() {
       </AnimatePresence>
 
       <style>{`
-        @keyframes marquee {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
+        .hero-marquee::-webkit-scrollbar { display: none; }
       `}</style>
     </section>
   );

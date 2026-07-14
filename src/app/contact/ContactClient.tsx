@@ -107,7 +107,7 @@ export default function ContactClient() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px" }}>
             {/* Phone 1 */}
             <motion.a
-              href={`tel:+923248888889`}
+              href={`tel:+923344334411`}
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
               style={{
                 display: "flex", alignItems: "center", gap: "14px", padding: "20px 22px",
@@ -122,8 +122,8 @@ export default function ContactClient() {
               </div>
               <div>
                 <p style={{ margin: "0 0 2px", color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em" }}>Call Us</p>
-                <p style={{ margin: "0 0 1px", color: "white", fontWeight: 700, fontSize: "14px" }}>{PHONE1}</p>
-                <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: "12px" }}>{PHONE2}</p>
+                <p style={{ margin: "0 0 1px", color: "white", fontWeight: 700, fontSize: "14px" }}>{PHONE2}</p>
+                <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: "12px" }}>{PHONE1}</p>
               </div>
             </motion.a>
 

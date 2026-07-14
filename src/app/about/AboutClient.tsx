@@ -345,8 +345,8 @@ export default function AboutClient() {
             borderRadius: "24px",
             background: "linear-gradient(135deg, rgba(255,194,10,0.1) 0%, rgba(255,194,10,0.03) 100%)",
             border: "1px solid rgba(255,194,10,0.2)",
-            padding: "48px",
-            display: "grid", gridTemplateColumns: "1fr 1fr", gap: "48px", alignItems: "center",
+            padding: "clamp(24px, 5vw, 48px)",
+            display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "clamp(28px, 4vw, 48px)", alignItems: "center",
           }}>
             <div>
               <div style={{ display: "flex", gap: "4px", marginBottom: "16px" }}>
@@ -395,8 +395,8 @@ export default function AboutClient() {
             </div>
             <div>
               <p style={{ margin: "0 0 3px", color: "rgba(255,255,255,0.4)", fontSize: "11px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em" }}>Call / WhatsApp</p>
-              <p style={{ margin: 0, color: "white", fontWeight: 700, fontSize: "16px" }}>+92 324 8888889</p>
-              <p style={{ margin: "2px 0 0", color: "rgba(255,255,255,0.4)", fontSize: "13px" }}>+92 334 4334411</p>
+              <p style={{ margin: 0, color: "white", fontWeight: 700, fontSize: "16px" }}>+92 334 4334411</p>
+              <p style={{ margin: "2px 0 0", color: "rgba(255,255,255,0.4)", fontSize: "13px" }}>+92 324 8888889</p>
             </div>
           </div>
           <div style={{

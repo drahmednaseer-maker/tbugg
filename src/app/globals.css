@@ -188,7 +188,7 @@ body::before {
 /* Hero section */
 @media (max-width: 768px) {
   #hero { min-height: 100svh; }
-  #hero .hero-content { padding: 100px 22px 0 !important; }
+  #hero .hero-content { padding: 140px 22px 24px !important; }
   #hero .hero-pin-area { display: none !important; }
 }
 
@@ -209,7 +209,22 @@ body::before {
 }
 @media (max-width: 900px) {
   .tb-step1-grid { grid-template-columns: 1fr !important; }
-  .tb-step1-grid .tb-map-col { display: none !important; }
+  /* keep the route panel + Continue button on mobile; only hide the heavy map */
+  .tb-step1-grid .tb-map-col { position: static !important; }
+  .tb-step1-grid .tb-map-col .tb-map { display: none !important; }
+}
+
+/* ── Mobile audit fixes ─────────────────────────────────────── */
+@media (max-width: 640px) {
+  /* /tours filter bar: wrap so the "Get a Quote" button never clips off-screen */
+  .tours-searchbar { flex-wrap: wrap !important; }
+  .tours-searchbar > div:first-child { flex: 1 1 100% !important; min-width: 0 !important; }
+  /* tour-detail meta cards: 2 columns instead of an overflowing row */
+  .td-info-grid { grid-template-columns: 1fr 1fr !important; }
+}
+@media (hover: none), (max-width: 640px) {
+  /* touch devices can't hover — keep the destination gallery arrows visible */
+  .fd-arrow { opacity: 1 !important; transform: translateY(-50%) translateX(0) !important; }
 }
 
 /* TourBuilder step 2,3,4 panels */

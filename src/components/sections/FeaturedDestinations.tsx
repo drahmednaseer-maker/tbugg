@@ -150,6 +150,7 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
           <>
             <button
               onClick={prev}
+              className="fd-arrow"
               style={{
                 position: "absolute", left: "10px", top: "50%",
                 transform: `translateY(-50%) translateX(${hovered ? "0" : "-8px"})`,
@@ -165,6 +166,7 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
             </button>
             <button
               onClick={next}
+              className="fd-arrow"
               style={{
                 position: "absolute", right: "10px", top: "50%",
                 transform: `translateY(-50%) translateX(${hovered ? "0" : "8px"})`,
@@ -265,7 +267,7 @@ export default function FeaturedDestinations() {
             color: "rgba(255,255,255,0.5)", maxWidth: "500px",
             margin: "0 auto", lineHeight: 1.7, fontSize: "15px",
           }}>
-            Pakistan's most extraordinary destinations. Hover over any card and use arrows to browse photos.
+            Pakistan's most extraordinary destinations. Use the arrows on any card to browse its photos.
           </p>
         </motion.div>
 

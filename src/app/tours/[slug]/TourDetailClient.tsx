@@ -118,7 +118,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
               </div>
 
               {/* Meta cards */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(130px,1fr))", gap: "12px" }}>
+              <div className="td-info-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(130px,1fr))", gap: "12px" }}>
                 {[
                   { icon: Clock,    label: "Duration",   value: `${tour.duration} Days` },
                   { icon: Users,    label: "Group Size", value: `Max ${tour.maxGroupSize}` },
@@ -133,7 +133,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
                   }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "7px", color: "rgba(255,255,255,0.38)" }}>
                       <Icon style={{ width: "13px", height: "13px", color: "#FFC20A" }} />
-                      <span style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700 }}>{label}</span>
+                      <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700 }}>{label}</span>
                     </div>
                     <span style={{ color: "white", fontWeight: 700, fontSize: "15px" }}>{value}</span>
                   </div>
@@ -349,7 +349,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
                         <Icon style={{ width: "16px", height: "16px", color: "#FFC20A" }} />
                       </div>
                       <div>
-                        <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700, marginBottom: "4px" }}>{label}</p>
+                        <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700, marginBottom: "4px" }}>{label}</p>
                         <p style={{ color: "white", fontWeight: 600, fontSize: "14px", margin: 0 }}>{value}</p>
                       </div>
                     </div>

@@ -170,20 +170,20 @@ export default function Footer() {
                 <Phone style={{ width: 15, height: 15, color: "#FFC20A", flexShrink: 0 }} />
                 <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                   <a
-                    href="tel:+923248888889"
-                    style={{ color: "rgba(255,255,255,0.45)", fontSize: "13px", textDecoration: "none", transition: "color 0.2s" }}
-                    onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = "white"}
-                    onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.45)"}
-                  >
-                    +92 324 8888889
-                  </a>
-                  <a
                     href="tel:+923344334411"
                     style={{ color: "rgba(255,255,255,0.45)", fontSize: "13px", textDecoration: "none", transition: "color 0.2s" }}
                     onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = "white"}
                     onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.45)"}
                   >
                     +92 334 4334411
+                  </a>
+                  <a
+                    href="tel:+923248888889"
+                    style={{ color: "rgba(255,255,255,0.45)", fontSize: "13px", textDecoration: "none", transition: "color 0.2s" }}
+                    onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = "white"}
+                    onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.45)"}
+                  >
+                    +92 324 8888889
                   </a>
                 </div>
               </li>

@@ -726,14 +726,14 @@ export default function TourBuilder() {
 
                 {/* Name */}
                 <div style={{ marginBottom: "14px" }}>
-                  <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "10px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "8px" }}>Your Name (optional)</p>
+                  <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "8px" }}>Your Name (optional)</p>
                   <input type="text" placeholder="e.g. Ali Khan" value={guestName} onChange={e => setGuestName(e.target.value)}
                     style={{ width: "100%", padding: "13px 14px", borderRadius: "14px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: "white", fontSize: "14px", fontWeight: 600, outline: "none", boxSizing: "border-box" }} />
                 </div>
 
                 {/* Contact method */}
                 <div style={{ marginBottom: "20px" }}>
-                  <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "10px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "8px" }}>Contact (required) *</p>
+                  <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "8px" }}>Contact (required) *</p>
                   <div style={{ display: "flex", gap: "8px", marginBottom: "12px" }}>
                     {(["whatsapp", "email"] as const).map(m => (
                       <button key={m} type="button" onClick={() => setContactMethod(m)}
@@ -875,8 +875,9 @@ export default function TourBuilder() {
                   )}
                 </div>
 
-                {/* Map — always visible in Step 1, click to expand */}
+                {/* Map — visible in Step 1 on desktop, click to expand (hidden on mobile) */}
                 <div
+                  className="tb-map"
                   onClick={() => setMapExpanded(true)}
                   style={{ borderRadius: "20px", overflow: "hidden", height: "280px", marginTop: "0", cursor: "pointer", position: "relative" }}
                 >
@@ -991,7 +992,7 @@ export default function TourBuilder() {
 
                 {/* Transport grid */}
                 <div style={{ marginBottom: "24px" }}>
-                  <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "10px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "14px" }}>Select Transport</p>
+                  <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "14px" }}>Select Transport</p>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
                     {TRANSPORT_OPTIONS.map(t => {
                       const sel = transport === t.id;
@@ -1018,7 +1019,7 @@ export default function TourBuilder() {
 
                 {/* Departure */}
                 <div style={{ marginBottom: "28px" }}>
-                  <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "10px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "12px" }}>Departure City</p>
+                  <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "12px" }}>Departure City</p>
                   <div style={{ display: "flex", gap: "10px" }}>
                     {(["islamabad", "lahore"] as const).map(city => (
                       <button key={city} type="button" onClick={() => setDeparture(city)}
@@ -1123,7 +1124,7 @@ export default function TourBuilder() {
 
                 {/* Route list */}
                 <div style={{ marginBottom: "16px" }}>
-                  <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "10px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "10px" }}>Route</p>
+                  <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "10px" }}>Route</p>
                   {route.map((d, i) => (
                     <div key={d.id} style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
                       <div style={{ width: 22, height: 22, borderRadius: "50%", background: "#FFC20A", color: "#0B1628", fontSize: "10px", fontWeight: 900, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{i + 1}</div>
