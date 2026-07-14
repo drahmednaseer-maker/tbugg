@@ -756,7 +756,7 @@ export default function ToursClient() {
 
       {/* Search Bar */}
       <section style={{
-        position: "sticky", top: "80px", zIndex: 30,
+        position: "relative", zIndex: 30,
         backgroundColor: "rgba(11,22,40,0.97)", backdropFilter: "blur(20px)",
         borderBottom: "1px solid rgba(255,255,255,0.08)",
         padding: "16px 32px",
