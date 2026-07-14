@@ -185,8 +185,8 @@ export default function ContactClient() {
               </div>
               <div>
                 <p style={{ margin: "0 0 2px", color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em" }}>Hours</p>
-                <p style={{ margin: "0 0 1px", color: "white", fontWeight: 700, fontSize: "14px" }}>Mon – Sat: 9am – 8pm</p>
-                <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: "12px" }}>Sunday: 10am – 5pm (PKT)</p>
+                <p style={{ margin: "0 0 1px", color: "white", fontWeight: 700, fontSize: "14px" }}>24/7 — Always Online</p>
+                <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: "12px" }}>We reply any time, any day</p>
               </div>
             </motion.div>
           </div>
@@ -315,7 +315,7 @@ export default function ContactClient() {
               <div>
                 <p style={{ margin: "0 0 2px", color: "rgba(255,255,255,0.7)", fontSize: "12px", fontWeight: 600 }}>Fastest Response</p>
                 <p style={{ margin: "0 0 1px", color: "white", fontWeight: 800, fontSize: "17px" }}>Chat on WhatsApp Now</p>
-                <p style={{ margin: 0, color: "rgba(255,255,255,0.7)", fontSize: "12px" }}>+92 324 8888889 · Typically replies in minutes</p>
+                <p style={{ margin: 0, color: "rgba(255,255,255,0.7)", fontSize: "12px" }}>+92 334 4334411 · Typically replies in minutes</p>
               </div>
             </a>
 

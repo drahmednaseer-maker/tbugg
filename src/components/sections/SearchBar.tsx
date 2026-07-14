@@ -7,7 +7,7 @@ import {
   User, ChevronDown, CheckCircle, Loader2
 } from "lucide-react";
 
-const WHATSAPP_NUMBER = "923248888889";
+const WHATSAPP_NUMBER = "923344334411";
 
 const destinations = [
   "Hunza Valley", "Skardu", "Fairy Meadows", "Naran Kaghan",
