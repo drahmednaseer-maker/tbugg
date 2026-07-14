@@ -121,7 +121,7 @@ export default function AboutClient() {
 
       {/* ── OUR STORY / MISSION ── */}
       <section style={{ padding: "80px 32px", background: "rgba(6,14,26,0.8)" }}>
-        <div style={{ maxWidth: "80rem", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", alignItems: "center" }}>
+        <div className="about-mission-grid" style={{ maxWidth: "80rem", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", alignItems: "center" }}>
           <motion.div
             initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}
           >

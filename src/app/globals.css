@@ -363,6 +363,7 @@ body::before {
 /* Contact page — stack the form/sidebar split and the field pairs on mobile */
 @media (max-width: 860px) {
   .contact-main { grid-template-columns: 1fr !important; }
+  .about-mission-grid { grid-template-columns: 1fr !important; }
 }
 @media (max-width: 560px) {
   .contact-2col { grid-template-columns: 1fr !important; }
