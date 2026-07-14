@@ -365,6 +365,10 @@ body::before {
   .contact-main { grid-template-columns: 1fr !important; }
   .about-mission-grid { grid-template-columns: 1fr !important; }
 }
+/* stacked sidebars must not stay sticky (they'd float over the footer) */
+@media (max-width: 1023px) {
+  .td-sidebar-sticky { position: static !important; }
+}
 @media (max-width: 560px) {
   .contact-2col { grid-template-columns: 1fr !important; }
 }

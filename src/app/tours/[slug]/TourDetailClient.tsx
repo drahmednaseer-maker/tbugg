@@ -321,7 +321,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
 
           {/* ══════════════ RIGHT SIDEBAR ══════════════ */}
           <div className="lg:col-span-1">
-            <div style={{ position: "sticky", top: "110px", display: "flex", flexDirection: "column", gap: "20px" }}>
+            <div className="td-sidebar-sticky" style={{ position: "sticky", top: "110px", display: "flex", flexDirection: "column", gap: "20px" }}>
 
               <motion.div
                 initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}
