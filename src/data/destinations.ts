@@ -61,7 +61,7 @@ export const destinations: Destination[] = [
     description: "Mughal forts, Sufi shrines & the vibrant Kalash people — Pakistan's living cultural treasures",
     tag: "Cultural",
     images: ["/kalash.jpg", "/destinations/chitral/kalash_portrait.jpg", "/chitral-haldi.jpg"],
-    tourSlug: "lahore-heritage-cultural-tour",
+    tourSlug: "lahore-heritage-luxury",
   },
   {
     id: "gwadar",
