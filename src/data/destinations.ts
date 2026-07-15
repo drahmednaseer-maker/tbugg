@@ -43,7 +43,7 @@ export const destinations: Destination[] = [
     description: "Cherry & apricot blossoms paint the valley pink every spring — one of Pakistan's most magical sights",
     tag: "Blossoms",
     images: ["/spring-passu.jpg", "/hunza-passu-cones.jpg", "/spring-blossoms.jpg"],
-    tourSlug: "hunza-valley-blossoms-tour",
+    tourSlug: "hunza-valley-luxury-escape",
   },
   {
     id: "skardu",
@@ -53,15 +53,6 @@ export const destinations: Destination[] = [
     tag: "Autumn",
     images: ["/autumn-katpana.jpg", "/autumn-skardu.jpg", "/autumn-machlu.jpg"],
     tourSlug: "skardu-shigar-luxury-retreat",
-  },
-  {
-    id: "cultural",
-    name: "Lahore & Kalash",
-    region: "Punjab / KPK",
-    description: "Mughal forts, Sufi shrines & the vibrant Kalash people — Pakistan's living cultural treasures",
-    tag: "Cultural",
-    images: ["/kalash.jpg", "/destinations/chitral/kalash_portrait.jpg", "/chitral-haldi.jpg"],
-    tourSlug: "lahore-heritage-luxury",
   },
   {
     id: "gwadar",
@@ -82,7 +73,7 @@ export const destinations: Destination[] = [
     region: "Gilgit-Baltistan",
     description: "K2, Broad Peak, the Gasherbrums — the world's greatest concentration of high peaks, explored up close",
     tag: "Karakorams",
-    images: ["/mountains-haldi.jpg", "/mountains-haldi2.jpg", "/skardu-katpana2.jpg"],
+    images: ["/mountains-haldi.jpg", "/mountains-haldi2.jpg", "/destinations/k2/k2_peak.jpg"],
     tourSlug: "k2-basecamp-expedition",
   },
   {
@@ -97,14 +88,14 @@ export const destinations: Destination[] = [
   {
     id: "taxila",
     name: "Taxila & Gandhara",
-    region: "KPK / Punjab",
+    region: "Punjab",
     description: "Ancient Buddhist monasteries and stupas — one of the world's greatest archaeological sites",
     tag: "Religious",
     images: [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Dharmarajika_stupa_%26_Monastery_Taxila.jpg/1280px-Dharmarajika_stupa_%26_Monastery_Taxila.jpg",
       "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Jaulian_Buddhist_Monastery_in_Taxila.jpg/1280px-Jaulian_Buddhist_Monastery_in_Taxila.jpg",
     ],
-    tourSlug: "lahore-heritage-luxury",
+    tourSlug: "islamabad-twin-cities-discovery",
   },
   {
     id: "shandur",
@@ -112,8 +103,8 @@ export const destinations: Destination[] = [
     region: "Chitral / Gilgit",
     description: "The world's highest polo ground at 3,700m — electrifying sport, culture & mountain scenery",
     tag: "Sports",
-    images: ["/shandur-polo.jpg", "https://upload.wikimedia.org/wikipedia/commons/2/28/Hindukush_Mountains.jpg"],
-    tourSlug: "kalash-valley-cultural-tour",
+    images: ["/shandur-polo.jpg", "/destinations/shandur/shandur2.jpg", "/destinations/shandur/shandur3.jpg"],
+    tourSlug: "shandur-polo-festival",
   },
   {
     id: "charakusa",
@@ -124,8 +115,8 @@ export const destinations: Destination[] = [
     cardTitle: "Charakusa & Nangma Valley Trek",
     images: [
       "/destinations/charakusa/charakusa_basecamp.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/a/a6/Hindu_Kush_mountains_%2830357238428%29.jpg",
-      "/skardu-katpana2.jpg",
+      "/destinations/k2/masherbrum.jpg",
+      "/destinations/k2/trango_towers.jpg",
     ],
     tourSlug: "charakusa-valley-exploration",
     expedition: {

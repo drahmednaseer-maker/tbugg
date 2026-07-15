@@ -50,13 +50,19 @@ export default async function TourDetailPage({ params }: Props) {
         item: { "@type": "TouristAttraction", name: d.title, description: d.description },
       })),
     },
-    offers: {
-      "@type": "Offer",
-      price: tour.price,
-      priceCurrency: "PKR",
-      availability: "https://schema.org/InStock",
-      url,
-    },
+    // Only advertise a price when we actually have one; custom-quote tours
+    // (price 0) omit the Offer so search engines never show "PKR 0".
+    ...(tour.price > 0
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: tour.price,
+            priceCurrency: "PKR",
+            availability: "https://schema.org/InStock",
+            url,
+          },
+        }
+      : {}),
     provider: { "@type": "TravelAgency", name: "TravelBug.pk", url: "https://travelbug.pk" },
   };
   const breadcrumbJsonLd = {

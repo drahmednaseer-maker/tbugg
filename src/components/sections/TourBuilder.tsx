@@ -719,9 +719,8 @@ export default function TourBuilder() {
             <div className="tb-form-wrap">
               <div style={{ borderRadius: "24px", background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,194,10,0.2)", padding: "40px 36px" }}>
                 <div style={{ textAlign: "center", marginBottom: "28px" }}>
-                  <div style={{ fontSize: "36px", marginBottom: "12px" }}>🗺️</div>
-                  <h3 style={{ color: "white", fontWeight: 900, fontSize: "20px", margin: "0 0 6px" }}>Let&apos;s Start Planning!</h3>
-                  <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "13px", margin: 0 }}>Leave your contact so we can follow up and craft your perfect trip.</p>
+                  <h3 style={{ color: "white", fontWeight: 900, fontSize: "clamp(26px, 7vw, 34px)", lineHeight: 1.15, margin: "0 0 10px" }}>Let&apos;s Start Planning!</h3>
+                  <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "14px", margin: 0 }}>Leave your contact so we can follow up and craft your perfect trip.</p>
                 </div>
 
                 {/* Name */}
