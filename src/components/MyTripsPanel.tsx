@@ -140,7 +140,7 @@ function ItineraryCard({
               </div>
 
               {/* Info grid */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", marginBottom: "12px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: "8px", marginBottom: "12px" }}>
                 {[
                   { icon: "👥", label: `${it.maleAdults}M · ${it.femaleAdults}F${it.children > 0 ? ` · ${it.children} child` : ""}` },
                   { icon: "🚗", label: TRANSPORT_LABELS[it.transport] ?? it.transport },

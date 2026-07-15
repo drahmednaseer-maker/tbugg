@@ -52,7 +52,7 @@ export default function PakistanToursHub() {
 
       {/* Market grid */}
       <section style={{ padding: "20px 40px 90px" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))", gap: "18px" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 250px), 1fr))", gap: "18px" }}>
           {markets.map((m) => (
             <Link key={m.slug} href={`/pakistan-tours/${m.slug}`} style={{ display: "block", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "20px", padding: "28px", textDecoration: "none" }}>
               <span style={{ fontSize: "34px", display: "block", marginBottom: "16px" }}>{m.flag}</span>

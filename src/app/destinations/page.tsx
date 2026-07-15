@@ -32,7 +32,7 @@ export default function DestinationsPage() {
         </div>
 
         {/* Grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))", gap: "32px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 350px), 1fr))", gap: "32px" }}>
           {destinations.map((dest) => (
             <Link 
               key={dest.id}

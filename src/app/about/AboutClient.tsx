@@ -157,7 +157,7 @@ export default function AboutClient() {
             </p>
           </motion.div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "28px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "28px" }}>
             {guides.map(({ name, role, expertise, bio, image }, i) => (
               <motion.div
                 key={name}
@@ -286,7 +286,7 @@ export default function AboutClient() {
             </h2>
           </motion.div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "20px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "20px" }}>
             {regions.map(({ name, places, image }, i) => (
               <motion.div
                 key={name}
@@ -334,7 +334,7 @@ export default function AboutClient() {
               Our Core <span style={{ color: "#FFC20A" }}>Principles</span>
             </h2>
           </motion.div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 240px), 1fr))", gap: "20px" }}>
             {values.map(({ icon: Icon, title, desc }, i) => (
               <motion.div
                 key={title}
@@ -369,7 +369,7 @@ export default function AboutClient() {
             background: "linear-gradient(135deg, rgba(255,194,10,0.1) 0%, rgba(255,194,10,0.03) 100%)",
             border: "1px solid rgba(255,194,10,0.2)",
             padding: "clamp(24px, 5vw, 48px)",
-            display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "clamp(28px, 4vw, 48px)", alignItems: "center",
+            display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "clamp(28px, 4vw, 48px)", alignItems: "center",
           }}>
             <div>
               <div style={{ display: "flex", gap: "4px", marginBottom: "16px" }}>

@@ -66,9 +66,9 @@ export default function DestinationClient({ destination }: { destination: Destin
       {/* Content Section */}
       <section style={{ padding: "100px 40px" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "60px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "60px" }}>
             {/* Left: Photos */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: "20px" }}>
               {destination.images.slice(1).map((img, i) => (
                 <motion.div
                   key={i}
@@ -248,7 +248,7 @@ function ExpeditionSection({
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 180px), 1fr))",
             gap: "16px",
             margin: "44px 0",
           }}
@@ -298,7 +298,7 @@ function ExpeditionSection({
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
             gap: "16px",
             marginBottom: "72px",
           }}
@@ -330,7 +330,7 @@ function ExpeditionSection({
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))",
             gap: "24px",
             marginTop: "72px",
           }}

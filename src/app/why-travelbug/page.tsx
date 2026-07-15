@@ -25,7 +25,7 @@ export default function WhyTravelBugPage() {
       {/* Additional Deep Dive Section */}
       <section style={{ padding: "80px 0 120px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "60px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "60px" }}>
             <div>
               <h3 style={{ color: "white", fontSize: "24px", fontWeight: 800, marginBottom: "20px" }}>The Photographer's Eye</h3>
               <p style={{ color: "rgba(255,255,255,0.5)", lineHeight: 1.8 }}>

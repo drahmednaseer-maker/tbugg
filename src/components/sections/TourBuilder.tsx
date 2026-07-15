@@ -130,7 +130,7 @@ function pill(active: boolean) {
     border: `1px solid ${active ? "rgba(255,194,10,0.55)" : "rgba(255,255,255,0.07)"}`,
     background: active ? "rgba(255,194,10,0.1)" : "rgba(255,255,255,0.03)",
     display: "flex", alignItems: "center", gap: "12px",
-    textAlign: "left" as const, width: "100%", transition: "all 0.2s",
+    textAlign: "left" as const, width: "100%", minWidth: 0, overflow: "hidden", transition: "all 0.2s",
   };
 }
 
@@ -162,7 +162,7 @@ function Steps({ step }: { step: number }) {
               </span>
             </div>
             {i < labels.length - 1 && (
-              <div style={{ width: "72px", height: "1px", marginBottom: "20px", background: step > num + 1 ? "#FFC20A" : "rgba(255,255,255,0.07)" }} />
+              <div style={{ width: "clamp(6px, 5vw, 72px)", height: "1px", marginBottom: "20px", background: step > num + 1 ? "#FFC20A" : "rgba(255,255,255,0.07)" }} />
             )}
           </div>
         );
@@ -806,7 +806,7 @@ export default function TourBuilder() {
                   <MapPin style={{ width: 13, height: 13, display: "inline", marginRight: 5 }} />
                   Click a destination to add it — click again to remove
                 </p>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: "10px" }}>
                   {DESTS.map(d => {
                     const selected = !!route.find(r => r.id === d.id);
                     const w = weather[d.id];
@@ -818,9 +818,9 @@ export default function TourBuilder() {
                         </div>
                         <div style={{ flex: 1, minWidth: 0 }}>
                           <p style={{ color: selected ? "#FFC20A" : "white", fontWeight: 700, fontSize: "13px", margin: "0 0 2px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{d.name}</p>
-                          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                            <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px", margin: 0 }}>{d.region}</p>
-                            {w && <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px" }}>{weatherEmoji(w.code).icon} {w.temp}°C</span>}
+                          <div style={{ display: "flex", alignItems: "center", gap: "6px", minWidth: 0 }}>
+                            <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px", margin: 0, minWidth: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{d.region}</p>
+                            {w && <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", flexShrink: 0, whiteSpace: "nowrap" }}>{weatherEmoji(w.code).icon} {w.temp}°C</span>}
                           </div>
                         </div>
                         {selected && <Check style={{ width: 14, height: 14, color: "#FFC20A", flexShrink: 0 }} />}
@@ -943,7 +943,7 @@ export default function TourBuilder() {
                 </div>
 
                 {/* Male / Female adults */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "20px" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 150px), 1fr))", gap: "12px", marginBottom: "20px" }}>
                   {[{ label: "Male Adults 👨", val: maleAdults, set: setMaleAdults }, { label: "Female Adults 👩", val: femaleAdults, set: setFemaleAdults }].map(({ label, val, set }) => (
                     <div key={label} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "16px", padding: "16px" }}>
                       <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "12px", fontWeight: 700, marginBottom: "12px" }}>{label}</p>
@@ -993,7 +993,7 @@ export default function TourBuilder() {
                 {/* Transport grid */}
                 <div style={{ marginBottom: "24px" }}>
                   <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "14px" }}>Select Transport</p>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: "10px" }}>
                     {TRANSPORT_OPTIONS.map(t => {
                       const sel = transport === t.id;
                       return (
@@ -1136,7 +1136,7 @@ export default function TourBuilder() {
                 </div>
 
                 {/* Travelers + Hotels grid */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "24px" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: "12px", marginBottom: "24px" }}>
                   <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "14px", padding: "16px" }}>
                     <p style={{ color: "#FFC20A", fontSize: "10px", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "8px" }}>Travelers</p>
                     <p style={{ color: "white", fontWeight: 700, fontSize: "14px", margin: "0 0 3px" }}>👨 {maleAdults} Male · 👩 {femaleAdults} Female</p>

@@ -758,7 +758,7 @@ export default function ToursClient() {
               layout
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+                gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))",
                 gap: "28px",
                 justifyContent: "center",
               }}

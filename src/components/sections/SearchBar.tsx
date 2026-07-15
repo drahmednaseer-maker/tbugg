@@ -222,7 +222,7 @@ export default function SearchBar() {
                 {step === 2 && !submitted && (
                   <motion.div key="s2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
                     <p style={{ color: "white", fontWeight: 800, fontSize: "20px", marginBottom: "32px" }}>Where would you like to go?</p>
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "12px", marginBottom: form.destination === "Custom Destination" ? "20px" : "0" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "12px", marginBottom: form.destination === "Custom Destination" ? "20px" : "0" }}>
                       {destinations.map((d) => (
                         <button
                           key={d}
@@ -263,7 +263,7 @@ export default function SearchBar() {
                 {step === 3 && !submitted && (
                   <motion.div key="s3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
                     <p style={{ color: "white", fontWeight: 800, fontSize: "20px", marginBottom: "32px" }}>Tell us about your trip</p>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", marginBottom: "20px" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: "20px", marginBottom: "20px" }}>
                       <div style={fieldStyle}>
                         <Calendar style={{ color: "#FFC20A", width: 20, height: 20, flexShrink: 0 }} />
                         <div style={{ flex: 1 }}>

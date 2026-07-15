@@ -96,7 +96,7 @@ export default function Header() {
             <span style={{ fontWeight: 700, color: "rgba(255,255,255,0.9)", letterSpacing: "0.02em", transition: "color 0.2s" }} className="group-hover:!text-white text-[13px] sm:text-[15px] whitespace-nowrap">0324 8888889</span>
           </a>
           <span className="hidden sm:block" style={{ width: "1px", height: "12px", background: "rgba(255,255,255,0.15)" }} />
-          <a href="mailto:Info@travelbug.pk" className="flex items-center gap-1.5 group max-[389px]:hidden" style={{ textDecoration: "none" }}>
+          <a href="mailto:Info@travelbug.pk" className="hidden sm:flex items-center gap-1.5 group" style={{ textDecoration: "none" }}>
             <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" style={{ color: "#FACC15" }} />
             <span style={{ fontWeight: 700, color: "rgba(255,255,255,0.9)", letterSpacing: "0.02em", transition: "color 0.2s" }} className="group-hover:!text-white text-[13px] sm:text-[15px] whitespace-nowrap">Info@travelbug.pk</span>
           </a>

@@ -104,7 +104,7 @@ export default function ContactClient() {
       {/* ── QUICK CONTACT CARDS ── */}
       <section style={{ padding: "0 32px 60px" }}>
         <div style={{ maxWidth: "80rem", margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: "16px" }}>
             {/* Phone 1 */}
             <motion.a
               href={`tel:+923344334411`}

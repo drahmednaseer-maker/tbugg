@@ -123,7 +123,7 @@ export default async function MarketPage({ params }: Props) {
           <h2 style={{ fontSize: "clamp(24px, 4vw, 36px)", fontWeight: 900, color: "white", margin: "0 0 28px" }}>
             Why {m.demonym} travellers choose <span style={{ color: "#FFC20A" }}>Pakistan</span>
           </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "16px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: "16px" }}>
             {m.whyPakistan.map((w, i) => (
               <div key={i} style={{ display: "flex", gap: "14px", alignItems: "flex-start", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "16px", padding: "22px" }}>
                 <span style={{ color: "#FFC20A", fontWeight: 900, fontSize: "18px", flexShrink: 0 }}>0{i + 1}</span>
@@ -136,7 +136,7 @@ export default async function MarketPage({ params }: Props) {
 
       {/* Info cards: flights / season / visa */}
       <section style={{ padding: "0 40px 90px" }}>
-        <div style={{ maxWidth: "980px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px" }}>
+        <div style={{ maxWidth: "980px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: "20px" }}>
           {infoCards.map((c, i) => (
             <div key={i} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "20px", padding: "28px" }}>
               <p style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 8px" }}>{c.label}</p>
@@ -156,7 +156,7 @@ export default async function MarketPage({ params }: Props) {
           <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "15px", margin: "0 0 32px" }}>
             Hand-picked, top-rated private journeys — every one fully customisable to your dates and interests.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "22px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))", gap: "22px" }}>
             {topTours.map((t) => (
               <Link key={t.id} href={`/tours/${t.slug}`} style={{ display: "block", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "20px", overflow: "hidden", textDecoration: "none" }}>
                 <div style={{ height: "180px", overflow: "hidden" }}>

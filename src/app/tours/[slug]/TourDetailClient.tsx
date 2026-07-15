@@ -118,7 +118,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
               </div>
 
               {/* Meta cards */}
-              <div className="td-info-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(130px,1fr))", gap: "12px" }}>
+              <div className="td-info-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%, 130px), 1fr))", gap: "12px" }}>
                 {[
                   { icon: Clock,    label: "Duration",   value: `${tour.duration} Days` },
                   { icon: Users,    label: "Group Size", value: `Max ${tour.maxGroupSize}` },
@@ -226,7 +226,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
             {/* ── Included / Excluded ── */}
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-              style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "20px" }}
+              style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%, 280px), 1fr))", gap: "20px" }}
             >
               {/* Included */}
               <div style={{ borderRadius: "24px", padding: "36px", background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.2)" }}>
