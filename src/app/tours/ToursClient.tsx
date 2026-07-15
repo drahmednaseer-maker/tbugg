@@ -520,61 +520,6 @@ function DestinationCard({ tour, onGetQuote }: { tour: Tour; onGetQuote: (title:
           </div>
         </div>
 
-        {/* Itinerary accordion toggle */}
-        <button
-          onClick={() => setExpanded(!expanded)}
-          style={{
-            display: "flex", alignItems: "center", gap: "6px", width: "100%",
-            background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)",
-            borderRadius: "10px", padding: "10px 14px", cursor: "pointer",
-            color: "rgba(255,255,255,0.6)", fontSize: "13px", fontWeight: 600,
-            marginBottom: "0", transition: "all 0.2s",
-          }}
-        >
-          <Calendar style={{ width: "14px", height: "14px", color: "#FFC20A" }} />
-          {expanded ? "Hide" : "View"} Day-by-Day Itinerary
-          {expanded ? <ChevronUp style={{ width: "14px", height: "14px", marginLeft: "auto" }} /> : <ChevronDown style={{ width: "14px", height: "14px", marginLeft: "auto" }} />}
-        </button>
-
-        {/* Itinerary expanded */}
-        <AnimatePresence>
-          {expanded && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              style={{ overflow: "hidden" }}
-            >
-              <div style={{ paddingTop: "12px", display: "flex", flexDirection: "column", gap: "8px" }}>
-                {tour.itinerary.map((day, i) => (
-                  <div key={day.day} style={{
-                    display: "flex", gap: "12px", padding: "12px",
-                    background: "rgba(255,255,255,0.03)", borderRadius: "10px",
-                    border: "1px solid rgba(255,255,255,0.06)",
-                  }}>
-                    <div style={{
-                      width: "28px", height: "28px", borderRadius: "8px", flexShrink: 0,
-                      background: "linear-gradient(135deg, #FFC20A, #FFD34A)",
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                    }}>
-                      <span style={{ color: "#0B1628", fontSize: "11px", fontWeight: 800 }}>{day.day}</span>
-                    </div>
-                    <div>
-                      <p style={{ margin: "0 0 3px", color: "white", fontSize: "13px", fontWeight: 700 }}>{day.title}</p>
-                      <p style={{ margin: "0 0 6px", color: "rgba(255,255,255,0.45)", fontSize: "12px" }}>{day.description}</p>
-                      <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
-                        {day.activities.map(act => (
-                          <span key={act} style={{ padding: "2px 8px", borderRadius: "20px", fontSize: "11px", background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.4)" }}>{act}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
 
       {/* CTA Footer */}

@@ -183,95 +183,43 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
               </div>
             </motion.div>
 
-            {/* ── Day-by-Day Itinerary ── */}
+            {/* ── Custom Tour (no fixed itinerary — we plan it with you) ── */}
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
               style={card}
             >
-              <div style={{ marginBottom: "32px" }}>
-                <span style={sectionLabel}>✦ Your Journey</span>
-                <h2 style={sectionTitle}>Day-by-Day Itinerary</h2>
-              </div>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                {tour.itinerary.map((day) => {
-                  const isOpen = openDay === day.day;
-                  return (
-                    <div key={day.day} style={{
-                      borderRadius: "16px", overflow: "hidden",
-                      border: isOpen ? "1px solid rgba(255,194,10,0.3)" : "1px solid rgba(255,255,255,0.07)",
-                      background: isOpen ? "rgba(255,194,10,0.04)" : "rgba(255,255,255,0.03)",
-                      transition: "border-color 0.2s, background 0.2s",
-                    }}>
-                      {/* Row header */}
-                      <button
-                        onClick={() => setOpenDay(isOpen ? null : day.day)}
-                        style={{
-                          width: "100%", display: "flex", alignItems: "center",
-                          gap: "16px", padding: "20px 24px", textAlign: "left",
-                          background: "transparent", border: "none", cursor: "pointer",
-                        }}
-                      >
-                        <div style={{
-                          width: "40px", height: "40px", borderRadius: "12px", flexShrink: 0,
-                          display: "flex", alignItems: "center", justifyContent: "center",
-                          fontWeight: 800, fontSize: "14px",
-                          background: isOpen ? "#FFC20A" : "rgba(255,255,255,0.06)",
-                          color: isOpen ? "#0B1628" : "rgba(255,255,255,0.45)",
-                        }}>
-                          {day.day}
-                        </div>
-
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                          <div style={{ fontSize: "10px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: "#FFC20A", marginBottom: "5px" }}>
-                            Day {day.day}
-                          </div>
-                          <div style={{ color: "white", fontWeight: 600, fontSize: "15px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                            {day.title}
-                          </div>
-                        </div>
-
-                        <div style={{ flexShrink: 0, color: "rgba(255,255,255,0.3)" }}>
-                          {isOpen ? <ChevronUp style={{ width: "18px", height: "18px" }} /> : <ChevronDown style={{ width: "18px", height: "18px" }} />}
-                        </div>
-                      </button>
-
-                      {/* Expanded body */}
-                      <AnimatePresence>
-                        {isOpen && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.25 }}
-                            style={{ overflow: "hidden" }}
-                          >
-                            <div style={{ padding: "0 24px 28px 24px" }}>
-                              <div style={{ height: "1px", background: "rgba(255,194,10,0.18)", marginBottom: "20px" }} />
-                              <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "14px", lineHeight: 1.85, margin: "0 0 20px 0" }}>
-                                {day.description}
-                              </p>
-                              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                                {day.activities.map((act) => (
-                                  <span key={act} style={{
-                                    padding: "7px 16px", borderRadius: "100px",
-                                    fontSize: "12px", fontWeight: 500,
-                                    background: "rgba(255,255,255,0.06)",
-                                    border: "1px solid rgba(255,255,255,0.1)",
-                                    color: "rgba(255,255,255,0.65)",
-                                    whiteSpace: "nowrap",
-                                  }}>
-                                    {act}
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  );
-                })}
+              <div style={{ textAlign: "center" }}>
+                <span style={sectionLabel}>✦ 100% Customized</span>
+                <h2 style={sectionTitle}>No Fixed Itinerary — Your Trip, Your Way</h2>
+                <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "15px", lineHeight: 1.85, maxWidth: "600px", margin: "16px auto 30px" }}>
+                  We don&apos;t sell packaged, day-by-day tours. Every journey is crafted from scratch around your dates, your group, your pace, and the experiences you care about most. Tell us what you have in mind &mdash; we&apos;ll build the perfect plan and quote just for you.
+                </p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", justifyContent: "center" }}>
+                  <a
+                    href={`https://wa.me/923344334411?text=Hi!%20I'd%20like%20to%20plan%20a%20custom%20trip%20to%20${encodeURIComponent(tour.title)}`}
+                    target="_blank" rel="noopener noreferrer"
+                    style={{
+                      display: "inline-flex", alignItems: "center", gap: "10px",
+                      padding: "15px 28px", borderRadius: "14px", fontWeight: 800, fontSize: "15px",
+                      color: "#0B1628", textDecoration: "none",
+                      background: "linear-gradient(135deg,#FFC20A,#FFD34A)",
+                      boxShadow: "0 8px 28px rgba(255,194,10,0.35)",
+                    }}
+                  >
+                    ✦ Plan Your Trip →
+                  </a>
+                  <Link
+                    href="/contact"
+                    style={{
+                      display: "inline-flex", alignItems: "center", gap: "8px",
+                      padding: "15px 28px", borderRadius: "14px", fontWeight: 700, fontSize: "15px",
+                      color: "white", textDecoration: "none",
+                      background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.15)",
+                    }}
+                  >
+                    Get a Quote
+                  </Link>
+                </div>
               </div>
             </motion.div>
 
@@ -392,7 +340,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
 
                 {/* Trust */}
                 <div style={{ padding: "20px 32px 28px", background: "rgba(255,255,255,0.02)", display: "flex", flexDirection: "column", gap: "10px" }}>
-                  {["100% customized itinerary", "Response within 2–4 hours", "No commitment required"].map((t) => (
+                  {["100% customized itinerary", "We reply 24/7 — any time, any day", "No commitment required"].map((t) => (
                     <div key={t} style={{ display: "flex", alignItems: "center", gap: "10px", color: "rgba(255,255,255,0.38)", fontSize: "12px" }}>
                       <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#FFC20A", flexShrink: 0 }} />
                       {t}

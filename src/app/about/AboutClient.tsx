@@ -20,7 +20,29 @@ const guides = [
     bio: "A professional photographer and accomplished mountaineer with multiple 6,000m+ peak summits under his belt. Uzair professionally leads tours to K2 Base Camp and high-altitude mountains across the Karakoram, combining elite mountaineering skills with a photographer's eye. His calm confidence on the mountain and genuine warmth off it make every expedition safe, extraordinary, and deeply personal.",
     image: "/uzair.png",
   },
+  {
+    name: "Dr. Usman ul Haq",
+    role: "Surgeon & Wildlife Photographer",
+    expertise: "Wildlife & Bird Photography · Conservation · Pakistan's Rich Biodiversity",
+    bio: "Oral & Maxillofacial Surgeon, Professor, and Head of the Department at Wah Medical College — and, beyond medicine, an award-winning wildlife and bird photographer, adventure traveler, PADI-certified scuba diver, and adventure motorcyclist. Dr. Usman's photography reflects a deep passion for nature and conservation, using powerful imagery to inspire awareness and appreciation of Pakistan's rich biodiversity.",
+    image: "/usman.jpg",
+  },
 ];
+
+function onGuideImgError(e: { currentTarget: HTMLImageElement }) {
+  const el = e.currentTarget;
+  el.onerror = null;
+  const ini = (el.alt || "").replace(/^(Dr\.|Mr\.|Mrs\.|Ms\.)\s*/, "").split(/\s+/).filter((w) => w.length > 2).slice(0, 2).map((w) => w[0].toUpperCase()).join("");
+  el.src =
+    "data:image/svg+xml," +
+    encodeURIComponent(
+      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'>" +
+        "<rect width='80' height='80' fill='#0B1628'/>" +
+        "<text x='40' y='53' font-size='28' font-weight='900' fill='#FFC20A' text-anchor='middle' font-family='sans-serif'>" +
+        ini +
+        "</text></svg>"
+    );
+}
 
 /* ── Core Values ── */
 const values = [
@@ -116,6 +138,80 @@ export default function AboutClient() {
               </div>
             ))}
           </motion.div>
+        </div>
+      </section>
+
+      {/* ── OUR GUIDES ── */}
+      <section id="team" style={{ padding: "80px 32px" }}>
+        <div style={{ maxWidth: "72rem", margin: "0 auto" }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            style={{ textAlign: "center", marginBottom: "56px" }}
+          >
+            <p style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "12px" }}>Behind the Lens</p>
+            <h2 style={{ margin: "0 0 16px", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", fontWeight: 800, color: "white" }}>
+              Meet the <span style={{ color: "#FFC20A" }}>Photographers</span>
+            </h2>
+            <p style={{ margin: 0, color: "rgba(255,255,255,0.5)", fontSize: "15px", maxWidth: "560px", marginLeft: "auto", marginRight: "auto", lineHeight: 1.7 }}>
+              Every TravelBug journey is led personally by our award-winning photographers — masters of Pakistan&apos;s light, terrain, and wildlife who know the country intimately and capture it like no one else.
+            </p>
+          </motion.div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "28px" }}>
+            {guides.map(({ name, role, expertise, bio, image }, i) => (
+              <motion.div
+                key={name}
+                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.15 }}
+                style={{
+                  padding: "32px", borderRadius: "24px",
+                  background: "rgba(255,255,255,0.03)",
+                  border: "1px solid rgba(255,194,10,0.15)",
+                  display: "flex", flexDirection: "column", gap: "20px",
+                  position: "relative",
+                  overflow: "hidden",
+                }}
+              >
+                {/* Avatar + name */}
+                <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+                  <div style={{
+                    width: "80px", height: "80px", borderRadius: "50%", flexShrink: 0,
+                    overflow: "hidden",
+                    border: "3px solid #FFC20A",
+                    boxShadow: "0 8px 24px rgba(255,194,10,0.35)",
+                    background: "#0B1628",
+                  }}>
+                    <img 
+                      src={image} 
+                      alt={name}
+                      onError={onGuideImgError} 
+                      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }} 
+                    />
+                  </div>
+                  <div>
+                    <p style={{ margin: "0 0 3px", color: "white", fontWeight: 900, fontSize: "20px" }}>{name}</p>
+                    <p style={{ margin: 0, color: "#FFC20A", fontWeight: 700, fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.1em" }}>{role}</p>
+                  </div>
+                </div>
+                
+                {/* Expertise */}
+                <div style={{ padding: "12px 16px", borderRadius: "12px", background: "rgba(255,194,10,0.05)", border: "1px solid rgba(255,194,10,0.1)" }}>
+                  <p style={{ margin: "0 0 4px", color: "rgba(255,255,255,0.4)", fontSize: "10px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em" }}>Expertise</p>
+                  <p style={{ margin: 0, color: "rgba(255,255,255,0.8)", fontSize: "13px", fontWeight: 600, lineHeight: 1.4 }}>{expertise}</p>
+                </div>
+
+                {/* Bio */}
+                <p style={{ margin: 0, color: "rgba(255,255,255,0.55)", fontSize: "14px", lineHeight: 1.75 }}>{bio}</p>
+
+                {/* Subtle Glow */}
+                <div style={{ 
+                  position: "absolute", top: "-50px", right: "-50px", 
+                  width: "120px", height: "120px", borderRadius: "50%", 
+                  background: "rgba(255,194,10,0.05)", filter: "blur(40px)",
+                  pointerEvents: "none"
+                }} />
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -259,79 +355,6 @@ export default function AboutClient() {
                 </div>
                 <h3 style={{ margin: "0 0 10px", fontWeight: 700, color: "white", fontSize: "16px" }}>{title}</h3>
                 <p style={{ margin: 0, color: "rgba(255,255,255,0.5)", fontSize: "14px", lineHeight: 1.7 }}>{desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── OUR GUIDES ── */}
-      <section id="team" style={{ padding: "80px 32px" }}>
-        <div style={{ maxWidth: "72rem", margin: "0 auto" }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            style={{ textAlign: "center", marginBottom: "56px" }}
-          >
-            <p style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "12px" }}>Meet the Team</p>
-            <h2 style={{ margin: "0 0 16px", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", fontWeight: 800, color: "white" }}>
-              Experienced Tour <span style={{ color: "#FFC20A" }}>Guides</span>
-            </h2>
-            <p style={{ margin: 0, color: "rgba(255,255,255,0.5)", fontSize: "15px", maxWidth: "520px", marginLeft: "auto", marginRight: "auto", lineHeight: 1.7 }}>
-              Every TravelBug journey is led personally by one of our expert guides — people who know Pakistan intimately and care deeply about your experience.
-            </p>
-          </motion.div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "28px" }}>
-            {guides.map(({ name, role, expertise, bio, image }, i) => (
-              <motion.div
-                key={name}
-                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.15 }}
-                style={{
-                  padding: "32px", borderRadius: "24px",
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(255,194,10,0.15)",
-                  display: "flex", flexDirection: "column", gap: "20px",
-                  position: "relative",
-                  overflow: "hidden",
-                }}
-              >
-                {/* Avatar + name */}
-                <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-                  <div style={{
-                    width: "80px", height: "80px", borderRadius: "50%", flexShrink: 0,
-                    overflow: "hidden",
-                    border: "3px solid #FFC20A",
-                    boxShadow: "0 8px 24px rgba(255,194,10,0.35)",
-                    background: "#0B1628",
-                  }}>
-                    <img 
-                      src={image} 
-                      alt={name} 
-                      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }} 
-                    />
-                  </div>
-                  <div>
-                    <p style={{ margin: "0 0 3px", color: "white", fontWeight: 900, fontSize: "20px" }}>{name}</p>
-                    <p style={{ margin: 0, color: "#FFC20A", fontWeight: 700, fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.1em" }}>{role}</p>
-                  </div>
-                </div>
-                
-                {/* Expertise */}
-                <div style={{ padding: "12px 16px", borderRadius: "12px", background: "rgba(255,194,10,0.05)", border: "1px solid rgba(255,194,10,0.1)" }}>
-                  <p style={{ margin: "0 0 4px", color: "rgba(255,255,255,0.4)", fontSize: "10px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em" }}>Expertise</p>
-                  <p style={{ margin: 0, color: "rgba(255,255,255,0.8)", fontSize: "13px", fontWeight: 600, lineHeight: 1.4 }}>{expertise}</p>
-                </div>
-
-                {/* Bio */}
-                <p style={{ margin: 0, color: "rgba(255,255,255,0.55)", fontSize: "14px", lineHeight: 1.75 }}>{bio}</p>
-
-                {/* Subtle Glow */}
-                <div style={{ 
-                  position: "absolute", top: "-50px", right: "-50px", 
-                  width: "120px", height: "120px", borderRadius: "50%", 
-                  background: "rgba(255,194,10,0.05)", filter: "blur(40px)",
-                  pointerEvents: "none"
-                }} />
               </motion.div>
             ))}
           </div>
