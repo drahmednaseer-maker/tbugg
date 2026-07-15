@@ -390,7 +390,7 @@ export default function Header() {
                   {/* Primary CTA — big, centred near the bottom */}
                   <div className="menu-cta">
                     <a href="https://wa.me/923344334411?text=Hi%20TravelBug!%20I%27d%20like%20to%20plan%20a%20trip%20to%20Pakistan." target="_blank" rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2.5 w-full py-5 rounded-2xl bg-[#FACC15] text-slate-950 font-black text-[17px] active:scale-95 transition-transform shadow-lg shadow-[#FACC15]/30">
+                      className="menu-cta-btn flex items-center justify-center gap-2.5 w-full py-5 rounded-2xl bg-[#FACC15] text-slate-950 font-black text-[17px] active:scale-95 transition-transform shadow-lg shadow-[#FACC15]/30">
                       <MessageCircle className="w-6 h-6" /> Plan My Trip on WhatsApp
                     </a>
                   </div>
