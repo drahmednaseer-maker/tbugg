@@ -717,7 +717,7 @@ export default function TourBuilder() {
     }
 
     setSent(true);
-    window.open("mailto:Info@travelbug.pk?subject=" + subject + "&body=" + body, "_blank");
+    window.open("mailto:info@travelbug.pk?subject=" + subject + "&body=" + body, "_blank");
   };
 
   // ─── Card wrapper shared style ─────────────────────────────────────────────

@@ -190,12 +190,12 @@ export default function Footer() {
               <li style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                 <Mail style={{ width: 15, height: 15, color: "#FFC20A", flexShrink: 0 }} />
                 <a
-                  href="mailto:Info@travelbug.pk"
+                  href="mailto:info@travelbug.pk"
                   style={{ color: "rgba(255,255,255,0.45)", fontSize: "13px", textDecoration: "none", transition: "color 0.2s" }}
                   onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = "white"}
                   onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.45)"}
                 >
-                  Info@travelbug.pk
+                  info@travelbug.pk
                 </a>
               </li>
             </ul>

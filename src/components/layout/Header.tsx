@@ -96,9 +96,9 @@ export default function Header() {
             <span style={{ fontWeight: 700, color: "rgba(255,255,255,0.9)", letterSpacing: "0.02em", transition: "color 0.2s" }} className="group-hover:!text-white text-[13px] sm:text-[15px] whitespace-nowrap">0324 8888889</span>
           </a>
           <span className="hidden sm:block" style={{ width: "1px", height: "12px", background: "rgba(255,255,255,0.15)" }} />
-          <a href="mailto:Info@travelbug.pk" className="hidden sm:flex items-center gap-1.5 group" style={{ textDecoration: "none" }}>
+          <a href="mailto:info@travelbug.pk" className="hidden sm:flex items-center gap-1.5 group" style={{ textDecoration: "none" }}>
             <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" style={{ color: "#FACC15" }} />
-            <span style={{ fontWeight: 700, color: "rgba(255,255,255,0.9)", letterSpacing: "0.02em", transition: "color 0.2s" }} className="group-hover:!text-white text-[13px] sm:text-[15px] whitespace-nowrap">Info@travelbug.pk</span>
+            <span style={{ fontWeight: 700, color: "rgba(255,255,255,0.9)", letterSpacing: "0.02em", transition: "color 0.2s" }} className="group-hover:!text-white text-[13px] sm:text-[15px] whitespace-nowrap">info@travelbug.pk</span>
           </a>
         </div>
       </div>
@@ -378,11 +378,11 @@ export default function Header() {
                         </span>
                         <span className="text-[15px] font-bold text-white/90">0324 8888889</span>
                       </a>
-                      <a href="mailto:Info@travelbug.pk" className="menu-row flex items-center gap-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors">
+                      <a href="mailto:info@travelbug.pk" className="menu-row flex items-center gap-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors">
                         <span className="w-10 h-10 rounded-xl bg-[#FACC15]/[0.1] border border-[#FACC15]/20 flex items-center justify-center shrink-0">
                           <Mail className="w-[18px] h-[18px]" style={{ color: "#FACC15" }} />
                         </span>
-                        <span className="text-[15px] font-bold text-white/90">Info@travelbug.pk</span>
+                        <span className="text-[15px] font-bold text-white/90">info@travelbug.pk</span>
                       </a>
                     </div>
                   </div>

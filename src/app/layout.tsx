@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s | TravelBug.pk",
   },
   description:
-    "TravelBug.pk crafts 100% personalized journeys across Pakistan — Hunza, Skardu, Minimarg, Lahore, Kashmir & beyond. Founded 2018, Wah Cantt.",
+    "TravelBug.pk crafts 100% personalized journeys across Pakistan — Hunza, Skardu, Minimarg, Lahore, Kashmir & beyond. Founded 2018.",
   keywords: ["Pakistan tours", "Hunza tour", "Skardu tour", "customized Pakistan travel", "Minimarg", "Kashmir tour", "TravelBug pk"],
   authors: [{ name: "TravelBug.pk" }],
   openGraph: {
@@ -76,7 +76,7 @@ const orgJsonLd = {
   foundingDate: "2018",
   priceRange: "$$",
   telephone: "+923248888889",
-  email: "Info@travelbug.pk",
+  email: "info@travelbug.pk",
   address: {
     "@type": "PostalAddress",
     streetAddress: "B-89, Post Office Rd, Wah Cantt",

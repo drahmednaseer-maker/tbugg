@@ -7,9 +7,7 @@ import { Mail, Phone, MapPin, Clock, Send, CheckCircle2, MessageSquare } from "l
 /* ─── Real TravelBug.pk Contact Details ─── */
 const PHONE1 = "+92 324 8888889";
 const PHONE2 = "+92 334 4334411";
-const EMAIL   = "Info@travelbug.pk";
-const ADDRESS_LINE1 = "B-89, Post Office Rd, Wah Cantt";
-const ADDRESS_LINE2 = "Punjab 47040, Pakistan";
+const EMAIL   = "info@travelbug.pk";
 const WA_NUM  = "923344334411";
 
 export default function ContactClient() {
@@ -146,29 +144,6 @@ export default function ContactClient() {
                 <p style={{ margin: "0 0 2px", color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em" }}>Email</p>
                 <p style={{ margin: "0 0 1px", color: "white", fontWeight: 700, fontSize: "14px" }}>{EMAIL}</p>
                 <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: "12px" }}>We reply any time, any day</p>
-              </div>
-            </motion.a>
-
-            {/* Address */}
-            <motion.a
-              href="https://maps.google.com/?q=Office+14+Lao+Karachi+Town+Islamabad+Pakistan"
-              target="_blank" rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-              style={{
-                display: "flex", alignItems: "center", gap: "14px", padding: "20px 22px",
-                borderRadius: "16px", background: "rgba(255,255,255,0.04)", border: "1.5px solid rgba(255,255,255,0.08)",
-                textDecoration: "none", transition: "border-color 0.2s",
-              }}
-              onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(255,194,10,0.3)")}
-              onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)")}
-            >
-              <div style={{ width: "44px", height: "44px", borderRadius: "12px", background: "rgba(255,194,10,0.1)", border: "1px solid rgba(255,194,10,0.2)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <MapPin style={{ width: "18px", height: "18px", color: "#FFC20A" }} />
-              </div>
-              <div>
-                <p style={{ margin: "0 0 2px", color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em" }}>Office</p>
-                <p style={{ margin: "0 0 1px", color: "white", fontWeight: 700, fontSize: "14px" }}>{ADDRESS_LINE1}</p>
-                <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: "12px" }}>{ADDRESS_LINE2}</p>
               </div>
             </motion.a>
 
@@ -319,42 +294,6 @@ export default function ContactClient() {
               </div>
             </a>
 
-            {/* Google Maps Embed — Islamabad, Pakistan */}
-            <div style={{ borderRadius: "20px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.08)", height: "340px" }}>
-              <iframe
-                title="TravelBug.pk Office — Islamabad, Pakistan"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13248.4!2d72.74744!3d33.77678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38df93f0d2f61e35%3A0x8f41b53a71b2f831!2sWah%20Cantonment%2C%20Punjab%2C%20Pakistan!5e0!3m2!1sen!2spk!4v1620000000000!5m2!1sen!2spk"
-                width="100%"
-                height="100%"
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                style={{ filter: "invert(92%) hue-rotate(180deg) brightness(0.88) saturate(0.75)", border: 0 }}
-              />
-            </div>
-
-            {/* Address card */}
-            <div style={{
-              padding: "20px 22px", borderRadius: "16px",
-              background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)",
-              display: "flex", gap: "14px", alignItems: "flex-start",
-            }}>
-              <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: "rgba(255,194,10,0.1)", border: "1px solid rgba(255,194,10,0.2)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <MapPin style={{ width: "16px", height: "16px", color: "#FFC20A" }} />
-              </div>
-              <div>
-                <p style={{ margin: "0 0 4px", color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em" }}>Office Address</p>
-                <p style={{ margin: "0 0 2px", color: "white", fontWeight: 700, fontSize: "15px" }}>B-89, Post Office Rd, Wah Cantt</p>
-                <p style={{ margin: "0 0 6px", color: "rgba(255,255,255,0.5)", fontSize: "14px" }}>Punjab 47040, Pakistan</p>
-                <a
-                  href="https://maps.google.com/?q=B+89+Post+Office+Rd+Wah+Cantt+Punjab+Pakistan"
-                  target="_blank" rel="noopener noreferrer"
-                  style={{ color: "#FFC20A", fontSize: "13px", fontWeight: 600, textDecoration: "none" }}
-                >
-                  Open in Google Maps →
-                </a>
-              </div>
-            </div>
           </motion.div>
         </div>
       </section>

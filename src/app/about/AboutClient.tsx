@@ -437,20 +437,7 @@ export default function AboutClient() {
             </div>
             <div>
               <p style={{ margin: "0 0 3px", color: "rgba(255,255,255,0.4)", fontSize: "11px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em" }}>Email Us</p>
-              <p style={{ margin: 0, color: "white", fontWeight: 700, fontSize: "16px" }}>Info@travelbug.pk</p>
-            </div>
-          </div>
-          <div style={{
-            flex: "1 1 280px", padding: "28px", borderRadius: "18px",
-            background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)",
-            display: "flex", gap: "16px", alignItems: "center",
-          }}>
-            <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(255,194,10,0.1)", border: "1px solid rgba(255,194,10,0.2)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-              <MapPin style={{ width: "20px", height: "20px", color: "#FFC20A" }} />
-            </div>
-            <div>
-              <p style={{ margin: "0 0 3px", color: "rgba(255,255,255,0.4)", fontSize: "11px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em" }}>Based In</p>
-              <p style={{ margin: 0, color: "white", fontWeight: 700, fontSize: "16px" }}>B-89, Post Office Rd, Wah Cantt, Punjab</p>
+              <p style={{ margin: 0, color: "white", fontWeight: 700, fontSize: "16px" }}>info@travelbug.pk</p>
             </div>
           </div>
         </div>
