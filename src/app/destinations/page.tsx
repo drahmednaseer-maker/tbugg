@@ -97,7 +97,7 @@ export default function DestinationsPage() {
             background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)",
             color: "white", fontWeight: 700, textDecoration: "none"
           }}>
-            Chat with Asmar & Uzair <ArrowRight style={{ width: 18, height: 18 }} />
+            Chat with Asmar, Uzair & Dr Usman <ArrowRight style={{ width: 18, height: 18 }} />
           </Link>
         </div>
       </div>

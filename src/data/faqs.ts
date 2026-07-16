@@ -28,7 +28,7 @@ export const generalFaqs: FAQ[] = [
   {
     question: "Who runs TravelBug.pk?",
     answer:
-      "TravelBug.pk is a photographers-led tour operator founded in 2018 and based in Pakistan. Trips are guided by professional landscape photographers Muhammad Asmar Hussain and Uzair Ahmed, who specialise in taking travellers to the best light, angles and hidden viewpoints across Pakistan.",
+      "TravelBug.pk is a photographers-led tour operator founded in 2018 and based in Pakistan. Trips are guided by professional landscape photographers Muhammad Asmar Hussain, Uzair Ahmed and Dr. Usman ul Haq, who specialise in taking travellers to the best light, angles and hidden viewpoints across Pakistan.",
   },
   {
     question: "Is Pakistan suitable for solo female travellers?",

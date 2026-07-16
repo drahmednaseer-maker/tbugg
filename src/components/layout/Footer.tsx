@@ -57,7 +57,7 @@ export default function Footer() {
               color: "rgba(255,255,255,0.4)", fontSize: "13px",
               lineHeight: 1.8, maxWidth: "280px", marginBottom: "28px",
             }}>
-              Photographers-led custom tours across Pakistan. Every journey is designed personally by award-winning photographers Asmar &amp; Uzair.
+              Photographers-led custom tours across Pakistan. Every journey is designed personally by award-winning photographers Asmar, Uzair &amp; Dr Usman.
             </p>
 
             {/* Social icons */}

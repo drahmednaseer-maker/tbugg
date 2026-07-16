@@ -9,7 +9,7 @@ const features = [
     tag: "AWARD-WINNING",
     title: "Led by the Photographers, Not an Agent",
     description:
-      "Asmar and Uzair personally lead every tour. Published in National Geographic and recognized internationally — you travel with the artists, not a hired third party reading from a script.",
+      "Asmar, Uzair and Dr Usman personally lead every tour. Published in National Geographic and recognized internationally — you travel with the artists, not a hired third party reading from a script.",
     accent: "#FFC20A",
     wide: true,
   },

@@ -272,7 +272,7 @@ export default function AboutClient() {
               boxShadow: "0 16px 48px rgba(255,194,10,0.4)",
             }}>
               <p style={{ margin: "0 0 2px", fontSize: "15px", fontWeight: 900, color: "#0B1628" }}>Expert-Led</p>
-              <p style={{ margin: 0, fontSize: "12px", color: "rgba(11,22,40,0.7)", fontWeight: 600 }}>Asmar Hussain &amp; Uzair</p>
+              <p style={{ margin: 0, fontSize: "12px", color: "rgba(11,22,40,0.7)", fontWeight: 600 }}>Asmar, Uzair &amp; Dr Usman</p>
             </div>
           </motion.div>
         </div>
@@ -396,7 +396,7 @@ export default function AboutClient() {
             <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
               {[
                 { num: "100%", text: "Custom-built itineraries — no fixed packages ever" },
-                { num: "2", text: "Expert licensed guides — Asmar Hussain & Uzair" },
+                { num: "3", text: "Expert licensed guides — Asmar, Uzair & Dr Usman" },
                 { num: "24/7", text: "On-trip support from our Pakistan-based team" },
                 { num: "65%", text: "Clients who come back for a second journey with us" },
               ].map(({ num, text }) => (
