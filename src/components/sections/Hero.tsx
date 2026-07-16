@@ -22,7 +22,7 @@ const PHOTOS = [
   /* ─── Existing TravelBug shots ─── */
   { src: "/autumn-gulmit.jpg",     label: "Gulmit, Hunza"              },
   { src: "/spring-blossoms.jpg",   label: "Spring Blossoms"            },
-  { src: "/skardu1.jpg",           label: "Skardu"                     },
+  { src: "/skardu1.jpg",           label: "Hunza"                      },
   { src: "/hunza1.jpg",            label: "Passu Cones"                },
   { src: "/autumn-ghuwari.jpg",    label: "Ghuwari"                    },
   { src: "/skardu-machlu.jpg",     label: "Machlu Peaks"               },

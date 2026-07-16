@@ -7,7 +7,7 @@ import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 const PHOTOS = [
   { src: "/autumn-gulmit.jpg",      label: "Gulmit, Hunza" },
   { src: "/spring-blossoms.jpg",    label: "Spring Blossoms, Hunza" },
-  { src: "/skardu1.jpg",            label: "Skardu" },
+  { src: "/skardu1.jpg",            label: "Hunza" },
   { src: "/hunza1.jpg",             label: "Passu, Hunza" },
   { src: "/autumn-ghuwari.jpg",     label: "Ghuwari Valley" },
   { src: "/skardu-machlu.jpg",      label: "Machlu Peaks, Skardu" },
