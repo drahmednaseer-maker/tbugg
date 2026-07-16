@@ -15,9 +15,9 @@ const guides = [
   },
   {
     name: "Uzair Ahmed",
-    role: "Founder & Photographer",
-    expertise: "High Altitude Expeditions · K2 Base Camp, Karakoram & 6,000m+ Summits",
-    bio: "A professional photographer and accomplished mountaineer with multiple 6,000m+ peak summits under his belt. Uzair professionally leads tours to K2 Base Camp and high-altitude mountains across the Karakoram, combining elite mountaineering skills with a photographer's eye. His calm confidence on the mountain and genuine warmth off it make every expedition safe, extraordinary, and deeply personal.",
+    role: "High-Altitude Trekker & Photographer",
+    expertise: "High-Altitude Trekking · K2 Base Camp, Karakoram & Himalayan Trails",
+    bio: "A professional photographer and experienced high-altitude trekker. Uzair personally leads treks to K2 Base Camp and across the high trails of the Karakoram, pairing real mountain experience with a photographer's eye. His calm confidence on the trail and genuine warmth off it make every journey safe, extraordinary, and deeply personal.",
     image: "/uzair.png",
   },
   {
@@ -174,17 +174,21 @@ export default function AboutClient() {
                 {/* Avatar + name */}
                 <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
                   <div style={{
-                    width: "80px", height: "80px", borderRadius: "50%", flexShrink: 0,
+                    width: "104px", height: "104px", borderRadius: "50%", flexShrink: 0,
                     overflow: "hidden",
                     border: "3px solid #FFC20A",
                     boxShadow: "0 8px 24px rgba(255,194,10,0.35)",
                     background: "#0B1628",
+                    // give the avatar its own crisp raster layer so the parent's
+                    // entrance transform can't soften the rounded-clipped photo
+                    transform: "translateZ(0)",
                   }}>
-                    <img 
-                      src={image} 
+                    <img
+                      src={image}
                       alt={name}
-                      onError={onGuideImgError} 
-                      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }} 
+                      onError={onGuideImgError}
+                      loading="eager"
+                      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
                     />
                   </div>
                   <div>

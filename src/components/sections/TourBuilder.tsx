@@ -37,7 +37,7 @@ type DestItem = {
   nights: number;
 };
 
-type HotelChoice = Record<string, { stars: 4 | 5; hotel: string }>;
+type HotelChoice = Record<string, string>;
 
 // ─── Static Data ─────────────────────────────────────────────────────────────
 
@@ -58,21 +58,24 @@ const DESTS = [
   { id: "gwadar",  name: "Gwadar",           region: "Balochistan",      image: "/skardu-katpana.jpg" },
 ];
 
-const HOTELS: Record<string, { fiveStar: string[]; fourStar: string[] }> = {
-  hunza:   { fiveStar: ["Eagle's Nest Hotel, Duikar", "Serena Hunza Hotel"], fourStar: ["Old Hunza Inn", "Hunza Serena Inn", "Karimabad Fort Hotel"] },
-  skardu:  { fiveStar: ["Shangrila Resort Hotel", "Pearl Continental Skardu"], fourStar: ["K2 Motel Skardu", "Himalaya Hotel Skardu"] },
-  fairy:   { fiveStar: ["Raikot Sarai (Luxury Camp)"], fourStar: ["Fairy Meadows Inn", "Nanga Parbat View Camp"] },
-  naran:   { fiveStar: ["Pine Park Hotel Naran"], fourStar: ["PTDC Motel Naran", "Naran View Hotel"] },
-  swat:    { fiveStar: ["Pearl Continental Saidu Sharif"], fourStar: ["Miandam Inn", "Green Valley Hotel"] },
-  chitral: { fiveStar: ["Mountain Inn Chitral"], fourStar: ["PTDC Motel Chitral", "Rock City Hotel"] },
-  lahore:  { fiveStar: ["Pearl Continental Lahore", "Avari Hotel Lahore"], fourStar: ["Ambassador Hotel", "Hotel One Gulberg"] },
-  gilgit:  { fiveStar: ["Serena Hotel Gilgit"], fourStar: ["PTDC Motel Gilgit", "Madina Hotel"] },
-  murree:  { fiveStar: ["Cecil Hotel Murree", "Pearl Continental Bhurban"], fourStar: ["Shangrila Resort Murree"] },
-  ajk:     { fiveStar: ["Greens Hotel Muzaffarabad"], fourStar: ["PTDC Motel Muzaffarabad", "Neelum View Hotel"] },
-  deosai:  { fiveStar: ["Deosai Luxury Camp"], fourStar: ["Deosai Plains Camp"] },
-  k2:      { fiveStar: ["Concordia Luxury Camp"], fourStar: ["Askole Base Camp Hotel"] },
-  shandur: { fiveStar: ["Chitral Serena Hotel"], fourStar: ["PTDC Motel Mastuj", "Shandur Camp"] },
-  gwadar:  { fiveStar: ["Pearl Continental Gwadar"], fourStar: ["Holiday Inn Gwadar"] },
+// Curated hotels per destination, in the operator's preferred order (top to
+// bottom). Every destination's picker also shows an "other" box so the traveller
+// can type a hotel of their own choice.
+const HOTELS: Record<string, string[]> = {
+  hunza:   ["Serena Hotel Hunza", "Offto Hunza", "Moksha Resort Gulmit", "Diwan-e-Hunza, Gulmit", "Rihla Resort Hunza"],
+  skardu:  ["Khar Hotel Skardu", "Khoj Resort Shigar", "PC Legacy", "Shangrila Resort Skardu", "Qayaam Hotel", "Dynasty Hotel", "The Pioneer Hotel"],
+  fairy:   ["Raikot Sarai Resort", "Fairy Meadows Cottages", "Nanga Parbat Base Camp"],
+  naran:   ["Walnut Riverside Resort", "Maisonette Hotel Naran", "Hotel DeManchi Naran", "Mount Feast Hotel Naran", "Bela Resorts Naran"],
+  swat:    ["Pearl Continental Malam Jabba", "Rock City Resort Kalam", "Swat Palace Hotel", "Hotel One Swat", "Azure Lagoon Kalam"],
+  chitral: ["Hindukush Heights", "Mountain Inn Chitral", "PTDC Motel Chitral"],
+  lahore:  ["Pearl Continental Lahore", "Nishat Hotel Lahore", "Avari Hotel Lahore", "Luxus Grand Hotel"],
+  gilgit:  ["Serena Hotel Gilgit", "Gilgit Continental Hotel", "Riveria Hotel Gilgit"],
+  murree:  ["DoubleTree by Hilton Nathia Gali", "Pearl Continental Bhurban", "Pine Peaks Heaven Nathia Gali", "Lockwood Hotel Murree", "Shangrila Resort Murree"],
+  ajk:     ["Roomy Resort Kutton", "Neelum Retreat Keran", "Arang Kel Guest House", "Muzaffarabad Continental"],
+  deosai:  ["Deosai Luxury Camp", "Sheosar Lake Camp"],
+  k2:      ["Concordia Base Camp (Camping)", "Askole Camp", "Paiju Camp"],
+  shandur: ["Shandur Serena Camp", "PTDC Motel Mastuj", "Laspur Guest House"],
+  gwadar:  ["Zaver Pearl Continental Gwadar", "Sadaf Resort Gwadar", "Gwadar Tourist Motel"],
 };
 
 // ─── Transport Options ────────────────────────────────────────────────────────
@@ -448,6 +451,7 @@ export default function TourBuilder() {
   const suggested   = suggestTransport(totalPax);
   const needs4x4    = route.some(d => ["fairy","deosai","k2","shandur"].includes(d.id));
   const [hotels, setHotels] = useState<HotelChoice>({});
+  const [notes, setNotes] = useState(""); // optional "additional requirements" from the traveller
   const [dragFrom, setDragFrom] = useState<number | null>(null);
   const [dragTo, setDragTo] = useState<number | null>(null);
   const [weather, setWeather] = useState<Record<string, WeatherData>>({});
@@ -500,6 +504,7 @@ export default function TourBuilder() {
       setTransport(it.transport ?? "");
       setDeparture(it.departure ?? "islamabad");
       setHotels(it.hotels ?? {});
+      setNotes(it.notes ?? "");
       setGuestPhone(it.phone   ?? "");
       setSent(false);
       setStep(1); // start at Step 1 — Route tab with the map
@@ -577,8 +582,13 @@ export default function TourBuilder() {
   };
 
   // Hotels
-  const pickHotel = (destId: string, stars: 4 | 5, hotel: string) =>
-    setHotels(h => ({ ...h, [destId]: { stars, hotel } }));
+  const pickHotel = (destId: string, hotel: string) =>
+    setHotels(h => {
+      const n = { ...h };
+      if (hotel.trim()) n[destId] = hotel;
+      else delete n[destId];
+      return n;
+    });
 
   // Navigate between steps and always scroll back to the top of the builder
   const goToStep = (n: number) => {
@@ -602,8 +612,9 @@ export default function TourBuilder() {
       `🏙️ DEPARTURE: ${departure === "islamabad" ? "Islamabad" : "Lahore"}`,
       "",
       "🏨 HOTELS:",
-      ...route.map(d => `  • ${d.name}: ${hotels[d.id]?.hotel ?? "TBD"} (${hotels[d.id]?.stars ?? "?"}★)`),
+      ...route.map(d => `  • ${d.name}: ${hotels[d.id] ?? "TBD"}`),
       "",
+      ...(notes.trim() ? ["📝 ADDITIONAL REQUIREMENTS:", notes.trim(), ""] : []),
       `📅 Total: ${totalNights} nights`,
     ];
 
@@ -619,7 +630,8 @@ export default function TourBuilder() {
         route: route.map(d => ({ id: d.id, name: d.name, region: d.region, image: d.image, nights: d.nights })),
         maleAdults, femaleAdults, children, childAges,
         transport, departure,
-        hotels: hotels as Record<string, { stars: 4 | 5; hotel: string }>,
+        hotels: hotels as Record<string, string>,
+        notes: notes.trim() || undefined,
         totalNights,
         status: "pending",
       });
@@ -644,8 +656,9 @@ export default function TourBuilder() {
       "DEPARTURE: " + (departure === "islamabad" ? "Islamabad" : "Lahore"),
       "",
       "HOTELS:",
-      ...route.map(d => "  • " + d.name + ": " + (hotels[d.id]?.hotel ?? "TBD") + " (" + (hotels[d.id]?.stars ?? "?") + "★)"),
+      ...route.map(d => "  • " + d.name + ": " + (hotels[d.id] ?? "TBD")),
       "",
+      ...(notes.trim() ? ["ADDITIONAL REQUIREMENTS:", notes.trim(), ""] : []),
       "Total: " + totalNights + " nights",
     ];
     const body = encodeURIComponent(bodyLines.join("\n"));
@@ -664,7 +677,8 @@ export default function TourBuilder() {
         route: route.map(d => ({ id: d.id, name: d.name, region: d.region, image: d.image, nights: d.nights })),
         maleAdults, femaleAdults, children, childAges,
         transport, departure,
-        hotels: hotels as Record<string, { stars: 4 | 5; hotel: string }>,
+        hotels: hotels as Record<string, string>,
+        notes: notes.trim() || undefined,
         totalNights,
         status: "pending",
       });
@@ -1056,8 +1070,9 @@ export default function TourBuilder() {
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
                   {route.map(dest => {
-                    const h = HOTELS[dest.id] ?? { fiveStar: [], fourStar: [] };
+                    const list = HOTELS[dest.id] ?? [];
                     const chosen = hotels[dest.id];
+                    const isCustom = !!chosen && !list.includes(chosen);
                     return (
                       <div key={dest.id} style={{ borderRadius: "16px", border: "1px solid rgba(255,255,255,0.06)", overflow: "hidden" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "14px 18px", background: "rgba(255,255,255,0.02)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
@@ -1069,26 +1084,33 @@ export default function TourBuilder() {
                           {chosen && <span style={{ background: "rgba(255,194,10,0.12)", border: "1px solid rgba(255,194,10,0.3)", color: "#FFC20A", fontSize: "11px", fontWeight: 700, padding: "3px 10px", borderRadius: "20px" }}>✓ Selected</span>}
                         </div>
                         <div style={{ padding: "14px 18px", display: "flex", flexDirection: "column", gap: "6px" }}>
-                          {([5, 4] as const).flatMap(stars =>
-                            (stars === 5 ? h.fiveStar : h.fourStar).map(name => (
+                          {list.map(name => {
+                            const active = chosen === name;
+                            return (
                               <button type="button" key={name}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   const sy = window.scrollY;
-                                  pickHotel(dest.id, stars, name);
+                                  pickHotel(dest.id, name);
                                   requestAnimationFrame(() => window.scrollTo({ top: sy, behavior: "instant" as ScrollBehavior }));
                                 }}
-                                style={{ padding: "11px 14px", borderRadius: "12px", background: chosen?.hotel === name ? "rgba(255,194,10,0.1)" : "rgba(255,255,255,0.02)", border: `1px solid ${chosen?.hotel === name ? "rgba(255,194,10,0.4)" : "rgba(255,255,255,0.06)"}`, display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer", textAlign: "left" }}>
-                                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                                  <div style={{ display: "flex", gap: "2px" }}>
-                                    {Array.from({ length: stars }).map((_, k) => <Star key={k} style={{ width: 10, height: 10, fill: "#FFC20A", color: "#FFC20A" }} />)}
-                                  </div>
-                                  <span style={{ color: chosen?.hotel === name ? "#FFC20A" : "rgba(255,255,255,0.65)", fontSize: "13px", fontWeight: 600 }}>{name}</span>
-                                </div>
-                                {chosen?.hotel === name && <Check style={{ width: 14, height: 14, color: "#FFC20A" }} />}
+                                style={{ padding: "12px 14px", borderRadius: "12px", background: active ? "rgba(255,194,10,0.1)" : "rgba(255,255,255,0.02)", border: `1px solid ${active ? "rgba(255,194,10,0.4)" : "rgba(255,255,255,0.06)"}`, display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px", cursor: "pointer", textAlign: "left" }}>
+                                <span style={{ color: active ? "#FFC20A" : "rgba(255,255,255,0.7)", fontSize: "13px", fontWeight: 600 }}>{name}</span>
+                                {active && <Check style={{ width: 14, height: 14, color: "#FFC20A", flexShrink: 0 }} />}
                               </button>
-                            ))
-                          )}
+                            );
+                          })}
+                          {/* Traveller's own hotel of choice */}
+                          <div style={{ marginTop: "4px", padding: "10px 12px", borderRadius: "12px", background: isCustom ? "rgba(255,194,10,0.08)" : "rgba(255,255,255,0.02)", border: `1px solid ${isCustom ? "rgba(255,194,10,0.35)" : "rgba(255,255,255,0.06)"}`, display: "flex", alignItems: "center", gap: "8px" }}>
+                            <Hotel style={{ width: 14, height: 14, color: isCustom ? "#FFC20A" : "rgba(255,255,255,0.3)", flexShrink: 0 }} />
+                            <input
+                              type="text"
+                              value={isCustom ? chosen : ""}
+                              onChange={(e) => pickHotel(dest.id, e.target.value)}
+                              placeholder="Prefer a different hotel? Type it here…"
+                              style={{ flex: 1, minWidth: 0, background: "transparent", border: "none", outline: "none", color: "white", fontSize: "13px", fontWeight: 600 }}
+                            />
+                          </div>
                         </div>
                       </div>
                     );
@@ -1146,9 +1168,21 @@ export default function TourBuilder() {
                   <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "14px", padding: "16px" }}>
                     <p style={{ color: "#FFC20A", fontSize: "10px", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "8px" }}>Hotels</p>
                     {route.map(d => hotels[d.id] && (
-                      <p key={d.id} style={{ color: "rgba(255,255,255,0.5)", fontSize: "11px", margin: "0 0 3px" }}>{d.name}: {hotels[d.id].stars}★</p>
+                      <p key={d.id} style={{ color: "rgba(255,255,255,0.5)", fontSize: "11px", margin: "0 0 3px" }}>{d.name}: {hotels[d.id]}</p>
                     ))}
                   </div>
+                </div>
+
+                {/* Additional requirements (optional) */}
+                <div style={{ marginBottom: "20px" }}>
+                  <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "10px" }}>Anything Else? <span style={{ color: "rgba(255,255,255,0.25)", fontWeight: 600, letterSpacing: 0, textTransform: "none" }}>(optional)</span></p>
+                  <textarea
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    rows={3}
+                    placeholder="Add anything you'd like — special requirements, dietary needs, an occasion you're celebrating, must-see spots, preferred pace or budget…"
+                    style={{ width: "100%", minWidth: 0, boxSizing: "border-box", resize: "vertical", padding: "13px 15px", borderRadius: "14px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)", color: "white", fontSize: "13px", fontWeight: 500, lineHeight: 1.65, outline: "none", fontFamily: "inherit" }}
+                  />
                 </div>
 
                 {/* Contact chip */}
