@@ -7,9 +7,9 @@ import { Heart, Mountain, Award, Users, ArrowRight, CheckCircle2, MapPin, Star, 
 /* ── Our Guides ── */
 const guides = [
   {
-    name: "Mr. Asmar Hussain",
-    role: "Sony Brand Ambassador & Award-Winning Landscape Photographer",
-    expertise: "Landscape & Portrait Photography · Karakoram, Hindukush & Himalayan Ranges",
+    name: "M Asmar Hussain",
+    role: "Co-Founder & Sony Brand Ambassador",
+    expertise: "International Award-Winning Landscape & Portrait Photographer · Karakoram, Hindukush & Himalayan Ranges",
     bio: "A professional landscape and portrait photographer with years of experience capturing the raw beauty of the Karakorams, Hindukush, and Himalayas. Asmar's intimate knowledge of light, terrain, and hidden vantage points across Pakistan's greatest mountain ranges transforms every journey into a visual masterpiece — and an unforgettable adventure.",
     image: "/asmar.png",
   },
