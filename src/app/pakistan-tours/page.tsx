@@ -7,12 +7,12 @@ import FAQSection from "@/components/sections/FAQSection";
 export const metadata: Metadata = {
   title: "Pakistan Tours for International Travellers",
   description:
-    "Photographer-led private Pakistan tours for international travellers — from the UK, USA, Canada, Australia, UAE, Germany, Netherlands & Singapore. Flights, seasons, visas & tailored itineraries to Hunza, Skardu & the Karakoram.",
+    "Photographers-led private Pakistan tours for international travellers — from the UK, USA, Canada, Australia, UAE, Germany, Netherlands & Singapore. Flights, seasons, visas & tailored itineraries to Hunza, Skardu & the Karakoram.",
   alternates: { canonical: "/pakistan-tours" },
   openGraph: {
     title: "Pakistan Tours for International Travellers | TravelBug.pk",
     description:
-      "Country-by-country guidance on visiting Pakistan — flights, seasons, visas and photographer-led private tours.",
+      "Country-by-country guidance on visiting Pakistan — flights, seasons, visas and photographers-led private tours.",
     images: [{ url: "/destinations/hunza/attabad_lake.jpg", width: 1200, height: 630, alt: "Pakistan tours for international travellers" }],
   },
 };
@@ -45,7 +45,7 @@ export default function PakistanToursHub() {
             Pakistan Tours, Wherever You're Travelling From
           </h1>
           <p style={{ color: "rgba(255,255,255,0.72)", fontSize: "18px", lineHeight: 1.7, maxWidth: "680px", margin: "0 auto" }}>
-            Photographer-led, 100% private tours across Pakistan — with country-specific guidance on flights, seasons and visas. Choose your home country to get started.
+            Photographers-led, 100% private tours across Pakistan — with country-specific guidance on flights, seasons and visas. Choose your home country to get started.
           </p>
         </div>
       </section>

@@ -10,7 +10,7 @@ import FAQSection from "@/components/sections/FAQSection";
 import { generalFaqs } from "@/data/faqs";
 
 export const metadata: Metadata = {
-  title: "TravelBug.pk — Photographer-Led Custom Tours of Pakistan",
+  title: "TravelBug.pk — Photographers-Led Custom Tours of Pakistan",
   description:
     "TravelBug.pk is run by professional photographers Muhammad Asmar Hussain & Uzair Ahmed. We craft 100% customised tours across Pakistan's most extraordinary destinations.",
   alternates: { canonical: "/" },

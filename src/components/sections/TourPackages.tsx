@@ -88,7 +88,7 @@ const slides = [
 ];
 
 const highlights = [
-  { icon: Camera,        label: "Photographer-Led",  desc: "Every guide is a professional photographer" },
+  { icon: Camera,        label: "Photographers-Led",  desc: "Every guide is a professional photographer" },
   { icon: Users,         label: "Small Groups",       desc: "Max 12 per group — never a crowd"          },
   { icon: Star,          label: "100% Customised",    desc: "No fixed packages — your journey, your way" },
   { icon: MessageCircle, label: "WhatsApp Planning",  desc: "Plan your entire trip directly with us"     },

@@ -1,6 +1,6 @@
 # TravelBug.pk
 
-> TravelBug.pk is a photographer-led travel company founded in 2018, offering 100% customized private tours across Pakistan — including Hunza, Skardu, Gilgit-Baltistan, Kashmir, Minimarg, Lahore and the Karakoram. Tours are guided by professional landscape photographers Muhammad Asmar Hussain and Uzair Ahmed. Based in Wah Cantt, Pakistan. Contact: travelbugpakistan@gmail.com, +92 324 8888889.
+> TravelBug.pk is a photographers-led travel company founded in 2018, offering 100% customized private tours across Pakistan — including Hunza, Skardu, Gilgit-Baltistan, Kashmir, Minimarg, Lahore and the Karakoram. Tours are guided by professional landscape photographers Muhammad Asmar Hussain and Uzair Ahmed. Based in Wah Cantt, Pakistan. Contact: travelbugpakistan@gmail.com, +92 324 8888889.
 
 ## Key facts
 - Founded: 2018
@@ -11,10 +11,10 @@
 - Best seasons: Spring blossoms (mid-March–April), Autumn colours (late Sept–Oct), Summer trekking (May–Aug)
 
 ## Core pages
-- [Home](https://travelbug.pk/): Overview of photographer-led custom Pakistan tours.
+- [Home](https://travelbug.pk/): Overview of photographers-led custom Pakistan tours.
 - [Tours](https://travelbug.pk/tours): 21+ tours across budget, luxury and adventure tiers.
 - [Destinations](https://travelbug.pk/destinations): Hunza, Skardu, Charakusa, Kashmir, Lahore, Kalash and more.
-- [Why TravelBug](https://travelbug.pk/why-travelbug): Photographer-led philosophy and what makes trips different.
+- [Why TravelBug](https://travelbug.pk/why-travelbug): Photographers-led philosophy and what makes trips different.
 - [Traveler Stories](https://travelbug.pk/traveler-stories): Real reviews from international travellers.
 - [About](https://travelbug.pk/about): Company story and team.
 - [Contact](https://travelbug.pk/contact): Enquiries, WhatsApp, email.

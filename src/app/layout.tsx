@@ -69,7 +69,7 @@ const orgJsonLd = {
   "@id": "https://travelbug.pk/#organization",
   name: "TravelBug.pk",
   description:
-    "Photographer-led, 100% customized tours across Pakistan — Hunza, Skardu, Minimarg, Kashmir, Lahore & beyond.",
+    "Photographers-led, 100% customized tours across Pakistan — Hunza, Skardu, Minimarg, Kashmir, Lahore & beyond.",
   url: "https://travelbug.pk",
   logo: "https://travelbug.pk/logo.png",
   image: "https://travelbug.pk/destinations/hunza/attabad_lake.jpg",
@@ -114,7 +114,7 @@ const websiteJsonLd = {
   name: "TravelBug.pk",
   url: "https://travelbug.pk",
   description:
-    "Photographer-led, 100% customized tours across Pakistan — Hunza, Skardu, Kashmir, Lahore & beyond.",
+    "Photographers-led, 100% customized tours across Pakistan — Hunza, Skardu, Kashmir, Lahore & beyond.",
   inLanguage: "en",
   publisher: { "@id": "https://travelbug.pk/#organization" },
   potentialAction: {

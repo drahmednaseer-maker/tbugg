@@ -163,14 +163,14 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}
             style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "7px 16px", marginBottom: "26px", borderRadius: "999px", background: "rgba(255,194,10,0.10)", border: "1px solid rgba(255,194,10,0.28)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)" }}>
             <Star style={{ width: 13, height: 13, color: "#FFC20A", fill: "#FFC20A" }} />
-            <span style={{ color: "#FFD34A", fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>Photographer-Led Custom Tours</span>
+            <span style={{ color: "#FFD34A", fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>Photographers-Led Custom Tours</span>
           </motion.div>
 
           <div className="overflow-hidden mb-3">
             <motion.h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
               Explore Pakistan
-              <span className="sr-only"> — Your Next Adventure Destination. Photographer-led, 100% customized tours of Pakistan.</span>
+              <span className="sr-only"> — Your Next Adventure Destination. Photographers-led, 100% customized tours of Pakistan.</span>
             </motion.h1>
           </div>
           <div className="overflow-hidden mb-2" aria-hidden="true">
@@ -216,7 +216,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }}
             style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px", marginTop: "38px" }}>
-            {["100% Customized", "Photographer-Led", "Karakoram to Gwadar"].map((t, i) => (
+            {["100% Customized", "Photographers-Led", "Karakoram to Gwadar"].map((t, i) => (
               <div key={i} style={{ display: "inline-flex", alignItems: "center", gap: "7px", padding: "8px 15px", borderRadius: "999px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)" }}>
                 <Check style={{ width: 14, height: 14, color: "#FFC20A" }} />
                 <span style={{ color: "rgba(255,255,255,0.78)", fontSize: "13px", fontWeight: 600 }}>{t}</span>

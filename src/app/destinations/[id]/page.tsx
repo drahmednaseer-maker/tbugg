@@ -10,11 +10,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
   const ogImage = dest.images?.[0];
   return {
-    title: `${dest.name} — Photographer-Led Tours | TravelBug.pk`,
+    title: `${dest.name} — Photographers-Led Tours | TravelBug.pk`,
     description: dest.description,
     alternates: { canonical: `/destinations/${dest.id}` },
     openGraph: {
-      title: `${dest.name} — Photographer-Led Tours | TravelBug.pk`,
+      title: `${dest.name} — Photographers-Led Tours | TravelBug.pk`,
       description: dest.description,
       ...(ogImage
         ? { images: [{ url: ogImage, width: 1200, height: 630, alt: dest.name }] }

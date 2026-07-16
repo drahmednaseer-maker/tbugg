@@ -4,7 +4,7 @@ import { Star, Quote, MapPin, Calendar } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Traveler Stories — Real Experiences | TravelBug.pk",
-  description: "Read real reviews and stories from travelers who have explored Pakistan with TravelBug.pk. Photographer-led memories from across the country.",
+  description: "Read real reviews and stories from travelers who have explored Pakistan with TravelBug.pk. Photographers-led memories from across the country.",
   alternates: { canonical: "/traveler-stories" },
 };
 

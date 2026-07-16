@@ -57,7 +57,7 @@ export default function Footer() {
               color: "rgba(255,255,255,0.4)", fontSize: "13px",
               lineHeight: 1.8, maxWidth: "280px", marginBottom: "28px",
             }}>
-              Photographer-led custom tours across Pakistan. Every journey is designed personally by award-winning photographers Asmar &amp; Uzair.
+              Photographers-led custom tours across Pakistan. Every journey is designed personally by award-winning photographers Asmar &amp; Uzair.
             </p>
 
             {/* Social icons */}
@@ -221,7 +221,7 @@ export default function Footer() {
             >Theagentech.com</a>
           </p>
           <p style={{ color: "rgba(255,255,255,0.2)", fontSize: "12px" }}>
-            Photographer-led custom tours of Pakistan
+            Photographers-led custom tours of Pakistan
           </p>
         </div>
       </div>

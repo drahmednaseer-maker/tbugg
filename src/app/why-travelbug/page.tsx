@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 
 export const metadata: Metadata = {
-  title: "Why TravelBug.pk — Our Philosophy | Photographer-Led Tours",
-  description: "Learn what makes TravelBug.pk different. Photographer-led, small group, and 100% custom-tailored journeys across Pakistan.",
+  title: "Why TravelBug.pk — Our Philosophy | Photographers-Led Tours",
+  description: "Learn what makes TravelBug.pk different. Photographers-led, small group, and 100% custom-tailored journeys across Pakistan.",
   alternates: { canonical: "/why-travelbug" },
 };
 
@@ -16,7 +16,7 @@ export default function WhyTravelBugPage() {
             Why Travel With TravelBug.pk
           </h1>
           <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "18px", lineHeight: 1.7, maxWidth: "640px", margin: "16px auto 0" }}>
-            Photographer-led, small-group, and 100% custom-tailored journeys across Pakistan — built around your pace, your interests, and the best light.
+            Photographers-led, small-group, and 100% custom-tailored journeys across Pakistan — built around your pace, your interests, and the best light.
           </p>
         </header>
         <WhyChooseUs />

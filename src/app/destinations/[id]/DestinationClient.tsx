@@ -101,7 +101,7 @@ export default function DestinationClient({ destination }: { destination: Destin
                   Available <span style={{ color: "#FFC20A" }}>Tours</span>
                 </h2>
                 <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "15px" }}>
-                  Choose from our photographer-led custom journeys in {destination.name}.
+                  Choose from our photographers-led custom journeys in {destination.name}.
                 </p>
               </div>
 
