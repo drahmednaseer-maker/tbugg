@@ -104,7 +104,7 @@ export default function AboutClient() {
             initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
             style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#FFC20A", fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "20px" }}
           >
-            <MapPin style={{ width: "14px", height: "14px" }} /> Expert-Led Journeys · Wah Cantt, Pakistan
+            <MapPin style={{ width: "14px", height: "14px" }} /> Expert-Led Journeys
           </motion.div>
 
           <motion.h1
