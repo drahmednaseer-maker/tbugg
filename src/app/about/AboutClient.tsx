@@ -171,8 +171,9 @@ export default function AboutClient() {
                   overflow: "hidden",
                 }}
               >
-                {/* Avatar + name */}
-                <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+                {/* Avatar + name — photo pinned to the top so all three align
+                    regardless of how long the name/role text is */}
+                <div style={{ display: "flex", alignItems: "flex-start", gap: "20px" }}>
                   <div style={{
                     width: "104px", height: "104px", borderRadius: "50%", flexShrink: 0,
                     overflow: "hidden",
@@ -191,7 +192,7 @@ export default function AboutClient() {
                       style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
                     />
                   </div>
-                  <div>
+                  <div style={{ minHeight: "104px", display: "flex", flexDirection: "column", justifyContent: "center", minWidth: 0 }}>
                     <p style={{ margin: "0 0 3px", color: "white", fontWeight: 900, fontSize: "20px" }}>{name}</p>
                     <p style={{ margin: 0, color: "#FFC20A", fontWeight: 700, fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.1em" }}>{role}</p>
                   </div>
