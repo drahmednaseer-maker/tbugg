@@ -803,7 +803,7 @@ export default function TourBuilder() {
                 {/* Name */}
                 <div style={{ marginBottom: "14px" }}>
                   <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "8px" }}>Your Name (optional)</p>
-                  <input type="text" placeholder="e.g. Ali Khan" value={guestName} onChange={e => setGuestName(e.target.value)}
+                  <input type="text" placeholder="Name" value={guestName} onChange={e => setGuestName(e.target.value)}
                     style={{ width: "100%", padding: "13px 14px", borderRadius: "14px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: "white", fontSize: "14px", fontWeight: 600, outline: "none", boxSizing: "border-box" }} />
                 </div>
 
