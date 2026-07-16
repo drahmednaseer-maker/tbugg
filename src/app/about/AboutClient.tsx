@@ -15,10 +15,10 @@ const guides = [
   },
   {
     name: "Uzair Ahmed",
+    image: "/uzair.jpg",
     role: "High-Altitude Trekker & Photographer",
     expertise: "High-Altitude Trekking · K2 Base Camp, Karakoram & Himalayan Trails",
     bio: "A professional photographer and experienced high-altitude trekker. Uzair personally leads treks to K2 Base Camp and across the high trails of the Karakoram, pairing real mountain experience with a photographer's eye. His calm confidence on the trail and genuine warmth off it make every journey safe, extraordinary, and deeply personal.",
-    image: "/uzair.png",
   },
   {
     name: "Dr. Usman ul Haq",
