@@ -381,15 +381,15 @@ export default function AboutClient() {
                 {[...Array(5)].map((_, i) => <Star key={i} style={{ width: "20px", height: "20px", fill: "#FFC20A", color: "#FFC20A" }} />)}
               </div>
               <p style={{ margin: "0 0 20px", color: "white", fontSize: "20px", fontWeight: 700, lineHeight: 1.5, fontStyle: "italic" }}>
-                &ldquo;TravelBug.pk planned our family trip to Hunza and Skardu perfectly. Every hotel, every transfer, every detail was exactly as we requested. Our kids still talk about it as the best holiday of their lives.&rdquo;
+                &ldquo;We booked our Skardu trip with Travel Bug Pakistan, and it was truly an amazing experience from start to finish. Our stay in the Panoramic Suite at Rivage Resort was exceptional, with breathtaking views and excellent comfort.&rdquo;
               </p>
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                 <div style={{ width: "44px", height: "44px", borderRadius: "50%", background: "rgba(255,194,10,0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ color: "#FFC20A", fontWeight: 800, fontSize: "16px" }}>FA</span>
+                  <span style={{ color: "#FFC20A", fontWeight: 800, fontSize: "16px" }}>AH</span>
                 </div>
                 <div>
-                  <p style={{ margin: 0, color: "white", fontWeight: 700, fontSize: "14px" }}>Farhan Ahmed</p>
-                  <p style={{ margin: 0, color: "rgba(255,255,255,0.4)", fontSize: "12px" }}>Karachi → Hunza + Skardu, July 2024</p>
+                  <p style={{ margin: 0, color: "white", fontWeight: 700, fontSize: "14px" }}>Ayesha Hassan</p>
+                  <p style={{ margin: 0, color: "rgba(255,255,255,0.4)", fontSize: "12px" }}>Verified Google Review · Skardu Tour, July 2026</p>
                 </div>
               </div>
             </div>

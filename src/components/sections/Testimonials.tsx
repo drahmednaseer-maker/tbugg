@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, ChevronLeft, ChevronRight, Quote, ExternalLink } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { testimonials } from "@/data/testimonials";
+import GoogleVerifiedBadge from "@/components/GoogleVerifiedBadge";
 
 /** Get initials from a full name */
 function getInitials(name: string) {
@@ -91,7 +92,7 @@ export default function Testimonials() {
 
           {/* Google Rating Badge */}
           <a
-            href="https://www.google.com/search?q=TravelBug.pk+reviews"
+            href="https://www.google.com/search?q=Travel+Bug+Pakistan+Reviews"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -148,23 +149,8 @@ export default function Testimonials() {
                 padding: "48px 52px",
               }}
             >
-              {/* Quote icon */}
-              <Quote style={{ width: 40, height: 40, color: "rgba(255,194,10,0.25)", marginBottom: "24px" }} />
-
-              {/* Review text */}
-              <p style={{
-                color: "rgba(255,255,255,0.8)", fontSize: "17px",
-                lineHeight: 1.85, fontStyle: "italic",
-                marginBottom: "36px",
-              }}>
-                &ldquo;{t.review}&rdquo;
-              </p>
-
-              {/* Divider */}
-              <div style={{ width: "100%", height: "1px", background: "rgba(255,255,255,0.06)", marginBottom: "28px" }} />
-
-              {/* Author row — no avatar image, just name & details */}
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", flexWrap: "wrap" }}>
+              {/* Author header — name, stars & Google verification on top */}
+              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px", flexWrap: "wrap", marginBottom: "24px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
                   {/* Initials circle */}
                   <div style={{
@@ -184,23 +170,40 @@ export default function Testimonials() {
                     </span>
                   </div>
                   <div>
-                    <p style={{ color: "white", fontWeight: 800, fontSize: "15px", marginBottom: "3px" }}>{t.name}</p>
-                    <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px", marginBottom: "4px" }}>{t.location}</p>
-                    <p style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 700 }}>{t.tour}</p>
+                    <p style={{ color: "white", fontWeight: 800, fontSize: "16px", marginBottom: "3px" }}>{t.name}</p>
+                    <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px", marginBottom: "6px" }}>{t.location}</p>
+                    <div style={{ display: "flex", gap: "3px" }}>
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star
+                          key={i}
+                          style={{ width: 15, height: 15, fill: i < t.rating ? "#FBBC05" : "transparent", color: i < t.rating ? "#FBBC05" : "rgba(255,255,255,0.15)" }}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
 
-                <div style={{ textAlign: "right" }}>
-                  <div style={{ display: "flex", gap: "3px", justifyContent: "flex-end", marginBottom: "6px" }}>
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
-                        key={i}
-                        style={{ width: 15, height: 15, fill: i < t.rating ? "#FFC20A" : "transparent", color: i < t.rating ? "#FFC20A" : "rgba(255,255,255,0.15)" }}
-                      />
-                    ))}
-                  </div>
-                  <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "11px" }}>{t.date}</span>
-                </div>
+                {t.verified && <GoogleVerifiedBadge />}
+              </div>
+
+              {/* Divider */}
+              <div style={{ width: "100%", height: "1px", background: "rgba(255,255,255,0.06)", marginBottom: "24px" }} />
+
+              {/* Review text — below the author header */}
+              <p style={{
+                color: "rgba(255,255,255,0.8)", fontSize: "16px",
+                lineHeight: 1.8, fontStyle: "italic",
+                whiteSpace: "pre-line",
+                maxHeight: "320px", overflowY: "auto",
+                paddingRight: "8px",
+              }}>
+                &ldquo;{t.review}&rdquo;
+              </p>
+
+              {/* Footer — tour & date */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px", flexWrap: "wrap", marginTop: "24px" }}>
+                <p style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 700 }}>{t.tour}</p>
+                <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "11px" }}>{t.date}</span>
               </div>
             </motion.div>
           </AnimatePresence>

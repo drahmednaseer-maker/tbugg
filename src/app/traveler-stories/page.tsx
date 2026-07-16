@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { testimonials } from "@/data/testimonials";
-import { Star, Quote, MapPin, Calendar } from "lucide-react";
+import { Star, MapPin, Calendar } from "lucide-react";
+import GoogleVerifiedBadge from "@/components/GoogleVerifiedBadge";
 
 export const metadata: Metadata = {
   title: "Traveler Stories — Real Experiences | TravelBug.pk",
@@ -25,7 +26,7 @@ export default function TravelerStoriesPage() {
             Traveler <span style={{ color: "#FFC20A" }}>Stories</span>
           </h1>
           <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "17px", maxWidth: "600px", margin: "0 auto", lineHeight: 1.7 }}>
-            We are proud to have hosted travelers from over 30 countries. These are their stories, their memories, and their real experiences on the ground in Pakistan.
+            Every story below is a real, verified review from our Google Business profile — written by travelers who explored Pakistan with us, in their own words.
           </p>
         </div>
 
@@ -44,54 +45,66 @@ export default function TravelerStoriesPage() {
                 position: "relative"
               }}
             >
-              <Quote style={{ width: 32, height: 32, color: "rgba(255,194,10,0.15)", marginBottom: "20px" }} />
-              
-              <div style={{ display: "flex", gap: "2px", marginBottom: "16px" }}>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star 
-                    key={i} 
-                    style={{ 
-                      width: 14, height: 14, 
-                      fill: i < t.rating ? "#FFC20A" : "transparent", 
-                      color: i < t.rating ? "#FFC20A" : "rgba(255,255,255,0.15)" 
-                    }} 
-                  />
-                ))}
+              {/* Author header — name, stars & Google verification on top */}
+              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "12px", flexWrap: "wrap", marginBottom: "14px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+                  {t.avatar ? (
+                    <img loading="lazy" decoding="async"
+                      src={t.avatar}
+                      alt={t.name}
+                      style={{ width: "48px", height: "48px", borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,194,10,0.3)" }}
+                    />
+                  ) : (
+                    <div aria-hidden="true" style={{ width: "48px", height: "48px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(255,194,10,0.15)", border: "2px solid rgba(255,194,10,0.3)", color: "#FFC20A", fontSize: "18px", fontWeight: 800, flexShrink: 0 }}>
+                      {t.name?.charAt(0) ?? "T"}
+                    </div>
+                  )}
+                  <div>
+                    <h4 style={{ color: "white", fontSize: "15px", fontWeight: 800, marginBottom: "4px" }}>{t.name}</h4>
+                    <div style={{ display: "flex", gap: "2px" }}>
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star
+                          key={i}
+                          style={{
+                            width: 14, height: 14,
+                            fill: i < t.rating ? "#FBBC05" : "transparent",
+                            color: i < t.rating ? "#FBBC05" : "rgba(255,255,255,0.15)"
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
               </div>
 
-              <p style={{ 
-                color: "rgba(255,255,255,0.8)", 
-                fontSize: "15px", 
-                lineHeight: 1.8, 
+              {t.verified && (
+                <div style={{ marginBottom: "20px" }}>
+                  <GoogleVerifiedBadge size="sm" />
+                </div>
+              )}
+
+              <div style={{ width: "100%", height: "1px", background: "rgba(255,255,255,0.06)", marginBottom: "20px" }} />
+
+              {/* Review text — below the author header */}
+              <p style={{
+                color: "rgba(255,255,255,0.8)",
+                fontSize: "15px",
+                lineHeight: 1.8,
                 fontStyle: "italic",
+                whiteSpace: "pre-line",
                 flex: 1,
-                marginBottom: "32px"
+                marginBottom: "24px"
               }}>
                 &ldquo;{t.review}&rdquo;
               </p>
 
-              <div style={{ width: "100%", height: "1px", background: "rgba(255,255,255,0.06)", marginBottom: "24px" }} />
-
-              <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                {t.avatar ? (
-                  <img loading="lazy" decoding="async"
-                    src={t.avatar}
-                    alt={t.name}
-                    style={{ width: "48px", height: "48px", borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,194,10,0.3)" }}
-                  />
-                ) : (
-                  <div aria-hidden="true" style={{ width: "48px", height: "48px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(255,194,10,0.15)", border: "2px solid rgba(255,194,10,0.3)", color: "#FFC20A", fontSize: "18px", fontWeight: 800, flexShrink: 0 }}>
-                    {t.name?.charAt(0) ?? "T"}
-                  </div>
-                )}
-                <div>
-                  <h4 style={{ color: "white", fontSize: "15px", fontWeight: 800, marginBottom: "2px" }}>{t.name}</h4>
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px", color: "rgba(255,255,255,0.4)", fontSize: "11px" }}>
-                    <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><MapPin style={{ width: 10, height: 10 }} /> {t.location}</span>
-                    <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><Calendar style={{ width: 10, height: 10 }} /> {t.date}</span>
-                  </div>
-                  <p style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 700, marginTop: "4px" }}>{t.tour}</p>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px", flexWrap: "wrap" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", color: "rgba(255,255,255,0.4)", fontSize: "11px" }}>
+                  <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><MapPin style={{ width: 10, height: 10 }} /> {t.location}</span>
+                  <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><Calendar style={{ width: 10, height: 10 }} /> {t.date}</span>
                 </div>
+                {t.tour && <p style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 700 }}>{t.tour}</p>}
               </div>
             </div>
           ))}

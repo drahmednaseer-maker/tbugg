@@ -51,6 +51,8 @@ export interface Testimonial {
   review: string;
   tour: string;
   date: string;
+  /** True for reviews taken verbatim from the Google Business profile */
+  verified?: boolean;
 }
 
 export interface TeamMember {
