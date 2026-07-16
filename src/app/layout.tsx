@@ -6,6 +6,8 @@ import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import Providers from "@/components/Providers";
 import ServiceWorkerCleanup from "@/components/ServiceWorkerCleanup";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { Analytics } from "@vercel/analytics/next";
 import { testimonials } from "@/data/testimonials";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -150,6 +152,9 @@ export default function RootLayout({
           <Footer />
           <FloatingWhatsApp />
         </Providers>
+        {/* Private, owner-only analytics — see ANALYTICS.md */}
+        <Analytics />
+        <GoogleAnalytics />
       </body>
     </html>
   );
