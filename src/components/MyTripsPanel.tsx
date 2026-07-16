@@ -158,11 +158,11 @@ function ItineraryCard({
               {Object.keys(it.hotels).length > 0 && (
                 <div style={{ marginBottom: "12px" }}>
                   <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "9px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "8px" }}>Hotels</p>
-                  {it.route.map(d => it.hotels[d.id] && (
+                  {it.route.map(d => (it.hotels[d.id]?.length ? (
                     <p key={d.id} style={{ color: "rgba(255,255,255,0.4)", fontSize: "10px", margin: "0 0 3px" }}>
-                      <span style={{ color: "rgba(255,255,255,0.6)", fontWeight: 700 }}>{d.name}:</span> {it.hotels[d.id]}
+                      <span style={{ color: "rgba(255,255,255,0.6)", fontWeight: 700 }}>{d.name}:</span> {it.hotels[d.id].map(p => `${p.hotel} (${p.nights}N)`).join(", ")}
                     </p>
-                  ))}
+                  ) : null))}
                 </div>
               )}
 

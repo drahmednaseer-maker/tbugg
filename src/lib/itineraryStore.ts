@@ -23,7 +23,7 @@ export type SavedItinerary = {
   childAges: number[];
   transport: string;
   departure: string;
-  hotels: Record<string, string>;   // destId → chosen hotel name (or the traveller's own)
+  hotels: Record<string, { hotel: string; nights: number }[]>;   // destId → hotels with a night breakdown
   totalNights: number;
   status: "pending" | "confirmed" | "modified";
   notes?: string;              // optional "additional requirements" from the traveller

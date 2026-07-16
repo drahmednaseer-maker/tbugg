@@ -37,7 +37,8 @@ type DestItem = {
   nights: number;
 };
 
-type HotelChoice = Record<string, string>;
+type HotelPick = { hotel: string; nights: number };
+type HotelChoice = Record<string, HotelPick[]>;   // destId → hotels with a night breakdown
 
 // ─── Static Data ─────────────────────────────────────────────────────────────
 
@@ -452,6 +453,7 @@ export default function TourBuilder() {
   const needs4x4    = route.some(d => ["fairy","deosai","k2","shandur"].includes(d.id));
   const [hotels, setHotels] = useState<HotelChoice>({});
   const [notes, setNotes] = useState(""); // optional "additional requirements" from the traveller
+  const [customDraft, setCustomDraft] = useState<Record<string, string>>({}); // per-destination "own hotel" text
   const [dragFrom, setDragFrom] = useState<number | null>(null);
   const [dragTo, setDragTo] = useState<number | null>(null);
   const [weather, setWeather] = useState<Record<string, WeatherData>>({});
@@ -481,6 +483,15 @@ export default function TourBuilder() {
     return country.dialCode + raw.replace(/^0+/, "");  // normal local number
   })();
 
+  // A "full" number so we can actually reach them: Pakistan mobiles are 10 local
+  // digits (3XXXXXXXXX); other countries accept 6–14. Blocks a stray digit or two.
+  const localDigits = localPhone.replace(/\D/g, "").replace(/^0+/, "");
+  const isValidPhone = country.dialCode === "+92"
+    ? localDigits.length === 10
+    : localDigits.length >= 6 && localDigits.length <= 14;
+  const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(guestEmail.trim());
+  const contactValid = contactMethod === "whatsapp" ? isValidPhone : isValidEmail;
+
   // Recall phone number from previous session
   useEffect(() => {
     const p = recallPhone();
@@ -503,7 +514,16 @@ export default function TourBuilder() {
       setChildAges(it.childAges ?? []);
       setTransport(it.transport ?? "");
       setDeparture(it.departure ?? "islamabad");
-      setHotels(it.hotels ?? {});
+      // migrate older saved formats (string / {stars,hotel}) to the night-breakdown array
+      const rawHotels = (it.hotels ?? {}) as Record<string, unknown>;
+      const migrated: HotelChoice = {};
+      for (const k of Object.keys(rawHotels)) {
+        const v = rawHotels[k];
+        if (Array.isArray(v)) migrated[k] = v as HotelPick[];
+        else if (typeof v === "string" && v) migrated[k] = [{ hotel: v, nights: 1 }];
+        else if (v && typeof v === "object" && (v as { hotel?: string }).hotel) migrated[k] = [{ hotel: (v as { hotel: string }).hotel, nights: 1 }];
+      }
+      setHotels(migrated);
       setNotes(it.notes ?? "");
       setGuestPhone(it.phone   ?? "");
       setSent(false);
@@ -542,7 +562,10 @@ export default function TourBuilder() {
 
 
   const totalNights = route.reduce((s, d) => s + d.nights, 0);
-  const allHotelsSelected = route.length > 0 && route.every(d => hotels[d.id]);
+  const assignedNights = (destId: string) => (hotels[destId] ?? []).reduce((s, p) => s + p.nights, 0);
+  const nightsOf = (destId: string, hotel: string) => (hotels[destId] ?? []).find(p => p.hotel === hotel)?.nights ?? 0;
+  // every stop must have ALL its nights distributed across one or more hotels
+  const allHotelsSelected = route.length > 0 && route.every(d => d.nights > 0 && assignedNights(d.id) === d.nights);
 
   // Destination click
   const clickDest = (d: typeof DESTS[0]) => {
@@ -582,12 +605,15 @@ export default function TourBuilder() {
   };
 
   // Hotels
-  const pickHotel = (destId: string, hotel: string) =>
+  // add / update / remove a hotel's night count for a destination (order stable)
+  const setHotelNights = (destId: string, hotel: string, nights: number) =>
     setHotels(h => {
-      const n = { ...h };
-      if (hotel.trim()) n[destId] = hotel;
-      else delete n[destId];
-      return n;
+      const cur = h[destId] ?? [];
+      let list: HotelPick[];
+      if (nights <= 0) list = cur.filter(p => p.hotel !== hotel);
+      else if (cur.some(p => p.hotel === hotel)) list = cur.map(p => p.hotel === hotel ? { ...p, nights } : p);
+      else list = [...cur, { hotel, nights }];
+      return { ...h, [destId]: list };
     });
 
   // Navigate between steps and always scroll back to the top of the builder
@@ -612,7 +638,10 @@ export default function TourBuilder() {
       `🏙️ DEPARTURE: ${departure === "islamabad" ? "Islamabad" : "Lahore"}`,
       "",
       "🏨 HOTELS:",
-      ...route.map(d => `  • ${d.name}: ${hotels[d.id] ?? "TBD"}`),
+      ...route.map(d => {
+        const picks = hotels[d.id] ?? [];
+        return `  • ${d.name}: ${picks.length ? picks.map(p => `${p.hotel} (${p.nights}N)`).join(", ") : "TBD"}`;
+      }),
       "",
       ...(notes.trim() ? ["📝 ADDITIONAL REQUIREMENTS:", notes.trim(), ""] : []),
       `📅 Total: ${totalNights} nights`,
@@ -630,7 +659,7 @@ export default function TourBuilder() {
         route: route.map(d => ({ id: d.id, name: d.name, region: d.region, image: d.image, nights: d.nights })),
         maleAdults, femaleAdults, children, childAges,
         transport, departure,
-        hotels: hotels as Record<string, string>,
+        hotels,
         notes: notes.trim() || undefined,
         totalNights,
         status: "pending",
@@ -656,7 +685,10 @@ export default function TourBuilder() {
       "DEPARTURE: " + (departure === "islamabad" ? "Islamabad" : "Lahore"),
       "",
       "HOTELS:",
-      ...route.map(d => "  • " + d.name + ": " + (hotels[d.id] ?? "TBD")),
+      ...route.map(d => {
+        const picks = hotels[d.id] ?? [];
+        return "  • " + d.name + ": " + (picks.length ? picks.map(p => p.hotel + " (" + p.nights + "N)").join(", ") : "TBD");
+      }),
       "",
       ...(notes.trim() ? ["ADDITIONAL REQUIREMENTS:", notes.trim(), ""] : []),
       "Total: " + totalNights + " nights",
@@ -677,7 +709,7 @@ export default function TourBuilder() {
         route: route.map(d => ({ id: d.id, name: d.name, region: d.region, image: d.image, nights: d.nights })),
         maleAdults, femaleAdults, children, childAges,
         transport, departure,
-        hotels: hotels as Record<string, string>,
+        hotels,
         notes: notes.trim() || undefined,
         totalNights,
         status: "pending",
@@ -788,16 +820,22 @@ export default function TourBuilder() {
                     <input type="email" placeholder="your@email.com" value={guestEmail} onChange={e => setGuestEmail(e.target.value)}
                       style={{ width: "100%", padding: "13px 14px", borderRadius: "14px", border: `1px solid ${guestEmail ? "rgba(255,194,10,0.4)" : "rgba(255,255,255,0.1)"}`, background: "rgba(255,255,255,0.04)", color: "white", fontSize: "14px", fontWeight: 600, outline: "none", boxSizing: "border-box" }} />
                   )}
+                  {contactMethod === "whatsapp" && localDigits.length > 0 && !isValidPhone && (
+                    <p style={{ color: "#F6A6A6", fontSize: "11.5px", fontWeight: 600, margin: "10px 2px 0" }}>Enter your full {country.dialCode === "+92" ? "10-digit " : ""}number so we can reach you.</p>
+                  )}
+                  {contactMethod === "email" && guestEmail.trim().length > 0 && !isValidEmail && (
+                    <p style={{ color: "#F6A6A6", fontSize: "11.5px", fontWeight: 600, margin: "10px 2px 0" }}>Please enter a valid email address.</p>
+                  )}
                 </div>
 
                 <button type="button"
+                  disabled={!contactValid}
                   onClick={() => {
-                    const hasContact = contactMethod === "whatsapp" ? !!localPhone.trim() : !!guestEmail.trim();
-                    if (!hasContact) return;
+                    if (!contactValid) return;
                     if (localPhone.trim()) rememberPhone(fullPhone || localPhone);
                     setContactCollected(true);
                   }}
-                  style={{ width: "100%", padding: "15px", borderRadius: "14px", background: "linear-gradient(135deg, #FFC20A, #FFD34A)", border: "none", color: "#0B1628", fontWeight: 900, fontSize: "15px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}
+                  style={{ width: "100%", padding: "15px", borderRadius: "14px", background: contactValid ? "linear-gradient(135deg, #FFC20A, #FFD34A)" : "rgba(255,255,255,0.06)", border: contactValid ? "none" : "1px solid rgba(255,255,255,0.08)", color: contactValid ? "#0B1628" : "rgba(255,255,255,0.3)", fontWeight: 900, fontSize: "15px", cursor: contactValid ? "pointer" : "not-allowed", display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", transition: "all 0.2s" }}
                 >
                   Start Planning your Trip &#8594;
                 </button>
@@ -815,6 +853,10 @@ export default function TourBuilder() {
 
               {/* Destination grid */}
               <div>
+                <button type="button" onClick={() => setContactCollected(false)}
+                  style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.55)", fontSize: "12px", fontWeight: 700, cursor: "pointer", padding: "8px 14px", borderRadius: "12px", marginBottom: "14px" }}>
+                  &#8592; Edit name &amp; number
+                </button>
                 <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "13px", marginBottom: "14px" }}>
                   <MapPin style={{ width: 13, height: 13, display: "inline", marginRight: 5 }} />
                   Click a destination to add it — click again to remove
@@ -1064,52 +1106,83 @@ export default function TourBuilder() {
                   </div>
                   <div>
                     <h3 style={{ color: "white", fontWeight: 900, fontSize: "19px", margin: 0 }}>Hotel Preferences</h3>
-                    <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "13px", margin: 0 }}>Choose accommodation for each destination</p>
+                    <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "13px", margin: 0 }}>Assign your nights to one or more hotels per stop — tap the camera to see photos</p>
                   </div>
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
                   {route.map(dest => {
                     const list = HOTELS[dest.id] ?? [];
-                    const chosen = hotels[dest.id];
-                    const isCustom = !!chosen && !list.includes(chosen);
-                    return (
-                      <div key={dest.id} style={{ borderRadius: "16px", border: "1px solid rgba(255,255,255,0.06)", overflow: "hidden" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "14px 18px", background: "rgba(255,255,255,0.02)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-                          <img loading="lazy" decoding="async" src={dest.image} alt={dest.name} style={{ width: 34, height: 34, borderRadius: 9, objectFit: "cover" }} />
-                          <div style={{ flex: 1 }}>
-                            <p style={{ color: "white", fontWeight: 800, fontSize: "14px", margin: "0 0 2px" }}>{dest.name}</p>
-                            <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px", margin: 0 }}>{dest.nights} night{dest.nights !== 1 ? "s" : ""}</p>
-                          </div>
-                          {chosen && <span style={{ background: "rgba(255,194,10,0.12)", border: "1px solid rgba(255,194,10,0.3)", color: "#FFC20A", fontSize: "11px", fontWeight: 700, padding: "3px 10px", borderRadius: "20px" }}>✓ Selected</span>}
+                    const picks = hotels[dest.id] ?? [];
+                    const assigned = assignedNights(dest.id);
+                    const complete = assigned === dest.nights;
+                    const roomLeft = dest.nights - assigned;
+                    const customPicks = picks.filter(p => !list.includes(p.hotel));
+                    const addCustom = () => {
+                      const nm = (customDraft[dest.id] ?? "").trim();
+                      if (!nm || roomLeft <= 0) return;
+                      setHotelNights(dest.id, nm, 1);
+                      setCustomDraft(d => ({ ...d, [dest.id]: "" }));
+                    };
+                    const step = (name: string, delta: number) => {
+                      const sy = window.scrollY;
+                      setHotelNights(dest.id, name, nightsOf(dest.id, name) + delta);
+                      requestAnimationFrame(() => window.scrollTo({ top: sy, behavior: "instant" as ScrollBehavior }));
+                    };
+                    const stepper = (name: string) => {
+                      const n = nightsOf(dest.id, name);
+                      return (
+                        <div style={{ display: "flex", alignItems: "center", gap: "7px", flexShrink: 0 }}>
+                          <button type="button" onClick={(e) => { e.preventDefault(); if (n > 0) step(name, -1); }} disabled={n <= 0}
+                            style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: n <= 0 ? "rgba(255,255,255,0.2)" : "white", cursor: n <= 0 ? "not-allowed" : "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}><Minus style={{ width: 12, height: 12 }} /></button>
+                          <span style={{ minWidth: 30, textAlign: "center", color: n > 0 ? "#FFC20A" : "rgba(255,255,255,0.35)", fontWeight: 800, fontSize: "13px" }}>{n}N</span>
+                          <button type="button" onClick={(e) => { e.preventDefault(); if (roomLeft > 0) step(name, 1); }} disabled={roomLeft <= 0}
+                            style={{ width: 28, height: 28, borderRadius: "50%", background: roomLeft <= 0 ? "rgba(255,255,255,0.04)" : "rgba(255,194,10,0.15)", border: `1px solid ${roomLeft <= 0 ? "rgba(255,255,255,0.08)" : "rgba(255,194,10,0.3)"}`, color: roomLeft <= 0 ? "rgba(255,255,255,0.2)" : "#FFC20A", cursor: roomLeft <= 0 ? "not-allowed" : "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}><Plus style={{ width: 12, height: 12 }} /></button>
                         </div>
-                        <div style={{ padding: "14px 18px", display: "flex", flexDirection: "column", gap: "6px" }}>
+                      );
+                    };
+                    const photoLink = (q: string) => (
+                      <a href={`https://www.google.com/search?q=${encodeURIComponent(q + " hotel")}&tbm=isch`} target="_blank" rel="noopener noreferrer" title="See photos on Google"
+                        style={{ flexShrink: 0, width: 30, height: 30, borderRadius: "9px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(255,255,255,0.55)", textDecoration: "none" }}><Camera style={{ width: 14, height: 14 }} /></a>
+                    );
+                    return (
+                      <div key={dest.id} style={{ borderRadius: "16px", border: `1px solid ${complete ? "rgba(255,194,10,0.25)" : "rgba(255,255,255,0.06)"}`, overflow: "hidden" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "14px 18px", background: "rgba(255,255,255,0.02)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                          <img loading="lazy" decoding="async" src={dest.image} alt={dest.name} style={{ width: 34, height: 34, borderRadius: 9, objectFit: "cover", flexShrink: 0 }} />
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <p style={{ color: "white", fontWeight: 800, fontSize: "14px", margin: "0 0 2px" }}>{dest.name}</p>
+                            <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px", margin: 0 }}>{dest.nights} night{dest.nights !== 1 ? "s" : ""} total</p>
+                          </div>
+                          <span style={{ flexShrink: 0, background: complete ? "rgba(34,197,94,0.12)" : "rgba(255,194,10,0.1)", border: `1px solid ${complete ? "rgba(34,197,94,0.4)" : "rgba(255,194,10,0.25)"}`, color: complete ? "#4ade80" : "#FFC20A", fontSize: "11px", fontWeight: 800, padding: "4px 11px", borderRadius: "20px", whiteSpace: "nowrap" }}>{complete ? "✓ " : ""}{assigned}/{dest.nights}N</span>
+                        </div>
+                        <div style={{ padding: "14px 18px", display: "flex", flexDirection: "column", gap: "7px" }}>
+                          {dest.nights > 1 && <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11.5px", margin: "0 0 3px" }}>Split your {dest.nights} nights across one or more hotels with the +/− buttons.</p>}
                           {list.map(name => {
-                            const active = chosen === name;
+                            const n = nightsOf(dest.id, name);
                             return (
-                              <button type="button" key={name}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  const sy = window.scrollY;
-                                  pickHotel(dest.id, name);
-                                  requestAnimationFrame(() => window.scrollTo({ top: sy, behavior: "instant" as ScrollBehavior }));
-                                }}
-                                style={{ padding: "12px 14px", borderRadius: "12px", background: active ? "rgba(255,194,10,0.1)" : "rgba(255,255,255,0.02)", border: `1px solid ${active ? "rgba(255,194,10,0.4)" : "rgba(255,255,255,0.06)"}`, display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px", cursor: "pointer", textAlign: "left" }}>
-                                <span style={{ color: active ? "#FFC20A" : "rgba(255,255,255,0.7)", fontSize: "13px", fontWeight: 600 }}>{name}</span>
-                                {active && <Check style={{ width: 14, height: 14, color: "#FFC20A", flexShrink: 0 }} />}
-                              </button>
+                              <div key={name} style={{ padding: "9px 12px", borderRadius: "12px", background: n > 0 ? "rgba(255,194,10,0.08)" : "rgba(255,255,255,0.02)", border: `1px solid ${n > 0 ? "rgba(255,194,10,0.35)" : "rgba(255,255,255,0.06)"}`, display: "flex", alignItems: "center", gap: "10px" }}>
+                                {photoLink(name + " " + dest.name)}
+                                <span style={{ flex: 1, minWidth: 0, color: n > 0 ? "#FFC20A" : "rgba(255,255,255,0.7)", fontSize: "13px", fontWeight: 600 }}>{name}</span>
+                                {stepper(name)}
+                              </div>
                             );
                           })}
-                          {/* Traveller's own hotel of choice */}
-                          <div style={{ marginTop: "4px", padding: "10px 12px", borderRadius: "12px", background: isCustom ? "rgba(255,194,10,0.08)" : "rgba(255,255,255,0.02)", border: `1px solid ${isCustom ? "rgba(255,194,10,0.35)" : "rgba(255,255,255,0.06)"}`, display: "flex", alignItems: "center", gap: "8px" }}>
-                            <Hotel style={{ width: 14, height: 14, color: isCustom ? "#FFC20A" : "rgba(255,255,255,0.3)", flexShrink: 0 }} />
-                            <input
-                              type="text"
-                              value={isCustom ? chosen : ""}
-                              onChange={(e) => pickHotel(dest.id, e.target.value)}
-                              placeholder="Prefer a different hotel? Type it here…"
-                              style={{ flex: 1, minWidth: 0, background: "transparent", border: "none", outline: "none", color: "white", fontSize: "13px", fontWeight: 600 }}
-                            />
+                          {customPicks.map(p => (
+                            <div key={p.hotel} style={{ padding: "9px 12px", borderRadius: "12px", background: "rgba(255,194,10,0.08)", border: "1px solid rgba(255,194,10,0.35)", display: "flex", alignItems: "center", gap: "10px" }}>
+                              {photoLink(p.hotel)}
+                              <span style={{ flex: 1, minWidth: 0, color: "#FFC20A", fontSize: "13px", fontWeight: 600 }}>{p.hotel}</span>
+                              {stepper(p.hotel)}
+                            </div>
+                          ))}
+                          {/* add your own hotel */}
+                          <div style={{ marginTop: "3px", padding: "8px 10px 8px 12px", borderRadius: "12px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", display: "flex", alignItems: "center", gap: "8px" }}>
+                            <Hotel style={{ width: 14, height: 14, color: "rgba(255,255,255,0.3)", flexShrink: 0 }} />
+                            <input type="text" value={customDraft[dest.id] ?? ""} onChange={(e) => setCustomDraft(d => ({ ...d, [dest.id]: e.target.value }))}
+                              onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addCustom(); } }}
+                              placeholder="Add your own hotel…"
+                              style={{ flex: 1, minWidth: 0, background: "transparent", border: "none", outline: "none", color: "white", fontSize: "13px", fontWeight: 600 }} />
+                            <button type="button" disabled={!((customDraft[dest.id] ?? "").trim()) || roomLeft <= 0} onClick={addCustom}
+                              style={{ flexShrink: 0, padding: "7px 14px", borderRadius: "10px", background: (!((customDraft[dest.id] ?? "").trim()) || roomLeft <= 0) ? "rgba(255,255,255,0.05)" : "rgba(255,194,10,0.15)", border: `1px solid ${(!((customDraft[dest.id] ?? "").trim()) || roomLeft <= 0) ? "rgba(255,255,255,0.08)" : "rgba(255,194,10,0.35)"}`, color: (!((customDraft[dest.id] ?? "").trim()) || roomLeft <= 0) ? "rgba(255,255,255,0.3)" : "#FFC20A", fontSize: "12px", fontWeight: 700, cursor: (!((customDraft[dest.id] ?? "").trim()) || roomLeft <= 0) ? "not-allowed" : "pointer" }}>Add</button>
                           </div>
                         </div>
                       </div>
@@ -1167,9 +1240,9 @@ export default function TourBuilder() {
                   </div>
                   <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "14px", padding: "16px" }}>
                     <p style={{ color: "#FFC20A", fontSize: "10px", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "8px" }}>Hotels</p>
-                    {route.map(d => hotels[d.id] && (
-                      <p key={d.id} style={{ color: "rgba(255,255,255,0.5)", fontSize: "11px", margin: "0 0 3px" }}>{d.name}: {hotels[d.id]}</p>
-                    ))}
+                    {route.map(d => (hotels[d.id]?.length ? (
+                      <p key={d.id} style={{ color: "rgba(255,255,255,0.5)", fontSize: "11px", margin: "0 0 3px" }}>{d.name}: {hotels[d.id].map(p => `${p.hotel} (${p.nights}N)`).join(", ")}</p>
+                    ) : null))}
                   </div>
                 </div>
 

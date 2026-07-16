@@ -8,7 +8,7 @@ import { Heart, Mountain, Award, Users, ArrowRight, CheckCircle2, MapPin, Star, 
 const guides = [
   {
     name: "Mr. Asmar Hussain",
-    role: "Sony Brand Ambassador & Co-Founder",
+    role: "Sony Brand Ambassador & Photographer",
     expertise: "Landscape & Portrait Photography · Karakoram, Hindukush & Himalayan Ranges",
     bio: "A professional landscape and portrait photographer with years of experience capturing the raw beauty of the Karakorams, Hindukush, and Himalayas. Asmar's intimate knowledge of light, terrain, and hidden vantage points across Pakistan's greatest mountain ranges transforms every journey into a visual masterpiece — and an unforgettable adventure.",
     image: "/asmar.png",
@@ -157,7 +157,7 @@ export default function AboutClient() {
             </p>
           </motion.div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "28px" }}>
+          <div className="photographers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "28px", alignItems: "stretch" }}>
             {guides.map(({ name, role, expertise, bio, image }, i) => (
               <motion.div
                 key={name}
