@@ -139,7 +139,7 @@ export default function Header() {
             </div>
 
             {/* 2. NAVIGATION (Center) */}
-            <nav className="hidden lg:flex items-center justify-center flex-1 mx-4" aria-label="Main navigation">
+            <nav className="hidden lg:flex items-center justify-center absolute left-1/2 -translate-x-1/2" aria-label="Main navigation">
               <ul className="flex items-center gap-8 xl:gap-12">
                 {navLinks.map(({ href, label, hasDropdown }) => (
                   <li key={href} className="relative group/nav">
