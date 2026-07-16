@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -468,6 +468,7 @@ export default function TourBuilder() {
   const [contactCollected, setContactCollected] = useState(false);
   const [mapExpanded,      setMapExpanded]      = useState(false);
   const [sent,          setSent]          = useState(false);
+  const geoTouchedRef = useRef(false); // user typed / picked a country → stop auto-detecting from geo
 
   // Full E.164 number — handles:
   //   "3001234567"  → "+923248888889"
@@ -492,12 +493,42 @@ export default function TourBuilder() {
   const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(guestEmail.trim());
   const contactValid = contactMethod === "whatsapp" ? isValidPhone : isValidEmail;
 
-  // Recall phone number from previous session
+  // Detect the visitor's country (so international clients get their own dial code
+  // and format) and recall any number they entered before. A recalled number wins.
   useEffect(() => {
-    const p = recallPhone();
-    if (!p) return;
-    // If stored as full E.164 (starts +), just put it raw — fullPhone derivation handles it
-    setLocalPhone(p);
+    const byLongestDial = [...COUNTRIES].sort((a, b) => b.dialCode.length - a.dialCode.length);
+    const splitDial = (digits: string) => byLongestDial.find(c => digits.startsWith(c.dialCode.slice(1)));
+
+    // 1) A real number they typed before is the most reliable signal of their
+    //    country. Ignore stray/partial stored values so the box stays empty.
+    const recalled = (recallPhone() || "").trim();
+    const recalledDigits = recalled.replace(/\D/g, "");
+    if (recalledDigits.length >= 8) {
+      geoTouchedRef.current = true;
+      const c = recalled.startsWith("+") ? splitDial(recalledDigits) : undefined;
+      if (c) { setCountry(c); setLocalPhone(recalledDigits.slice(c.dialCode.length - 1).replace(/^0+/, "")); }
+      else setLocalPhone(recalledDigits.replace(/^0+/, ""));
+      return;
+    }
+
+    // 2) Otherwise geo-detect from the visitor's IP (falls back to Pakistan).
+    let cancelled = false;
+    const readDial = async (url: string, key: string, addPlus: boolean) => {
+      try {
+        const d = await (await fetch(url)).json();
+        const raw = d && d[key];
+        return raw ? (addPlus ? "+" + String(raw).replace(/^\+/, "") : String(raw)) : "";
+      } catch { return ""; }
+    };
+    (async () => {
+      const dial =
+        (await readDial("https://ipwho.is/", "calling_code", true)) ||
+        (await readDial("https://ipapi.co/json/", "country_calling_code", false));
+      if (cancelled || geoTouchedRef.current || !dial) return;
+      const match = COUNTRIES.find(c => c.dialCode === dial);
+      if (match) setCountry(match);
+    })();
+    return () => { cancelled = true; };
   }, []);
 
   // ── Load saved itinerary from MyTripsPanel ────────────────────────────────
@@ -801,7 +832,7 @@ export default function TourBuilder() {
                           <div style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, zIndex: 200, width: 240, maxHeight: 260, overflowY: "auto", background: "#0D1B2E", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 16px 48px rgba(0,0,0,0.6)", padding: "8px" }}>
                             <input autoFocus type="text" placeholder="Search country..." value={ccSearch} onChange={e => setCcSearch(e.target.value)} onClick={e => e.stopPropagation()} style={{ width: "100%", padding: "9px 12px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.05)", color: "white", fontSize: "12px", outline: "none", marginBottom: "6px", boxSizing: "border-box" }} />
                             {COUNTRIES.filter(c => c.name.toLowerCase().includes(ccSearch.toLowerCase()) || c.dialCode.includes(ccSearch)).map(c => (
-                              <button key={c.name} type="button" onClick={() => { setCountry(c); setCcOpen(false); }} style={{ width: "100%", display: "flex", alignItems: "center", gap: "8px", padding: "8px 10px", borderRadius: "10px", background: country.name === c.name ? "rgba(255,194,10,0.1)" : "transparent", border: "1px solid transparent", cursor: "pointer", textAlign: "left" }}>
+                              <button key={c.name} type="button" onClick={() => { geoTouchedRef.current = true; setCountry(c); setCcOpen(false); }} style={{ width: "100%", display: "flex", alignItems: "center", gap: "8px", padding: "8px 10px", borderRadius: "10px", background: country.name === c.name ? "rgba(255,194,10,0.1)" : "transparent", border: "1px solid transparent", cursor: "pointer", textAlign: "left" }}>
                                 <span style={{ fontSize: "15px" }}>{c.flag}</span>
                                 <span style={{ color: "rgba(255,255,255,0.7)", fontSize: "12px", flex: 1 }}>{c.name}</span>
                                 <span style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 700 }}>{c.dialCode}</span>
@@ -811,8 +842,18 @@ export default function TourBuilder() {
                         )}
                         {ccOpen && <div onClick={() => setCcOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 199 }} />}
                       </div>
-                      <input type="tel" placeholder="3XX XXXXXXX" value={localPhone} onChange={e => { setLocalPhone(e.target.value); setGuestPhone(e.target.value); }}
-                        style={{ flex: 1, padding: "13px 14px", borderRadius: "14px", border: `1px solid ${localPhone ? "rgba(255,194,10,0.4)" : "rgba(255,255,255,0.1)"}`, background: "rgba(255,255,255,0.04)", color: "white", fontSize: "14px", fontWeight: 700, outline: "none" }} />
+                      <input type="tel" inputMode="numeric"
+                        placeholder={country.dialCode === "+92" ? "3XXXXXXXXX" : "Your phone number"}
+                        value={localPhone}
+                        onChange={e => {
+                          geoTouchedRef.current = true;
+                          let v = e.target.value.replace(/[^\d]/g, "");           // digits only — never show "+" or the code
+                          const dd = country.dialCode.slice(1);
+                          if (dd && v.startsWith(dd)) v = v.slice(dd.length);      // strip a pasted country code
+                          v = v.replace(/^0+/, "");                                 // strip a national leading 0
+                          setLocalPhone(v); setGuestPhone(v);
+                        }}
+                        style={{ flex: 1, minWidth: 0, padding: "13px 14px", borderRadius: "14px", border: `1px solid ${localPhone ? "rgba(255,194,10,0.4)" : "rgba(255,255,255,0.1)"}`, background: "rgba(255,255,255,0.04)", color: "white", fontSize: "14px", fontWeight: 700, outline: "none" }} />
                     </div>
                   )}
 
