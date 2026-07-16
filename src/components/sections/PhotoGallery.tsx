@@ -19,7 +19,7 @@ const PHOTOS = [
   { src: "/skardu-katpana.jpg",     label: "Katpana Desert" },
   { src: "/autumn-machlu.jpg",      label: "Machlu, Autumn" },
   { src: "/spring-gulshan.jpg",     label: "Gulshan-e-Kabir" },
-  { src: "/shandur-polo.jpg",       label: "Shandur Polo Ground" },
+  { src: "/destinations/shandur/shandur1.jpg",       label: "Shandur Polo Ground" },
   { src: "/autumn-daghoni.jpg",     label: "Daghoni Village" },
   { src: "/hunza-passu-cones.jpg",  label: "Passu Cones" },
   { src: "/autumn-indus.jpg",       label: "Indus River" },

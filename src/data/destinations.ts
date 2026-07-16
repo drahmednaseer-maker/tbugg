@@ -82,7 +82,7 @@ export const destinations: Destination[] = [
     region: "Khyber Pakhtunkhwa",
     description: "Ancient Kalash culture, stunning Hindu Kush valleys & the world's most unique living civilisation",
     tag: "Adventure",
-    images: ["/kalash.jpg", "/shandur-polo.jpg", "https://upload.wikimedia.org/wikipedia/commons/8/81/Tirich_Mir_Hindu_Kush_Chitral%3B_Tahsin_Shah_06.jpg"],
+    images: ["/kalash.jpg", "/destinations/shandur/shandur1.jpg", "https://upload.wikimedia.org/wikipedia/commons/8/81/Tirich_Mir_Hindu_Kush_Chitral%3B_Tahsin_Shah_06.jpg"],
     tourSlug: "kalash-valley-cultural-tour",
   },
   {
@@ -103,7 +103,7 @@ export const destinations: Destination[] = [
     region: "Chitral / Gilgit",
     description: "The world's highest polo ground at 3,700m — electrifying sport, culture & mountain scenery",
     tag: "Sports",
-    images: ["/shandur-polo.jpg", "/destinations/shandur/shandur2.jpg", "/destinations/shandur/shandur3.jpg"],
+    images: ["/destinations/shandur/shandur1.jpg", "/destinations/shandur/shandur2.jpg", "/destinations/shandur/shandur3.jpg"],
     tourSlug: "shandur-polo-festival",
   },
   {

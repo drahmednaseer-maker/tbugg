@@ -55,7 +55,7 @@ const DESTS = [
   { id: "ajk",     name: "Azad Kashmir",     region: "AJK",              image: "/autumn-ghuwari.jpg" },
   { id: "deosai",  name: "Deosai Plains",    region: "Gilgit-Baltistan", image: "/autumn-daghoni.jpg" },
   { id: "k2",      name: "K2 Base Camp",     region: "Gilgit-Baltistan", image: "/mountains-haldi2.jpg" },
-  { id: "shandur", name: "Shandur Polo",     region: "Chitral / Gilgit", image: "/shandur-polo.jpg" },
+  { id: "shandur", name: "Shandur Polo",     region: "Chitral / Gilgit", image: "/destinations/shandur/shandur1.jpg" },
   { id: "gwadar",  name: "Gwadar",           region: "Balochistan",      image: "/skardu-katpana.jpg" },
 ];
 
