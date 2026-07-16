@@ -2,6 +2,16 @@ import { Testimonial } from "@/types";
 
 export const testimonials: Testimonial[] = [
   {
+    id: "9",
+    name: "sid khb",
+    location: "Local Guide · Google Review",
+    avatar: "",
+    rating: 5,
+    review: "Excellent services! In times when every Tom, Dick, and Harry opens a tour company, this one truly lives up to expectations. The thing I appreciate most about Travel Bug is that they consider your preferences — they assess what you'd want to see and balance it with what you should see on your visits, and go above and beyond to make the trip comfortable and smooth. Uzair has explored the areas himself and is always pursuing to improve his tours, bringing unique experiences to the table to make these trips memorable for the guests. Travel Bug truly live up to the name!",
+    tour: "Verified Google Review",
+    date: "July 2026",
+  },
+  {
     id: "1",
     name: "Marc Janssen",
     location: "Amsterdam, Netherlands",

@@ -8,17 +8,17 @@ import { Heart, Mountain, Award, Users, ArrowRight, CheckCircle2, MapPin, Star, 
 const guides = [
   {
     name: "Mr. Asmar Hussain",
-    role: "Sony Brand Ambassador & Photographer",
+    role: "Sony Brand Ambassador & Award-Winning Landscape Photographer",
     expertise: "Landscape & Portrait Photography · Karakoram, Hindukush & Himalayan Ranges",
     bio: "A professional landscape and portrait photographer with years of experience capturing the raw beauty of the Karakorams, Hindukush, and Himalayas. Asmar's intimate knowledge of light, terrain, and hidden vantage points across Pakistan's greatest mountain ranges transforms every journey into a visual masterpiece — and an unforgettable adventure.",
     image: "/asmar.png",
   },
   {
-    name: "Uzair Ahmed",
+    name: "Uzair Ahmad",
     image: "/uzair.jpg",
-    role: "High-Altitude Trekker & Photographer",
-    expertise: "High-Altitude Trekking · K2 Base Camp, Karakoram & Himalayan Trails",
-    bio: "A professional photographer and experienced high-altitude trekker. Uzair personally leads treks to K2 Base Camp and across the high trails of the Karakoram, pairing real mountain experience with a photographer's eye. His calm confidence on the trail and genuine warmth off it make every journey safe, extraordinary, and deeply personal.",
+    role: "Founder",
+    expertise: "Licensed Mountain Guide · High Altitude Trek Leader · Landscape Photographer",
+    bio: "A professional landscape photographer, licensed mountain guide, and high-altitude trek leader with extensive experience in the Karakoram and Himalayan ranges. He has led numerous expeditions to K2 Base Camp and other iconic routes, while also climbing peaks above 6,000 meters — combining technical expertise, local knowledge, and a passion for the mountains. His calm confidence on the trail and genuine warmth off it make every journey safe, extraordinary, and deeply personal.",
   },
   {
     name: "Dr. Usman ul Haq",
