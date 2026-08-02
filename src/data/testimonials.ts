@@ -16,6 +16,42 @@ export const testimonials: Testimonial[] = [
     date: "July 2026",
   },
   {
+    id: "google-charles-goh",
+    name: "Charles Goh",
+    location: "Google Review",
+    avatar: "",
+    rating: 5,
+    verified: true,
+    review:
+      "Uzair is amazing caring guide. During the trip, my 70-200 is not working well. He share his len and i am able to get some good shots. I appreciate his kindness.",
+    tour: "",
+    date: "July 2026",
+  },
+  {
+    id: "google-sana-saeed-khan",
+    name: "Sana Saeed Khan",
+    location: "Google Review",
+    avatar: "",
+    rating: 5,
+    verified: true,
+    review:
+      "Excellent service from start to finish. They are professional, responsive, and made the entire booking process smooth and stress-free. Everything was well organized, and they were always available to answer questions. Highly recommend their services to anyone planning a trip!",
+    tour: "",
+    date: "July 2026",
+  },
+  {
+    id: "google-usama-mahmood",
+    name: "Usama Mahmood",
+    location: "Google Review",
+    avatar: "",
+    rating: 5,
+    verified: true,
+    review:
+      "The best Experience ever with Travel Bug..\nYou have done Extraordinary. Mashallah..\nThank you",
+    tour: "",
+    date: "July 2026",
+  },
+  {
     id: "google-sid-khb",
     name: "sid khb",
     location: "Local Guide · Google Review",

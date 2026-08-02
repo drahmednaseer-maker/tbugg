@@ -66,7 +66,7 @@ const HOTELS: Record<string, string[]> = {
   hunza:   ["Serena Hotel Hunza", "Offto Hunza", "Moksha Resort Gulmit", "Diwan-e-Hunza, Gulmit", "Rihla Resort Hunza"],
   skardu:  ["Khar Hotel Skardu", "Khoj Resort Shigar", "PC Legacy", "Shangrila Resort Skardu", "Qayaam Hotel", "Dynasty Hotel", "The Pioneer Hotel"],
   fairy:   ["Raikot Sarai Resort", "Fairy Meadows Cottages", "Nanga Parbat Base Camp"],
-  naran:   ["Walnut Riverside Resort", "Maisonette Hotel Naran", "Hotel DeManchi Naran", "Mount Feast Hotel Naran", "Bela Resorts Naran"],
+  naran:   ["Greywalls Hotel Naran", "Walnut Riverside Resort", "Maisonette Hotel Naran", "Hotel DeManchi Naran", "Mount Feast Hotel Naran", "Bela Resorts Naran"],
   swat:    ["Pearl Continental Malam Jabba", "Rock City Resort Kalam", "Swat Palace Hotel", "Hotel One Swat", "Azure Lagoon Kalam"],
   chitral: ["Hindukush Heights", "Mountain Inn Chitral", "PTDC Motel Chitral"],
   lahore:  ["Pearl Continental Lahore", "Nishat Hotel Lahore", "Avari Hotel Lahore", "Luxus Grand Hotel"],
