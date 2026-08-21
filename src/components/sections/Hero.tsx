@@ -92,7 +92,34 @@ export default function Hero() {
   const dragRef    = useRef({ x: 0, left: 0, active: false });
   const movedRef   = useRef(false);
   useEffect(() => { pausedRef.current = paused; }, [paused]);
+
+  /* Hold the auto-scroll until the page has loaded and the main thread is
+     idle. While the strip is scrolling, fresh thumbnails keep entering the
+     viewport and loading, which stretches visual completion well past the
+     point the page is actually usable (Speed Index was ~4.6s on production,
+     with a thumbnail still arriving at 5.1s). Static during load, moving
+     immediately after. */
+  const [autoScroll, setAutoScroll] = useState(false);
   useEffect(() => {
+    let idleId: number | undefined;
+    const schedule = () => {
+      idleId = "requestIdleCallback" in window
+        ? window.requestIdleCallback(() => setAutoScroll(true), { timeout: 2500 })
+        : window.setTimeout(() => setAutoScroll(true), 900);
+    };
+    if (document.readyState === "complete") schedule();
+    else window.addEventListener("load", schedule, { once: true });
+    return () => {
+      window.removeEventListener("load", schedule);
+      if (idleId !== undefined) {
+        if ("cancelIdleCallback" in window) window.cancelIdleCallback(idleId);
+        else window.clearTimeout(idleId);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!autoScroll) return;
     const el = marqueeRef.current;
     if (!el) return;
     const SPEED = 90; // px per second
@@ -113,7 +140,7 @@ export default function Hero() {
     };
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
-  }, []);
+  }, [autoScroll]);
   const onMarqueeDown = (e: React.MouseEvent) => {
     const el = marqueeRef.current; if (!el) return;
     dragRef.current = { x: e.clientX, left: el.scrollLeft, active: true };
