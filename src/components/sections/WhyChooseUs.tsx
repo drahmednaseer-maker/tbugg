@@ -1,6 +1,3 @@
-"use client";
-
-import { m } from "framer-motion";
 import { Shield, MessageCircle, Award, Compass, Users, Clock } from "lucide-react";
 
 const features = [
@@ -90,13 +87,7 @@ export default function WhyChooseUs() {
       <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px", position: "relative" }}>
 
         {/* ── Section Header ── */}
-        <m.div
-          style={{ maxWidth: "680px", marginBottom: "72px" }}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="tb-fade" style={{ maxWidth: "680px", marginBottom: "72px" }}>
           <p style={{
             color: "#FFC20A", fontSize: "11px", fontWeight: 800,
             letterSpacing: "0.3em", textTransform: "uppercase", marginBottom: "16px",
@@ -118,18 +109,14 @@ export default function WhyChooseUs() {
             There are a thousand tour companies. Here&apos;s what makes TravelBug different —
             and why travelers from 30+ countries trust us with their most anticipated trips.
           </p>
-        </m.div>
+        </div>
 
         {/* ── Feature Grid ── */}
         <div className="why-bento-grid" style={{ marginBottom: "56px" }}>
           {features.map(({ icon: Icon, tag, title, description, accent }, i) => (
-            <m.div
+            <div
+              className="tb-fade"
               key={title}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
               style={{
                 padding: "32px",
                 borderRadius: "20px",
@@ -183,31 +170,21 @@ export default function WhyChooseUs() {
               }}>
                 {description}
               </p>
-            </m.div>
+            </div>
           ))}
         </div>
 
         {/* ── Stats Bar ── */}
-        <m.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="why-stats-row"
-          style={{
+        <div className="why-stats-row tb-fade" style={{
             borderRadius: "24px",
             background: "linear-gradient(135deg, rgba(255,194,10,0.07), rgba(255,255,255,0.02))",
             border: "1px solid rgba(255,194,10,0.18)",
             padding: "44px 56px",
-          }}
-        >
+          }}>
           {stats.map(({ value, label, sub }, i) => (
-            <m.div
+            <div
+              className="tb-fade"
               key={label}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
               style={{ textAlign: "center" }}
             >
               <div style={{
@@ -227,9 +204,9 @@ export default function WhyChooseUs() {
               }}>
                 {sub}
               </div>
-            </m.div>
+            </div>
           ))}
-        </m.div>
+        </div>
 
       </div>
     </section>

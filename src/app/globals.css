@@ -447,3 +447,21 @@ body::before {
   }
   .hero-marquee div[style*="zoom-in"]:hover::after { opacity: 1; transform: scale(1); }
 }
+
+/* Entrance animation for sections that no longer use framer-motion. Plays
+   immediately on paint (no observer, no hidden state), matching how these
+   elements already behaved under MotionConfig initial={false}. */
+@keyframes tbFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+.tb-fade { animation: tbFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Hover states that were JS onMouseEnter/onMouseLeave handlers, moved to CSS
+   so the component no longer needs to be a client component. */
+.tb-btn-gold:hover  { opacity: 0.9; transform: translateY(-2px); }
+.tb-btn-ghost:hover { background: rgba(255, 255, 255, 0.1) !important; color: #fff !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tb-fade { animation: none; opacity: 1; transform: none; }
+}

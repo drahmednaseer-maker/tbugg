@@ -1,6 +1,3 @@
-"use client";
-
-import { m } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle, ArrowRight } from "lucide-react";
@@ -11,20 +8,14 @@ export default function CTABanner() {
   return (
     <section id="cta" style={{ padding: "80px 40px", background: "#070E1C" }} className="tb-section-pad">
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-        <m.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          style={{
+        <div className="tb-fade" style={{
             position: "relative",
             borderRadius: "28px",
             overflow: "hidden",
             minHeight: "280px",
             display: "flex",
             alignItems: "center",
-          }}
-        >
+          }}>
           {/* Background photo */}
           <Image
             src="/spring-passu.jpg"
@@ -107,8 +98,7 @@ export default function CTABanner() {
                   boxShadow: "0 8px 32px rgba(255,194,10,0.3)",
                   transition: "opacity 0.2s, transform 0.2s",
                 }}
-                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = "0.9"; (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = "1"; (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)"; }}
+                className="tb-btn-gold"
               >
                 <MessageCircle style={{ width: 18, height: 18 }} />
                 Start Planning on WhatsApp
@@ -126,14 +116,13 @@ export default function CTABanner() {
                   textDecoration: "none", whiteSpace: "nowrap",
                   transition: "background 0.2s, color 0.2s",
                 }}
-                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.1)"; (e.currentTarget as HTMLAnchorElement).style.color = "white"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.05)"; (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.75)"; }}
+                className="tb-btn-ghost"
               >
                 Meet the Photographers
               </Link>
             </div>
           </div>
-        </m.div>
+        </div>
       </div>
     </section>
   );
