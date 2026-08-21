@@ -103,7 +103,7 @@ export default function WhyChooseUs() {
             <span style={{ color: "#FFC20A" }}>Nothing You Don&apos;t.</span>
           </h2>
           <p style={{
-            color: "rgba(255,255,255,0.45)", fontSize: "16px",
+            color: "rgba(255,255,255,0.6)", fontSize: "16px",
             lineHeight: 1.75, maxWidth: "560px",
           }}>
             There are a thousand tour companies. Here&apos;s what makes TravelBug different —

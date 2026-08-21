@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import MotionProvider from "@/components/MotionProvider";
 import { notFound } from "next/navigation";
 import { destinations } from "@/data/destinations";
 import DestinationClient from "./DestinationClient";
@@ -57,7 +58,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(destinationJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <DestinationClient destination={dest} />
+      <MotionProvider><DestinationClient destination={dest} /></MotionProvider>
     </>
   );
 }

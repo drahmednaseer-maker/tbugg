@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 import { usePathname } from "next/navigation";
-import { m, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, ArrowRight, Briefcase, Phone, Mail, Home, MapPin, Compass, Users, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
@@ -104,14 +103,10 @@ export default function Header() {
       </div>
 
       {/* ─── FLOATING PILL NAVBAR ─────────────────────────────────── */}
-      <m.header
-        className={cn(
+      <header className={`${cn(
           "fixed left-1/2 -translate-x-1/2 z-[60] transition-all duration-300 w-[95%] max-w-7xl h-[72px]",
           scrolled ? "top-4" : "top-[44px]"
-        )}
-        initial={{ y: 0, opacity: 1 }}
-        animate={{ y: 0, opacity: 1 }}
-      >
+        )} tb-fade`}>
         {/* Pill background — separate so dropdown can overflow */}
         <div
           style={{
@@ -160,16 +155,8 @@ export default function Header() {
                           <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-300 opacity-50", toursOpen && "rotate-180 opacity-100")} />
                         </button>
 
-                        <AnimatePresence>
                           {toursOpen && (
-                            <m.div
-                              initial={{ opacity: 0, y: 12, scale: 0.96 }}
-                              animate={{ opacity: 1, y: 0, scale: 1 }}
-                              exit={{ opacity: 0, y: 8, scale: 0.97 }}
-                              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                              className="absolute top-[calc(100%-12px)] left-1/2 -translate-x-1/2 z-50 pt-3"
-                              style={{ minWidth: "380px" }}
-                            >
+                            <div className="absolute top-[calc(100%-12px)] left-1/2 -translate-x-1/2 z-50 pt-3 tb-fade" style={{ minWidth: "380px" }}>
                               {/* Mega dropdown container */}
                               <div
                                 style={{
@@ -193,12 +180,7 @@ export default function Header() {
                                 {/* Tour category cards */}
                                 <div className="p-3 space-y-2">
                                   {tourCategories.map((cat, i) => (
-                                    <m.div
-                                      key={cat.href}
-                                      initial={{ opacity: 0, x: -10 }}
-                                      animate={{ opacity: 1, x: 0 }}
-                                      transition={{ delay: i * 0.06, duration: 0.2, ease: "easeOut" }}
-                                    >
+                                    <div className="tb-fade" key={cat.href}>
                                       <Link
                                         href={cat.href}
                                         className={`flex items-center gap-4 p-3.5 rounded-xl border bg-gradient-to-r ${cat.bg} ${cat.border} group/card transition-all duration-300 hover:scale-[1.02] hover:border-opacity-60 hover:shadow-lg`}
@@ -230,7 +212,7 @@ export default function Header() {
                                           style={{ color: cat.accent }}
                                         />
                                       </Link>
-                                    </m.div>
+                                    </div>
                                   ))}
                                 </div>
 
@@ -250,9 +232,8 @@ export default function Header() {
                                   </Link>
                                 </div>
                               </div>
-                            </m.div>
+                            </div>
                           )}
-                        </AnimatePresence>
                       </div>
                     ) : (
                       <Link
@@ -305,28 +286,20 @@ export default function Header() {
               </button>
             </div>
           </div>
-      </m.header>
+      </header>
 
       {/* ─── MOBILE DRAWER ───────────────────────────────────────── */}
-      <AnimatePresence>
         {mobileOpen && (
           <>
-            <m.div className="fixed inset-0 z-[60] bg-slate-950/80 backdrop-blur-md lg:hidden"
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              onClick={() => setMobileOpen(false)} />
+            <div className="fixed inset-0 z-[60] bg-slate-950/80 backdrop-blur-md lg:hidden tb-fade" onClick={() => setMobileOpen(false)} />
 
-            <m.aside
-              className="fixed top-0 right-0 bottom-0 z-[70] w-[86%] max-w-[360px] lg:hidden flex flex-col shadow-2xl overflow-hidden"
-              style={{
+            <aside className="fixed top-0 right-0 bottom-0 z-[70] w-[86%] max-w-[360px] lg:hidden flex flex-col shadow-2xl overflow-hidden tb-fade" style={{
                 backgroundColor: "#0f172a",
                 backgroundImage: "linear-gradient(180deg, rgba(9,16,31,0.86) 0%, rgba(9,16,31,0.66) 45%, rgba(9,16,31,0.72) 72%, rgba(6,11,24,0.94) 100%), url('/hero-bg.jpg')",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
-              }}
-              initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            >
+              }}>
               {/* Header */}
               <div className="menu-hdr flex items-center justify-between px-6 h-[64px] border-b border-white/10 shrink-0">
                 <span className="text-white font-black text-[17px] tracking-tight">TRAVEL<span className="text-[#FACC15]">BUG</span><span className="text-white/40 text-[10px] font-bold tracking-widest ml-0.5">.PK</span></span>
@@ -399,14 +372,11 @@ export default function Header() {
                   </div>
                 </div>
               </div>
-            </m.aside>
+            </aside>
           </>
         )}
-      </AnimatePresence>
       {/* ─── MY TRIPS PANEL ─────────────────────────────────────── */}
-      <AnimatePresence>
         {myTripsOpen && <MyTripsPanel onClose={() => setMyTripsOpen(false)} />}
-      </AnimatePresence>
     </>
   );
 }

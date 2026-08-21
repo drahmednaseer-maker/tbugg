@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { m, AnimatePresence } from "framer-motion";
 import { X, MapPin, Moon, Users, Truck, Phone, ChevronDown, ChevronUp, Trash2, MessageCircle } from "lucide-react";
 import {
   SavedItinerary,
@@ -122,15 +121,8 @@ function ItineraryCard({
       </div>
 
       {/* Expanded details */}
-      <AnimatePresence>
         {expanded && (
-          <m.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            style={{ overflow: "hidden" }}
-          >
+          <div className="tb-fade" style={{ overflow: "hidden" }}>
             <div style={{ padding: "0 16px 16px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
 
               {/* Route stops */}
@@ -209,9 +201,8 @@ function ItineraryCard({
                 </button>
               </div>
             </div>
-          </m.div>
+          </div>
         )}
-      </AnimatePresence>
     </div>
   );
 }
@@ -247,27 +238,21 @@ export default function MyTripsPanel({ onClose }: { onClose: () => void }) {
   return (
     <>
       {/* Backdrop */}
-      <m.div
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      <div
+        className="tb-fade"
         onClick={onClose}
         style={{ position: "fixed", inset: 0, zIndex: 9990, background: "rgba(0,0,0,0.6)", backdropFilter: "blur(6px)" }}
       />
 
       {/* Drawer */}
-      <m.aside
-        initial={{ x: "-100%" }}
-        animate={{ x: 0 }}
-        exit={{ x: "-100%" }}
-        transition={{ type: "spring", damping: 28, stiffness: 280 }}
-        style={{
+      <aside className="tb-fade" style={{
           position: "fixed", top: 0, left: 0, bottom: 0, zIndex: 9995,
           width: "min(380px, 95vw)",
           background: "#0D1B2E",
           borderRight: "1px solid rgba(255,255,255,0.07)",
           display: "flex", flexDirection: "column",
           boxShadow: "8px 0 48px rgba(0,0,0,0.7)",
-        }}
-      >
+        }}>
         {/* Header */}
         <div style={{ padding: "20px 20px 16px", borderBottom: "1px solid rgba(255,255,255,0.06)", display: "flex", alignItems: "center", gap: "12px" }}>
           <div style={{ width: 40, height: 40, borderRadius: "12px", background: "rgba(255,194,10,0.12)", border: "1px solid rgba(255,194,10,0.25)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
@@ -397,7 +382,7 @@ export default function MyTripsPanel({ onClose }: { onClose: () => void }) {
             Chat
           </button>
         </div>
-      </m.aside>
+      </aside>
     </>
   );
 }

@@ -58,7 +58,7 @@ export default function BehindTheLens() {
               Our Experience
             </span>
           </h2>
-          <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "15px", lineHeight: 1.7, maxWidth: "640px", margin: "0 auto" }}>
+          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "15px", lineHeight: 1.7, maxWidth: "640px", margin: "0 auto" }}>
             With decades of experience travelling all of Pakistan, We will take you to the most Beautiful &amp; breathtaking landscapes of Pakistan.
           </p>
         </m.div>

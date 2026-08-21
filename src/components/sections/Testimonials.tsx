@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { m, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { testimonials } from "@/data/testimonials";
 import GoogleVerifiedBadge from "@/components/GoogleVerifiedBadge";
@@ -64,13 +63,7 @@ export default function Testimonials() {
       <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 40px", position: "relative" }}>
 
         {/* ── Header ── */}
-        <m.div
-          style={{ textAlign: "center", marginBottom: "64px" }}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="tb-fade" style={{ textAlign: "center", marginBottom: "64px" }}>
           <p style={{
             color: "#FFC20A", fontSize: "11px", fontWeight: 800,
             letterSpacing: "0.3em", textTransform: "uppercase", marginBottom: "14px",
@@ -121,7 +114,7 @@ export default function Testimonials() {
             </div>
             <ExternalLink style={{ width: 12, height: 12, color: "rgba(255,255,255,0.3)" }} />
           </a>
-        </m.div>
+        </div>
 
         {/* ── Carousel ── */}
         <div
@@ -129,19 +122,9 @@ export default function Testimonials() {
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          <AnimatePresence mode="wait" custom={direction}>
-            <m.div
+            <div
+              className="tb-fade"
               key={current}
-              custom={direction}
-              variants={{
-                enter:  (dir: number) => ({ opacity: 0, x: dir * 50 }),
-                center: { opacity: 1, x: 0 },
-                exit:   (dir: number) => ({ opacity: 0, x: -dir * 50 }),
-              }}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.38, ease: "easeOut" }}
               style={{
                 borderRadius: "24px",
                 background: "rgba(255,255,255,0.03)",
@@ -205,8 +188,7 @@ export default function Testimonials() {
                 <p style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 700 }}>{t.tour}</p>
                 <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "11px" }}>{t.date}</span>
               </div>
-            </m.div>
-          </AnimatePresence>
+            </div>
 
           {/* Arrow buttons */}
           {[

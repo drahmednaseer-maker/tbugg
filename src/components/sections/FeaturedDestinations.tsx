@@ -2,21 +2,20 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { m } from "framer-motion";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { destinations } from "@/data/destinations";
 
 const tagColors: Record<string, { bg: string; text: string; glow: string }> = {
-  "Blossoms":    { bg: "#F472B6", text: "#fff", glow: "rgba(244,114,182,0.4)" },
-  "Autumn":      { bg: "#F97316", text: "#fff", glow: "rgba(249,115,22,0.4)"  },
+  "Blossoms":    { bg: "#B45486", text: "#fff", glow: "rgba(244,114,182,0.4)" },
+  "Autumn":      { bg: "#BD5710", text: "#fff", glow: "rgba(249,115,22,0.4)"  },
   "Cultural":    { bg: "#7C3AED", text: "#fff", glow: "rgba(124,58,237,0.4)"  },
-  "Coastal":     { bg: "#0891B2", text: "#fff", glow: "rgba(8,145,178,0.4)"   },
+  "Coastal":     { bg: "#077F9C", text: "#fff", glow: "rgba(8,145,178,0.4)"   },
   "Karakorams":  { bg: "#0F766E", text: "#fff", glow: "rgba(15,118,110,0.4)"  },
   "Adventure":   { bg: "#2563EB", text: "#fff", glow: "rgba(37,99,235,0.4)"   },
-  "Religious":   { bg: "#D97706", text: "#fff", glow: "rgba(217,119,6,0.4)"   },
+  "Religious":   { bg: "#B16104", text: "#fff", glow: "rgba(217,119,6,0.4)"   },
   "Sports":      { bg: "#DC2626", text: "#fff", glow: "rgba(220,38,38,0.4)"   },
-  "Expedition":  { bg: "#0D9488", text: "#fff", glow: "rgba(13,148,136,0.45)" },
+  "Expedition":  { bg: "#0B857A", text: "#fff", glow: "rgba(13,148,136,0.45)" },
 };
 
 // Preload images so hover switching is instant
@@ -45,13 +44,7 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
   const tag = dest.tag ? tagColors[dest.tag] : null;
 
   return (
-    <m.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.06 }}
-      style={{ position: "relative" }}
-    >
+    <div className="tb-fade" style={{ position: "relative" }}>
       <Link
         href={`/destinations/${dest.id}`}
         id={`dest-${dest.id}`}
@@ -235,7 +228,7 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
           </div>
         </div>
       </Link>
-    </m.div>
+    </div>
   );
 }
 
@@ -245,13 +238,7 @@ export default function FeaturedDestinations() {
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 32px" }}>
 
         {/* Header */}
-        <m.div
-          style={{ textAlign: "center", marginBottom: "60px" }}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="tb-fade" style={{ textAlign: "center", marginBottom: "60px" }}>
           <p style={{
             color: "#FFC20A", fontSize: "12px", fontWeight: 700,
             letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "14px",
@@ -273,7 +260,7 @@ export default function FeaturedDestinations() {
           }}>
             Pakistan's most extraordinary destinations. Use the arrows on any card to browse its photos.
           </p>
-        </m.div>
+        </div>
 
         {/* Uniform grid */}
         <div className="fd-grid">
@@ -283,13 +270,7 @@ export default function FeaturedDestinations() {
         </div>
 
         {/* View all */}
-        <m.div
-          style={{ textAlign: "center", marginTop: "52px" }}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-        >
+        <div className="tb-fade" style={{ textAlign: "center", marginTop: "52px" }}>
           <Link
             href="/destinations"
             style={{
@@ -304,7 +285,7 @@ export default function FeaturedDestinations() {
             View All Destinations
             <ChevronRight style={{ width: 16, height: 16 }} />
           </Link>
-        </m.div>
+        </div>
       </div>
     </section>
   );

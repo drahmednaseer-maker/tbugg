@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import MotionProvider from "@/components/MotionProvider";
 import type { Metadata } from "next";
 import { tours, getTourBySlug } from "@/data/tours";
 import TourDetailClient from "./TourDetailClient";
@@ -79,7 +80,7 @@ export default async function TourDetailPage({ params }: Props) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(tripJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <TourDetailClient tour={tour} />
+      <MotionProvider><TourDetailClient tour={tour} /></MotionProvider>
     </>
   );
 }

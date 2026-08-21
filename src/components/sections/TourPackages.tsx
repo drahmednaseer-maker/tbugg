@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { m, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Camera, Users, ChevronLeft, ChevronRight, MessageCircle, Star } from "lucide-react";
 
@@ -114,13 +113,7 @@ export default function TourPackages() {
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 32px" }}>
 
         {/* ── Header ────────────────────────────── */}
-        <m.div
-          style={{ marginBottom: "64px" }}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="tb-fade" style={{ marginBottom: "64px" }}>
           <p style={{ color: "#FFC20A", fontSize: "12px", fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "14px" }}>
             About Our Tours
           </p>
@@ -150,17 +143,10 @@ export default function TourPackages() {
             TravelBug.pk is run by professional photographers who have spent years exploring every corner of Pakistan.
             We don't sell packages — we craft every journey uniquely around <em style={{ color: "rgba(255,255,255,0.75)", fontStyle: "normal", fontWeight: 600 }}>your dates, your group, and your vision</em>.
           </p>
-        </m.div>
+        </div>
 
         {/* ── Highlights row ─────────────────────── */}
-        <m.div
-          className="tp-grid"
-          style={{ marginBottom: "64px" }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
+        <div className="tp-grid tb-fade" style={{ marginBottom: "64px" }}>
           {highlights.map(({ icon: Icon, label, desc }) => (
             <div
               key={label}
@@ -179,18 +165,13 @@ export default function TourPackages() {
                 <Icon style={{ width: 20, height: 20, color: "#FFC20A" }} />
               </div>
               <p style={{ color: "white", fontWeight: 800, fontSize: "14px" }}>{label}</p>
-              <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "12px", lineHeight: 1.5 }}>{desc}</p>
+              <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "12px", lineHeight: 1.5 }}>{desc}</p>
             </div>
           ))}
-        </m.div>
+        </div>
 
         {/* ── Cinematic Slideshow ─────────────────── */}
-        <m.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.15 }}
-        >
+        <div className="tb-fade">
           {/* Slideshow label */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -237,14 +218,10 @@ export default function TourPackages() {
             onMouseEnter={() => setAutoplay(false)}
             onMouseLeave={() => setAutoplay(true)}
           >
-            <AnimatePresence mode="wait">
-              <m.div
+              <div
+                className="tb-fade"
                 key={current}
                 style={{ position: "absolute", inset: 0 }}
-                initial={{ opacity: 0, scale: 1.04 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.97 }}
-                transition={{ duration: 0.7, ease: "easeInOut" }}
               >
                 <Image
                   src={slides[current].image}
@@ -265,19 +242,11 @@ export default function TourPackages() {
                   position: "absolute", inset: 0,
                   background: "linear-gradient(to right, rgba(4,9,20,0.7) 0%, transparent 50%)",
                 }} />
-              </m.div>
-            </AnimatePresence>
+              </div>
 
             {/* Slide text */}
             <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 10, padding: "40px 44px" }}>
-              <AnimatePresence mode="wait">
-                <m.div
-                  key={`text-${current}`}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.5 }}
-                >
+                <div className="tb-fade" key={`text-${current}`}>
                   {/* Type pill */}
                   <span style={{
                     display: "inline-block", padding: "5px 16px", borderRadius: "999px",
@@ -293,8 +262,7 @@ export default function TourPackages() {
                   <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "15px", lineHeight: 1.6, maxWidth: "540px" }}>
                     {slides[current].caption}
                   </p>
-                </m.div>
-              </AnimatePresence>
+                </div>
             </div>
 
             {/* Dot progress */}
@@ -310,14 +278,23 @@ export default function TourPackages() {
                   aria-label={`Show photo ${i + 1} of ${total}`}
                   aria-current={i === current ? "true" : undefined}
                   style={{
-                    height: "6px",
-                    width: i === current ? "28px" : "6px",
-                    borderRadius: "3px",
-                    background: i === current ? "#FFC20A" : "rgba(255,255,255,0.3)",
-                    border: "none", cursor: "pointer",
-                    transition: "all 0.35s ease", padding: 0,
+                    // 24px hit area (WCAG 2.2 target size); the bar stays 6px.
+                    height: "24px",
+                    width: i === current ? "28px" : "24px",
+                    background: "none", border: "none", cursor: "pointer", padding: 0,
+                    display: "flex", alignItems: "center", justifyContent: "center",
                   }}
-                />
+                >
+                  <span
+                    style={{
+                      display: "block", height: "6px",
+                      width: i === current ? "28px" : "6px",
+                      borderRadius: "3px",
+                      background: i === current ? "#FFC20A" : "rgba(255,255,255,0.3)",
+                      transition: "all 0.35s ease",
+                    }}
+                  />
+                </button>
               ))}
             </div>
 
@@ -370,7 +347,7 @@ export default function TourPackages() {
               <p style={{ color: "white", fontWeight: 800, fontSize: "18px", marginBottom: "4px" }}>
                 Ready to travel Pakistan — your way?
               </p>
-              <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "13px" }}>
+              <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "13px" }}>
                 Tell us your dates & preferences. We'll design the perfect itinerary — for free.
               </p>
             </div>
@@ -389,7 +366,7 @@ export default function TourPackages() {
               Start Planning — It's Free
             </Link>
           </div>
-        </m.div>
+        </div>
       </div>
     </section>
   );
