@@ -566,9 +566,39 @@ export default function TourBuilder() {
     return () => window.removeEventListener("travelbug:load-itinerary", handler);
   }, []);
 
-  // ── Fetch live weather for all destinations on mount ─────────────────────
+  // ── Live weather ─────────────────────────────────────────────────────────
+  // Weather only ever appears inside the builder UI, but fetching it on mount
+  // fired 14 parallel requests to api.open-meteo.com during page load (~1s of
+  // network on every visit, including visitors who never scroll this far).
+  // Hold them until the section is actually approaching the viewport.
+  const [weatherReady, setWeatherReady] = useState(false);
 
   useEffect(() => {
+    // This section sits directly below the hero, so a viewport trigger would
+    // fire during load anyway. Wait for the page to finish loading and the main
+    // thread to go idle instead — weather is ready well before anyone can
+    // interact with the builder, but it never competes with first paint.
+    let idleId: number | undefined;
+    const schedule = () => {
+      if ("requestIdleCallback" in window) {
+        idleId = window.requestIdleCallback(() => setWeatherReady(true), { timeout: 3000 });
+      } else {
+        idleId = window.setTimeout(() => setWeatherReady(true), 1200);
+      }
+    };
+    if (document.readyState === "complete") schedule();
+    else window.addEventListener("load", schedule, { once: true });
+    return () => {
+      window.removeEventListener("load", schedule);
+      if (idleId !== undefined) {
+        if ("cancelIdleCallback" in window) window.cancelIdleCallback(idleId);
+        else window.clearTimeout(idleId);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!weatherReady) return;
     DESTS.forEach(async (d) => {
       const coords = DEST_COORDS[d.id];
       if (!coords) return;
@@ -591,7 +621,7 @@ export default function TourBuilder() {
         }));
       } catch { /* silently fail — weather is supplementary */ }
     });
-  }, []);
+  }, [weatherReady]);
 
 
   const totalNights = route.reduce((s, d) => s + d.nights, 0);
