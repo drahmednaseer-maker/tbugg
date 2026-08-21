@@ -99,13 +99,17 @@ export default function Hero() {
      point the page is actually usable (Speed Index was ~4.6s on production,
      with a thumbnail still arriving at 5.1s). Static during load, moving
      immediately after. */
-  const [autoScroll, setAutoScroll] = useState(false);
+  // A ref, deliberately not state: flipping state here would re-render the
+  // hero and all 74 marquee tiles in one long task (measured ~1.5-2.7s of
+  // total blocking time on production).
+  const autoScrollRef = useRef(false);
   useEffect(() => {
     let idleId: number | undefined;
+    const start = () => { autoScrollRef.current = true; };
     const schedule = () => {
       idleId = "requestIdleCallback" in window
-        ? window.requestIdleCallback(() => setAutoScroll(true), { timeout: 2500 })
-        : window.setTimeout(() => setAutoScroll(true), 900);
+        ? window.requestIdleCallback(start, { timeout: 2500 })
+        : window.setTimeout(start, 900);
     };
     if (document.readyState === "complete") schedule();
     else window.addEventListener("load", schedule, { once: true });
@@ -119,7 +123,6 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    if (!autoScroll) return;
     const el = marqueeRef.current;
     if (!el) return;
     const SPEED = 90; // px per second
@@ -128,7 +131,9 @@ export default function Hero() {
     let raf  = 0;
     const step = (now: number) => {
       const dt = now - last; last = now;
-      if (!pausedRef.current) {
+      if (!autoScrollRef.current) {
+        pos = el.scrollLeft;                        // stay put until the page has settled
+      } else if (!pausedRef.current) {
         pos += (SPEED * dt) / 1000;
         const half = el.scrollWidth / 2;          // one copy of the (duplicated) set
         if (half > 0 && pos >= half) pos -= half;  // seamless loop
@@ -140,7 +145,7 @@ export default function Hero() {
     };
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
-  }, [autoScroll]);
+  }, []);
   const onMarqueeDown = (e: React.MouseEvent) => {
     const el = marqueeRef.current; if (!el) return;
     dragRef.current = { x: e.clientX, left: el.scrollLeft, active: true };
