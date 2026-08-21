@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Hero from "@/components/sections/Hero";
-import TourBuilder from "@/components/sections/TourBuilder";
+import TourBuilder from "@/components/TourBuilderLazy";
 import FeaturedDestinations from "@/components/sections/FeaturedDestinations";
 import TourPackages from "@/components/sections/TourPackages";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
