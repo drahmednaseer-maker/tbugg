@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { destinations } from "@/data/destinations";
 import { MapPin, ArrowRight, Camera } from "lucide-react";
@@ -43,11 +44,15 @@ export default function DestinationsPage() {
               }}
             >
               {/* Image */}
-              <img loading="lazy" decoding="async" 
-                src={dest.images[0]} 
-                alt={dest.name} 
+              <Image
+                src={dest.images[0]}
+                alt={dest.name}
+                fill
+                loading="lazy"
+                quality={70}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="hover-scale"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                style={{ objectFit: "cover" }}
               />
               
               {/* Overlays */}

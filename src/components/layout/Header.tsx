@@ -296,6 +296,9 @@ export default function Header() {
               {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
+                type="button"
+                aria-label={mobileOpen ? "Close menu" : "Open menu"}
+                aria-expanded={mobileOpen}
                 className="lg:hidden w-11 h-11 flex items-center justify-center rounded-full bg-[#FACC15] text-slate-950 shadow-lg shadow-[#FACC15]/20"
               >
                 {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-5 h-5" />}

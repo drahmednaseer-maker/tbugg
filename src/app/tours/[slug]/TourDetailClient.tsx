@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -75,7 +76,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <img src={images[imgIndex]} alt={tour.title} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center", display: "block" }} />
+              <Image src={images[imgIndex]} alt={tour.title} fill priority quality={75} sizes="(max-width: 768px) 100vw, 620px" style={{ objectFit: "cover", objectPosition: "center center", display: "block" }} />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
               {/* Difficulty */}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -127,10 +128,14 @@ export default function PhotoGallery() {
                 (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,255,255,0.07)";
               }}
             >
-              <img loading="lazy" decoding="async"
+              <Image
                 src={photo.src}
                 alt={photo.label}
                 draggable={false}
+                width={240}
+                height={160}
+                loading="lazy"
+                quality={60}
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", pointerEvents: "none" }}
               />
               {/* Hover overlay */}

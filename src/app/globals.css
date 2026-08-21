@@ -11,7 +11,7 @@
   --color-charcoal: #1a2035;
 
   --font-sans: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
-  --font-serif: "Playfair Display", Georgia, serif;
+  --font-serif: Georgia, "Times New Roman", serif;
 
   --animate-fade-up: fadeUp 0.6s ease forwards;
   --animate-fade-in: fadeIn 0.5s ease forwards;
@@ -83,7 +83,13 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: url('/hero-bg.jpg');
+  /* Painted at opacity 0.08, so a 640px texture is visually identical to the
+     full hero while costing a fraction of the bytes. */
+  background-image: url('/hero-texture.jpg');
+  background-image: image-set(
+    url('/hero-texture.avif') type('image/avif'),
+    url('/hero-texture.jpg') type('image/jpeg')
+  );
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -401,3 +407,20 @@ body::before {
 }
 
 
+
+/* ── Hero entrance ──────────────────────────────────────────────────────────
+   Pure CSS rather than framer-motion so the headline and subtitle paint with
+   the server-rendered HTML. A motion `initial={{ opacity: 0 }}` ships
+   opacity:0 in the SSR markup, which kept the LCP element invisible until the
+   JS bundle had downloaded, parsed and hydrated. framer-motion is still used
+   everywhere else on the site. */
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.hero-rise { animation: heroRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise { animation: none; opacity: 1; transform: none; }
+}

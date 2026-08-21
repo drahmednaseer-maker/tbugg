@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle2, MessageSquare } from "lucide-react";
 
@@ -70,10 +71,14 @@ export default function ContactClient() {
       {/* ── HERO ── */}
       <section style={{ paddingTop: "160px", paddingBottom: "72px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0 }}>
-          <img
+          <Image
             src="/destinations/minimarg/minimarg4.jpg"
             alt="Pakistan mountains"
-            style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.15 }}
+            fill
+            priority
+            quality={55}
+            sizes="100vw"
+            style={{ objectFit: "cover", opacity: 0.15 }}
           />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, #0B1628 0%, rgba(11,22,40,0.7) 50%, #0B1628 100%)" }} />
         </div>

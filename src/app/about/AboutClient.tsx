@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { Heart, Mountain, Award, Users, ArrowRight, CheckCircle2, MapPin, Star, Phone, Mail } from "lucide-react";
 
@@ -91,10 +92,14 @@ export default function AboutClient() {
       {/* ── HERO ── */}
       <section style={{ paddingTop: "160px", paddingBottom: "80px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0 }}>
-          <img
+          <Image
             src="/destinations/hunza/hunza_autumn1.jpg"
             alt="Hunza Valley Pakistan"
-            style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.2 }}
+            fill
+            priority
+            quality={60}
+            sizes="100vw"
+            style={{ objectFit: "cover", opacity: 0.2 }}
           />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, #0B1628 0%, rgba(11,22,40,0.6) 50%, #0B1628 100%)" }} />
         </div>
@@ -184,11 +189,15 @@ export default function AboutClient() {
                     // entrance transform can't soften the rounded-clipped photo
                     transform: "translateZ(0)",
                   }}>
-                    <img
+                    <Image
                       src={image}
                       alt={name}
+                      width={104}
+                      height={104}
                       onError={onGuideImgError}
-                      loading="eager"
+                      priority
+                      quality={75}
+                      sizes="104px"
                       style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
                     />
                   </div>
@@ -257,11 +266,15 @@ export default function AboutClient() {
             initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}
             style={{ position: "relative" }}
           >
-            <div style={{ borderRadius: "24px", overflow: "hidden", height: "420px" }}>
-              <img
+            <div style={{ borderRadius: "24px", overflow: "hidden", height: "420px", position: "relative" }}>
+              <Image
                 src="/destinations/skardu/machlu_peaks.jpg"
                 alt="Pakistan Mountains - Karakoram Range"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                fill
+                loading="lazy"
+                quality={70}
+                sizes="(max-width: 1024px) 100vw, 560px"
+                style={{ objectFit: "cover" }}
               />
             </div>
             {/* Floating badge */}
@@ -301,7 +314,9 @@ export default function AboutClient() {
                   cursor: "default",
                 }}
               >
-                <img src={image} alt={name} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s" }}
+                <Image src={image} alt={name} fill loading="lazy" quality={65}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  style={{ objectFit: "cover", transition: "transform 0.5s" }}
                   onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.06)")}
                   onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
                 />

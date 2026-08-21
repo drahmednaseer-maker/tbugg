@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle, ArrowRight } from "lucide-react";
 
@@ -25,14 +26,14 @@ export default function CTABanner() {
           }}
         >
           {/* Background photo */}
-          <img
+          <Image
             src="/spring-passu.jpg"
             alt="Pakistan landscape"
-            style={{
-              position: "absolute", inset: 0,
-              width: "100%", height: "100%",
-              objectFit: "cover",
-            }}
+            fill
+            loading="lazy"
+            quality={60}
+            sizes="(max-width: 1024px) 100vw, 1200px"
+            style={{ objectFit: "cover" }}
           />
           {/* Overlay */}
           <div style={{

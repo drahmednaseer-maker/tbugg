@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { markets } from "@/data/markets";
 import { generalFaqs } from "@/data/faqs";
@@ -34,7 +35,7 @@ export default function PakistanToursHub() {
       {/* Hero */}
       <section style={{ position: "relative", overflow: "hidden", paddingTop: "160px", paddingBottom: "70px" }}>
         <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-          <img src="/destinations/hunza/attabad_lake.jpg" alt="Pakistan tours for international travellers" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.35 }} />
+          <Image src="/destinations/hunza/attabad_lake.jpg" alt="Pakistan tours for international travellers" fill priority quality={55} sizes="100vw" style={{ objectFit: "cover", opacity: 0.35 }} />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(11,22,40,0.7), #0B1628)" }} />
         </div>
         <div style={{ position: "relative", zIndex: 2, maxWidth: "900px", margin: "0 auto", padding: "0 40px", textAlign: "center" }}>

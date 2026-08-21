@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MapPin, Moon, Users, Truck, Phone, ChevronDown, ChevronUp, Trash2, MessageCircle } from "lucide-react";
 import {
@@ -76,10 +77,15 @@ function ItineraryCard({
         {/* Thumbnail stack */}
         <div style={{ display: "flex", position: "relative", width: 44, height: 36, flexShrink: 0 }}>
           {it.route.slice(0, 3).map((d, i) => (
-            <img loading="lazy" decoding="async"
+            <Image
               key={d.id}
               src={d.image}
               alt={d.name}
+              width={28}
+              height={36}
+              loading="lazy"
+              quality={50}
+              sizes="28px"
               style={{
                 position: "absolute",
                 left: i * 10,

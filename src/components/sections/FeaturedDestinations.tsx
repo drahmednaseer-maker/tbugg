@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -19,20 +20,17 @@ const tagColors: Record<string, { bg: string; text: string; glow: string }> = {
 };
 
 // Preload images so hover switching is instant
-function usePreloadImages(srcs: string[]) {
-  useEffect(() => {
-    srcs.forEach((src) => {
-      const img = new window.Image();
-      img.src = src;
-    });
-  }, []);
-}
 
 function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number }) {
   const [imgIdx, setImgIdx] = useState(0);
   const [hovered, setHovered] = useState(false);
 
-  usePreloadImages(dest.images);
+  // Only slides the visitor has reached get mounted. Rendering the whole stack
+  // up front downloaded every destination's photos to display one each.
+  const [mounted, setMounted] = useState<number[]>([0]);
+  useEffect(() => {
+    setMounted((prev) => (prev.includes(imgIdx) ? prev : [...prev, imgIdx]));
+  }, [imgIdx]);
 
   const prev = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -75,7 +73,7 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
         }}
       >
         {/* Images — stacked, GPU accelerated */}
-        {dest.images.map((src, i) => (
+        {dest.images.map((src, i) => !mounted.includes(i) ? null : (
           <div
             key={i}
             style={{
@@ -86,12 +84,14 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
               willChange: "opacity",
             }}
           >
-            <img loading="lazy" decoding="async"
+            <Image
               src={src}
               alt={dest.name}
+              fill
+              loading="lazy"
+              quality={65}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               style={{
-                width: "100%",
-                height: "100%",
                 objectFit: "cover",
                 transform: i === imgIdx && hovered ? "scale(1.07)" : "scale(1)",
                 transition: "transform 6s ease",
@@ -151,6 +151,8 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
             <button
               onClick={prev}
               className="fd-arrow"
+              type="button"
+              aria-label={`Previous photo of ${dest.name}`}
               style={{
                 position: "absolute", left: "10px", top: "50%",
                 transform: `translateY(-50%) translateX(${hovered ? "0" : "-8px"})`,
@@ -167,6 +169,8 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
             <button
               onClick={next}
               className="fd-arrow"
+              type="button"
+              aria-label={`Next photo of ${dest.name}`}
               style={{
                 position: "absolute", right: "10px", top: "50%",
                 transform: `translateY(-50%) translateX(${hovered ? "0" : "8px"})`,

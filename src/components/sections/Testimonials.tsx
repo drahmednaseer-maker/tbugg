@@ -210,13 +210,15 @@ export default function Testimonials() {
 
           {/* Arrow buttons */}
           {[
-            { fn: prev, side: "-60px", id: "testimonial-prev", icon: ChevronLeft },
-            { fn: next, side: "-60px", id: "testimonial-next", icon: ChevronRight },
-          ].map(({ fn, id, icon: Icon }, i) => (
+            { fn: prev, side: "-60px", id: "testimonial-prev", icon: ChevronLeft, label: "Previous testimonial" },
+            { fn: next, side: "-60px", id: "testimonial-next", icon: ChevronRight, label: "Next testimonial" },
+          ].map(({ fn, id, icon: Icon, label }, i) => (
             <button
               key={id}
               id={id}
               onClick={fn}
+              type="button"
+              aria-label={label}
               style={{
                 position: "absolute",
                 top: "50%", transform: "translateY(-50%)",
@@ -237,20 +239,32 @@ export default function Testimonials() {
         </div>
 
         {/* ── Dots only (no avatar strip) ── */}
-        <div style={{ marginTop: "36px", display: "flex", justifyContent: "center", gap: "8px", alignItems: "center" }}>
+        <div style={{ marginTop: "36px", display: "flex", justifyContent: "center", gap: "0px", alignItems: "center" }}>
           {testimonials.map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
+              type="button"
+              aria-label={`Show testimonial ${i + 1} of ${testimonials.length}`}
+              aria-current={i === current ? "true" : undefined}
               style={{
-                width: i === current ? "28px" : "7px",
-                height: "7px", borderRadius: "999px",
-                background: i === current ? "#FFC20A" : "rgba(255,255,255,0.15)",
-                border: "none", cursor: "pointer",
-                transition: "all 0.3s ease",
-                padding: 0,
+                // 24x24 hit area (WCAG 2.2 target size); the dot itself stays 7px.
+                width: i === current ? "40px" : "24px",
+                height: "24px",
+                background: "none", border: "none", cursor: "pointer", padding: 0,
+                display: "flex", alignItems: "center", justifyContent: "center",
               }}
-            />
+            >
+              <span
+                style={{
+                  display: "block",
+                  width: i === current ? "28px" : "7px",
+                  height: "7px", borderRadius: "999px",
+                  background: i === current ? "#FFC20A" : "rgba(255,255,255,0.15)",
+                  transition: "all 0.3s ease",
+                }}
+              />
+            </button>
           ))}
         </div>
 

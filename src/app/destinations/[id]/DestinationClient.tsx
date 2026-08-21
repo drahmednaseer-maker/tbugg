@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { MapPin, ArrowRight, Camera, Globe, Calendar, Clock, Users, Star } from "lucide-react";
 import { Destination, Expedition } from "@/data/destinations";
@@ -25,10 +26,14 @@ export default function DestinationClient({ destination }: { destination: Destin
           transition={{ duration: 1.2 }}
           style={{ position: "absolute", inset: 0 }}
         >
-          <img
+          <Image
             src={destination.images[0]}
             alt={destination.name}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            fill
+            priority
+            quality={70}
+            sizes="100vw"
+            style={{ objectFit: "cover" }}
           />
           <div style={{
             position: "absolute", inset: 0,
@@ -76,9 +81,10 @@ export default function DestinationClient({ destination }: { destination: Destin
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.2 }}
-                  style={{ borderRadius: "20px", overflow: "hidden", height: "300px" }}
+                  style={{ borderRadius: "20px", overflow: "hidden", height: "300px", position: "relative" }}
                 >
-                  <img src={img} alt={`${destination.name} ${i}`} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <Image src={img} alt={`${destination.name} ${i}`} fill loading="lazy" quality={70}
+                    sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: "cover" }} />
                 </motion.div>
               ))}
               <div style={{
@@ -125,8 +131,8 @@ export default function DestinationClient({ destination }: { destination: Destin
                         onMouseEnter={e => e.currentTarget.style.borderColor = "rgba(255,194,10,0.3)"}
                         onMouseLeave={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"}
                       >
-                        <div style={{ width: "100px", height: "100px", borderRadius: "12px", overflow: "hidden", flexShrink: 0 }}>
-                          <img src={tour.image} alt={tour.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        <div style={{ width: "100px", height: "100px", borderRadius: "12px", overflow: "hidden", flexShrink: 0, position: "relative" }}>
+                          <Image src={tour.image} alt={tour.title} fill loading="lazy" quality={60} sizes="100px" style={{ objectFit: "cover" }} />
                         </div>
                         <div style={{ flex: 1 }}>
                           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>

@@ -61,9 +61,9 @@ export const destinations: Destination[] = [
     description: "Pristine Arabian Sea coastline, Hammerhead peninsula & the untouched Makran coastal highway",
     tag: "Coastal",
     images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Pakistan_Balochistan_province_-_Gwadar_IMG_7936.jpg/1280px-Pakistan_Balochistan_province_-_Gwadar_IMG_7936.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/f/f7/Princess_of_hope_Balochistan.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Makran_Coastal_Highway.jpg/1280px-Makran_Coastal_Highway.jpg",
+      "/destinations/_sourced/pakistan-balochistan-province-gwadar-img-7936.jpg",
+      "/destinations/_sourced/princess-of-hope-balochistan.jpg",
+      "/destinations/_sourced/makran-coastal-highway.jpg",
     ],
     tourSlug: "gwadar-coastal-luxury",
   },
@@ -82,7 +82,7 @@ export const destinations: Destination[] = [
     region: "Khyber Pakhtunkhwa",
     description: "Ancient Kalash culture, stunning Hindu Kush valleys & the world's most unique living civilisation",
     tag: "Adventure",
-    images: ["/kalash.jpg", "/destinations/shandur/shandur1.jpg", "https://upload.wikimedia.org/wikipedia/commons/8/81/Tirich_Mir_Hindu_Kush_Chitral%3B_Tahsin_Shah_06.jpg"],
+    images: ["/kalash.jpg", "/destinations/shandur/shandur1.jpg", "/destinations/_sourced/tirich-mir-hindu-kush-chitral-tahsin-shah-06.jpg"],
     tourSlug: "kalash-valley-cultural-tour",
   },
   {
@@ -92,8 +92,8 @@ export const destinations: Destination[] = [
     description: "Ancient Buddhist monasteries and stupas — one of the world's greatest archaeological sites",
     tag: "Religious",
     images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Dharmarajika_stupa_%26_Monastery_Taxila.jpg/1280px-Dharmarajika_stupa_%26_Monastery_Taxila.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Jaulian_Buddhist_Monastery_in_Taxila.jpg/1280px-Jaulian_Buddhist_Monastery_in_Taxila.jpg",
+      "/destinations/_sourced/dharmarajika-stupa-monastery-taxila.jpg",
+      "/destinations/_sourced/jaulian-buddhist-monastery-in-taxila.jpg",
     ],
     tourSlug: "islamabad-twin-cities-discovery",
   },

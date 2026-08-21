@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -441,10 +442,14 @@ function DestinationCard({ tour, onGetQuote }: { tour: Tour; onGetQuote: (title:
       {/* Image — clicking navigates to full details */}
       <Link href={`/tours/${tour.slug}`} style={{ display: "block", textDecoration: "none" }}>
         <div style={{ position: "relative", height: "240px", overflow: "hidden", cursor: "pointer" }}>
-          <img
+          <Image
             src={tour.image}
             alt={tour.title}
-            style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.7s" }}
+            fill
+            loading="lazy"
+            quality={70}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+            style={{ objectFit: "cover", transition: "transform 0.7s" }}
             onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.08)")}
             onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
           />
@@ -664,7 +669,7 @@ export default function ToursClient() {
       {!activeTheme && (
       <section style={{ paddingTop: "160px", paddingBottom: "60px", position: "relative", overflow: "hidden", paddingLeft: "32px", paddingRight: "32px" }}>
         <div style={{ position: "absolute", inset: 0 }}>
-          <img src="/destinations/hunza/rakaposhi_sunset.jpg" alt="Pakistan mountains" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.12 }} />
+          <Image src="/destinations/hunza/rakaposhi_sunset.jpg" alt="Pakistan mountains" fill priority quality={55} sizes="100vw" style={{ objectFit: "cover", opacity: 0.12 }} />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, #0B1628, rgba(11,22,40,0.7) 50%, #0B1628)" }} />
         </div>
         <div style={{ position: "relative", maxWidth: "80rem", margin: "0 auto" }}>

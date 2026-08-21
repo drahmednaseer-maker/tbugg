@@ -23,9 +23,12 @@ export default function GoogleAnalytics() {
     <>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-        strategy="afterInteractive"
+        // gtag.js is 168 KB — the single heaviest resource on the page. Loading
+        // it after window.onload instead of straight after hydration keeps it
+        // off the first-paint critical path; pageviews are still recorded.
+        strategy="lazyOnload"
       />
-      <Script id="ga4-init" strategy="afterInteractive">
+      <Script id="ga4-init" strategy="lazyOnload">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}

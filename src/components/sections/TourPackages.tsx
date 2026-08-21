@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Camera, Users, ChevronLeft, ChevronRight, MessageCircle, Star } from "lucide-react";
@@ -202,6 +203,8 @@ export default function TourPackages() {
             <div style={{ display: "flex", gap: "10px" }}>
               <button
                 onClick={() => { prev(); setAutoplay(false); }}
+                type="button"
+                aria-label="Previous tour photo"
                 style={{
                   width: "40px", height: "40px", borderRadius: "50%",
                   background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)",
@@ -213,6 +216,8 @@ export default function TourPackages() {
               </button>
               <button
                 onClick={() => { next(); setAutoplay(false); }}
+                type="button"
+                aria-label="Next tour photo"
                 style={{
                   width: "40px", height: "40px", borderRadius: "50%",
                   background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)",
@@ -241,10 +246,14 @@ export default function TourPackages() {
                 exit={{ opacity: 0, scale: 0.97 }}
                 transition={{ duration: 0.7, ease: "easeInOut" }}
               >
-                <img
+                <Image
                   src={slides[current].image}
                   alt={slides[current].title}
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  fill
+                  loading="lazy"
+                  quality={70}
+                  sizes="(max-width: 1024px) 100vw, 1100px"
+                  style={{ objectFit: "cover" }}
                 />
                 {/* Cinematic gradient */}
                 <div style={{
@@ -296,7 +305,10 @@ export default function TourPackages() {
               {slides.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => { setCurrent(i); setAutoplay(false); }}
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCurrent(i); setAutoplay(false); }}
+                  type="button"
+                  aria-label={`Show photo ${i + 1} of ${total}`}
+                  aria-current={i === current ? "true" : undefined}
                   style={{
                     height: "6px",
                     width: i === current ? "28px" : "6px",
@@ -319,7 +331,9 @@ export default function TourPackages() {
                 return (
                   <button
                     key={offset}
-                    onClick={() => { setCurrent(idx); setAutoplay(false); }}
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCurrent(idx); setAutoplay(false); }}
+                    type="button"
+                    aria-label={`Show ${slides[idx].title}`}
                     style={{
                       width: "72px", height: "52px", borderRadius: "10px", overflow: "hidden",
                       border: "2px solid rgba(255,255,255,0.15)", cursor: "pointer", padding: 0,
@@ -328,9 +342,14 @@ export default function TourPackages() {
                     onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = "1"; (e.currentTarget as HTMLButtonElement).style.borderColor = "#FFC20A"; }}
                     onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = "0.75"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(255,255,255,0.15)"; }}
                   >
-                    <img
+                    <Image
                       src={slides[idx].image}
                       alt={slides[idx].title}
+                      width={72}
+                      height={52}
+                      loading="lazy"
+                      quality={50}
+                      sizes="72px"
                       style={{ width: "100%", height: "100%", objectFit: "cover" }}
                     />
                   </button>

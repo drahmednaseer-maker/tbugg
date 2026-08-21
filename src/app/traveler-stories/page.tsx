@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import { testimonials } from "@/data/testimonials";
 import { Star, MapPin, Calendar } from "lucide-react";
 import GoogleVerifiedBadge from "@/components/GoogleVerifiedBadge";
@@ -49,9 +50,14 @@ export default function TravelerStoriesPage() {
               <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "12px", flexWrap: "wrap", marginBottom: "14px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
                   {t.avatar ? (
-                    <img loading="lazy" decoding="async"
+                    <Image
                       src={t.avatar}
                       alt={t.name}
+                      width={48}
+                      height={48}
+                      loading="lazy"
+                      quality={75}
+                      sizes="48px"
                       style={{ width: "48px", height: "48px", borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,194,10,0.3)" }}
                     />
                   ) : (

@@ -159,43 +159,42 @@ export default function Hero() {
         <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
 
           {/* Eyebrow badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}
+          <div
+            className="hero-rise"
             style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "7px 16px", marginBottom: "26px", borderRadius: "999px", background: "rgba(255,194,10,0.10)", border: "1px solid rgba(255,194,10,0.28)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)" }}>
             <Star style={{ width: 13, height: 13, color: "#FFC20A", fill: "#FFC20A" }} />
             <span style={{ color: "#FFD34A", fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>Photographers-Led Custom Tours</span>
-          </motion.div>
+          </div>
 
           <div className="overflow-hidden mb-3">
-            <motion.h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
-              initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
+            <h1 className="hero-rise text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
+              style={{ animationDelay: "0.06s" }}>
               Explore Pakistan
               <span className="sr-only"> — Your Next Adventure Destination. Photographers-led, 100% customized tours of Pakistan.</span>
-            </motion.h1>
+            </h1>
           </div>
           <div className="overflow-hidden mb-2" aria-hidden="true">
-            <motion.div className="text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
-              initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
+            <div className="hero-rise text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
+              style={{ animationDelay: "0.12s" }}>
               Your Next
-            </motion.div>
+            </div>
           </div>
           <div className="overflow-hidden mb-7" aria-hidden="true">
-            <motion.div className="text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight"
-              initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }}>
+            <div className="hero-rise text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight"
+              style={{ animationDelay: "0.18s" }}>
               <span style={{ color: "#FFC20A" }}>Adventure Destination</span>
-            </motion.div>
+            </div>
           </div>
 
-          <motion.p className="text-lg text-white/65 leading-loose max-w-xl mx-auto" style={{ textAlign: "center" }}
-            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.35 }}>
+          <p className="hero-rise text-lg text-white/65 leading-loose max-w-xl mx-auto" style={{ textAlign: "center", animationDelay: "0.24s" }}>
             From the majestic peaks of Karakorams &amp; Hindukush to the serene landscapes of Gwadar —
             we design unforgettable journeys across Pakistan.
-          </motion.p>
+          </p>
 
           {/* Primary CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.45 }}
-            style={{ display: "flex", flexWrap: "wrap", gap: "14px", justifyContent: "center", marginTop: "36px" }}>
+          <div
+            className="hero-rise"
+            style={{ display: "flex", flexWrap: "wrap", gap: "14px", justifyContent: "center", marginTop: "36px", animationDelay: "0.3s" }}>
             <a href="#tour-builder"
               style={{ display: "inline-flex", alignItems: "center", gap: "9px", padding: "15px 30px", borderRadius: "999px", background: "linear-gradient(135deg, #FFD34A, #FFC20A)", color: "#0B1628", fontSize: "15px", fontWeight: 800, textDecoration: "none", boxShadow: "0 10px 30px rgba(255,194,10,0.28)", transition: "transform 0.2s, box-shadow 0.2s" }}
               onMouseEnter={(e) => { const el = e.currentTarget; el.style.transform = "translateY(-2px)"; el.style.boxShadow = "0 14px 40px rgba(255,194,10,0.45)"; }}
@@ -210,19 +209,19 @@ export default function Hero() {
               <MessageCircle style={{ width: 17, height: 17, color: "#25D366" }} />
               Chat on WhatsApp
             </a>
-          </motion.div>
+          </div>
 
           {/* Trust badges */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }}
-            style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px", marginTop: "38px" }}>
+          <div
+            className="hero-rise"
+            style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px", marginTop: "38px", animationDelay: "0.36s" }}>
             {["100% Customized", "Photographers-Led", "Karakoram to Gwadar"].map((t, i) => (
               <div key={i} style={{ display: "inline-flex", alignItems: "center", gap: "7px", padding: "8px 15px", borderRadius: "999px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)" }}>
                 <Check style={{ width: 14, height: 14, color: "#FFC20A" }} />
                 <span style={{ color: "rgba(255,255,255,0.78)", fontSize: "13px", fontWeight: 600 }}>{t}</span>
               </div>
             ))}
-          </motion.div>
+          </div>
 
         </div>
       </div>
@@ -294,8 +293,16 @@ export default function Hero() {
                     if (icon) { icon.style.opacity = "0"; icon.style.transform = "scale(0.8)"; }
                   }}
                 >
-                  <img src={photo.src} alt={photo.label} draggable={false}
-                    style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0, pointerEvents: "none" }} />
+                  <Image
+                    src={photo.src}
+                    alt={photo.label}
+                    draggable={false}
+                    fill
+                    loading="lazy"
+                    quality={60}
+                    sizes="(max-width: 760px) 190px, (max-width: 1600px) 25vw, 400px"
+                    style={{ objectFit: "cover", pointerEvents: "none" }}
+                  />
 
                   {/* Location label */}
                   <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "30px 14px 12px", background: "linear-gradient(to top, rgba(6,11,24,0.94), rgba(6,11,24,0))", pointerEvents: "none" }}>

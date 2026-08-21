@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Camera } from "lucide-react";
 
 const team = [
@@ -78,13 +79,14 @@ export default function BehindTheLens() {
               }}
             >
               {/* Background blurred landscape */}
-              <img
+              <Image
                 src={person.bg}
                 alt=""
-                style={{
-                  position: "absolute", inset: 0, width: "100%", height: "100%",
-                  objectFit: "cover", opacity: 0.12, filter: "blur(2px)",
-                }}
+                fill
+                loading="lazy"
+                quality={50}
+                sizes="(max-width: 768px) 100vw, 560px"
+                style={{ objectFit: "cover", opacity: 0.12, filter: "blur(2px)" }}
               />
               <div style={{ position: "absolute", inset: 0, background: "rgba(4,9,20,0.88)" }} />
 
@@ -94,9 +96,14 @@ export default function BehindTheLens() {
                 {/* Portrait + name row */}
                 <div style={{ display: "flex", gap: "24px", alignItems: "flex-start", marginBottom: "24px" }}>
                   <div style={{ position: "relative", flexShrink: 0 }}>
-                    <img
+                    <Image
                       src={person.photo}
                       alt={person.name}
+                      width={96}
+                      height={96}
+                      loading="lazy"
+                      quality={75}
+                      sizes="96px"
                       style={{
                         width: "96px", height: "96px", borderRadius: "50%",
                         objectFit: "cover", objectPosition: "top center",

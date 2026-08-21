@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { markets, getMarket } from "@/data/markets";
@@ -90,7 +91,7 @@ export default async function MarketPage({ params }: Props) {
       {/* Hero */}
       <section style={{ position: "relative", overflow: "hidden", paddingTop: "160px", paddingBottom: "80px" }}>
         <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-          <img src="/destinations/hunza/attabad_lake.jpg" alt={`Pakistan tours from ${m.country}`} style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.35 }} />
+          <Image src="/destinations/hunza/attabad_lake.jpg" alt={`Pakistan tours from ${m.country}`} fill priority quality={55} sizes="100vw" style={{ objectFit: "cover", opacity: 0.35 }} />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(11,22,40,0.7), #0B1628)" }} />
         </div>
         <div style={{ position: "relative", zIndex: 2, maxWidth: "980px", margin: "0 auto", padding: "0 40px" }}>
@@ -159,8 +160,8 @@ export default async function MarketPage({ params }: Props) {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))", gap: "22px" }}>
             {topTours.map((t) => (
               <Link key={t.id} href={`/tours/${t.slug}`} style={{ display: "block", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "20px", overflow: "hidden", textDecoration: "none" }}>
-                <div style={{ height: "180px", overflow: "hidden" }}>
-                  <img src={t.image} alt={t.title} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <div style={{ height: "180px", overflow: "hidden", position: "relative" }}>
+                  <Image src={t.image} alt={t.title} fill loading="lazy" quality={65} sizes="(max-width: 640px) 100vw, 300px" style={{ objectFit: "cover" }} />
                 </div>
                 <div style={{ padding: "20px" }}>
                   <h3 style={{ color: "white", fontSize: "17px", fontWeight: 800, margin: "0 0 10px", lineHeight: 1.3 }}>{t.title}</h3>
