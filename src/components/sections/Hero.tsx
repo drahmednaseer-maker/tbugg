@@ -282,15 +282,11 @@ export default function Hero() {
                     const el = e.currentTarget as HTMLDivElement;
                     el.style.borderColor = "rgba(255,194,10,0.5)";
                     el.style.transform = "translateY(-3px)";
-                    const icon = el.querySelector(".ph-icon") as HTMLElement;
-                    if (icon) { icon.style.opacity = "1"; icon.style.transform = "scale(1)"; }
                   }}
                   onMouseLeave={e => {
                     const el = e.currentTarget as HTMLDivElement;
                     el.style.borderColor = "rgba(255,255,255,0.07)";
                     el.style.transform = "translateY(0)";
-                    const icon = el.querySelector(".ph-icon") as HTMLElement;
-                    if (icon) { icon.style.opacity = "0"; icon.style.transform = "scale(0.8)"; }
                   }}
                 >
                   <Image
@@ -307,11 +303,6 @@ export default function Hero() {
                   {/* Location label */}
                   <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "30px 14px 12px", background: "linear-gradient(to top, rgba(6,11,24,0.94), rgba(6,11,24,0))", pointerEvents: "none" }}>
                     <p style={{ color: "white", fontSize: "13.5px", fontWeight: 700, margin: 0, textShadow: "0 1px 6px rgba(0,0,0,0.9)" }}>{photo.label}</p>
-                  </div>
-
-                  {/* Zoom icon on hover */}
-                  <div className="ph-icon" style={{ position: "absolute", top: 7, right: 7, width: 24, height: 24, borderRadius: "50%", background: "rgba(255,194,10,0.88)", display: "flex", alignItems: "center", justifyContent: "center", opacity: 0, transform: "scale(0.8)", transition: "opacity 0.25s, transform 0.25s" }}>
-                    <ZoomIn style={{ width: 11, height: 11, color: "#0B1628" }} />
                   </div>
 
                 </div>

@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
     // AVIF first, WebP as fallback — roughly 50-70% smaller than the source
     // JPEGs at visually identical quality.
     formats: ["image/avif", "image/webp"],
+    // Trimmed from the 8+8 defaults. Every extra entry is ~90 bytes of srcset
+    // repeated across ~88 images, and the page was shipping 66 KB of srcset
+    // strings. These cover the widths this layout actually renders at.
+    deviceSizes: [640, 828, 1080, 1920, 2560],
+    imageSizes: [48, 96, 192, 384],
     minimumCacheTTL: ONE_YEAR,
     // Next 15 rejects any `quality` value not listed here.
     qualities: [50, 55, 60, 65, 70, 75, 80],
