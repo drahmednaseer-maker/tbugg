@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Shield, MessageCircle, Award, Compass, Users, Clock } from "lucide-react";
 
 const features = [
@@ -90,7 +90,7 @@ export default function WhyChooseUs() {
       <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px", position: "relative" }}>
 
         {/* ── Section Header ── */}
-        <motion.div
+        <m.div
           style={{ maxWidth: "680px", marginBottom: "72px" }}
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -118,12 +118,12 @@ export default function WhyChooseUs() {
             There are a thousand tour companies. Here&apos;s what makes TravelBug different —
             and why travelers from 30+ countries trust us with their most anticipated trips.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* ── Feature Grid ── */}
         <div className="why-bento-grid" style={{ marginBottom: "56px" }}>
           {features.map(({ icon: Icon, tag, title, description, accent }, i) => (
-            <motion.div
+            <m.div
               key={title}
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -183,12 +183,12 @@ export default function WhyChooseUs() {
               }}>
                 {description}
               </p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
         {/* ── Stats Bar ── */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -202,7 +202,7 @@ export default function WhyChooseUs() {
           }}
         >
           {stats.map(({ value, label, sub }, i) => (
-            <motion.div
+            <m.div
               key={label}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -227,9 +227,9 @@ export default function WhyChooseUs() {
               }}>
                 {sub}
               </div>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
 
       </div>
     </section>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import {
   MapPin, Calendar, Users, MessageCircle, Mail,
   User, ChevronDown, CheckCircle, Loader2
@@ -84,7 +84,7 @@ export default function SearchBar() {
       <div style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px" }}>
 
         {/* Heading */}
-        <motion.div
+        <m.div
           style={{ textAlign: "center", marginBottom: "48px" }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -100,10 +100,10 @@ export default function SearchBar() {
           <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "15px", maxWidth: "420px", margin: "0 auto", lineHeight: 1.6 }}>
             Tell us your travel details and we'll reach out on WhatsApp with a custom itinerary within hours.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Card */}
-        <motion.div
+        <m.div
           style={{
             background: "rgba(255,255,255,0.04)", backdropFilter: "blur(24px)",
             border: "1px solid rgba(255,255,255,0.1)", borderRadius: "24px",
@@ -151,7 +151,7 @@ export default function SearchBar() {
 
                 {/* STEP 1 */}
                 {step === 1 && !submitted && (
-                  <motion.div key="s1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+                  <m.div key="s1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
                     <p style={{ color: "white", fontWeight: 800, fontSize: "20px", marginBottom: "32px" }}>How can we reach you?</p>
 
                     {/* Name */}
@@ -215,12 +215,12 @@ export default function SearchBar() {
                         />
                       </div>
                     </div>
-                  </motion.div>
+                  </m.div>
                 )}
 
                 {/* STEP 2 */}
                 {step === 2 && !submitted && (
-                  <motion.div key="s2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+                  <m.div key="s2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
                     <p style={{ color: "white", fontWeight: 800, fontSize: "20px", marginBottom: "32px" }}>Where would you like to go?</p>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "12px", marginBottom: form.destination === "Custom Destination" ? "20px" : "0" }}>
                       {destinations.map((d) => (
@@ -256,12 +256,12 @@ export default function SearchBar() {
                         />
                       </div>
                     )}
-                  </motion.div>
+                  </m.div>
                 )}
 
                 {/* STEP 3 */}
                 {step === 3 && !submitted && (
-                  <motion.div key="s3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+                  <m.div key="s3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
                     <p style={{ color: "white", fontWeight: 800, fontSize: "20px", marginBottom: "32px" }}>Tell us about your trip</p>
                     <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: "20px", marginBottom: "20px" }}>
                       <div style={fieldStyle}>
@@ -317,12 +317,12 @@ export default function SearchBar() {
                         />
                       </div>
                     </div>
-                  </motion.div>
+                  </m.div>
                 )}
 
                 {/* SUCCESS */}
                 {submitted && (
-                  <motion.div key="done" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} style={{ textAlign: "center", padding: "40px 0" }}>
+                  <m.div key="done" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} style={{ textAlign: "center", padding: "40px 0" }}>
                     <div style={{ width: 72, height: 72, borderRadius: "50%", background: gold, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px" }}>
                       <CheckCircle style={{ width: 36, height: 36, color: "#0B1628" }} />
                     </div>
@@ -337,7 +337,7 @@ export default function SearchBar() {
                     >
                       Plan Another Trip
                     </button>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </div>
@@ -382,7 +382,7 @@ export default function SearchBar() {
               </div>
             )}
           </form>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 
 const PHOTOS = [
@@ -73,7 +73,7 @@ export default function PhotoGallery() {
       }}
     >
       {/* Section header */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -88,7 +88,7 @@ export default function PhotoGallery() {
         <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "15px", maxWidth: "480px", margin: "0 auto", lineHeight: 1.7 }}>
           Every image is shot on location by our photographer-guides. Click any photo to explore it full screen.
         </p>
-      </motion.div>
+      </m.div>
 
       {/* ── Marquee strip ─────────────────────────────────────────────────── */}
       <div
@@ -163,7 +163,7 @@ export default function PhotoGallery() {
       {/* ── Lightbox ──────────────────────────────────────────────────────── */}
       <AnimatePresence>
         {lightbox !== null && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -201,7 +201,7 @@ export default function PhotoGallery() {
             </button>
 
             {/* Image */}
-            <motion.div
+            <m.div
               onClick={e => e.stopPropagation()}
               initial={{ scale: 0.88, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -210,7 +210,7 @@ export default function PhotoGallery() {
               style={{ position: "relative", maxWidth: "min(90vw, 1100px)", maxHeight: "85vh", borderRadius: "20px", overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.8)" }}
             >
               <AnimatePresence mode="wait">
-                <motion.img
+                <m.img
                   key={lightbox}
                   src={PHOTOS[lightbox].src}
                   alt={PHOTOS[lightbox].label}
@@ -230,8 +230,8 @@ export default function PhotoGallery() {
               <div style={{ position: "absolute", top: 14, left: 14, background: "rgba(0,0,0,0.6)", borderRadius: "20px", padding: "4px 12px" }}>
                 <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "11px", fontWeight: 700, margin: 0 }}>{lightbox + 1} / {PHOTOS.length}</p>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
 

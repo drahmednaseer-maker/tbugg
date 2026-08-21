@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function FloatingWhatsApp() {
@@ -28,7 +28,7 @@ export default function FloatingWhatsApp() {
   return (
     <AnimatePresence>
       {show && (
-        <motion.a
+        <m.a
           href="https://wa.me/923344334411?text=Hi%20TravelBug!%20I%27d%20like%20to%20book%20a%20tour."
           target="_blank"
           rel="noopener noreferrer"
@@ -52,7 +52,7 @@ export default function FloatingWhatsApp() {
           </svg>
           {/* Pulse ring */}
           <span className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-30 group-hover:opacity-0" />
-        </motion.a>
+        </m.a>
       )}
     </AnimatePresence>
   );

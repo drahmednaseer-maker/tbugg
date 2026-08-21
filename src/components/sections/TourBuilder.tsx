@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import {
   MapPin, X, GripVertical, ChevronRight, Users,
   Star, Check, MessageCircle, Plus, Minus, Hotel, Moon, ArrowRight, Mail,
@@ -198,7 +198,7 @@ function NightModal({
         display: "flex", alignItems: "center", justifyContent: "center",
       }}
     >
-      <motion.div
+      <m.div
         onClick={(e) => e.stopPropagation()}
         initial={{ scale: 0.88, opacity: 0, y: 24 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -334,7 +334,7 @@ function NightModal({
             </div>
           )}
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

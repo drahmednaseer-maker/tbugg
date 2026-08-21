@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { destinations } from "@/data/destinations";
@@ -45,7 +45,7 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
   const tag = dest.tag ? tagColors[dest.tag] : null;
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -235,7 +235,7 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
           </div>
         </div>
       </Link>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -245,7 +245,7 @@ export default function FeaturedDestinations() {
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 32px" }}>
 
         {/* Header */}
-        <motion.div
+        <m.div
           style={{ textAlign: "center", marginBottom: "60px" }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -273,7 +273,7 @@ export default function FeaturedDestinations() {
           }}>
             Pakistan's most extraordinary destinations. Use the arrows on any card to browse its photos.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Uniform grid */}
         <div className="fd-grid">
@@ -283,7 +283,7 @@ export default function FeaturedDestinations() {
         </div>
 
         {/* View all */}
-        <motion.div
+        <m.div
           style={{ textAlign: "center", marginTop: "52px" }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -304,7 +304,7 @@ export default function FeaturedDestinations() {
             View All Destinations
             <ChevronRight style={{ width: 16, height: 16 }} />
           </Link>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

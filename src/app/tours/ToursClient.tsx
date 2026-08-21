@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
   Search, X, MapPin, Clock, Users, ChevronDown, ChevronUp,
@@ -87,7 +87,7 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
   const selectStyle: React.CSSProperties = { ...inputStyle, background: "#0f1f38", cursor: "pointer" };
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -99,7 +99,7 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
         padding: "20px", overflowY: "auto",
       }}
     >
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 40, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 40, scale: 0.95 }}
@@ -141,7 +141,7 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
         {/* Body */}
         <div style={{ padding: "32px", maxHeight: "75vh", overflowY: "auto" }}>
           {submitted ? (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               style={{ textAlign: "center", padding: "40px 20px" }}
@@ -169,7 +169,7 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
               }}>
                 Close
               </button>
-            </motion.div>
+            </m.div>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
 
@@ -411,8 +411,8 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
             </form>
           )}
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }
 
@@ -423,7 +423,7 @@ function DestinationCard({ tour, onGetQuote }: { tour: Tour; onGetQuote: (title:
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <motion.div
+    <m.div
       layout
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
@@ -562,7 +562,7 @@ function DestinationCard({ tour, onGetQuote }: { tour: Tour; onGetQuote: (title:
           </button>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -631,7 +631,7 @@ export default function ToursClient() {
 
       {/* Themed banner — shown only when arriving from a category card */}
       {activeTheme && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           style={{
@@ -662,7 +662,7 @@ export default function ToursClient() {
               ← View All Tours
             </Link>
           </div>
-        </motion.div>
+        </m.div>
       )}
 
       {/* Hero — hidden when a theme is active */}
@@ -673,23 +673,23 @@ export default function ToursClient() {
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, #0B1628, rgba(11,22,40,0.7) 50%, #0B1628)" }} />
         </div>
         <div style={{ position: "relative", maxWidth: "80rem", margin: "0 auto" }}>
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+          <m.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
             style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#FFC20A", fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "16px" }}
           >
             <Globe style={{ width: "14px", height: "14px" }} /> Customized Tours Across Pakistan
-          </motion.div>
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+          </m.div>
+          <m.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             style={{ margin: "0 0 16px", fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 900, lineHeight: 1.1, color: "white" }}
           >
             Explore Pakistan,<br />
             <span style={{ color: "#FFC20A" }}>Your Way.</span>
-          </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
+          </m.h1>
+          <m.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
             style={{ color: "rgba(255,255,255,0.55)", fontSize: "16px", lineHeight: 1.7, maxWidth: "560px", margin: "0 0 28px" }}
           >
             We don&apos;t sell fixed packages — every journey we plan is 100% tailored to you. Browse our destinations, explore the itinerary, then get a custom quote built around your group, dates, and preferences.
-          </motion.p>
-          <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+          </m.p>
+          <m.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
             onClick={() => openQuote()}
             style={{
               padding: "16px 32px", borderRadius: "14px", fontSize: "15px", fontWeight: 700,
@@ -699,7 +699,7 @@ export default function ToursClient() {
             }}
           >
             ✦ Start Planning My Trip
-          </motion.button>
+          </m.button>
         </div>
       </section>
       )}
@@ -759,7 +759,7 @@ export default function ToursClient() {
               </button>
             </div>
           ) : (
-            <motion.div
+            <m.div
               layout
               style={{
                 display: "grid",
@@ -773,7 +773,7 @@ export default function ToursClient() {
                   <DestinationCard key={tour.id} tour={tour} onGetQuote={openQuote} />
                 ))}
               </AnimatePresence>
-            </motion.div>
+            </m.div>
           )}
         </div>
       </section>

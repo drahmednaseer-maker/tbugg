@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { X, MapPin, Moon, Users, Truck, Phone, ChevronDown, ChevronUp, Trash2, MessageCircle } from "lucide-react";
 import {
   SavedItinerary,
@@ -124,7 +124,7 @@ function ItineraryCard({
       {/* Expanded details */}
       <AnimatePresence>
         {expanded && (
-          <motion.div
+          <m.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -209,7 +209,7 @@ function ItineraryCard({
                 </button>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>
@@ -247,14 +247,14 @@ export default function MyTripsPanel({ onClose }: { onClose: () => void }) {
   return (
     <>
       {/* Backdrop */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
         onClick={onClose}
         style={{ position: "fixed", inset: 0, zIndex: 9990, background: "rgba(0,0,0,0.6)", backdropFilter: "blur(6px)" }}
       />
 
       {/* Drawer */}
-      <motion.aside
+      <m.aside
         initial={{ x: "-100%" }}
         animate={{ x: 0 }}
         exit={{ x: "-100%" }}
@@ -397,7 +397,7 @@ export default function MyTripsPanel({ onClose }: { onClose: () => void }) {
             Chat
           </button>
         </div>
-      </motion.aside>
+      </m.aside>
     </>
   );
 }

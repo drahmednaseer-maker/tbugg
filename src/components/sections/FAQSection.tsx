@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 import type { FAQ } from "@/data/faqs";
 
@@ -95,7 +95,7 @@ export default function FAQSection({
                 </button>
                 <AnimatePresence initial={false}>
                   {isOpen && (
-                    <motion.div
+                    <m.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -105,7 +105,7 @@ export default function FAQSection({
                       <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "15px", lineHeight: 1.75, margin: 0, padding: "0 24px 24px" }}>
                         {f.answer}
                       </p>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>

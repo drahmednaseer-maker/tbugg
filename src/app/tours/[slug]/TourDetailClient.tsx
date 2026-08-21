@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
   Clock, Users, ArrowLeft, Check, X, MapPin,
@@ -70,7 +70,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
           <div className="lg:col-span-2" style={{ display: "flex", flexDirection: "column", gap: "48px" }}>
 
             {/* ── Hero Image ── */}
-            <motion.div
+            <m.div
               className="relative rounded-3xl overflow-hidden"
               style={{ width: "100%", maxWidth: "620px", aspectRatio: "16/9", margin: "0 auto" }}
               initial={{ opacity: 0, y: 24 }}
@@ -106,10 +106,10 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
                   </div>
                 </>
               )}
-            </motion.div>
+            </m.div>
 
             {/* ── Title + Meta ── */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+            <m.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
               <h1 style={{ fontSize: "clamp(2rem,5vw,3.25rem)", fontWeight: 800, color: "white", lineHeight: 1.2, marginBottom: "14px" }}>
                 {tour.title}
               </h1>
@@ -140,10 +140,10 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
 
             {/* ── About ── */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
               style={card}
             >
@@ -152,10 +152,10 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
                 <h2 style={sectionTitle}>About This Destination</h2>
               </div>
               <p style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.9, fontSize: "15px", margin: 0 }}>{tour.description}</p>
-            </motion.div>
+            </m.div>
 
             {/* ── Highlights ── */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
               style={card}
             >
@@ -182,10 +182,10 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
 
             {/* ── Custom Tour (no fixed itinerary — we plan it with you) ── */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
               style={card}
             >
@@ -222,10 +222,10 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* ── Included / Excluded ── */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
               style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%, 280px), 1fr))", gap: "20px" }}
             >
@@ -264,7 +264,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
                   ))}
                 </ul>
               </div>
-            </motion.div>
+            </m.div>
 
           </div>{/* end left column */}
 
@@ -272,7 +272,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
           <div className="lg:col-span-1">
             <div className="td-sidebar-sticky" style={{ position: "sticky", top: "110px", display: "flex", flexDirection: "column", gap: "20px" }}>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}
                 style={{ borderRadius: "24px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 24px 64px rgba(0,0,0,0.4)" }}
               >
@@ -348,7 +348,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
 
             </div>
           </div>{/* end right column */}

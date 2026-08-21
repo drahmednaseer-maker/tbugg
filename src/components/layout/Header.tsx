@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, ArrowRight, Briefcase, Phone, Mail, Home, MapPin, Compass, Users, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
@@ -104,7 +104,7 @@ export default function Header() {
       </div>
 
       {/* ─── FLOATING PILL NAVBAR ─────────────────────────────────── */}
-      <motion.header
+      <m.header
         className={cn(
           "fixed left-1/2 -translate-x-1/2 z-[60] transition-all duration-300 w-[95%] max-w-7xl h-[72px]",
           scrolled ? "top-4" : "top-[44px]"
@@ -162,7 +162,7 @@ export default function Header() {
 
                         <AnimatePresence>
                           {toursOpen && (
-                            <motion.div
+                            <m.div
                               initial={{ opacity: 0, y: 12, scale: 0.96 }}
                               animate={{ opacity: 1, y: 0, scale: 1 }}
                               exit={{ opacity: 0, y: 8, scale: 0.97 }}
@@ -193,7 +193,7 @@ export default function Header() {
                                 {/* Tour category cards */}
                                 <div className="p-3 space-y-2">
                                   {tourCategories.map((cat, i) => (
-                                    <motion.div
+                                    <m.div
                                       key={cat.href}
                                       initial={{ opacity: 0, x: -10 }}
                                       animate={{ opacity: 1, x: 0 }}
@@ -230,7 +230,7 @@ export default function Header() {
                                           style={{ color: cat.accent }}
                                         />
                                       </Link>
-                                    </motion.div>
+                                    </m.div>
                                   ))}
                                 </div>
 
@@ -250,7 +250,7 @@ export default function Header() {
                                   </Link>
                                 </div>
                               </div>
-                            </motion.div>
+                            </m.div>
                           )}
                         </AnimatePresence>
                       </div>
@@ -305,17 +305,17 @@ export default function Header() {
               </button>
             </div>
           </div>
-      </motion.header>
+      </m.header>
 
       {/* ─── MOBILE DRAWER ───────────────────────────────────────── */}
       <AnimatePresence>
         {mobileOpen && (
           <>
-            <motion.div className="fixed inset-0 z-[60] bg-slate-950/80 backdrop-blur-md lg:hidden"
+            <m.div className="fixed inset-0 z-[60] bg-slate-950/80 backdrop-blur-md lg:hidden"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)} />
 
-            <motion.aside
+            <m.aside
               className="fixed top-0 right-0 bottom-0 z-[70] w-[86%] max-w-[360px] lg:hidden flex flex-col shadow-2xl overflow-hidden"
               style={{
                 backgroundColor: "#0f172a",
@@ -399,7 +399,7 @@ export default function Header() {
                   </div>
                 </div>
               </div>
-            </motion.aside>
+            </m.aside>
           </>
         )}
       </AnimatePresence>

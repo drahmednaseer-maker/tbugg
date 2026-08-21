@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, ArrowRight, Camera, Globe, Calendar, Clock, Users, Star } from "lucide-react";
@@ -20,7 +20,7 @@ export default function DestinationClient({ destination }: { destination: Destin
     <div style={{ minHeight: "100vh", background: "#0B1628" }}>
       {/* Hero Section */}
       <section style={{ position: "relative", height: "70vh", overflow: "hidden" }}>
-        <motion.div
+        <m.div
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.2 }}
@@ -39,7 +39,7 @@ export default function DestinationClient({ destination }: { destination: Destin
             position: "absolute", inset: 0,
             background: "linear-gradient(to bottom, rgba(11,22,40,0.3) 0%, rgba(11,22,40,0.9) 100%)"
           }} />
-        </motion.div>
+        </m.div>
 
         <div style={{
           position: "relative", zIndex: 10, height: "100%",
@@ -47,7 +47,7 @@ export default function DestinationClient({ destination }: { destination: Destin
           display: "flex", flexDirection: "column", justifyContent: "flex-end",
           paddingBottom: "80px"
         }}>
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -64,7 +64,7 @@ export default function DestinationClient({ destination }: { destination: Destin
             <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "18px", maxWidth: "600px", lineHeight: 1.6 }}>
               {destination.description}
             </p>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -75,7 +75,7 @@ export default function DestinationClient({ destination }: { destination: Destin
             {/* Left: Photos */}
             <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: "20px" }}>
               {destination.images.slice(1).map((img, i) => (
-                <motion.div
+                <m.div
                   key={i}
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -85,7 +85,7 @@ export default function DestinationClient({ destination }: { destination: Destin
                 >
                   <Image src={img} alt={`${destination.name} ${i}`} fill loading="lazy" quality={70}
                     sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: "cover" }} />
-                </motion.div>
+                </m.div>
               ))}
               <div style={{
                 background: "rgba(255,194,10,0.05)",
@@ -114,7 +114,7 @@ export default function DestinationClient({ destination }: { destination: Destin
               <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
                 {relatedTours.length > 0 ? (
                   relatedTours.map((tour, i) => (
-                    <motion.div
+                    <m.div
                       key={tour.id}
                       initial={{ opacity: 0, x: 30 }}
                       whileInView={{ opacity: 1, x: 0 }}
@@ -151,7 +151,7 @@ export default function DestinationClient({ destination }: { destination: Destin
                           </div>
                         </div>
                       </Link>
-                    </motion.div>
+                    </m.div>
                   ))
                 ) : (
                   <div style={{ padding: "40px", textAlign: "center", background: "rgba(255,255,255,0.02)", borderRadius: "20px", border: "1px dashed rgba(255,255,255,0.1)" }}>
@@ -231,7 +231,7 @@ function ExpeditionSection({
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         {/* Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -248,7 +248,7 @@ function ExpeditionSection({
           <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "18px", lineHeight: 1.6, maxWidth: "760px", margin: 0 }}>
             {expedition.tagline}
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Stat cards */}
         <div
@@ -262,7 +262,7 @@ function ExpeditionSection({
           {stats.map((s, i) => {
             const Icon = s.icon;
             return (
-              <motion.div
+              <m.div
                 key={i}
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -282,20 +282,20 @@ function ExpeditionSection({
                 <p style={{ color: "white", fontSize: "15px", fontWeight: 700, margin: 0, lineHeight: 1.35 }}>
                   {s.value}
                 </p>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>
 
         {/* Overview */}
-        <motion.p
+        <m.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           style={{ color: "rgba(255,255,255,0.72)", fontSize: "17px", lineHeight: 1.85, maxWidth: "900px", margin: "0 0 64px" }}
         >
           {expedition.overview}
-        </motion.p>
+        </m.p>
 
         {/* Highlights */}
         <h3 style={{ fontSize: "24px", fontWeight: 900, color: "white", margin: "0 0 24px" }}>
@@ -310,7 +310,7 @@ function ExpeditionSection({
           }}
         >
           {expedition.highlights.map((h, i) => (
-            <motion.div
+            <m.div
               key={i}
               initial={{ opacity: 0, x: -14 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -328,7 +328,7 @@ function ExpeditionSection({
             >
               <Star style={{ width: 18, height: 18, fill: "#FFC20A", color: "#FFC20A", flexShrink: 0, marginTop: 2 }} />
               <span style={{ color: "rgba(255,255,255,0.78)", fontSize: "15px", lineHeight: 1.55 }}>{h}</span>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 

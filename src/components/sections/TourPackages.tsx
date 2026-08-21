@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Camera, Users, ChevronLeft, ChevronRight, MessageCircle, Star } from "lucide-react";
 
@@ -114,7 +114,7 @@ export default function TourPackages() {
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 32px" }}>
 
         {/* ── Header ────────────────────────────── */}
-        <motion.div
+        <m.div
           style={{ marginBottom: "64px" }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -150,10 +150,10 @@ export default function TourPackages() {
             TravelBug.pk is run by professional photographers who have spent years exploring every corner of Pakistan.
             We don't sell packages — we craft every journey uniquely around <em style={{ color: "rgba(255,255,255,0.75)", fontStyle: "normal", fontWeight: 600 }}>your dates, your group, and your vision</em>.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* ── Highlights row ─────────────────────── */}
-        <motion.div
+        <m.div
           className="tp-grid"
           style={{ marginBottom: "64px" }}
           initial={{ opacity: 0, y: 20 }}
@@ -182,10 +182,10 @@ export default function TourPackages() {
               <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "12px", lineHeight: 1.5 }}>{desc}</p>
             </div>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* ── Cinematic Slideshow ─────────────────── */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -238,7 +238,7 @@ export default function TourPackages() {
             onMouseLeave={() => setAutoplay(true)}
           >
             <AnimatePresence mode="wait">
-              <motion.div
+              <m.div
                 key={current}
                 style={{ position: "absolute", inset: 0 }}
                 initial={{ opacity: 0, scale: 1.04 }}
@@ -265,13 +265,13 @@ export default function TourPackages() {
                   position: "absolute", inset: 0,
                   background: "linear-gradient(to right, rgba(4,9,20,0.7) 0%, transparent 50%)",
                 }} />
-              </motion.div>
+              </m.div>
             </AnimatePresence>
 
             {/* Slide text */}
             <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 10, padding: "40px 44px" }}>
               <AnimatePresence mode="wait">
-                <motion.div
+                <m.div
                   key={`text-${current}`}
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -293,7 +293,7 @@ export default function TourPackages() {
                   <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "15px", lineHeight: 1.6, maxWidth: "540px" }}>
                     {slides[current].caption}
                   </p>
-                </motion.div>
+                </m.div>
               </AnimatePresence>
             </div>
 
@@ -389,7 +389,7 @@ export default function TourPackages() {
               Start Planning — It's Free
             </Link>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

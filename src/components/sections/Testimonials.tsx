@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { testimonials } from "@/data/testimonials";
 import GoogleVerifiedBadge from "@/components/GoogleVerifiedBadge";
@@ -64,7 +64,7 @@ export default function Testimonials() {
       <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 40px", position: "relative" }}>
 
         {/* ── Header ── */}
-        <motion.div
+        <m.div
           style={{ textAlign: "center", marginBottom: "64px" }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -121,7 +121,7 @@ export default function Testimonials() {
             </div>
             <ExternalLink style={{ width: 12, height: 12, color: "rgba(255,255,255,0.3)" }} />
           </a>
-        </motion.div>
+        </m.div>
 
         {/* ── Carousel ── */}
         <div
@@ -130,7 +130,7 @@ export default function Testimonials() {
           onMouseLeave={() => setPaused(false)}
         >
           <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
+            <m.div
               key={current}
               custom={direction}
               variants={{
@@ -205,7 +205,7 @@ export default function Testimonials() {
                 <p style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 700 }}>{t.tour}</p>
                 <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "11px" }}>{t.date}</span>
               </div>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
 
           {/* Arrow buttons */}

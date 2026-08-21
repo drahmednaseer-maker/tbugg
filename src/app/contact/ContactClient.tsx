@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle2, MessageSquare } from "lucide-react";
 
 /* ─── Real TravelBug.pk Contact Details ─── */
@@ -83,24 +83,24 @@ export default function ContactClient() {
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, #0B1628 0%, rgba(11,22,40,0.7) 50%, #0B1628 100%)" }} />
         </div>
         <div style={{ position: "relative", maxWidth: "80rem", margin: "0 auto", padding: "0 32px", textAlign: "center" }}>
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
             style={{ display: "inline-flex", alignItems: "center", gap: "7px", color: "#FFC20A", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "18px" }}
           >
             <MessageSquare style={{ width: "13px", height: "13px" }} /> Get In Touch
-          </motion.div>
-          <motion.h1
+          </m.div>
+          <m.h1
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             style={{ margin: "0 0 16px", fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 900, lineHeight: 1.1, color: "white" }}
           >
             Let&apos;s Plan Your <span style={{ color: "#FFC20A" }}>Perfect Trip</span>
-          </motion.h1>
-          <motion.p
+          </m.h1>
+          <m.p
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
             style={{ color: "rgba(255,255,255,0.5)", fontSize: "16px", lineHeight: 1.7, maxWidth: "520px", margin: "0 auto" }}
           >
             Our Pakistan travel specialists are ready to craft a journey built entirely around you. Reach out any time — we&apos;re online 24/7.
-          </motion.p>
+          </m.p>
         </div>
       </section>
 
@@ -109,7 +109,7 @@ export default function ContactClient() {
         <div style={{ maxWidth: "80rem", margin: "0 auto" }}>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: "16px" }}>
             {/* Phone 1 */}
-            <motion.a
+            <m.a
               href={`tel:+923344334411`}
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
               style={{
@@ -128,10 +128,10 @@ export default function ContactClient() {
                 <p style={{ margin: "0 0 1px", color: "white", fontWeight: 700, fontSize: "14px" }}>{PHONE2}</p>
                 <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: "12px" }}>{PHONE1}</p>
               </div>
-            </motion.a>
+            </m.a>
 
             {/* Email */}
-            <motion.a
+            <m.a
               href={`mailto:${EMAIL}`}
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
               style={{
@@ -150,10 +150,10 @@ export default function ContactClient() {
                 <p style={{ margin: "0 0 1px", color: "white", fontWeight: 700, fontSize: "14px" }}>{EMAIL}</p>
                 <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: "12px" }}>We reply any time, any day</p>
               </div>
-            </motion.a>
+            </m.a>
 
             {/* Hours */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
               style={{
                 display: "flex", alignItems: "center", gap: "14px", padding: "20px 22px",
@@ -168,7 +168,7 @@ export default function ContactClient() {
                 <p style={{ margin: "0 0 1px", color: "white", fontWeight: 700, fontSize: "14px" }}>24/7 — Always Online</p>
                 <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: "12px" }}>We reply any time, any day</p>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
@@ -178,7 +178,7 @@ export default function ContactClient() {
         <div className="contact-main" style={{ maxWidth: "80rem", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px", alignItems: "start" }}>
 
           {/* ── Contact Form ── */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
             style={{ borderRadius: "24px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", overflow: "hidden" }}
           >
@@ -190,7 +190,7 @@ export default function ContactClient() {
 
             <div style={{ padding: "28px 32px" }}>
               {submitted ? (
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
                   style={{ textAlign: "center", padding: "40px 20px" }}
                 >
@@ -207,7 +207,7 @@ export default function ContactClient() {
                   >
                     Send Another Message
                   </button>
-                </motion.div>
+                </m.div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
                   <div className="contact-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
@@ -268,10 +268,10 @@ export default function ContactClient() {
                 </form>
               )}
             </div>
-          </motion.div>
+          </m.div>
 
           {/* ── Right Side: Map + WhatsApp ── */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
             style={{ display: "flex", flexDirection: "column", gap: "20px" }}
           >
@@ -299,7 +299,7 @@ export default function ContactClient() {
               </div>
             </a>
 
-          </motion.div>
+          </m.div>
         </div>
       </section>
 

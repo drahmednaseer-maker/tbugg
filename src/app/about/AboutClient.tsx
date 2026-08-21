@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Heart, Mountain, Award, Users, ArrowRight, CheckCircle2, MapPin, Star, Phone, Mail } from "lucide-react";
@@ -105,30 +105,30 @@ export default function AboutClient() {
         </div>
 
         <div style={{ position: "relative", maxWidth: "56rem", margin: "0 auto", textAlign: "center", padding: "0 24px" }}>
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
             style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#FFC20A", fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "20px" }}
           >
             <MapPin style={{ width: "14px", height: "14px" }} /> Expert-Led Journeys
-          </motion.div>
+          </m.div>
 
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             style={{ margin: "0 0 20px", fontSize: "clamp(2.2rem, 5vw, 3.8rem)", fontWeight: 900, lineHeight: 1.1, color: "white" }}
           >
             Pakistan&apos;s Most Trusted<br />
             <span style={{ color: "#FFC20A" }}>Customized Tour Specialists</span>
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
             style={{ color: "rgba(255,255,255,0.6)", fontSize: "17px", lineHeight: 1.75, maxWidth: "640px", margin: "0 auto 36px" }}
           >
             Pakistan is one of the world’s most extraordinary travel destinations — a land where impossible mountain ranges meet ancient civilizations, where remote valleys rival anything you’ve seen in a lifetime of travel. TravelBug.pk is the specialist operator locals trust to show Pakistan at its most authentic.
-          </motion.p>
+          </m.p>
 
           {/* Stats row */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
             style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "12px" }}
           >
@@ -142,14 +142,14 @@ export default function AboutClient() {
                 <p style={{ margin: 0, fontSize: "12px", color: "rgba(255,255,255,0.45)", fontWeight: 500 }}>{label}</p>
               </div>
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* ── OUR GUIDES ── */}
       <section id="team" style={{ padding: "80px 32px" }}>
         <div style={{ maxWidth: "72rem", margin: "0 auto" }}>
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             style={{ textAlign: "center", marginBottom: "56px" }}
           >
@@ -160,11 +160,11 @@ export default function AboutClient() {
             <p style={{ margin: 0, color: "rgba(255,255,255,0.5)", fontSize: "15px", maxWidth: "560px", marginLeft: "auto", marginRight: "auto", lineHeight: 1.7 }}>
               Every TravelBug journey is led personally by our award-winning photographers — masters of Pakistan&apos;s light, terrain, and wildlife who know the country intimately and capture it like no one else.
             </p>
-          </motion.div>
+          </m.div>
 
           <div className="photographers-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "28px", alignItems: "stretch" }}>
             {guides.map(({ name, role, expertise, bio, image }, i) => (
-              <motion.div
+              <m.div
                 key={name}
                 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.15 }}
                 style={{
@@ -223,7 +223,7 @@ export default function AboutClient() {
                   background: "rgba(255,194,10,0.05)", filter: "blur(40px)",
                   pointerEvents: "none"
                 }} />
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -232,7 +232,7 @@ export default function AboutClient() {
       {/* ── OUR STORY / MISSION ── */}
       <section style={{ padding: "80px 32px", background: "rgba(6,14,26,0.8)" }}>
         <div className="about-mission-grid" style={{ maxWidth: "80rem", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", alignItems: "center" }}>
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}
           >
             <p style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "14px" }}>Our Mission</p>
@@ -260,9 +260,9 @@ export default function AboutClient() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}
             style={{ position: "relative" }}
           >
@@ -287,14 +287,14 @@ export default function AboutClient() {
               <p style={{ margin: "0 0 2px", fontSize: "15px", fontWeight: 900, color: "#0B1628" }}>Expert-Led</p>
               <p style={{ margin: 0, fontSize: "12px", color: "rgba(11,22,40,0.7)", fontWeight: 600 }}>Asmar, Uzair &amp; Dr Usman</p>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       {/* ── WHERE WE OPERATE ── */}
       <section style={{ padding: "80px 32px" }}>
         <div style={{ maxWidth: "80rem", margin: "0 auto" }}>
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             style={{ textAlign: "center", marginBottom: "48px" }}
           >
@@ -302,11 +302,11 @@ export default function AboutClient() {
             <h2 style={{ margin: 0, fontSize: "clamp(1.6rem, 3vw, 2.4rem)", fontWeight: 800, color: "white" }}>
               Every Corner of <span style={{ color: "#FFC20A" }}>Pakistan</span>
             </h2>
-          </motion.div>
+          </m.div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "20px" }}>
             {regions.map(({ name, places, image }, i) => (
-              <motion.div
+              <m.div
                 key={name}
                 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 style={{
@@ -336,7 +336,7 @@ export default function AboutClient() {
                   </div>
                   <p style={{ margin: 0, color: "rgba(255,255,255,0.7)", fontSize: "13px", lineHeight: 1.4 }}>{places}</p>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -345,7 +345,7 @@ export default function AboutClient() {
       {/* ── VALUES ── */}
       <section style={{ padding: "80px 32px", background: "rgba(6,14,26,0.8)" }}>
         <div style={{ maxWidth: "80rem", margin: "0 auto" }}>
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             style={{ textAlign: "center", marginBottom: "48px" }}
           >
@@ -353,10 +353,10 @@ export default function AboutClient() {
             <h2 style={{ margin: 0, fontSize: "clamp(1.6rem, 3vw, 2.4rem)", fontWeight: 800, color: "white" }}>
               Our Core <span style={{ color: "#FFC20A" }}>Principles</span>
             </h2>
-          </motion.div>
+          </m.div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 240px), 1fr))", gap: "20px" }}>
             {values.map(({ icon: Icon, title, desc }, i) => (
-              <motion.div
+              <m.div
                 key={title}
                 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 style={{
@@ -375,7 +375,7 @@ export default function AboutClient() {
                 </div>
                 <h3 style={{ margin: "0 0 10px", fontWeight: 700, color: "white", fontSize: "16px" }}>{title}</h3>
                 <p style={{ margin: 0, color: "rgba(255,255,255,0.5)", fontSize: "14px", lineHeight: 1.7 }}>{desc}</p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>

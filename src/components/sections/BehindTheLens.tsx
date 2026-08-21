@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Image from "next/image";
 import { Camera } from "lucide-react";
 
@@ -45,7 +45,7 @@ export default function BehindTheLens() {
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 32px" }}>
 
         {/* Header */}
-        <motion.div
+        <m.div
           style={{ textAlign: "center", marginBottom: "52px" }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -61,12 +61,12 @@ export default function BehindTheLens() {
           <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "15px", lineHeight: 1.7, maxWidth: "640px", margin: "0 auto" }}>
             With decades of experience travelling all of Pakistan, We will take you to the most Beautiful &amp; breathtaking landscapes of Pakistan.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Team cards */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
           {team.map((person, i) => (
-            <motion.div
+            <m.div
               key={person.name}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -171,7 +171,7 @@ export default function BehindTheLens() {
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 

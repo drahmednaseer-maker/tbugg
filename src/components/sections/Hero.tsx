@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight, ZoomIn, Star, ArrowRight, MessageCircle, Check } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
@@ -227,7 +227,7 @@ export default function Hero() {
       </div>
 
       {/* ── PHOTO MARQUEE STRIP ────────────────────────────────────────────── */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, delay: 1.0 }}
@@ -319,12 +319,12 @@ export default function Hero() {
             </div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* ── LIGHTBOX ───────────────────────────────────────────────────────── */}
       <AnimatePresence>
         {lightbox !== null && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             onClick={() => setLightbox(null)}
             style={{ position: "fixed", inset: 0, zIndex: 9999, background: "rgba(0,0,0,0.93)", backdropFilter: "blur(18px)", display: "flex", alignItems: "center", justifyContent: "center", padding: "24px" }}
@@ -345,14 +345,14 @@ export default function Hero() {
             </button>
 
             {/* Image */}
-            <motion.div
+            <m.div
               onClick={e => e.stopPropagation()}
               initial={{ scale: 0.88, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.3 }}
               style={{ position: "relative", maxWidth: "min(90vw,1100px)", borderRadius: "20px", overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.8)" }}
             >
               <AnimatePresence mode="wait">
-                <motion.img key={lightbox} src={PHOTOS[lightbox].src} alt={PHOTOS[lightbox].label}
+                <m.img key={lightbox} src={PHOTOS[lightbox].src} alt={PHOTOS[lightbox].label}
                   initial={{ opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}
                   transition={{ duration: 0.35 }}
                   style={{ display: "block", maxWidth: "min(90vw,1100px)", maxHeight: "82vh", objectFit: "contain" }}
@@ -365,8 +365,8 @@ export default function Hero() {
               <div style={{ position: "absolute", top: 14, left: 14, background: "rgba(0,0,0,0.6)", borderRadius: "20px", padding: "4px 12px" }}>
                 <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "11px", fontWeight: 700, margin: 0 }}>{lightbox + 1} / {PHOTOS.length}</p>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
 

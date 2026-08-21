@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle, ArrowRight } from "lucide-react";
@@ -11,7 +11,7 @@ export default function CTABanner() {
   return (
     <section id="cta" style={{ padding: "80px 40px", background: "#070E1C" }} className="tb-section-pad">
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -133,7 +133,7 @@ export default function CTABanner() {
               </Link>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

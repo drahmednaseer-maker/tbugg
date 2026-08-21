@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, type ReactNode, type CSSProperties } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { m, useScroll, useTransform, useSpring } from "framer-motion";
 
 /* Scroll-driven parallax wrapper — the element drifts vertically at a
    different speed than the page while it crosses the viewport. */
@@ -22,9 +22,9 @@ export function ParallaxY({
   const y = useSpring(raw, { stiffness: 90, damping: 28, mass: 0.5 });
 
   return (
-    <motion.div ref={ref} className={className} style={{ ...style, y }}>
+    <m.div ref={ref} className={className} style={{ ...style, y }}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -46,8 +46,8 @@ export function ZoomOnScroll({
   const scale = useTransform(scrollYProgress, [0, 1], [from, 1]);
 
   return (
-    <motion.div ref={ref} className={className} style={{ ...style, scale }}>
+    <m.div ref={ref} className={className} style={{ ...style, scale }}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }
