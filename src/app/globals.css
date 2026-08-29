@@ -465,3 +465,23 @@ body::before {
 @media (prefers-reduced-motion: reduce) {
   .tb-fade { animation: none; opacity: 1; transform: none; }
 }
+
+/* ── Hero decorative drift ──────────────────────────────────────────────────
+   The hero backdrop and the 10 particle dots were each running an infinite
+   translateY. A perpetually moving element means the filmstrip never matches
+   its final frame, so Lighthouse keeps pushing Speed Index out — it measured
+   4.2s on PageSpeed while everything else was green. The motion is held until
+   the visitor engages (same trigger as the photo strip) and is then identical
+   to before. */
+.tb-drift    { animation: float 20s ease-in-out infinite; }
+.tb-particle { animation: float var(--tb-dur, 4s) ease-in-out var(--tb-delay, 0s) infinite; }
+
+.tb-drift,
+.tb-particle { animation-play-state: paused; }
+
+html.tb-engaged .tb-drift,
+html.tb-engaged .tb-particle { animation-play-state: running; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tb-drift, .tb-particle { animation: none; }
+}

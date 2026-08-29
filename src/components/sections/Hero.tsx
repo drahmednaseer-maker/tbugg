@@ -113,6 +113,7 @@ export default function Hero() {
     let timer: number | undefined;
     const start = () => {
       autoScrollRef.current = true;
+      document.documentElement.classList.add("tb-engaged");
       EVENTS.forEach((e) => window.removeEventListener(e, start));
       if (timer !== undefined) window.clearTimeout(timer);
     };
@@ -173,8 +174,7 @@ export default function Hero() {
 
       {/* ── Background ─────────────────────────────────────────────────────── */}
       <div className="absolute inset-0 z-0">
-        <Image src="/hero-bg.jpg" alt="Scenic mountain landscape in northern Pakistan" fill priority sizes="100vw" className="object-cover scale-110"
-          style={{ animation: "float 20s ease-in-out infinite" }} />
+        <Image src="/hero-bg.jpg" alt="Scenic mountain landscape in northern Pakistan" fill priority sizes="100vw" className="object-cover scale-110 tb-drift" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0B1628]/95 via-[#0B1628]/60 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0B1628] via-transparent to-[#0B1628]/20" />
       </div>
@@ -182,8 +182,8 @@ export default function Hero() {
       {/* ── Particles ──────────────────────────────────────────────────────── */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         {particles.map((p, i) => (
-          <div key={i} className="absolute w-1 h-1 rounded-full bg-[#FFC20A]/20"
-            style={{ left: p.left, top: p.top, animation: `float ${p.dur}s ease-in-out ${p.delay}s infinite` }} />
+          <div key={i} className="absolute w-1 h-1 rounded-full bg-[#FFC20A]/20 tb-particle"
+            style={{ left: p.left, top: p.top, ["--tb-dur" as string]: `${p.dur}s`, ["--tb-delay" as string]: `${p.delay}s` } as React.CSSProperties} />
         ))}
       </div>
 
@@ -323,7 +323,11 @@ export default function Hero() {
                     alt={photo.label}
                     draggable={false}
                     fill
-                    loading="lazy"
+                    // Roughly two tiles are on screen at mobile width; lazy-loading
+                    // them pushed their paint late and inflated Speed Index. Kept at
+                    // default priority so they never compete with the hero backdrop,
+                    // which is the LCP candidate.
+                    loading={i < 3 ? "eager" : "lazy"}
                     quality={60}
                     sizes="(max-width: 760px) 190px, (max-width: 1600px) 25vw, 400px"
                     style={{ objectFit: "cover", pointerEvents: "none" }}
