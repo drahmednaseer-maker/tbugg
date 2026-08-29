@@ -1,8 +1,10 @@
-"use client";
-
-import { useState } from "react";
-import { Plus } from "lucide-react";
 import type { FAQ } from "@/data/faqs";
+
+/* A native <details>/<summary> accordion. This used to be a client component
+   holding the open index in useState; the browser tracks that itself, so the
+   section now ships no JavaScript, works before hydration, and gets correct
+   expand/collapse semantics for screen readers for free. The shared `name`
+   keeps the original behaviour of only one panel being open at a time. */
 
 export default function FAQSection({
   faqs,
@@ -13,8 +15,6 @@ export default function FAQSection({
   heading?: string;
   subheading?: string;
 }) {
-  const [open, setOpen] = useState<number | null>(0);
-
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -44,64 +44,19 @@ export default function FAQSection({
 
         {/* Accordion */}
         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-          {faqs.map((f, i) => {
-            const isOpen = open === i;
-            return (
-              <div
-                key={i}
-                style={{
-                  background: "rgba(255,255,255,0.03)",
-                  border: `1px solid ${isOpen ? "rgba(255,194,10,0.35)" : "rgba(255,255,255,0.08)"}`,
-                  borderRadius: "16px",
-                  overflow: "hidden",
-                  transition: "border-color 0.25s",
-                }}
-              >
-                <button
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  aria-expanded={isOpen}
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    gap: "16px",
-                    padding: "22px 24px",
-                    background: "transparent",
-                    border: "none",
-                    cursor: "pointer",
-                    textAlign: "left",
-                  }}
-                >
-                  <span style={{ color: "white", fontSize: "16px", fontWeight: 700, lineHeight: 1.4 }}>{f.question}</span>
-                  <span
-                    style={{
-                      flexShrink: 0,
-                      width: 28,
-                      height: 28,
-                      borderRadius: "50%",
-                      background: isOpen ? "#FFC20A" : "rgba(255,255,255,0.08)",
-                      color: isOpen ? "#0B1628" : "white",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
-                      transition: "transform 0.3s ease, background 0.25s",
-                    }}
-                  >
-                    <Plus style={{ width: 16, height: 16 }} />
-                  </span>
-                </button>
-                  {isOpen && (
-                    <div className="tb-fade" style={{ overflow: "hidden" }}>
-                      <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "15px", lineHeight: 1.75, margin: 0, padding: "0 24px 24px" }}>
-                        {f.answer}
-                      </p>
-                    </div>
-                  )}
-              </div>
-            );
-          })}
+          {faqs.map((f, i) => (
+            <details key={i} className="tb-faq" name="tb-faq" open={i === 0}>
+              <summary>
+                <span className="tb-faq-q">{f.question}</span>
+                <span className="tb-faq-icon" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                </span>
+              </summary>
+              <p className="tb-faq-a">{f.answer}</p>
+            </details>
+          ))}
         </div>
       </div>
     </section>

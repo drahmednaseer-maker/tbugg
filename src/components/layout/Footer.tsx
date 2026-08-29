@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { Camera, Share2, Link2, MessageCircle, Mail, Phone, MapPin } from "lucide-react";
 
@@ -69,6 +67,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
+                  className="tb-social"
                   style={{
                     width: "38px", height: "38px", borderRadius: "10px",
                     background: "rgba(255,255,255,0.04)",
@@ -77,18 +76,6 @@ export default function Footer() {
                     color: "rgba(255,255,255,0.55)",
                     textDecoration: "none",
                     transition: "color 0.2s, border-color 0.2s, background 0.2s",
-                  }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget as HTMLAnchorElement;
-                    el.style.color = "#FFC20A";
-                    el.style.borderColor = "rgba(255,194,10,0.35)";
-                    el.style.background = "rgba(255,194,10,0.08)";
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget as HTMLAnchorElement;
-                    el.style.color = "rgba(255,255,255,0.55)";
-                    el.style.borderColor = "rgba(255,255,255,0.08)";
-                    el.style.background = "rgba(255,255,255,0.04)";
                   }}
                 >
                   <Icon style={{ width: 16, height: 16 }} />
@@ -110,12 +97,11 @@ export default function Footer() {
                 <li key={label}>
                   <Link
                     href={href}
-                    style={{
-                      color: "rgba(255,255,255,0.45)", fontSize: "13px",
-                      textDecoration: "none", transition: "color 0.2s",
+                    className="tb-link"
+                      style={{
+                        color: "rgba(255,255,255,0.55)", fontSize: "13px",
+                        textDecoration: "none", transition: "color 0.2s",
                     }}
-                    onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = "white"}
-                    onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.55)"}
                   >
                     {label}
                   </Link>
@@ -137,12 +123,11 @@ export default function Footer() {
                 <li key={label}>
                   <Link
                     href={href}
-                    style={{
-                      color: "rgba(255,255,255,0.45)", fontSize: "13px",
-                      textDecoration: "none", transition: "color 0.2s",
+                    className="tb-link"
+                      style={{
+                        color: "rgba(255,255,255,0.55)", fontSize: "13px",
+                        textDecoration: "none", transition: "color 0.2s",
                     }}
-                    onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = "white"}
-                    onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.55)"}
                   >
                     {label}
                   </Link>
@@ -171,17 +156,13 @@ export default function Footer() {
                 <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                   <a
                     href="tel:+923344334411"
-                    style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px", textDecoration: "none", transition: "color 0.2s", minHeight: "24px", display: "flex", alignItems: "center" }}
-                    onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = "white"}
-                    onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.55)"}
+                    className="tb-link" style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px", textDecoration: "none", transition: "color 0.2s", minHeight: "24px", display: "flex", alignItems: "center" }}
                   >
                     +92 334 4334411
                   </a>
                   <a
                     href="tel:+923248888889"
-                    style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px", textDecoration: "none", transition: "color 0.2s", minHeight: "24px", display: "flex", alignItems: "center" }}
-                    onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = "white"}
-                    onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.55)"}
+                    className="tb-link" style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px", textDecoration: "none", transition: "color 0.2s", minHeight: "24px", display: "flex", alignItems: "center" }}
                   >
                     +92 324 8888889
                   </a>
@@ -191,9 +172,7 @@ export default function Footer() {
                 <Mail style={{ width: 15, height: 15, color: "#FFC20A", flexShrink: 0 }} />
                 <a
                   href="mailto:info@travelbug.pk"
-                  style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px", textDecoration: "none", transition: "color 0.2s", minHeight: "24px", display: "flex", alignItems: "center" }}
-                  onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = "white"}
-                  onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.55)"}
+                  className="tb-link" style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px", textDecoration: "none", transition: "color 0.2s", minHeight: "24px", display: "flex", alignItems: "center" }}
                 >
                   info@travelbug.pk
                 </a>
@@ -214,10 +193,8 @@ export default function Footer() {
         }}>
           <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "12px" }}>
             Designed by{" "}
-            <a href="https://theagentech.com" target="_blank" rel="noopener noreferrer"
+            <a href="https://theagentech.com" target="_blank" rel="noopener noreferrer" className="tb-link-gold"
               style={{ color: "rgba(255,255,255,0.7)", fontWeight: 700, textDecoration: "none" }}
-              onMouseOver={e => (e.currentTarget.style.color = "#FFC20A")}
-              onMouseOut={e => (e.currentTarget.style.color = "rgba(255,255,255,0.7)")}
             >Theagentech.com</a>
           </p>
           <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "12px" }}>

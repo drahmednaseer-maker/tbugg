@@ -497,3 +497,70 @@ html.tb-engaged .tb-particle { animation-play-state: running; }
   content-visibility: auto;
   contain-intrinsic-size: clamp(190px, 25vw, 400px) clamp(150px, 19.5vw, 310px);
 }
+
+/* ── FAQ accordion + footer link hovers ─────────────────────────────────────
+   Both sections used to be client components purely to hold an open index and
+   to set inline styles on mouseenter/mouseleave. The browser does both of these
+   natively, so the styling lives here and the components render on the server. */
+
+.tb-faq {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color 0.25s;
+}
+.tb-faq[open] { border-color: rgba(255, 194, 10, 0.35); }
+
+.tb-faq > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 24px;
+  cursor: pointer;
+  list-style: none;
+}
+.tb-faq > summary::-webkit-details-marker { display: none; }
+.tb-faq > summary:focus-visible { outline: 2px solid #FFC20A; outline-offset: -2px; }
+
+.tb-faq-q { color: #fff; font-size: 16px; font-weight: 700; line-height: 1.4; }
+
+.tb-faq-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background 0.25s, color 0.25s;
+}
+.tb-faq[open] .tb-faq-icon {
+  background: #FFC20A;
+  color: #0B1628;
+  transform: rotate(45deg);
+}
+
+.tb-faq-a {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 15px;
+  line-height: 1.75;
+  margin: 0;
+  padding: 0 24px 24px;
+}
+.tb-faq[open] > .tb-faq-a { animation: tbFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+.tb-link:hover      { color: #fff !important; }
+.tb-link-gold:hover { color: #FFC20A !important; }
+.tb-social:hover {
+  color: #FFC20A !important;
+  border-color: rgba(255, 194, 10, 0.35) !important;
+  background: rgba(255, 194, 10, 0.08) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tb-faq[open] > .tb-faq-a { animation: none; }
+}
