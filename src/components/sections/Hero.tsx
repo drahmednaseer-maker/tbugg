@@ -323,11 +323,11 @@ export default function Hero() {
                     alt={photo.label}
                     draggable={false}
                     fill
-                    // Roughly two tiles are on screen at mobile width; lazy-loading
-                    // them pushed their paint late and inflated Speed Index. Kept at
-                    // default priority so they never compete with the hero backdrop,
-                    // which is the LCP candidate.
-                    loading={i < 3 ? "eager" : "lazy"}
+                    // Deliberately lazy, including the tiles already on screen. Eager
+                    // loading them fetched 45 KB up front — 1.8x the hero backdrop —
+                    // in parallel with it, which starved the LCP element on a
+                    // throttled connection and cost more than the earlier paint won.
+                    loading="lazy"
                     quality={60}
                     sizes="(max-width: 760px) 190px, (max-width: 1600px) 25vw, 400px"
                     style={{ objectFit: "cover", pointerEvents: "none" }}
