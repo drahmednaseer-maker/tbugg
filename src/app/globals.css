@@ -409,21 +409,17 @@ body::before {
 
 
 /* ── Hero entrance ──────────────────────────────────────────────────────────
-   Pure CSS rather than framer-motion so the headline and subtitle paint with
-   the server-rendered HTML. A motion `initial={{ opacity: 0 }}` ships
-   opacity:0 in the SSR markup, which kept the LCP element invisible until the
-   JS bundle had downloaded, parsed and hydrated. framer-motion is still used
-   everywhere else on the site. */
-@keyframes heroRise {
-  from { opacity: 0; transform: translateY(40px); }
-  to   { opacity: 1; transform: none; }
-}
-
-.hero-rise { animation: heroRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-rise { animation: none; opacity: 1; transform: none; }
-}
+   There isn't one any more. It began as a framer-motion fade whose SSR markup
+   shipped opacity:0, keeping the LCP element invisible until the bundle had
+   hydrated; that became a pure-CSS fade+rise over 0.7s with a stagger. Because the fill mode
+   was `both`, every element above the fold sat at opacity 0 until the animation
+   ticked — measured live, the hero did not reach opacity 1 until 2062ms, and the
+   H1 only became the LCP candidate at 1536ms once it was about half visible.
+   Speed Index scores how quickly the viewport reaches its final pixels, so an
+   entrance animation on above-the-fold content is paid for directly. Sections
+   below the fold still animate in (.tb-fade) — those are outside the viewport
+   when it is measured, so they cost nothing. */
+.hero-rise { opacity: 1; transform: none; }
 
 /* Hero photo-strip zoom badge — a CSS ::after instead of a lucide <svg> in
    every one of the 74 marquee tiles. It is invisible until hover and never

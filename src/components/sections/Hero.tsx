@@ -201,26 +201,23 @@ export default function Hero() {
           </div>
 
           <div className="overflow-hidden mb-3">
-            <h1 className="hero-rise text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
-              style={{ animationDelay: "0.06s" }}>
+            <h1 className="hero-rise text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white">
               Explore Pakistan
               <span className="sr-only"> — Your Next Adventure Destination. Photographers-led, 100% customized tours of Pakistan.</span>
             </h1>
           </div>
           <div className="overflow-hidden mb-2" aria-hidden="true">
-            <div className="hero-rise text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white"
-              style={{ animationDelay: "0.12s" }}>
+            <div className="hero-rise text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white">
               Your Next
             </div>
           </div>
           <div className="overflow-hidden mb-7" aria-hidden="true">
-            <div className="hero-rise text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight"
-              style={{ animationDelay: "0.18s" }}>
+            <div className="hero-rise text-3xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight">
               <span style={{ color: "#FFC20A" }}>Adventure Destination</span>
             </div>
           </div>
 
-          <p className="hero-rise text-lg text-white/65 leading-loose max-w-xl mx-auto" style={{ textAlign: "center", animationDelay: "0.24s" }}>
+          <p className="hero-rise text-lg text-white/65 leading-loose max-w-xl mx-auto" style={{ textAlign: "center" }}>
             From the majestic peaks of Karakorams &amp; Hindukush to the serene landscapes of Gwadar —
             we design unforgettable journeys across Pakistan.
           </p>
@@ -228,7 +225,7 @@ export default function Hero() {
           {/* Primary CTAs */}
           <div
             className="hero-rise"
-            style={{ display: "flex", flexWrap: "wrap", gap: "14px", justifyContent: "center", marginTop: "36px", animationDelay: "0.3s" }}>
+            style={{ display: "flex", flexWrap: "wrap", gap: "14px", justifyContent: "center", marginTop: "36px" }}>
             <a href="#tour-builder"
               style={{ display: "inline-flex", alignItems: "center", gap: "9px", padding: "15px 30px", borderRadius: "999px", background: "linear-gradient(135deg, #FFD34A, #FFC20A)", color: "#0B1628", fontSize: "15px", fontWeight: 800, textDecoration: "none", boxShadow: "0 10px 30px rgba(255,194,10,0.28)", transition: "transform 0.2s, box-shadow 0.2s" }}
               onMouseEnter={(e) => { const el = e.currentTarget; el.style.transform = "translateY(-2px)"; el.style.boxShadow = "0 14px 40px rgba(255,194,10,0.45)"; }}
@@ -248,7 +245,7 @@ export default function Hero() {
           {/* Trust badges */}
           <div
             className="hero-rise"
-            style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px", marginTop: "38px", animationDelay: "0.36s" }}>
+            style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "10px", marginTop: "38px" }}>
             {["100% Customized", "Photographers-Led", "Karakoram to Gwadar"].map((t, i) => (
               <div key={i} style={{ display: "inline-flex", alignItems: "center", gap: "7px", padding: "8px 15px", borderRadius: "999px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)" }}>
                 <Check style={{ width: 14, height: 14, color: "#FFC20A" }} />
