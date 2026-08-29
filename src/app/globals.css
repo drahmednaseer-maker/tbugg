@@ -485,3 +485,15 @@ html.tb-engaged .tb-particle { animation-play-state: running; }
 @media (prefers-reduced-motion: reduce) {
   .tb-drift, .tb-particle { animation: none; }
 }
+
+/* ── Hero photo-strip tiles ─────────────────────────────────────────────────
+   The strip renders 74 tiles so the loop is seamless, but only two or three
+   are ever on screen. Their boxes are fully determined by CSS (fixed flex
+   basis and height), so the browser can skip style, layout and paint for the
+   off-screen ones without affecting scrollWidth, which the auto-scroll relies
+   on. contain-intrinsic-size matches the clamp so the reserved box is right
+   before content is rendered. */
+.hero-marquee > div > div {
+  content-visibility: auto;
+  contain-intrinsic-size: clamp(190px, 25vw, 400px) clamp(150px, 19.5vw, 310px);
+}
