@@ -807,7 +807,7 @@ export default function TourBuilder() {
         )}
       </AnimatePresence>
 
-      <section id="tour-builder" style={{ padding: "80px 0 80px", background: "linear-gradient(180deg, #070E1C 0%, #060B18 100%)" }}>
+      <section style={{ padding: "80px 0 80px", background: "linear-gradient(180deg, #070E1C 0%, #060B18 100%)" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px" }}>
 
           {/* ── Tour Builder Header ─────────────────────────────────────── */}

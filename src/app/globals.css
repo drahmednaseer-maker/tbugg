@@ -209,8 +209,8 @@ body::before {
 
 /* Tour builder section */
 @media (max-width: 768px) {
-  #tour-builder { padding: 56px 0 60px !important; }
-  #tour-builder > div { padding: 0 20px !important; }
+  #tour-builder > section { padding: 56px 0 60px !important; }
+  #tour-builder > section > div { padding: 0 20px !important; }
   #tour-builder .tb-header { margin-bottom: 32px !important; }
   #tour-builder .tb-header h2 { font-size: clamp(24px, 7vw, 36px) !important; }
 }
@@ -482,17 +482,6 @@ html.tb-engaged .tb-particle { animation-play-state: running; }
   .tb-drift, .tb-particle { animation: none; }
 }
 
-/* ── Hero photo-strip tiles ─────────────────────────────────────────────────
-   The strip renders 74 tiles so the loop is seamless, but only two or three
-   are ever on screen. Their boxes are fully determined by CSS (fixed flex
-   basis and height), so the browser can skip style, layout and paint for the
-   off-screen ones without affecting scrollWidth, which the auto-scroll relies
-   on. contain-intrinsic-size matches the clamp so the reserved box is right
-   before content is rendered. */
-.hero-marquee > div > div {
-  content-visibility: auto;
-  contain-intrinsic-size: clamp(190px, 25vw, 400px) clamp(150px, 19.5vw, 310px);
-}
 
 /* ── FAQ accordion + footer link hovers ─────────────────────────────────────
    Both sections used to be client components purely to hold an open index and
