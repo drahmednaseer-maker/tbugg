@@ -16,6 +16,9 @@ export default function ContactClient() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [sendError, setSendError] = useState("");
+  const [handoff, setHandoff] = useState(false);
+  const [company, setCompany] = useState(""); // honeypot — real visitors never see it
 
   const validate = () => {
     const e: Record<string, string> = {};
@@ -37,7 +40,37 @@ export default function ContactClient() {
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setLoading(true);
-    // Deliver the lead to the business via WhatsApp with all details pre-filled.
+    setSendError("");
+    setHandoff(false);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, company }),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+      } else if (res.status === 503) {
+        // The mailbox isn't wired up yet. Not the visitor's problem and not
+        // worth alarming them over — hand the enquiry to WhatsApp, which is
+        // where it went before this route existed.
+        setHandoff(true);
+      } else {
+        // The enquiry did not arrive. Say so, and offer WhatsApp as a route
+        // the visitor can watch succeed, rather than claiming it was sent.
+        setSendError("We couldn't send that message.");
+      }
+    } catch {
+      setSendError("We couldn't reach the server — you may be offline.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /* WhatsApp with the details pre-filled. This used to run on every submit and
+     the form then reported success no matter what happened; now it is an
+     explicit choice the visitor makes, and the fallback when sending fails. */
+  const openWhatsApp = () => {
     const lines = [
       "*New inquiry — TravelBug.pk contact form*",
       "",
@@ -48,11 +81,8 @@ export default function ContactClient() {
       "",
       `Message: ${form.message}`,
     ].filter(Boolean);
-    const waUrl = `https://wa.me/${WA_NUM}?text=${encodeURIComponent(lines.join("\n"))}`;
-    window.open(waUrl, "_blank", "noopener,noreferrer");
-    await new Promise((r) => setTimeout(r, 600));
-    setSubmitted(true);
-    setLoading(false);
+    window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(lines.join("\n"))}`,
+      "_blank", "noopener,noreferrer");
   };
 
   const inputStyle: React.CSSProperties = {
@@ -199,7 +229,7 @@ export default function ContactClient() {
                   </div>
                   <h3 style={{ margin: "0 0 8px", fontSize: "20px", fontWeight: 800, color: "white" }}>Message Sent!</h3>
                   <p style={{ margin: "0 0 20px", color: "rgba(255,255,255,0.5)", fontSize: "14px" }}>
-                    Thank you, <strong style={{ color: "white" }}>{form.name}</strong>! Our team will contact you shortly on WhatsApp or email.
+                    Thank you, <strong style={{ color: "white" }}>{form.name}</strong>! Your message has reached our inbox — we&apos;ll reply to {form.email} shortly.
                   </p>
                   <button
                     onClick={() => { setSubmitted(false); setForm({ name: "", email: "", phone: "", subject: "", message: "" }); }}
@@ -210,6 +240,12 @@ export default function ContactClient() {
                 </m.div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+                  {/* Honeypot: off-screen and hidden from assistive tech, so only bots fill it. */}
+                  <input
+                    type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true"
+                    value={company} onChange={(e) => setCompany(e.target.value)}
+                    style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }}
+                  />
                   <div className="contact-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                     <div>
                       <label style={labelStyle}>Full Name *</label>
@@ -250,6 +286,57 @@ export default function ContactClient() {
                       style={{ ...inputStyle, resize: "vertical", borderColor: errors.message ? "rgba(248,113,113,0.6)" : "rgba(255,255,255,0.1)" }} />
                     {errors.message && <p style={{ color: "#f87171", fontSize: "12px", marginTop: "5px" }}>{errors.message}</p>}
                   </div>
+                  {handoff && (
+                    <div style={{
+                      padding: "16px", borderRadius: "12px",
+                      background: "rgba(37,211,102,0.08)", border: "1px solid rgba(37,211,102,0.35)",
+                    }}>
+                      <p style={{ margin: "0 0 12px", color: "rgba(255,255,255,0.75)", fontSize: "13px", lineHeight: 1.55 }}>
+                        We reply fastest on WhatsApp. Your message is ready — tap below and
+                        press send, and it comes straight to us.
+                      </p>
+                      <button
+                        type="button" onClick={openWhatsApp}
+                        style={{
+                          display: "inline-flex", alignItems: "center", gap: "8px",
+                          padding: "12px 20px", borderRadius: "10px", border: "none",
+                          background: "#25D366", color: "#0B1628", fontWeight: 800,
+                          fontSize: "14px", cursor: "pointer",
+                        }}
+                      >
+                        <MessageSquare style={{ width: 16, height: 16 }} />
+                        Continue on WhatsApp
+                      </button>
+                      <p style={{ margin: "12px 0 0", color: "rgba(255,255,255,0.4)", fontSize: "12px" }}>
+                        Prefer email? Write to{" "}
+                        <a href={`mailto:${EMAIL}`} style={{ color: "#FFC20A" }}>{EMAIL}</a>.
+                      </p>
+                    </div>
+                  )}
+                  {sendError && (
+                    <div role="alert" style={{
+                      padding: "14px 16px", borderRadius: "12px",
+                      background: "rgba(248,113,113,0.08)", border: "1px solid rgba(248,113,113,0.35)",
+                    }}>
+                      <p style={{ margin: "0 0 10px", color: "#fca5a5", fontSize: "13px", lineHeight: 1.5 }}>
+                        {sendError} Your message has <strong>not</strong> been sent. You can send it
+                        straight to us on WhatsApp instead, or email{" "}
+                        <a href={`mailto:${EMAIL}`} style={{ color: "#FFC20A" }}>{EMAIL}</a>.
+                      </p>
+                      <button
+                        type="button" onClick={openWhatsApp}
+                        style={{
+                          display: "inline-flex", alignItems: "center", gap: "8px",
+                          padding: "10px 18px", borderRadius: "10px", border: "none",
+                          background: "#25D366", color: "#0B1628", fontWeight: 800,
+                          fontSize: "13px", cursor: "pointer",
+                        }}
+                      >
+                        <MessageSquare style={{ width: 15, height: 15 }} />
+                        Send on WhatsApp instead
+                      </button>
+                    </div>
+                  )}
                   <button
                     type="submit" id="contact-submit-btn" disabled={loading}
                     style={{
