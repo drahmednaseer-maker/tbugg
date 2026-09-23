@@ -561,3 +561,25 @@ html.tb-engaged .tb-particle { animation-play-state: running; }
 html {
   scroll-padding-top: 108px;
 }
+
+/* Skeleton for the trip planner while its bundle arrives. The section used to
+   sit as an empty 800px gap, which on a slow phone read as a broken page —
+   especially for anyone following a link straight to #tour-builder, who lands
+   on it. */
+.tb-skel {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.09) 37%,
+    rgba(255, 255, 255, 0.04) 63%
+  );
+  background-size: 400% 100%;
+  animation: tbSkel 1.4s ease-in-out infinite;
+}
+@keyframes tbSkel {
+  0%   { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tb-skel { animation: none; }
+}
