@@ -36,6 +36,9 @@ const TourBuilder = dynamic(() => import("@/components/sections/TourBuilder"), {
 
 const EVENTS = ["scroll", "pointerdown", "touchstart", "keydown"] as const;
 
+const TARGETED = () =>
+  typeof window !== "undefined" && window.location.hash === "#tour-builder";
+
 export default function TourBuilderLazy() {
   const ref = useRef<HTMLDivElement>(null);
   const [show, setShow] = useState(false);
@@ -45,8 +48,17 @@ export default function TourBuilderLazy() {
     const start = () => {
       setShow(true);
       EVENTS.forEach((e) => window.removeEventListener(e, start));
+      window.removeEventListener("hashchange", onHash);
       io?.disconnect();
     };
+    // Someone following a link straight to #tour-builder is asking for this
+    // section by name — waiting for them to scroll would leave them staring at
+    // the empty placeholder they were just linked to.
+    function onHash() { if (TARGETED()) start(); }
+
+    if (TARGETED()) { start(); return; }
+
+    window.addEventListener("hashchange", onHash);
     EVENTS.forEach((e) => window.addEventListener(e, start, { once: true, passive: true }));
 
     if (typeof IntersectionObserver !== "undefined" && ref.current) {
@@ -58,6 +70,7 @@ export default function TourBuilderLazy() {
     }
     return () => {
       EVENTS.forEach((e) => window.removeEventListener(e, start));
+      window.removeEventListener("hashchange", onHash);
       io?.disconnect();
     };
   }, []);
