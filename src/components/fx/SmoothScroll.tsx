@@ -34,18 +34,36 @@ export default function SmoothScroll() {
       });
       const loop = (time: number) => { lenis!.raf(time); raf = requestAnimationFrame(loop); };
       raf = requestAnimationFrame(loop);
+      // Exposed so scroll behaviour can be verified in a real browser; headless
+      // Chrome does not reproduce how Lenis and the native APIs interact.
+      (window as unknown as { __tbLenis?: Lenis }).__tbLenis = lenis;
     }
 
-    /* Use the browser's own scroll-into-view rather than computing a position
-       and handing it to Lenis. Lenis was landing every anchor exactly on the
-       element's top edge, tucked under the fixed header, and neither its
-       `offset` option nor an absolute Y changed where it ended up — the
-       measured gap was exactly the offset, every time. scrollIntoView honours
-       `scroll-padding-top` on the root (set in globals.css to clear the
-       header), Lenis follows the resulting position, and there is no arithmetic
-       of ours left to disagree with. */
+    /* Scrolling has to go through Lenis. While it is running it owns the scroll
+       position, and the native APIs simply do not reach the page: measured in a
+       real browser, window.scrollTo and scrollIntoView both left scrollY at 0
+       while a mouse wheel scrolled normally. That is why anchor links and
+       #hash arrivals did nothing — including the hero's "Plan My Trip" button.
+       When Lenis is off (reduced motion) the native path works and honours
+       scroll-padding-top from globals.css.
+
+       The target is resolved to an absolute Y here rather than passed as an
+       element with an `offset`, because the offset form was not being applied
+       and every anchor landed tucked under the fixed header. */
+    const headerClearance = () => {
+      const header = document.querySelector("header");
+      return (header ? header.getBoundingClientRect().height : 72) + 36;
+    };
+
     const scrollTo = (el: HTMLElement, smooth: boolean) => {
-      el.scrollIntoView({ block: "start", behavior: smooth ? "smooth" : "auto" });
+      if (lenis) {
+        const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        const y = Math.min(max, Math.max(0,
+          el.getBoundingClientRect().top + window.scrollY - headerClearance()));
+        lenis.scrollTo(y, { immediate: !smooth, force: true });
+      } else {
+        el.scrollIntoView({ block: "start", behavior: smooth ? "smooth" : "auto" });
+      }
     };
 
     const targetOf = (hash: string): HTMLElement | null => {
@@ -112,6 +130,7 @@ export default function SmoothScroll() {
       cancel();
       window.removeEventListener("hashchange", startFromHash);
       document.removeEventListener("click", onClick);
+      delete (window as unknown as { __tbLenis?: Lenis }).__tbLenis;
       lenis?.destroy();
     };
   }, []);
