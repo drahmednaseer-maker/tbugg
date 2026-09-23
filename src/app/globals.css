@@ -549,3 +549,15 @@ html.tb-engaged .tb-particle { animation-play-state: running; }
 @media (prefers-reduced-motion: reduce) {
   .tb-faq[open] > .tb-faq-a { animation: none; }
 }
+
+/* ── Anchor landing ─────────────────────────────────────────────────────────
+   The header is fixed — 72px tall, sitting 16px from the top once the page has
+   scrolled — so anything scrolled into view has to clear 88px or its first
+   line ends up underneath it. scroll-padding-top reserves that space for every
+   way a page can be scrolled to an element: a #hash in the URL on arrival, an
+   anchor click, scrollIntoView, and focus moving to an element off-screen.
+   Doing it here rather than in JS means there is no position arithmetic for
+   the smooth-scrolling library to disagree with. */
+html {
+  scroll-padding-top: 108px;
+}

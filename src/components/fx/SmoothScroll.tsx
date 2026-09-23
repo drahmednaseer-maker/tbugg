@@ -5,7 +5,8 @@ import Lenis from "lenis";
 
 /* Site-wide smooth scrolling, plus anchor handling.
    - Respects prefers-reduced-motion: no Lenis, but anchors still work.
-   - Anchor clicks scroll smoothly via lenis.scrollTo.
+   - Anchor clicks scroll smoothly via lenis.scrollTo, clearing the fixed
+     header by its measured height.
    - Landing on a URL that already carries a #hash also scrolls. The browser
      does that itself normally, but here it was arriving at 0 every time —
      https://www.travelbug.pk/#faq and /#tour-builder both left you at the top
@@ -35,17 +36,16 @@ export default function SmoothScroll() {
       raf = requestAnimationFrame(loop);
     }
 
-    const HEADER_OFFSET = -80;
-
+    /* Use the browser's own scroll-into-view rather than computing a position
+       and handing it to Lenis. Lenis was landing every anchor exactly on the
+       element's top edge, tucked under the fixed header, and neither its
+       `offset` option nor an absolute Y changed where it ended up — the
+       measured gap was exactly the offset, every time. scrollIntoView honours
+       `scroll-padding-top` on the root (set in globals.css to clear the
+       header), Lenis follows the resulting position, and there is no arithmetic
+       of ours left to disagree with. */
     const scrollTo = (el: HTMLElement, smooth: boolean) => {
-      if (lenis) {
-        lenis.scrollTo(el, { offset: HEADER_OFFSET, immediate: !smooth });
-      } else {
-        window.scrollTo({
-          top: el.getBoundingClientRect().top + window.scrollY + HEADER_OFFSET,
-          behavior: smooth ? "smooth" : "auto",
-        });
-      }
+      el.scrollIntoView({ block: "start", behavior: smooth ? "smooth" : "auto" });
     };
 
     const targetOf = (hash: string): HTMLElement | null => {
