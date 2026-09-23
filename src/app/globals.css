@@ -56,11 +56,14 @@
 
 html {
   scroll-behavior: smooth;
-  /* clip any horizontal overflow at the root — catches fixed-position elements
-     (e.g. the floating WhatsApp button's pulse ring) that body's clip can't
-     contain. `clip` (not hidden) avoids creating a scroll container, so
-     position: sticky keeps working. */
-  overflow-x: clip;
+  /* No overflow clipping here. The root element's overflow propagates to the
+     viewport, and a clipped axis stops the viewport being scrolled
+     programmatically at all: measured in a real browser, window.scrollTo and
+     scrollIntoView both left scrollY at 0 while the mouse wheel scrolled
+     normally. That silently broke every anchor on the site — /#tour-builder,
+     /#faq, the hero's "Plan My Trip" button and the destination pages' links
+     into the planner. body keeps its own overflow-x: clip, which still contains
+     horizontal overflow without reaching the viewport. */
   width: 100%;
   max-width: 100%;
 }
