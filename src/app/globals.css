@@ -456,6 +456,16 @@ body::before {
 }
 .tb-fade { animation: tbFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
 
+/* Trip-builder modal entrance (the "how many nights" card). */
+@keyframes tbModalIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.88); }
+  to   { opacity: 1; transform: none; }
+}
+.tb-modal-in { animation: tbModalIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .tb-modal-in { animation: none; }
+}
+
 /* Hover states that were JS onMouseEnter/onMouseLeave handlers, moved to CSS
    so the component no longer needs to be a client component. */
 .tb-btn-gold:hover  { opacity: 0.9; transform: translateY(-2px); }

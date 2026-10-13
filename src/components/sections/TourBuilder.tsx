@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { m, AnimatePresence } from "framer-motion";
 import {
   MapPin, X, GripVertical, ChevronRight, Users,
   Star, Check, MessageCircle, Plus, Minus, Hotel, Moon, ArrowRight, Mail,
@@ -198,12 +197,13 @@ function NightModal({
         display: "flex", alignItems: "center", justifyContent: "center",
       }}
     >
-      <m.div
+      {/* Plain CSS entrance. This used to be an `m.div`, but the homepage no
+          longer mounts framer-motion's provider, and without it `m.div`
+          stayed frozen at its initial opacity:0 — a blurred backdrop with an
+          invisible modal that nobody could get past. */}
+      <div
         onClick={(e) => e.stopPropagation()}
-        initial={{ scale: 0.88, opacity: 0, y: 24 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.88, opacity: 0, y: 24 }}
-        transition={{ type: "spring", damping: 22, stiffness: 300 }}
+        className="tb-modal-in"
         style={{
           width: "360px", borderRadius: "24px",
           background: "#0D1B2E",
@@ -334,7 +334,7 @@ function NightModal({
             </div>
           )}
         </div>
-      </m.div>
+      </div>
     </div>
   );
 }
@@ -796,16 +796,14 @@ export default function TourBuilder() {
   return (
     <>
       {/* Night modal renders OUTSIDE section, at root level */}
-      <AnimatePresence>
-        {modal && (
-          <NightModal
-            dest={modal}
-            weather={weather[modal.id]}
-            onConfirm={confirmNights}
-            onClose={() => setModal(null)}
-          />
-        )}
-      </AnimatePresence>
+      {modal && (
+        <NightModal
+          dest={modal}
+          weather={weather[modal.id]}
+          onConfirm={confirmNights}
+          onClose={() => setModal(null)}
+        />
+      )}
 
       <section style={{ padding: "80px 0 80px", background: "linear-gradient(180deg, #070E1C 0%, #060B18 100%)" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px" }}>
