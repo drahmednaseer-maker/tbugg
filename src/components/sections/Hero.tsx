@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import LazyImage from "@/components/LazyImage";
 import { X, ChevronLeft, ChevronRight, ZoomIn, Star, ArrowRight, MessageCircle, Check } from "lucide-react";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, memo } from "react";
 
 const particles = [
   { left: "8%",  top: "15%", dur: 4.2, delay: 0.3 },
@@ -58,6 +59,109 @@ const PHOTOS = [
   { src: "/destinations/kashmir/kashmir3.jpg",          label: "Kashmir — Neelum Valley"      },
   { src: "/destinations/kashmir/kashmir_taobat.jpg",    label: "Taobat Meadows"               },
 ];
+
+
+/* ── Marquee tiles ─────────────────────────────────────────────────────────
+   Only the first INITIAL_TILES are in the server HTML. The full duplicated
+   set (2 × PHOTOS, so the auto-scroll can loop seamlessly) is mounted once
+   the visitor engages — the same trigger that starts the auto-scroll — and
+   in an idle callback, so it never lands inside the initial render. All 74
+   tiles up front meant ~56 KB of hero markup and a ~1,100-element DOM to lay
+   out before anything could paint. */
+const INITIAL_TILES = 12;
+const ENGAGE_EVENTS = ["scroll", "pointerdown", "pointermove", "touchstart", "keydown"] as const;
+
+const MarqueeTiles = memo(function MarqueeTiles({ onPick }: { onPick: (index: number) => void }) {
+  const [all, setAll] = useState(false);
+  useEffect(() => {
+    let timer: number | undefined;
+    let idle: number | undefined;
+    const mount = () => setAll(true);
+    const start = () => {
+      ENGAGE_EVENTS.forEach((e) => window.removeEventListener(e, start));
+      if (timer !== undefined) window.clearTimeout(timer);
+      if (typeof window.requestIdleCallback === "function") idle = window.requestIdleCallback(mount);
+      else timer = window.setTimeout(mount, 0);
+    };
+    ENGAGE_EVENTS.forEach((e) => window.addEventListener(e, start, { once: true, passive: true }));
+    timer = window.setTimeout(start, 10000);
+    return () => {
+      ENGAGE_EVENTS.forEach((e) => window.removeEventListener(e, start));
+      if (timer !== undefined) window.clearTimeout(timer);
+      if (idle !== undefined && typeof window.cancelIdleCallback === "function") window.cancelIdleCallback(idle);
+    };
+  }, []);
+  const tiles = all ? [...PHOTOS, ...PHOTOS] : PHOTOS.slice(0, INITIAL_TILES);
+  return (
+    <>
+      {tiles.map((photo, i) => (
+        <div
+          key={i}
+          onClick={() => onPick(i % PHOTOS.length)}
+          style={{
+            flex: "0 0 clamp(190px, 25vw, 400px)",
+            height: "clamp(150px, 19.5vw, 310px)",
+            borderRadius: "16px",
+            overflow: "hidden",
+            position: "relative",
+            cursor: "zoom-in",
+            border: "1.5px solid rgba(255,255,255,0.07)",
+            flexShrink: 0,
+            transition: "border-color 0.25s, transform 0.25s",
+          }}
+          onMouseEnter={e => {
+            const el = e.currentTarget as HTMLDivElement;
+            el.style.borderColor = "rgba(255,194,10,0.5)";
+            el.style.transform = "translateY(-3px)";
+          }}
+          onMouseLeave={e => {
+            const el = e.currentTarget as HTMLDivElement;
+            el.style.borderColor = "rgba(255,255,255,0.07)";
+            el.style.transform = "translateY(0)";
+          }}
+        >
+          {/* The leading tiles are on screen at load and are loaded eagerly.
+              Measured on production this is worth ~1.5s of first paint:
+              with all 87 tiles lazy the browser defers painting while it
+              resolves which are in viewport (observed FCP ~2.5s), against
+              ~0.9-1.7s with these three eager. Left at default priority —
+              raising it to high does starve the hero backdrop.
+              The rest go through LazyImage: plain loading="lazy" still
+              fetched the next seven tiles before first paint. */}
+          {i < 3 ? (
+            <Image
+              src={photo.src}
+              alt={photo.label}
+              draggable={false}
+              fill
+              loading="eager"
+              quality={60}
+              sizes="(max-width: 760px) 190px, (max-width: 1600px) 25vw, 400px"
+              style={{ objectFit: "cover", pointerEvents: "none" }}
+            />
+          ) : (
+            <LazyImage
+              src={photo.src}
+              alt={photo.label}
+              draggable={false}
+              fill
+              loading="lazy"
+              quality={60}
+              sizes="(max-width: 760px) 190px, (max-width: 1600px) 25vw, 400px"
+              style={{ objectFit: "cover", pointerEvents: "none" }}
+            />
+          )}
+
+          {/* Location label */}
+          <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "30px 14px 12px", background: "linear-gradient(to top, rgba(6,11,24,0.94), rgba(6,11,24,0))", pointerEvents: "none" }}>
+            <p style={{ color: "white", fontSize: "13.5px", fontWeight: 700, margin: 0, textShadow: "0 1px 6px rgba(0,0,0,0.9)" }}>{photo.label}</p>
+          </div>
+
+        </div>
+      ))}
+    </>
+  );
+});
 
 export default function Hero() {
   const [paused,   setPaused]   = useState(false);
@@ -149,6 +253,10 @@ export default function Hero() {
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
   }, []);
+  const pickTile = useCallback((index: number) => {
+    if (movedRef.current) { movedRef.current = false; return; }
+    setLightbox(index);
+  }, []);
   const onMarqueeDown = (e: React.MouseEvent) => {
     const el = marqueeRef.current; if (!el) return;
     dragRef.current = { x: e.clientX, left: el.scrollLeft, active: true };
@@ -174,7 +282,7 @@ export default function Hero() {
 
       {/* ── Background ─────────────────────────────────────────────────────── */}
       <div className="absolute inset-0 z-0">
-        <Image src="/hero-bg.jpg" alt="Scenic mountain landscape in northern Pakistan" fill priority sizes="100vw" className="object-cover scale-110 tb-drift" />
+        <Image src="/hero-bg.jpg" alt="Scenic mountain landscape in northern Pakistan" fill loading="eager" quality={60} sizes="100vw" className="object-cover scale-110 tb-drift" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0B1628]/95 via-[#0B1628]/60 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0B1628] via-transparent to-[#0B1628]/20" />
       </div>
@@ -289,56 +397,7 @@ export default function Hero() {
               gap: "12px",
               width: "max-content",
             }}>
-              {[...PHOTOS, ...PHOTOS].map((photo, i) => (
-                <div
-                  key={i}
-                  onClick={() => { if (movedRef.current) { movedRef.current = false; return; } setLightbox(i % PHOTOS.length); }}
-                  style={{
-                    flex: "0 0 clamp(190px, 25vw, 400px)",
-                    height: "clamp(150px, 19.5vw, 310px)",
-                    borderRadius: "16px",
-                    overflow: "hidden",
-                    position: "relative",
-                    cursor: "zoom-in",
-                    border: "1.5px solid rgba(255,255,255,0.07)",
-                    flexShrink: 0,
-                    transition: "border-color 0.25s, transform 0.25s",
-                  }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget as HTMLDivElement;
-                    el.style.borderColor = "rgba(255,194,10,0.5)";
-                    el.style.transform = "translateY(-3px)";
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget as HTMLDivElement;
-                    el.style.borderColor = "rgba(255,255,255,0.07)";
-                    el.style.transform = "translateY(0)";
-                  }}
-                >
-                  <Image
-                    src={photo.src}
-                    alt={photo.label}
-                    draggable={false}
-                    fill
-                    // The leading tiles are on screen at load and are loaded eagerly.
-                    // Measured on production this is worth ~1.5s of first paint:
-                    // with all 87 tiles lazy the browser defers painting while it
-                    // resolves which are in viewport (observed FCP ~2.5s), against
-                    // ~0.9-1.7s with these three eager. Left at default priority —
-                    // raising it to high does starve the hero backdrop.
-                    loading={i < 3 ? "eager" : "lazy"}
-                    quality={60}
-                    sizes="(max-width: 760px) 190px, (max-width: 1600px) 25vw, 400px"
-                    style={{ objectFit: "cover", pointerEvents: "none" }}
-                  />
-
-                  {/* Location label */}
-                  <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "30px 14px 12px", background: "linear-gradient(to top, rgba(6,11,24,0.94), rgba(6,11,24,0))", pointerEvents: "none" }}>
-                    <p style={{ color: "white", fontSize: "13.5px", fontWeight: 700, margin: 0, textShadow: "0 1px 6px rgba(0,0,0,0.9)" }}>{photo.label}</p>
-                  </div>
-
-                </div>
-              ))}
+              <MarqueeTiles onPick={pickTile} />
             </div>
           </div>
         </div>

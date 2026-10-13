@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
+import LazyImage from "@/components/LazyImage";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { destinations } from "@/data/destinations";
@@ -77,7 +77,7 @@ function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number
               willChange: "opacity",
             }}
           >
-            <Image
+            <LazyImage
               src={src}
               alt={dest.name}
               fill

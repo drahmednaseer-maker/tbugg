@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Camera, Users, ChevronLeft, ChevronRight, MessageCircle, Star } from "lucide-react";
@@ -98,6 +98,25 @@ export default function TourPackages() {
   const [current, setCurrent] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
   const total = slides.length;
+
+  // Which slides have a mounted <Image>: everything shown so far plus the one
+  // coming up, so its photo is loading before it is needed. `previous` is the
+  // slide that stays painted underneath while the current one's photo arrives.
+  const [previous, setPrevious] = useState(0);
+  const [mounted, setMounted] = useState<Set<number>>(() => new Set([0, 1 % total]));
+  const lastRef = useRef(0);
+  useEffect(() => {
+    setPrevious(lastRef.current);
+    lastRef.current = current;
+    setMounted((m) => {
+      const upcoming = (current + 1) % total;
+      if (m.has(current) && m.has(upcoming)) return m;
+      const s = new Set(m);
+      s.add(current);
+      s.add(upcoming);
+      return s;
+    });
+  }, [current, total]);
 
   const next = useCallback(() => setCurrent((c) => (c + 1) % total), [total]);
   const prev = useCallback(() => setCurrent((c) => (c - 1 + total) % total), [total]);
@@ -218,31 +237,49 @@ export default function TourPackages() {
             onMouseEnter={() => setAutoplay(false)}
             onMouseLeave={() => setAutoplay(true)}
           >
-              <div
-                className="tb-fade"
-                key={current}
-                style={{ position: "absolute", inset: 0 }}
-              >
-                <Image
-                  src={slides[current].image}
-                  alt={slides[current].title}
-                  fill
-                  loading="lazy"
-                  quality={70}
-                  sizes="(max-width: 1024px) 100vw, 1100px"
-                  style={{ objectFit: "cover" }}
-                />
-                {/* Cinematic gradient */}
-                <div style={{
-                  position: "absolute", inset: 0,
-                  background: "linear-gradient(to top, rgba(4,9,20,0.9) 0%, rgba(4,9,20,0.3) 50%, rgba(4,9,20,0.15) 100%)",
-                }} />
-                {/* Left side vignette */}
-                <div style={{
-                  position: "absolute", inset: 0,
-                  background: "linear-gradient(to right, rgba(4,9,20,0.7) 0%, transparent 50%)",
-                }} />
-              </div>
+              {/* Slides are stacked, not swapped. This used to remount one
+                  <Image> per change, which fetched the photo only after the
+                  previous one was gone — a dark box for as long as the new
+                  photo took to arrive. Now the previous slide stays underneath
+                  until the new one has painted over it, and the upcoming slide
+                  is mounted (invisible) so its photo is already loading. */}
+              {slides.map((slide, i) => {
+                if (!mounted.has(i)) return null;
+                const isCurrent = i === current;
+                const isPrev = i === previous && previous !== current;
+                return (
+                  <div
+                    key={i}
+                    aria-hidden={!isCurrent}
+                    style={{
+                      position: "absolute", inset: 0,
+                      opacity: isCurrent || isPrev ? 1 : 0,
+                      zIndex: isCurrent ? 2 : isPrev ? 1 : 0,
+                      transition: "opacity 0.5s ease",
+                    }}
+                  >
+                    <Image
+                      src={slide.image}
+                      alt={slide.title}
+                      fill
+                      loading="lazy"
+                      quality={70}
+                      sizes="(max-width: 1024px) 100vw, 1100px"
+                      style={{ objectFit: "cover" }}
+                    />
+                    {/* Cinematic gradient */}
+                    <div style={{
+                      position: "absolute", inset: 0,
+                      background: "linear-gradient(to top, rgba(4,9,20,0.9) 0%, rgba(4,9,20,0.3) 50%, rgba(4,9,20,0.15) 100%)",
+                    }} />
+                    {/* Left side vignette */}
+                    <div style={{
+                      position: "absolute", inset: 0,
+                      background: "linear-gradient(to right, rgba(4,9,20,0.7) 0%, transparent 50%)",
+                    }} />
+                  </div>
+                );
+              })}
 
             {/* Slide text */}
             <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 10, padding: "40px 44px" }}>
