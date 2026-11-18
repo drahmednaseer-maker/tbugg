@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 
 export const metadata: Metadata = {
-  title: "Why TravelBug.pk — Our Philosophy | Photographers-Led Tours",
+  title: "Why TravelBug — Our Travel Philosophy",
   description: "Learn what makes TravelBug.pk different. Photographers-led, small group, and 100% custom-tailored journeys across Pakistan.",
   alternates: { canonical: "/why-travelbug" },
 };

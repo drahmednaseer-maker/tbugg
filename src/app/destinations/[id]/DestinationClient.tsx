@@ -96,7 +96,7 @@ export default function DestinationClient({ destination }: { destination: Destin
               }}>
                 <Camera style={{ width: 32, height: 32, color: "#FFC20A", marginBottom: "12px" }} />
                 <p style={{ color: "white", fontWeight: 700, fontSize: "14px", marginBottom: "4px" }}>Photographer's View</p>
-                <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px" }}>Capturing the soul of {destination.name}</p>
+                <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "12px" }}>Capturing the soul of {destination.name}</p>
               </div>
             </div>
 
@@ -142,7 +142,7 @@ export default function DestinationClient({ destination }: { destination: Destin
                               <span style={{ color: "white", fontSize: "12px", fontWeight: 700 }}>{tour.rating}</span>
                             </div>
                           </div>
-                          <div style={{ display: "flex", gap: "12px", color: "rgba(255,255,255,0.4)", fontSize: "12px", marginBottom: "12px" }}>
+                          <div style={{ display: "flex", gap: "12px", color: "rgba(255,255,255,0.55)", fontSize: "12px", marginBottom: "12px" }}>
                             <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><Clock style={{ width: 12, height: 12 }} /> {tour.duration} Days</span>
                             <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><Users style={{ width: 12, height: 12 }} /> Max {tour.maxGroupSize}</span>
                           </div>
@@ -155,8 +155,8 @@ export default function DestinationClient({ destination }: { destination: Destin
                   ))
                 ) : (
                   <div style={{ padding: "40px", textAlign: "center", background: "rgba(255,255,255,0.02)", borderRadius: "20px", border: "1px dashed rgba(255,255,255,0.1)" }}>
-                    <Globe style={{ width: 32, height: 32, color: "rgba(255,255,255,0.2)", marginBottom: "12px", margin: "0 auto" }} />
-                    <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "14px" }}>Custom itineraries available upon request</p>
+                    <Globe style={{ width: 32, height: 32, color: "rgba(255,255,255,0.55)", marginBottom: "12px", margin: "0 auto" }} />
+                    <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "14px" }}>Custom itineraries available upon request</p>
                     <Link href="/contact" style={{ color: "#FFC20A", fontSize: "14px", fontWeight: 700, textDecoration: "none", marginTop: "12px", display: "inline-block" }}>
                       Ask for a custom tour →
                     </Link>
@@ -276,7 +276,7 @@ function ExpeditionSection({
                 }}
               >
                 <Icon style={{ width: 20, height: 20, color: "#FFC20A", marginBottom: "14px" }} />
-                <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 6px" }}>
+                <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 6px" }}>
                   {s.label}
                 </p>
                 <p style={{ color: "white", fontSize: "15px", fontWeight: 700, margin: 0, lineHeight: 1.35 }}>
@@ -371,7 +371,7 @@ function ExpeditionSection({
             <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "12px" }}>
               {expedition.excluded.map((item, i) => (
                 <li key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start", color: "rgba(255,255,255,0.55)", fontSize: "14px", lineHeight: 1.5 }}>
-                  <span style={{ color: "rgba(255,255,255,0.35)", fontWeight: 900, flexShrink: 0 }}>✕</span>
+                  <span style={{ color: "rgba(255,255,255,0.55)", fontWeight: 900, flexShrink: 0 }}>✕</span>
                   <span>{item}</span>
                 </li>
               ))}

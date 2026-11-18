@@ -6,6 +6,7 @@ import {
   MapPin, Calendar, Users, MessageCircle, Mail,
   User, ChevronDown, CheckCircle, Loader2
 } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 const WHATSAPP_NUMBER = "923344334411";
 
@@ -60,6 +61,7 @@ export default function SearchBar() {
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
+      trackEvent("generate_lead", { method: "search_bar_whatsapp" });
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${buildMessage()}`, "_blank");
     }, 1200);
   };
@@ -158,7 +160,7 @@ export default function SearchBar() {
                     <div style={{ ...fieldStyle, marginBottom: "20px" }}>
                       <User style={{ color: "#FFC20A", width: 20, height: 20, flexShrink: 0 }} />
                       <div style={{ flex: 1 }}>
-                        <label style={{ display: "block", color: "rgba(255,255,255,0.4)", fontSize: "11px", marginBottom: "6px", letterSpacing: "0.05em" }}>Your Full Name</label>
+                        <label style={{ display: "block", color: "rgba(255,255,255,0.55)", fontSize: "11px", marginBottom: "6px", letterSpacing: "0.05em" }}>Your Full Name</label>
                         <input
                           type="text"
                           placeholder="e.g. Ahmed Khan"
@@ -201,7 +203,7 @@ export default function SearchBar() {
                         : <Mail style={{ color: "#FFC20A", width: 20, height: 20, flexShrink: 0 }} />
                       }
                       <div style={{ flex: 1 }}>
-                        <label style={{ display: "block", color: "rgba(255,255,255,0.4)", fontSize: "11px", marginBottom: "6px", letterSpacing: "0.05em" }}>
+                        <label style={{ display: "block", color: "rgba(255,255,255,0.55)", fontSize: "11px", marginBottom: "6px", letterSpacing: "0.05em" }}>
                           {form.contactType === "whatsapp" ? "WhatsApp Number" : "Email Address"}
                         </label>
                         <input
@@ -267,7 +269,7 @@ export default function SearchBar() {
                       <div style={fieldStyle}>
                         <Calendar style={{ color: "#FFC20A", width: 20, height: 20, flexShrink: 0 }} />
                         <div style={{ flex: 1 }}>
-                          <label style={{ display: "block", color: "rgba(255,255,255,0.4)", fontSize: "11px", marginBottom: "6px" }}>Travel Date</label>
+                          <label style={{ display: "block", color: "rgba(255,255,255,0.55)", fontSize: "11px", marginBottom: "6px" }}>Travel Date</label>
                           <input
                             type="date"
                             value={form.travelDate}
@@ -279,7 +281,7 @@ export default function SearchBar() {
                       <div style={fieldStyle}>
                         <Users style={{ color: "#FFC20A", width: 20, height: 20, flexShrink: 0 }} />
                         <div style={{ flex: 1 }}>
-                          <label style={{ display: "block", color: "rgba(255,255,255,0.4)", fontSize: "11px", marginBottom: "6px" }}>Travelers</label>
+                          <label style={{ display: "block", color: "rgba(255,255,255,0.55)", fontSize: "11px", marginBottom: "6px" }}>Travelers</label>
                           <input
                             type="number"
                             min="1" max="50"
@@ -293,7 +295,7 @@ export default function SearchBar() {
                     <div style={{ ...fieldStyle, marginBottom: "20px" }}>
                       <span style={{ color: "#FFC20A", fontWeight: 900, fontSize: "16px", flexShrink: 0 }}>₨</span>
                       <div style={{ flex: 1 }}>
-                        <label style={{ display: "block", color: "rgba(255,255,255,0.4)", fontSize: "11px", marginBottom: "6px" }}>Budget per Person</label>
+                        <label style={{ display: "block", color: "rgba(255,255,255,0.55)", fontSize: "11px", marginBottom: "6px" }}>Budget per Person</label>
                         <select
                           value={form.budget}
                           onChange={(e) => update("budget", e.target.value)}
@@ -303,11 +305,11 @@ export default function SearchBar() {
                           {budgetOptions.map((b) => <option key={b} value={b} style={{ background: "#0B1628" }}>{b}</option>)}
                         </select>
                       </div>
-                      <ChevronDown style={{ color: "rgba(255,255,255,0.3)", width: 16, height: 16, flexShrink: 0 }} />
+                      <ChevronDown style={{ color: "rgba(255,255,255,0.55)", width: 16, height: 16, flexShrink: 0 }} />
                     </div>
                     <div style={{ ...fieldStyle, alignItems: "flex-start" }}>
                       <div style={{ flex: 1 }}>
-                        <label style={{ display: "block", color: "rgba(255,255,255,0.4)", fontSize: "11px", marginBottom: "10px" }}>Special Requirements (optional)</label>
+                        <label style={{ display: "block", color: "rgba(255,255,255,0.55)", fontSize: "11px", marginBottom: "10px" }}>Special Requirements (optional)</label>
                         <textarea
                           rows={3}
                           placeholder="e.g. halal food, honeymoon package, photography tour..."
@@ -348,7 +350,7 @@ export default function SearchBar() {
                 <button
                   type="button"
                   onClick={() => setStep((s) => Math.max(1, s - 1))}
-                  style={{ color: "rgba(255,255,255,0.4)", fontSize: "14px", fontWeight: 700, background: "none", border: "none", cursor: "pointer", visibility: step === 1 ? "hidden" : "visible" }}
+                  style={{ color: "rgba(255,255,255,0.55)", fontSize: "14px", fontWeight: 700, background: "none", border: "none", cursor: "pointer", visibility: step === 1 ? "hidden" : "visible" }}
                 >
                   ← Back
                 </button>

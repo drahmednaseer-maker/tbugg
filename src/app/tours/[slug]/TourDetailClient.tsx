@@ -56,7 +56,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
       <div style={{ paddingTop: "130px" }} className="max-w-7xl mx-auto px-8 sm:px-12 lg:px-16 pb-8">
         <Link
           href="/tours"
-          className="inline-flex items-center gap-2 text-white/40 hover:text-[#FFC20A] text-sm transition-colors"
+          className="inline-flex items-center gap-2 text-white/55 hover:text-[#FFC20A] text-sm transition-colors"
         >
           <ArrowLeft className="w-4 h-4" /> Back to All Destinations
         </Link>
@@ -88,20 +88,25 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
               {/* Arrows */}
               {images.length > 1 && (
                 <>
-                  <button onClick={prevImg} id="img-prev"
+                  <button onClick={prevImg} id="img-prev" aria-label="Previous photo"
                     className="absolute left-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 flex items-center justify-center transition-all border border-white/10">
                     <ChevronLeft className="w-5 h-5" />
                   </button>
-                  <button onClick={nextImg} id="img-next"
+                  <button onClick={nextImg} id="img-next" aria-label="Next photo"
                     className="absolute right-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 flex items-center justify-center transition-all border border-white/10">
                     <ChevronRight className="w-5 h-5" />
                   </button>
-                  <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2">
+                  <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-0.5">
                     {images.map((_, i) => (
                       <button key={i} onClick={() => setImgIndex(i)}
-                        className="h-1.5 rounded-full transition-all"
-                        style={{ width: i === imgIndex ? "28px" : "7px", background: i === imgIndex ? "#FFC20A" : "rgba(255,255,255,0.35)" }}
-                      />
+                        aria-label={`Show photo ${i + 1} of ${images.length}`}
+                        aria-current={i === imgIndex ? "true" : undefined}
+                        className="h-6 flex items-center justify-center"
+                        style={{ minWidth: "24px", background: "transparent", border: "none", padding: 0, cursor: "pointer" }}
+                      >
+                        <span className="block h-1.5 rounded-full transition-all"
+                          style={{ width: i === imgIndex ? "28px" : "7px", background: i === imgIndex ? "#FFC20A" : "rgba(255,255,255,0.55)" }} />
+                      </button>
                     ))}
                   </div>
                 </>
@@ -113,7 +118,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
               <h1 style={{ fontSize: "clamp(2rem,5vw,3.25rem)", fontWeight: 800, color: "white", lineHeight: 1.2, marginBottom: "14px" }}>
                 {tour.title}
               </h1>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", color: "rgba(255,255,255,0.45)", marginBottom: "40px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", color: "rgba(255,255,255,0.55)", marginBottom: "40px" }}>
                 <MapPin style={{ width: "16px", height: "16px", color: "#FFC20A", flexShrink: 0 }} />
                 <span style={{ fontSize: "15px" }}>{tour.destination}, {tour.country}</span>
               </div>
@@ -132,7 +137,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
                     border: "1px solid rgba(255,255,255,0.08)",
                     display: "flex", flexDirection: "column", gap: "10px",
                   }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "7px", color: "rgba(255,255,255,0.38)" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "7px", color: "rgba(255,255,255,0.55)" }}>
                       <Icon style={{ width: "13px", height: "13px", color: "#FFC20A" }} />
                       <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700 }}>{label}</span>
                     </div>
@@ -280,7 +285,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
                 <div style={{ padding: "32px", borderBottom: "1px solid rgba(255,255,255,0.07)", background: "linear-gradient(135deg,rgba(255,194,10,0.12),rgba(255,194,10,0.04))" }}>
                   <div style={sectionLabel}>✦ 100% Customized Tour</div>
                   <h3 style={{ color: "white", fontWeight: 800, fontSize: "20px", marginBottom: "10px" }}>Plan This Trip Your Way</h3>
-                  <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "14px", lineHeight: 1.7, margin: 0 }}>
+                  <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "14px", lineHeight: 1.7, margin: 0 }}>
                     No fixed pricing — every trip is tailored to your group, dates, and preferences.
                   </p>
                 </div>
@@ -298,7 +303,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
                         <Icon style={{ width: "16px", height: "16px", color: "#FFC20A" }} />
                       </div>
                       <div>
-                        <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700, marginBottom: "4px" }}>{label}</p>
+                        <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700, marginBottom: "4px" }}>{label}</p>
                         <p style={{ color: "white", fontWeight: 600, fontSize: "14px", margin: 0 }}>{value}</p>
                       </div>
                     </div>
@@ -329,7 +334,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
                       display: "flex", alignItems: "center", justifyContent: "center", gap: "10px",
                       width: "100%", padding: "16px", borderRadius: "14px", fontWeight: 700, fontSize: "15px",
                       color: "white", textDecoration: "none",
-                      background: "#22c55e", boxShadow: "0 6px 20px rgba(34,197,94,0.3)",
+                      background: "#15803d", boxShadow: "0 6px 20px rgba(34,197,94,0.3)",
                     }}
                   >
                     <svg viewBox="0 0 24 24" style={{ width: "18px", height: "18px", fill: "white", flexShrink: 0 }}>
@@ -342,7 +347,7 @@ export default function TourDetailClient({ tour }: { tour: Tour }) {
                 {/* Trust */}
                 <div style={{ padding: "20px 32px 28px", background: "rgba(255,255,255,0.02)", display: "flex", flexDirection: "column", gap: "10px" }}>
                   {["100% customized itinerary", "We reply 24/7 — any time, any day", "No commitment required"].map((t) => (
-                    <div key={t} style={{ display: "flex", alignItems: "center", gap: "10px", color: "rgba(255,255,255,0.38)", fontSize: "12px" }}>
+                    <div key={t} style={{ display: "flex", alignItems: "center", gap: "10px", color: "rgba(255,255,255,0.55)", fontSize: "12px" }}>
                       <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#FFC20A", flexShrink: 0 }} />
                       {t}
                     </div>

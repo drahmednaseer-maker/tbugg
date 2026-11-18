@@ -200,7 +200,7 @@ export default function WhyChooseUs() {
                 {label}
               </div>
               <div style={{
-                color: "rgba(255,255,255,0.3)", fontSize: "11px", fontWeight: 400,
+                color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 400,
               }}>
                 {sub}
               </div>

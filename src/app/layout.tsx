@@ -18,7 +18,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://travelbug.pk"),
+  metadataBase: new URL("https://www.travelbug.pk"),
   title: {
     default: "TravelBug.pk — Pakistan's #1 Customized Tour Specialists",
     template: "%s | TravelBug.pk",
@@ -63,13 +63,13 @@ export const metadata: Metadata = {
 const orgJsonLd = {
   "@context": "https://schema.org",
   "@type": "TravelAgency",
-  "@id": "https://travelbug.pk/#organization",
+  "@id": "https://www.travelbug.pk/#organization",
   name: "TravelBug.pk",
   description:
     "Photographers-led, 100% customized tours across Pakistan — Hunza, Skardu, Minimarg, Kashmir, Lahore & beyond.",
-  url: "https://travelbug.pk",
-  logo: "https://travelbug.pk/logo.png",
-  image: "https://travelbug.pk/destinations/hunza/attabad_lake.jpg",
+  url: "https://www.travelbug.pk",
+  logo: "https://www.travelbug.pk/logo.png",
+  image: "https://www.travelbug.pk/destinations/hunza/attabad_lake.jpg",
   foundingDate: "2018",
   priceRange: "$$",
   telephone: "+923248888889",
@@ -107,18 +107,18 @@ const orgJsonLd = {
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": "https://travelbug.pk/#website",
+  "@id": "https://www.travelbug.pk/#website",
   name: "TravelBug.pk",
-  url: "https://travelbug.pk",
+  url: "https://www.travelbug.pk",
   description:
     "Photographers-led, 100% customized tours across Pakistan — Hunza, Skardu, Kashmir, Lahore & beyond.",
   inLanguage: "en",
-  publisher: { "@id": "https://travelbug.pk/#organization" },
+  publisher: { "@id": "https://www.travelbug.pk/#organization" },
   potentialAction: {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: "https://travelbug.pk/tours?q={search_term_string}",
+      urlTemplate: "https://www.travelbug.pk/tours?q={search_term_string}",
     },
     "query-input": "required name=search_term_string",
   },

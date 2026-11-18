@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { metaDescription } from "@/lib/seo";
 import MotionProvider from "@/components/MotionProvider";
 import type { Metadata } from "next";
 import { tours, getTourBySlug } from "@/data/tours";
@@ -18,11 +19,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!tour) return { title: "Tour Not Found" };
   return {
     title: tour.title,
-    description: tour.shortDescription,
+    description: metaDescription(tour.shortDescription),
     alternates: { canonical: `/tours/${tour.slug}` },
     openGraph: {
       title: tour.title,
-      description: tour.shortDescription,
+      description: metaDescription(tour.shortDescription),
       images: [{ url: tour.image, width: 1200, height: 630, alt: tour.title }],
     },
   };
@@ -33,13 +34,13 @@ export default async function TourDetailPage({ params }: Props) {
   const tour = getTourBySlug(slug);
   if (!tour) notFound();
 
-  const url = `https://travelbug.pk/tours/${tour.slug}`;
+  const url = `https://www.travelbug.pk/tours/${tour.slug}`;
   const tripJsonLd = {
     "@context": "https://schema.org",
     "@type": "TouristTrip",
     name: tour.title,
     description: tour.shortDescription,
-    image: `https://travelbug.pk${tour.image}`,
+    image: `https://www.travelbug.pk${tour.image}`,
     url,
     touristType: "Leisure, Adventure, Photography",
     itinerary: {
@@ -64,14 +65,14 @@ export default async function TourDetailPage({ params }: Props) {
           },
         }
       : {}),
-    provider: { "@type": "TravelAgency", name: "TravelBug.pk", url: "https://travelbug.pk" },
+    provider: { "@type": "TravelAgency", name: "TravelBug.pk", url: "https://www.travelbug.pk" },
   };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://travelbug.pk" },
-      { "@type": "ListItem", position: 2, name: "Tours", item: "https://travelbug.pk/tours" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.travelbug.pk" },
+      { "@type": "ListItem", position: 2, name: "Tours", item: "https://www.travelbug.pk/tours" },
       { "@type": "ListItem", position: 3, name: tour.title, item: url },
     ],
   };

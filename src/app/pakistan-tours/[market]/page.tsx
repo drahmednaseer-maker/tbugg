@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { metaDescription } from "@/lib/seo";
 import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -19,8 +20,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { market } = await params;
   const m = getMarket(market);
   if (!m) return { title: "Pakistan Tours" };
-  const title = `Pakistan Tours from ${m.country} — Photographers-Led Private Trips`;
-  const description = `Planning a trip to Pakistan from ${m.country}? Discover flights, best seasons, visa guidance and photographers-led private tours to Hunza, Skardu & the Karakoram with TravelBug.pk.`;
+  const title = m.country.length > 16 ? `Pakistan Tours from ${m.country}` : `Private Pakistan Tours from ${m.country}`;
+  const description = metaDescription(`Pakistan from ${m.country}: flights, best seasons, visa guidance and private photographer-led tours to Hunza, Skardu and the Karakoram.`);
   return {
     title,
     description,
@@ -39,14 +40,14 @@ export default async function MarketPage({ params }: Props) {
   if (!m) notFound();
 
   const topTours = [...tours].sort((a, b) => b.rating - a.rating).slice(0, 6);
-  const url = `https://travelbug.pk/pakistan-tours/${m.slug}`;
+  const url = `https://www.travelbug.pk/pakistan-tours/${m.slug}`;
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://travelbug.pk" },
-      { "@type": "ListItem", position: 2, name: "Pakistan Tours", item: "https://travelbug.pk/pakistan-tours" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.travelbug.pk" },
+      { "@type": "ListItem", position: 2, name: "Pakistan Tours", item: "https://www.travelbug.pk/pakistan-tours" },
       { "@type": "ListItem", position: 3, name: `From ${m.country}`, item: url },
     ],
   };
@@ -54,7 +55,7 @@ export default async function MarketPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "Service",
     serviceType: `Pakistan tours for travellers from ${m.country}`,
-    provider: { "@id": "https://travelbug.pk/#organization" },
+    provider: { "@id": "https://www.travelbug.pk/#organization" },
     areaServed: { "@type": "Country", name: "Pakistan" },
     audience: { "@type": "Audience", audienceType: `${m.demonym} travellers` },
     url,
@@ -165,7 +166,7 @@ export default async function MarketPage({ params }: Props) {
                 </div>
                 <div style={{ padding: "20px" }}>
                   <h3 style={{ color: "white", fontSize: "17px", fontWeight: 800, margin: "0 0 10px", lineHeight: 1.3 }}>{t.title}</h3>
-                  <div style={{ display: "flex", gap: "14px", color: "rgba(255,255,255,0.45)", fontSize: "13px" }}>
+                  <div style={{ display: "flex", gap: "14px", color: "rgba(255,255,255,0.55)", fontSize: "13px" }}>
                     <span>{t.duration} Days</span>
                     <span style={{ textTransform: "capitalize" }}>{t.category}</span>
                     <span style={{ color: "#FFC20A" }}>★ {t.rating}</span>

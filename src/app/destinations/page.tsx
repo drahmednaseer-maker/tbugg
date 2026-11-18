@@ -5,7 +5,7 @@ import { destinations } from "@/data/destinations";
 import { MapPin, ArrowRight, Camera } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Destinations — Photographers-Led Tours | TravelBug.pk",
+  title: "Pakistan Destinations & Travel Guides",
   description: "Explore Pakistan's most extraordinary destinations. From the blossom-filled valleys of Hunza to the granite giants of Charakusa.",
   alternates: { canonical: "/destinations" },
 };

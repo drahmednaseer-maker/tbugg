@@ -85,7 +85,7 @@ export default function PhotoGallery() {
         <h2 style={{ color: "white", fontWeight: 900, fontSize: "clamp(28px,4vw,46px)", lineHeight: 1.1, margin: "0 0 14px" }}>
           Pakistan in Every Frame
         </h2>
-        <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "15px", maxWidth: "480px", margin: "0 auto", lineHeight: 1.7 }}>
+        <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "15px", maxWidth: "480px", margin: "0 auto", lineHeight: 1.7 }}>
           Every image is shot on location by our photographer-guides. Click any photo to explore it full screen.
         </p>
       </m.div>

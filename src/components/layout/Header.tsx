@@ -128,7 +128,7 @@ export default function Header() {
             <div className="flex items-center shrink-0">
               <Link href="/" id="nav-logo" className="flex items-center group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                 <span className="text-white font-black text-xl tracking-tighter leading-none">
-                  TRAVEL<span className="text-[#FACC15]">BUG</span><span className="text-white/40 text-[11px] font-bold tracking-widest ml-1">.PK</span>
+                  TRAVEL<span className="text-[#FACC15]">BUG</span><span className="text-white/55 text-[11px] font-bold tracking-widest ml-1">.PK</span>
                 </span>
               </Link>
             </div>
@@ -174,7 +174,7 @@ export default function Header() {
                                   <div className="flex items-center gap-2">
                                     <span style={{ fontSize: "10px", letterSpacing: "0.18em", color: "rgba(250,204,21,0.7)", fontWeight: 800 }}>EXPLORE TOURS</span>
                                   </div>
-                                  <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.3)", fontWeight: 700 }}>PAKISTAN • 2024–25</span>
+                                  <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.55)", fontWeight: 700 }}>PAKISTAN • 2024–25</span>
                                 </div>
 
                                 {/* Tour category cards */}
@@ -203,7 +203,7 @@ export default function Header() {
                                               style={{ background: `${cat.accent}20`, color: cat.accent, border: `1px solid ${cat.accent}30` }}
                                             >{cat.tag}</span>
                                           </div>
-                                          <p className="text-[11px] text-white/40 font-medium truncate group-hover/card:text-white/60 transition-colors">{cat.desc}</p>
+                                          <p className="text-[11px] text-white/55 font-medium truncate group-hover/card:text-white/60 transition-colors">{cat.desc}</p>
                                         </div>
 
                                         {/* Arrow */}
@@ -222,7 +222,7 @@ export default function Header() {
                                     href="/tours"
                                     className="flex items-center justify-between w-full group/all"
                                   >
-                                    <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", fontWeight: 700, letterSpacing: "0.05em" }}>View all tour packages</span>
+                                    <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.55)", fontWeight: 700, letterSpacing: "0.05em" }}>View all tour packages</span>
                                     <span
                                       className="flex items-center gap-1.5 text-[11px] font-black transition-all duration-200 group-hover/all:gap-2.5"
                                       style={{ color: "#FACC15" }}
@@ -302,7 +302,7 @@ export default function Header() {
               }}>
               {/* Header */}
               <div className="menu-hdr flex items-center justify-between px-6 h-[64px] border-b border-white/10 shrink-0">
-                <span className="text-white font-black text-[17px] tracking-tight">TRAVEL<span className="text-[#FACC15]">BUG</span><span className="text-white/40 text-[10px] font-bold tracking-widest ml-0.5">.PK</span></span>
+                <span className="text-white font-black text-[17px] tracking-tight">TRAVEL<span className="text-[#FACC15]">BUG</span><span className="text-white/55 text-[10px] font-bold tracking-widest ml-0.5">.PK</span></span>
                 <button onClick={() => setMobileOpen(false)} aria-label="Close menu" className="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 text-white/70 hover:bg-white/20 transition-colors">
                   <X className="w-5 h-5" />
                 </button>
@@ -311,7 +311,7 @@ export default function Header() {
               {/* Body: nav at top, contact + CTA pulled toward the bottom-centre */}
               <div className="menu-body flex-1 overflow-y-auto flex flex-col">
                 <nav className="pt-5">
-                  <p className="text-[11px] font-black tracking-[0.16em] text-white/30 uppercase mb-3.5 px-2">Explore</p>
+                  <p className="text-[11px] font-black tracking-[0.16em] text-white/55 uppercase mb-3.5 px-2">Explore</p>
                   <ul className="space-y-2">
                     {navLinks.map(({ href, label, Icon }) => {
                       const active = isActive(href);
@@ -327,7 +327,7 @@ export default function Header() {
                               <Icon className="w-[19px] h-[19px]" style={{ color: active ? "#FACC15" : "rgba(255,255,255,0.75)" }} />
                             </span>
                             <span className={cn("flex-1 text-[15px] font-bold tracking-wide", active ? "text-[#FACC15]" : "text-white/90")}>{label}</span>
-                            <ArrowRight className={cn("w-4 h-4 shrink-0 transition-all duration-200", active ? "text-[#FACC15]" : "text-white/25 -translate-x-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-0")} />
+                            <ArrowRight className={cn("w-4 h-4 shrink-0 transition-all duration-200", active ? "text-[#FACC15]" : "text-white/55 -translate-x-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-0")} />
                           </Link>
                         </li>
                       );
@@ -337,7 +337,7 @@ export default function Header() {
 
                 <div className="menu-lower">
                   <div>
-                    <p className="text-[11px] font-black tracking-[0.16em] text-white/30 uppercase mb-3.5 px-2">Get in touch</p>
+                    <p className="text-[11px] font-black tracking-[0.16em] text-white/55 uppercase mb-3.5 px-2">Get in touch</p>
                     <div className="space-y-1.5">
                       <a href="tel:+923344334411" className="menu-row flex items-center gap-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors">
                         <span className="w-10 h-10 rounded-xl bg-[#22c55e]/[0.12] border border-[#22c55e]/25 flex items-center justify-center shrink-0">
@@ -345,7 +345,7 @@ export default function Header() {
                         </span>
                         <span className="flex flex-col leading-tight">
                           <span className="text-[15px] font-bold text-white/90">0334 4334411</span>
-                          <span className="text-[11px] text-white/40 mt-0.5">Call / WhatsApp</span>
+                          <span className="text-[11px] text-white/55 mt-0.5">Call / WhatsApp</span>
                         </span>
                       </a>
                       <a href="tel:+923248888889" className="menu-row flex items-center gap-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors">

@@ -12,7 +12,7 @@ import { generalFaqs } from "@/data/faqs";
 export const metadata: Metadata = {
   title: "TravelBug.pk — Photographers-Led Custom Tours of Pakistan",
   description:
-    "TravelBug.pk is run by professional photographers Muhammad Asmar Hussain, Uzair Ahmed & Dr. Usman ul Haq. We craft 100% customised tours across Pakistan's most extraordinary destinations.",
+    "Photographer-led, 100% customised tours of Pakistan — Hunza, Skardu, K2, Fairy Meadows and beyond. Run by professional photographers since 2018.",
   alternates: { canonical: "/" },
 };
 

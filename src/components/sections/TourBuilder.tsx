@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { DEST_ELEVATION, DEST_COORDS } from "@/components/MapRoute";
 import { saveItinerary, rememberPhone, recallPhone, normalizePhone } from "@/lib/itineraryStore";
+import { trackEvent } from "@/lib/analytics";
 
 // Leaflet map — loaded client-side only (no SSR)
 const MapRoute = dynamic(() => import("@/components/MapRoute"), {
@@ -272,7 +273,7 @@ function NightModal({
             </button>
             <div style={{ textAlign: "center" }}>
               <div style={{ fontSize: 52, fontWeight: 900, color: "#FFC20A", lineHeight: 1 }}>{nights}</div>
-              <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginTop: 4 }}>{nights === 1 ? "night" : "nights"}</div>
+              <div style={{ fontSize: 12, color: "rgba(255,255,255,0.55)", marginTop: 4 }}>{nights === 1 ? "night" : "nights"}</div>
             </div>
             <button
               onClick={() => setNights(n => Math.min(30, n + 1))}
@@ -320,14 +321,14 @@ function NightModal({
           {/* 7-day weather forecast strip */}
           {weather?.forecast && weather.forecast.length > 0 && (
             <div style={{ marginTop: "16px", borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "14px" }}>
-              <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 10px" }}>7-Day Forecast</p>
+              <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 10px" }}>7-Day Forecast</p>
               <div style={{ display: "flex", justifyContent: "space-between", gap: "4px" }}>
                 {weather.forecast.slice(0, 7).map((day) => (
                   <div key={day.date} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "3px" }}>
-                    <span style={{ fontSize: "9px", color: "rgba(255,255,255,0.35)", fontWeight: 700, textTransform: "uppercase" }}>{shortDay(day.date)}</span>
+                    <span style={{ fontSize: "9px", color: "rgba(255,255,255,0.55)", fontWeight: 700, textTransform: "uppercase" }}>{shortDay(day.date)}</span>
                     <span style={{ fontSize: "18px", lineHeight: 1.2 }}>{weatherEmoji(day.code).icon}</span>
                     <span style={{ fontSize: "10px", color: "white", fontWeight: 700 }}>{day.max}°</span>
-                    <span style={{ fontSize: "9px", color: "rgba(255,255,255,0.3)" }}>{day.min}°</span>
+                    <span style={{ fontSize: "9px", color: "rgba(255,255,255,0.55)" }}>{day.min}°</span>
                   </div>
                 ))}
               </div>
@@ -349,7 +350,7 @@ function CountRow({ label, sub, value, onDec, onInc }: {
     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 0", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
       <div>
         <p style={{ color: "white", fontWeight: 700, fontSize: "15px", margin: "0 0 2px" }}>{label}</p>
-        <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "12px", margin: 0 }}>{sub}</p>
+        <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "12px", margin: 0 }}>{sub}</p>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
         <button onClick={onDec} style={{ width: 36, height: 36, borderRadius: "50%", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "white", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -730,6 +731,7 @@ export default function TourBuilder() {
     }
 
     setSent(true);
+    trackEvent("generate_lead", { method: "trip_planner_whatsapp" });
     window.open(`https://wa.me/923344334411?text=${encodeURIComponent(lines.join("\n"))}`, "_blank");
   };
 
@@ -816,7 +818,7 @@ export default function TourBuilder() {
             <h2 style={{ color: "white", fontWeight: 900, fontSize: "clamp(28px, 4vw, 48px)", lineHeight: 1.1, marginBottom: "12px" }}>
               Build Your <span style={{ color: "#FFC20A" }}>Custom Tour</span>
             </h2>
-            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "15px", lineHeight: 1.7, maxWidth: "560px", margin: "0 auto" }}>
+            <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "15px", lineHeight: 1.7, maxWidth: "560px", margin: "0 auto" }}>
               Click destinations → set nights → drag to reorder → choose hotels → we&apos;ll plan it all.
             </p>
           </div>
@@ -827,19 +829,19 @@ export default function TourBuilder() {
               <div style={{ borderRadius: "24px", background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,194,10,0.2)", padding: "40px 36px" }}>
                 <div style={{ textAlign: "center", marginBottom: "28px" }}>
                   <h3 style={{ color: "white", fontWeight: 900, fontSize: "clamp(26px, 7vw, 34px)", lineHeight: 1.15, margin: "0 0 10px" }}>Let&apos;s Start Planning!</h3>
-                  <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "14px", margin: 0 }}>Leave your contact so we can follow up and craft your perfect trip.</p>
+                  <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "14px", margin: 0 }}>Leave your contact so we can follow up and craft your perfect trip.</p>
                 </div>
 
                 {/* Name */}
                 <div style={{ marginBottom: "14px" }}>
-                  <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "8px" }}>Your Name (optional)</p>
+                  <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "8px" }}>Your Name (optional)</p>
                   <input type="text" placeholder="Name" value={guestName} onChange={e => setGuestName(e.target.value)}
                     style={{ width: "100%", padding: "13px 14px", borderRadius: "14px", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: "white", fontSize: "14px", fontWeight: 600, outline: "none", boxSizing: "border-box" }} />
                 </div>
 
                 {/* Contact method */}
                 <div style={{ marginBottom: "20px" }}>
-                  <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "8px" }}>Contact (required) *</p>
+                  <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "8px" }}>Contact (required) *</p>
                   <div style={{ display: "flex", gap: "8px", marginBottom: "12px" }}>
                     {(["whatsapp", "email"] as const).map(m => (
                       <button key={m} type="button" onClick={() => setContactMethod(m)}
@@ -856,7 +858,7 @@ export default function TourBuilder() {
                           style={{ height: "100%", minHeight: 48, padding: "0 12px", borderRadius: "14px", border: `1px solid ${ccOpen ? "rgba(255,194,10,0.5)" : "rgba(255,255,255,0.1)"}`, background: "rgba(255,255,255,0.04)", color: "white", cursor: "pointer", display: "flex", alignItems: "center", gap: "5px", fontWeight: 700, fontSize: "12px", whiteSpace: "nowrap" }}>
                           <span style={{ fontSize: "16px" }}>{country.flag}</span>
                           <span style={{ color: "#FFC20A" }}>{country.dialCode}</span>
-                          <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "10px" }}>&#9662;</span>
+                          <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "10px" }}>&#9662;</span>
                         </button>
                         {ccOpen && (
                           <div style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, zIndex: 200, width: 240, maxHeight: 260, overflowY: "auto", background: "#0D1B2E", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 16px 48px rgba(0,0,0,0.6)", padding: "8px" }}>
@@ -928,7 +930,7 @@ export default function TourBuilder() {
                   style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.55)", fontSize: "12px", fontWeight: 700, cursor: "pointer", padding: "8px 14px", borderRadius: "12px", marginBottom: "14px" }}>
                   &#8592; Edit name &amp; number
                 </button>
-                <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "13px", marginBottom: "14px" }}>
+                <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px", marginBottom: "14px" }}>
                   <MapPin style={{ width: 13, height: 13, display: "inline", marginRight: 5 }} />
                   Click a destination to add it — click again to remove
                 </p>
@@ -946,8 +948,8 @@ export default function TourBuilder() {
                         <div style={{ flex: 1, minWidth: 0 }}>
                           <p style={{ color: selected ? "#FFC20A" : "white", fontWeight: 700, fontSize: "13px", margin: "0 0 2px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{d.name}</p>
                           <div style={{ display: "flex", alignItems: "center", gap: "6px", minWidth: 0 }}>
-                            <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px", margin: 0, minWidth: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{d.region}</p>
-                            {w && <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", flexShrink: 0, whiteSpace: "nowrap" }}>{weatherEmoji(w.code).icon} {w.temp}°C</span>}
+                            <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", margin: 0, minWidth: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{d.region}</p>
+                            {w && <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", flexShrink: 0, whiteSpace: "nowrap" }}>{weatherEmoji(w.code).icon} {w.temp}°C</span>}
                           </div>
                         </div>
                         {selected && <Check style={{ width: 14, height: 14, color: "#FFC20A", flexShrink: 0 }} />}
@@ -967,7 +969,7 @@ export default function TourBuilder() {
                   </div>
 
                   {route.length === 0 ? (
-                    <p style={{ color: "rgba(255,255,255,0.2)", fontSize: "13px", textAlign: "center", padding: "24px 0" }}>Select destinations →</p>
+                    <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px", textAlign: "center", padding: "24px 0" }}>Select destinations →</p>
                   ) : (
                     <div>
                       {route.map((d, i) => (
@@ -987,7 +989,7 @@ export default function TourBuilder() {
                             <Moon style={{ width: 11, height: 11, color: "#FFC20A" }} />
                             <span style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 700 }}>{d.nights}</span>
                           </div>
-                          <button onClick={() => clickDest(d)} style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.25)", padding: "2px" }}>
+                          <button onClick={() => clickDest(d)} style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.55)", padding: "2px" }}>
                             <X style={{ width: 12, height: 12 }} />
                           </button>
                         </div>
@@ -1040,13 +1042,13 @@ export default function TourBuilder() {
                           <p style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 800, margin: 0 }}>
                             {route.map(d => d.name).join(" → ")}
                           </p>
-                          <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "10px", margin: "2px 0 0" }}>
+                          <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "10px", margin: "2px 0 0" }}>
                             {totalNights} nights · {route.length} stop{route.length !== 1 ? "s" : ""}
                           </p>
                         </div>
                       )}
                     </div>
-                    <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "12px", marginTop: "16px" }}>Click anywhere outside to close</p>
+                    <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "12px", marginTop: "16px" }}>Click anywhere outside to close</p>
                   </div>
                 )}
               </div>
@@ -1065,7 +1067,7 @@ export default function TourBuilder() {
                   </div>
                   <div>
                     <h3 style={{ color: "white", fontWeight: 900, fontSize: "19px", margin: 0 }}>Group Composition</h3>
-                    <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "13px", margin: 0 }}>Tell us who&apos;s travelling</p>
+                    <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px", margin: 0 }}>Tell us who&apos;s travelling</p>
                   </div>
                 </div>
 
@@ -1119,7 +1121,7 @@ export default function TourBuilder() {
 
                 {/* Transport grid */}
                 <div style={{ marginBottom: "24px" }}>
-                  <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "14px" }}>Select Transport</p>
+                  <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "14px" }}>Select Transport</p>
                   <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: "10px" }}>
                     {TRANSPORT_OPTIONS.map(t => {
                       const sel = transport === t.id;
@@ -1129,7 +1131,7 @@ export default function TourBuilder() {
                           {sel && <div style={{ position: "absolute", top: 10, right: 10, width: 20, height: 20, borderRadius: "50%", background: "#FFC20A", display: "flex", alignItems: "center", justifyContent: "center" }}><Check style={{ width: 11, height: 11, color: "#0B1628" }} /></div>}
                           <div style={{ fontSize: "26px", marginBottom: "8px" }}>{t.icon}</div>
                           <p style={{ color: sel ? "#FFC20A" : "white", fontWeight: 800, fontSize: "14px", margin: "0 0 4px" }}>{t.label}</p>
-                          <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", margin: "0 0 10px", lineHeight: 1.4 }}>{t.desc}</p>
+                          <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", margin: "0 0 10px", lineHeight: 1.4 }}>{t.desc}</p>
                           <span style={{ background: `${t.tagClr}18`, color: t.tagClr, fontSize: "9px", fontWeight: 800, letterSpacing: "0.1em", padding: "4px 10px", borderRadius: "20px", border: `1px solid ${t.tagClr}40` }}>{t.tag} · {t.cap}</span>
                         </button>
                       );
@@ -1146,7 +1148,7 @@ export default function TourBuilder() {
 
                 {/* Departure */}
                 <div style={{ marginBottom: "28px" }}>
-                  <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "12px" }}>Departure City</p>
+                  <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "12px" }}>Departure City</p>
                   <div style={{ display: "flex", gap: "10px" }}>
                     {(["islamabad", "lahore"] as const).map(city => (
                       <button key={city} type="button" onClick={() => setDeparture(city)}
@@ -1178,7 +1180,7 @@ export default function TourBuilder() {
                   </div>
                   <div>
                     <h3 style={{ color: "white", fontWeight: 900, fontSize: "19px", margin: 0 }}>Hotel Preferences</h3>
-                    <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "13px", margin: 0 }}>Assign your nights to one or more hotels per stop — tap the camera to see photos</p>
+                    <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px", margin: 0 }}>Assign your nights to one or more hotels per stop — tap the camera to see photos</p>
                   </div>
                 </div>
 
@@ -1223,12 +1225,12 @@ export default function TourBuilder() {
                           <Image src={dest.image} alt={dest.name} width={34} height={34} loading="lazy" quality={50} sizes="34px" style={{ borderRadius: 9, objectFit: "cover", flexShrink: 0 }} />
                           <div style={{ flex: 1, minWidth: 0 }}>
                             <p style={{ color: "white", fontWeight: 800, fontSize: "14px", margin: "0 0 2px" }}>{dest.name}</p>
-                            <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px", margin: 0 }}>{dest.nights} night{dest.nights !== 1 ? "s" : ""} total</p>
+                            <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", margin: 0 }}>{dest.nights} night{dest.nights !== 1 ? "s" : ""} total</p>
                           </div>
                           <span style={{ flexShrink: 0, background: complete ? "rgba(34,197,94,0.12)" : "rgba(255,194,10,0.1)", border: `1px solid ${complete ? "rgba(34,197,94,0.4)" : "rgba(255,194,10,0.25)"}`, color: complete ? "#4ade80" : "#FFC20A", fontSize: "11px", fontWeight: 800, padding: "4px 11px", borderRadius: "20px", whiteSpace: "nowrap" }}>{complete ? "✓ " : ""}{assigned}/{dest.nights}N</span>
                         </div>
                         <div style={{ padding: "14px 18px", display: "flex", flexDirection: "column", gap: "7px" }}>
-                          {dest.nights > 1 && <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11.5px", margin: "0 0 3px" }}>Split your {dest.nights} nights across one or more hotels with the +/− buttons.</p>}
+                          {dest.nights > 1 && <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11.5px", margin: "0 0 3px" }}>Split your {dest.nights} nights across one or more hotels with the +/− buttons.</p>}
                           {list.map(name => {
                             const n = nightsOf(dest.id, name);
                             return (
@@ -1248,7 +1250,7 @@ export default function TourBuilder() {
                           ))}
                           {/* add your own hotel */}
                           <div style={{ marginTop: "3px", padding: "8px 10px 8px 12px", borderRadius: "12px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", display: "flex", alignItems: "center", gap: "8px" }}>
-                            <Hotel style={{ width: 14, height: 14, color: "rgba(255,255,255,0.3)", flexShrink: 0 }} />
+                            <Hotel style={{ width: 14, height: 14, color: "rgba(255,255,255,0.55)", flexShrink: 0 }} />
                             <input type="text" value={customDraft[dest.id] ?? ""} onChange={(e) => setCustomDraft(d => ({ ...d, [dest.id]: e.target.value }))}
                               onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addCustom(); } }}
                               placeholder="Add your own hotel…"
@@ -1284,13 +1286,13 @@ export default function TourBuilder() {
                   </div>
                   <div>
                     <h3 style={{ color: "white", fontWeight: 900, fontSize: "19px", margin: 0 }}>Your Trip Summary</h3>
-                    <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "13px", margin: 0 }}>Review and send</p>
+                    <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px", margin: 0 }}>Review and send</p>
                   </div>
                 </div>
 
                 {/* Route list */}
                 <div style={{ marginBottom: "16px" }}>
-                  <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "10px" }}>Route</p>
+                  <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "10px" }}>Route</p>
                   {route.map((d, i) => (
                     <div key={d.id} style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
                       <div style={{ width: 22, height: 22, borderRadius: "50%", background: "#FFC20A", color: "#0B1628", fontSize: "10px", fontWeight: 900, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{i + 1}</div>
@@ -1306,9 +1308,9 @@ export default function TourBuilder() {
                   <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "14px", padding: "16px" }}>
                     <p style={{ color: "#FFC20A", fontSize: "10px", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "8px" }}>Travelers</p>
                     <p style={{ color: "white", fontWeight: 700, fontSize: "14px", margin: "0 0 3px" }}>👨 {maleAdults} Male · 👩 {femaleAdults} Female</p>
-                    {children > 0 && <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "12px", margin: "0 0 3px" }}>👧 {children} Child{children !== 1 ? "ren" : ""} · Ages: {childAges.join(", ")}</p>}
-                    <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", margin: "0 0 3px" }}>🚗 {TRANSPORT_OPTIONS.find(t => t.id === transport)?.label ?? "—"}</p>
-                    <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", margin: 0 }}>🏙️ From {departure === "islamabad" ? "Islamabad" : "Lahore"}</p>
+                    {children > 0 && <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "12px", margin: "0 0 3px" }}>👧 {children} Child{children !== 1 ? "ren" : ""} · Ages: {childAges.join(", ")}</p>}
+                    <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", margin: "0 0 3px" }}>🚗 {TRANSPORT_OPTIONS.find(t => t.id === transport)?.label ?? "—"}</p>
+                    <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", margin: 0 }}>🏙️ From {departure === "islamabad" ? "Islamabad" : "Lahore"}</p>
                   </div>
                   <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "14px", padding: "16px" }}>
                     <p style={{ color: "#FFC20A", fontSize: "10px", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "8px" }}>Hotels</p>
@@ -1320,7 +1322,7 @@ export default function TourBuilder() {
 
                 {/* Additional requirements (optional) */}
                 <div style={{ marginBottom: "20px" }}>
-                  <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "10px" }}>Anything Else? <span style={{ color: "rgba(255,255,255,0.25)", fontWeight: 600, letterSpacing: 0, textTransform: "none" }}>(optional)</span></p>
+                  <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "10px" }}>Anything Else? <span style={{ color: "rgba(255,255,255,0.55)", fontWeight: 600, letterSpacing: 0, textTransform: "none" }}>(optional)</span></p>
                   <textarea
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
@@ -1336,16 +1338,16 @@ export default function TourBuilder() {
                     {contactMethod === "whatsapp" ? <MessageCircle style={{ width: 15, height: 15, color: "#FFC20A" }} /> : <Mail style={{ width: 15, height: 15, color: "#FFC20A" }} />}
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "9px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 3px" }}>
+                    <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "9px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 3px" }}>
                       Sending via {contactMethod === "whatsapp" ? "WhatsApp" : "Email"}
                     </p>
                     <p style={{ color: "#FFC20A", fontWeight: 800, fontSize: "13px", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                       {contactMethod === "whatsapp" ? (fullPhone || localPhone) : guestEmail}
-                      {guestName && <span style={{ color: "rgba(255,255,255,0.4)", fontWeight: 600 }}> &nbsp;&middot;&nbsp; {guestName}</span>}
+                      {guestName && <span style={{ color: "rgba(255,255,255,0.55)", fontWeight: 600 }}> &nbsp;&middot;&nbsp; {guestName}</span>}
                     </p>
                   </div>
                   <button type="button" onClick={() => { setContactCollected(false); setSent(false); }}
-                    style={{ background: "none", border: "none", color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 700, cursor: "pointer", flexShrink: 0, padding: "4px 8px", borderRadius: "8px" }}>Edit</button>
+                    style={{ background: "none", border: "none", color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 700, cursor: "pointer", flexShrink: 0, padding: "4px 8px", borderRadius: "8px" }}>Edit</button>
                 </div>
 
                 {/* Sent success message */}
@@ -1354,7 +1356,7 @@ export default function TourBuilder() {
                     <span style={{ fontSize: "20px" }}>{contactMethod === "email" ? "📧" : "✅"}</span>
                     <div>
                       <p style={{ color: contactMethod === "email" ? "#FFC20A" : "#22c55e", fontWeight: 800, fontSize: "13px", margin: "0 0 2px" }}>{contactMethod === "email" ? "Email Sent!" : "Itinerary sent!"}</p>
-                      <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", margin: 0 }}>
+                      <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", margin: 0 }}>
                         {contactMethod === "email"
                           ? "Thank you for your inquiry! Our team will contact you soon—let’s make your trip memorable."
                           : (fullPhone ? "Saved to My Trips — click the button in the top navbar to view." : "Enter your number above to save for later.")}
