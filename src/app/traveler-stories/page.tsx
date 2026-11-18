@@ -5,7 +5,7 @@ import { Star, MapPin, Calendar } from "lucide-react";
 import GoogleVerifiedBadge from "@/components/GoogleVerifiedBadge";
 
 export const metadata: Metadata = {
-  title: "Traveler Stories — Real Experiences | TravelBug.pk",
+  title: "Traveler Stories — Real Pakistan Trip Reviews",
   description: "Read real reviews and stories from travelers who have explored Pakistan with TravelBug.pk. Photographers-led memories from across the country.",
   alternates: { canonical: "/traveler-stories" },
 };
@@ -66,7 +66,7 @@ export default function TravelerStoriesPage() {
                     </div>
                   )}
                   <div>
-                    <h4 style={{ color: "white", fontSize: "15px", fontWeight: 800, marginBottom: "4px" }}>{t.name}</h4>
+                    <h2 style={{ color: "white", fontSize: "15px", fontWeight: 800, margin: "0 0 4px" }}>{t.name}</h2>
                     <div style={{ display: "flex", gap: "2px" }}>
                       {Array.from({ length: 5 }).map((_, i) => (
                         <Star
@@ -106,7 +106,7 @@ export default function TravelerStoriesPage() {
               </p>
 
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px", flexWrap: "wrap" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", color: "rgba(255,255,255,0.4)", fontSize: "11px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", color: "rgba(255,255,255,0.55)", fontSize: "11px" }}>
                   <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><MapPin style={{ width: 10, height: 10 }} /> {t.location}</span>
                   <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><Calendar style={{ width: 10, height: 10 }} /> {t.date}</span>
                 </div>
@@ -124,7 +124,7 @@ export default function TravelerStoriesPage() {
         }}>
           <h2 style={{ color: "white", fontSize: "32px", fontWeight: 900, marginBottom: "16px" }}>Ready for Your Story?</h2>
           <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "16px", maxWidth: "600px", margin: "0 auto 32px", lineHeight: 1.7 }}>
-            Join the hundreds of happy travelers who have seen the real Pakistan with us. Let's design an itinerary that you'll be telling stories about for years.
+            Join the hundreds of happy travelers who have seen the real Pakistan with us. Let&apos;s design an itinerary that you&apos;ll be telling stories about for years.
           </p>
           <a 
             href="/contact" 

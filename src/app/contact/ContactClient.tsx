@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { m } from "framer-motion";
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle2, MessageSquare } from "lucide-react";
+import { Mail, Phone, Clock, Send, CheckCircle2, MessageSquare } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 /* ─── Real TravelBug.pk Contact Details ─── */
 const PHONE1 = "+92 324 8888889";
@@ -50,6 +51,7 @@ export default function ContactClient() {
       });
       if (res.ok) {
         setSubmitted(true);
+        trackEvent("generate_lead", { method: "contact_form" });
       } else if (res.status === 503) {
         // The mailbox isn't wired up yet. Not the visitor's problem and not
         // worth alarming them over — hand the enquiry to WhatsApp, which is
@@ -81,6 +83,7 @@ export default function ContactClient() {
       "",
       `Message: ${form.message}`,
     ].filter(Boolean);
+    trackEvent("generate_lead", { method: "contact_form_whatsapp" });
     window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(lines.join("\n"))}`,
       "_blank", "noopener,noreferrer");
   };
@@ -154,9 +157,9 @@ export default function ContactClient() {
                 <Phone style={{ width: "18px", height: "18px", color: "#FFC20A" }} />
               </div>
               <div>
-                <p style={{ margin: "0 0 2px", color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em" }}>Call Us</p>
+                <p style={{ margin: "0 0 2px", color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em" }}>Call Us</p>
                 <p style={{ margin: "0 0 1px", color: "white", fontWeight: 700, fontSize: "14px" }}>{PHONE2}</p>
-                <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: "12px" }}>{PHONE1}</p>
+                <p style={{ margin: 0, color: "rgba(255,255,255,0.55)", fontSize: "12px" }}>{PHONE1}</p>
               </div>
             </m.a>
 
@@ -176,9 +179,9 @@ export default function ContactClient() {
                 <Mail style={{ width: "18px", height: "18px", color: "#FFC20A" }} />
               </div>
               <div>
-                <p style={{ margin: "0 0 2px", color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em" }}>Email</p>
+                <p style={{ margin: "0 0 2px", color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em" }}>Email</p>
                 <p style={{ margin: "0 0 1px", color: "white", fontWeight: 700, fontSize: "14px" }}>{EMAIL}</p>
-                <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: "12px" }}>We reply any time, any day</p>
+                <p style={{ margin: 0, color: "rgba(255,255,255,0.55)", fontSize: "12px" }}>We reply any time, any day</p>
               </div>
             </m.a>
 
@@ -194,9 +197,9 @@ export default function ContactClient() {
                 <Clock style={{ width: "18px", height: "18px", color: "#FFC20A" }} />
               </div>
               <div>
-                <p style={{ margin: "0 0 2px", color: "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em" }}>Hours</p>
+                <p style={{ margin: "0 0 2px", color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em" }}>Hours</p>
                 <p style={{ margin: "0 0 1px", color: "white", fontWeight: 700, fontSize: "14px" }}>24/7 — Always Online</p>
-                <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: "12px" }}>We reply any time, any day</p>
+                <p style={{ margin: 0, color: "rgba(255,255,255,0.55)", fontSize: "12px" }}>We reply any time, any day</p>
               </div>
             </m.div>
           </div>
@@ -215,7 +218,7 @@ export default function ContactClient() {
             {/* Form header */}
             <div style={{ padding: "28px 32px", borderBottom: "1px solid rgba(255,255,255,0.07)", background: "rgba(255,255,255,0.02)" }}>
               <h2 style={{ margin: "0 0 6px", fontSize: "20px", fontWeight: 800, color: "white" }}>Send Us a Message</h2>
-              <p style={{ margin: 0, color: "rgba(255,255,255,0.4)", fontSize: "14px" }}>We&apos;re online 24/7 — we&apos;ll get right back to you</p>
+              <p style={{ margin: 0, color: "rgba(255,255,255,0.55)", fontSize: "14px" }}>We&apos;re online 24/7 — we&apos;ll get right back to you</p>
             </div>
 
             <div style={{ padding: "28px 32px" }}>
@@ -266,8 +269,8 @@ export default function ContactClient() {
                       <input name="phone" value={form.phone} onChange={handleChange} placeholder="+92 300 1234567" style={inputStyle} />
                     </div>
                     <div>
-                      <label style={labelStyle}>Topic</label>
-                      <select name="subject" value={form.subject} onChange={handleChange}
+                      <label htmlFor="contact-subject" style={labelStyle}>Topic</label>
+                      <select id="contact-subject" name="subject" value={form.subject} onChange={handleChange}
                         style={{ ...inputStyle, background: "#0d1a2d", cursor: "pointer" }}>
                         <option value="">Select a topic</option>
                         <option value="custom-tour">Custom Tour Inquiry</option>
@@ -307,7 +310,7 @@ export default function ContactClient() {
                         <MessageSquare style={{ width: 16, height: 16 }} />
                         Continue on WhatsApp
                       </button>
-                      <p style={{ margin: "12px 0 0", color: "rgba(255,255,255,0.4)", fontSize: "12px" }}>
+                      <p style={{ margin: "12px 0 0", color: "rgba(255,255,255,0.55)", fontSize: "12px" }}>
                         Prefer email? Write to{" "}
                         <a href={`mailto:${EMAIL}`} style={{ color: "#FFC20A" }}>{EMAIL}</a>.
                       </p>
@@ -370,7 +373,7 @@ export default function ContactClient() {
               style={{
                 display: "flex", alignItems: "center", gap: "14px",
                 padding: "20px 24px", borderRadius: "18px",
-                background: "linear-gradient(135deg, #16a34a, #22c55e)",
+                background: "linear-gradient(135deg, #166534, #15803d)",
                 textDecoration: "none", boxShadow: "0 8px 32px rgba(34,197,94,0.25)",
               }}
             >

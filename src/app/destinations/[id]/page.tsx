@@ -7,15 +7,15 @@ import DestinationClient from "./DestinationClient";
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
   const dest = destinations.find(d => d.id === id);
-  if (!dest) return { title: "Destination Not Found | TravelBug.pk" };
+  if (!dest) return { title: "Destination Not Found" };
 
   const ogImage = dest.images?.[0];
   return {
-    title: `${dest.name} — Photographers-Led Tours | TravelBug.pk`,
+    title: `${dest.name} Tours & Travel Guide`,
     description: dest.description,
     alternates: { canonical: `/destinations/${dest.id}` },
     openGraph: {
-      title: `${dest.name} — Photographers-Led Tours | TravelBug.pk`,
+      title: `${dest.name} Tours & Travel Guide`,
       description: dest.description,
       ...(ogImage
         ? { images: [{ url: ogImage, width: 1200, height: 630, alt: dest.name }] }
@@ -29,27 +29,27 @@ export default async function DestinationPage({ params }: { params: Promise<{ id
   const dest = destinations.find(d => d.id === id);
   if (!dest) notFound();
 
-  const url = `https://travelbug.pk/destinations/${dest.id}`;
+  const url = `https://www.travelbug.pk/destinations/${dest.id}`;
   const destinationJsonLd = {
     "@context": "https://schema.org",
     "@type": "TouristDestination",
     name: dest.name,
     description: dest.description,
     url,
-    image: dest.images?.map((img) => `https://travelbug.pk${img}`),
+    image: dest.images?.map((img) => `https://www.travelbug.pk${img}`),
     address: {
       "@type": "PostalAddress",
       addressRegion: dest.region,
       addressCountry: "PK",
     },
-    includedInDataCatalog: { "@type": "TravelAgency", name: "TravelBug.pk", url: "https://travelbug.pk" },
+    includedInDataCatalog: { "@type": "TravelAgency", name: "TravelBug.pk", url: "https://www.travelbug.pk" },
   };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://travelbug.pk" },
-      { "@type": "ListItem", position: 2, name: "Destinations", item: "https://travelbug.pk/destinations" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.travelbug.pk" },
+      { "@type": "ListItem", position: 2, name: "Destinations", item: "https://www.travelbug.pk/destinations" },
       { "@type": "ListItem", position: 3, name: dest.name, item: url },
     ],
   };

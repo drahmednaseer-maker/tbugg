@@ -134,7 +134,7 @@ export default function BehindTheLens() {
                       </span>
                     </div>
                     <p style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 700, marginBottom: "5px", lineHeight: 1.4 }}>{person.role}</p>
-                    <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px" }}>{person.handle}</p>
+                    <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px" }}>{person.handle}</p>
                   </div>
                 </div>
 
@@ -144,7 +144,7 @@ export default function BehindTheLens() {
                   color: "rgba(255,255,255,0.65)", fontSize: "13px",
                   lineHeight: 1.75, fontStyle: "italic", marginBottom: "20px",
                 }}>
-                  "{person.quote}"
+                  &quot;{person.quote}&quot;
                 </blockquote>
 
                 {/* Credentials */}
