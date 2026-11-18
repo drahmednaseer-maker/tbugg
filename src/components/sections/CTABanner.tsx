@@ -59,7 +59,7 @@ export default function CTABanner() {
                 color: "#FFC20A", fontSize: "11px", fontWeight: 800,
                 letterSpacing: "0.3em", textTransform: "uppercase", marginBottom: "16px",
               }}>
-                Plan Your Tour Today — It's Free
+                Plan Your Tour Today — It&apos;s Free
               </p>
               <h2 style={{
                 color: "white", fontWeight: 900,

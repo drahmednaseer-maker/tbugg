@@ -124,7 +124,7 @@ export default function TravelerStoriesPage() {
         }}>
           <h2 style={{ color: "white", fontSize: "32px", fontWeight: 900, marginBottom: "16px" }}>Ready for Your Story?</h2>
           <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "16px", maxWidth: "600px", margin: "0 auto 32px", lineHeight: 1.7 }}>
-            Join the hundreds of happy travelers who have seen the real Pakistan with us. Let's design an itinerary that you'll be telling stories about for years.
+            Join the hundreds of happy travelers who have seen the real Pakistan with us. Let&apos;s design an itinerary that you&apos;ll be telling stories about for years.
           </p>
           <a 
             href="/contact" 

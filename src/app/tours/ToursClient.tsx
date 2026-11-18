@@ -6,9 +6,9 @@ import { useSearchParams } from "next/navigation";
 import { m, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
-  Search, X, MapPin, Clock, Users, ChevronDown, ChevronUp,
-  ArrowRight, Phone, Mail, Calendar, CheckCircle2,
-  Home, Utensils, Car, User, MessageSquare, Send, Globe
+  Search, X, MapPin, Clock, Users,
+  ArrowRight, CheckCircle2,
+  Home, Utensils, User, MessageSquare, Send, Globe
 } from "lucide-react";
 import { tours } from "@/data/tours";
 import { Tour } from "@/types";
@@ -420,7 +420,6 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
    DESTINATION CARD
 ───────────────────────────────────────────── */
 function DestinationCard({ tour, onGetQuote }: { tour: Tour; onGetQuote: (title: string) => void }) {
-  const [expanded, setExpanded] = useState(false);
 
   return (
     <m.div

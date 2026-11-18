@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { m } from "framer-motion";
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle2, MessageSquare } from "lucide-react";
+import { Mail, Phone, Clock, Send, CheckCircle2, MessageSquare } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
 /* ─── Real TravelBug.pk Contact Details ─── */

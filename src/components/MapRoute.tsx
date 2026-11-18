@@ -2,6 +2,7 @@
 
 import "leaflet/dist/leaflet.css";
 import { useEffect, useRef, useState } from "react";
+import type { Map as LeafletMap, Layer } from "leaflet";
 
 // ─── Destination coordinates [lat, lng] ───────────────────────────────────────
 export const DEST_COORDS: Record<string, [number, number]> = {
@@ -158,21 +159,21 @@ interface Props { route: RouteItem[] }
 // ─── Component ───────────────────────────────────────────────────────────────
 export default function MapRoute({ route }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const mapRef       = useRef<any>(null);
-  const markersRef   = useRef<any[]>([]);
-  const polylinesRef = useRef<any[]>([]);
+  const mapRef       = useRef<LeafletMap | null>(null);
+  const markersRef   = useRef<Layer[]>([]);
+  const polylinesRef = useRef<Layer[]>([]);
   const [routing,  setRouting]  = useState(false);
   const [mapReady, setMapReady] = useState(false);
 
   // ── Init map once ──────────────────────────────────────────────────────────
   useEffect(() => {
     if (!containerRef.current) return;
-    if ((containerRef.current as any)._leaflet_id) return;
+    if ((containerRef.current as HTMLDivElement & { _leaflet_id?: number })._leaflet_id) return;
     if (mapRef.current) return;
 
     import("leaflet").then(({ default: L }) => {
       if (!containerRef.current) return;
-      if ((containerRef.current as any)._leaflet_id) return;
+      if ((containerRef.current as HTMLDivElement & { _leaflet_id?: number })._leaflet_id) return;
 
       const map = L.map(containerRef.current, {
         center: [31.5, 70.0],
@@ -436,7 +437,7 @@ export default function MapRoute({ route }: Props) {
         }}>
           <div style={{ fontSize: "36px" }}>🗺️</div>
           <p style={{ color: "#555", fontSize: "13px", textAlign: "center", margin: 0, fontFamily: "system-ui,sans-serif", lineHeight: 1.6 }}>
-            Click destinations to see<br />your route on Pakistan's map
+            Click destinations to see<br />your route on Pakistan&apos;s map
           </p>
         </div>
       )}

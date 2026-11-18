@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { m, AnimatePresence } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import {
   Clock, Users, ArrowLeft, Check, X, MapPin,
-  ChevronLeft, ChevronRight, Calendar, ChevronDown, ChevronUp,
+  ChevronLeft, ChevronRight, Calendar,
   Mountain, Compass, Camera,
 } from "lucide-react";
 import { Tour } from "@/types";
@@ -39,7 +39,6 @@ const sectionTitle = {
 /* ─── component ──────────────────────────────────────── */
 export default function TourDetailClient({ tour }: { tour: Tour }) {
   const [imgIndex, setImgIndex] = useState(0);
-  const [openDay, setOpenDay] = useState<number | null>(1);
 
   const images = tour.images?.length ? tour.images : [tour.image];
   const prevImg = () => setImgIndex((p) => (p - 1 + images.length) % images.length);

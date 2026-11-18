@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import LazyImage from "@/components/LazyImage";
-import { X, ChevronLeft, ChevronRight, ZoomIn, Star, ArrowRight, MessageCircle, Check } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Star, ArrowRight, MessageCircle, Check } from "lucide-react";
 import { useState, useEffect, useRef, useCallback, memo } from "react";
 
 const particles = [
@@ -214,18 +214,17 @@ export default function Hero() {
     // and cost up to ten points. In practice it starts within a second of real
     // use; it simply no longer competes with the initial render.
     const EVENTS = ["scroll", "pointerdown", "pointermove", "touchstart", "keydown"] as const;
-    let timer: number | undefined;
     const start = () => {
       autoScrollRef.current = true;
       document.documentElement.classList.add("tb-engaged");
       EVENTS.forEach((e) => window.removeEventListener(e, start));
-      if (timer !== undefined) window.clearTimeout(timer);
+      window.clearTimeout(timer);
     };
+    const timer = window.setTimeout(start, 10000);
     EVENTS.forEach((e) => window.addEventListener(e, start, { once: true, passive: true }));
-    timer = window.setTimeout(start, 10000);
     return () => {
       EVENTS.forEach((e) => window.removeEventListener(e, start));
-      if (timer !== undefined) window.clearTimeout(timer);
+      window.clearTimeout(timer);
     };
   }, []);
 
@@ -431,6 +430,7 @@ export default function Hero() {
               onClick={e => e.stopPropagation()}
               style={{ position: "relative", maxWidth: "min(90vw,1100px)", borderRadius: "20px", overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.8)" }}
             >
+                {/* eslint-disable-next-line @next/next/no-img-element -- the lightbox shows the full photo at its natural aspect ratio */}
                 <img
                   className="tb-fade"
                   key={lightbox}

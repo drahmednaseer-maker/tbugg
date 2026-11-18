@@ -43,7 +43,7 @@ export default function PakistanToursHub() {
             International Travellers
           </p>
           <h1 style={{ fontSize: "clamp(34px, 6vw, 60px)", fontWeight: 900, color: "white", lineHeight: 1.05, margin: "0 0 22px" }}>
-            Pakistan Tours, Wherever You're Travelling From
+            Pakistan Tours, Wherever You&apos;re Travelling From
           </h1>
           <p style={{ color: "rgba(255,255,255,0.72)", fontSize: "18px", lineHeight: 1.7, maxWidth: "680px", margin: "0 auto" }}>
             Photographers-led, 100% private tours across Pakistan — with country-specific guidance on flights, seasons and visas. Choose your home country to get started.

@@ -151,7 +151,7 @@ export default function PhotoGallery() {
                 <p style={{ color: "white", fontSize: "12px", fontWeight: 700, margin: 0 }}>{photo.label}</p>
               </div>
               {/* Zoom icon */}
-              <div style={{ position: "absolute", top: 8, right: 8, width: 28, height: 28, borderRadius: "50%", background: "rgba(255,194,10,0.85)", display: "flex", alignItems: "center", justifyContent: "center", opacity: 0, transition: "opacity 0.25s", transform: "scale(0.8)", transition: "opacity 0.25s, transform 0.25s" }}
+              <div style={{ position: "absolute", top: 8, right: 8, width: 28, height: 28, borderRadius: "50%", background: "rgba(255,194,10,0.85)", display: "flex", alignItems: "center", justifyContent: "center", opacity: 0, transform: "scale(0.8)", transition: "opacity 0.25s, transform 0.25s" }}
                 className="gallery-zoom">
                 <ZoomIn style={{ width: 13, height: 13, color: "#0B1628" }} />
               </div>

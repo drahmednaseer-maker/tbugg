@@ -43,7 +43,7 @@ const tourCategories = [
   },
 ];
 
-const navLinks = [
+const navLinks: { href: string; label: string; Icon: typeof Home; hasDropdown?: boolean }[] = [
   { href: "/", label: "HOME", Icon: Home },
   { href: "/destinations", label: "DESTINATIONS", Icon: MapPin },
   { href: "/tours", label: "TOURS", Icon: Compass },
@@ -179,7 +179,7 @@ export default function Header() {
 
                                 {/* Tour category cards */}
                                 <div className="p-3 space-y-2">
-                                  {tourCategories.map((cat, i) => (
+                                  {tourCategories.map((cat) => (
                                     <div className="tb-fade" key={cat.href}>
                                       <Link
                                         href={cat.href}

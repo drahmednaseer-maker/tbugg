@@ -144,7 +144,7 @@ export default function BehindTheLens() {
                   color: "rgba(255,255,255,0.65)", fontSize: "13px",
                   lineHeight: 1.75, fontStyle: "italic", marginBottom: "20px",
                 }}>
-                  "{person.quote}"
+                  &quot;{person.quote}&quot;
                 </blockquote>
 
                 {/* Credentials */}

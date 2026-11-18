@@ -192,7 +192,7 @@ export default async function MarketPage({ params }: Props) {
             Ready to explore Pakistan from {m.country}?
           </h2>
           <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "16px", lineHeight: 1.7, margin: "0 0 30px" }}>
-            Tell us your dates and dreams — we'll design a private, photographers-led journey just for you. No fixed packages, no pressure.
+            Tell us your dates and dreams — we&apos;ll design a private, photographers-led journey just for you. No fixed packages, no pressure.
           </p>
           <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: "10px", padding: "16px 36px", borderRadius: "14px", background: "linear-gradient(135deg, #FFC20A, #FFD34A)", color: "#0B1628", fontWeight: 800, textDecoration: "none", boxShadow: "0 8px 32px rgba(255,194,10,0.3)" }}>
             Start Planning Your Trip

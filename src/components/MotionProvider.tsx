@@ -13,10 +13,14 @@ import { LazyMotion, MotionConfig } from "framer-motion";
  */
 const loadMotionFeatures = () => import("@/lib/motion-features").then((m) => m.default);
 
+// MotionConfig passes every prop into the motion context at runtime, but its
+// type doesn't list `initial`, so it is spread from a plain object here.
+const MOTION_CONFIG = { initial: false } as Record<string, unknown>;
+
 export default function MotionProvider({ children }: { children: React.ReactNode }) {
   return (
     <LazyMotion features={loadMotionFeatures}>
-      <MotionConfig initial={false}>{children}</MotionConfig>
+      <MotionConfig {...MOTION_CONFIG}>{children}</MotionConfig>
     </LazyMotion>
   );
 }

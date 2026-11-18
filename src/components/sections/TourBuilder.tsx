@@ -5,8 +5,8 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import {
   MapPin, X, GripVertical, ChevronRight, Users,
-  Star, Check, MessageCircle, Plus, Minus, Hotel, Moon, ArrowRight, Mail,
-  Camera, Sparkles
+ Check, MessageCircle, Plus, Minus, Hotel, Moon, ArrowRight, Mail,
+  Camera
 } from "lucide-react";
 import { DEST_ELEVATION, DEST_COORDS } from "@/components/MapRoute";
 import { saveItinerary, rememberPhone, recallPhone, normalizePhone } from "@/lib/itineraryStore";
@@ -342,57 +342,6 @@ function NightModal({
 
 // ─── Counter Row ─────────────────────────────────────────────────────────────
 
-function CountRow({ label, sub, value, onDec, onInc }: {
-  label: string; sub: string; value: number;
-  onDec: () => void; onInc: () => void;
-}) {
-  return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 0", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-      <div>
-        <p style={{ color: "white", fontWeight: 700, fontSize: "15px", margin: "0 0 2px" }}>{label}</p>
-        <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "12px", margin: 0 }}>{sub}</p>
-      </div>
-      <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-        <button onClick={onDec} style={{ width: 36, height: 36, borderRadius: "50%", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "white", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <Minus style={{ width: 14, height: 14 }} />
-        </button>
-        <span style={{ color: "#FFC20A", fontWeight: 900, fontSize: "22px", minWidth: "28px", textAlign: "center" }}>{value}</span>
-        <button onClick={onInc} style={{ width: 36, height: 36, borderRadius: "50%", background: "rgba(255,194,10,0.1)", border: "1px solid rgba(255,194,10,0.3)", color: "#FFC20A", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <Plus style={{ width: 14, height: 14 }} />
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function BackBtn({ onClick }: { onClick: () => void }) {
-  return (
-    <button onClick={onClick} style={{ padding: "14px 22px", borderRadius: "14px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.6)", fontWeight: 600, fontSize: "14px", cursor: "pointer" }}>
-      ← Back
-    </button>
-  );
-}
-
-function NextBtn({ onClick, disabled, children }: { onClick: () => void; disabled?: boolean; children: React.ReactNode }) {
-  return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      style={{
-        flex: 1, padding: "14px", borderRadius: "14px",
-        background: disabled ? "rgba(255,255,255,0.05)" : gold,
-        border: "none",
-        color: disabled ? "rgba(255,255,255,0.3)" : "#0B1628",
-        fontWeight: 800, fontSize: "14px",
-        cursor: disabled ? "not-allowed" : "pointer",
-        display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
-      }}
-    >
-      {children}
-    </button>
-  );
-}
-
 // ─── Country dial codes ───────────────────────────────────────────────────────
 const COUNTRIES = [
   { flag: "🇵🇰", name: "Pakistan",       dialCode: "+92"  },
@@ -584,7 +533,7 @@ export default function TourBuilder() {
       if ("requestIdleCallback" in window) {
         idleId = window.requestIdleCallback(() => setWeatherReady(true), { timeout: 3000 });
       } else {
-        idleId = window.setTimeout(() => setWeatherReady(true), 1200);
+        idleId = globalThis.setTimeout(() => setWeatherReady(true), 1200) as unknown as number;
       }
     };
     if (document.readyState === "complete") schedule();
@@ -593,7 +542,7 @@ export default function TourBuilder() {
       window.removeEventListener("load", schedule);
       if (idleId !== undefined) {
         if ("cancelIdleCallback" in window) window.cancelIdleCallback(idleId);
-        else window.clearTimeout(idleId);
+        else globalThis.clearTimeout(idleId);
       }
     };
   }, []);
@@ -786,12 +735,6 @@ export default function TourBuilder() {
   };
 
   // ─── Card wrapper shared style ─────────────────────────────────────────────
-  const card: React.CSSProperties = {
-    borderRadius: "20px",
-    background: "rgba(255,255,255,0.025)",
-    border: "1px solid rgba(255,255,255,0.07)",
-    padding: "36px 40px",
-  };
 
   // ─── Render ────────────────────────────────────────────────────────────────
 

@@ -20,7 +20,7 @@ const palette = ["#FFC20A", "#4ECDC4", "#FF6B6B", "#A78BFA", "#F472B6", "#38BDF8
 
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(1);
+  const [, setDirection] = useState(1);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {

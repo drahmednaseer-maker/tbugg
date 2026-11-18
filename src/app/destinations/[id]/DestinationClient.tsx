@@ -95,7 +95,7 @@ export default function DestinationClient({ destination }: { destination: Destin
                 padding: "20px", textAlign: "center"
               }}>
                 <Camera style={{ width: 32, height: 32, color: "#FFC20A", marginBottom: "12px" }} />
-                <p style={{ color: "white", fontWeight: 700, fontSize: "14px", marginBottom: "4px" }}>Photographer's View</p>
+                <p style={{ color: "white", fontWeight: 700, fontSize: "14px", marginBottom: "4px" }}>Photographer&apos;s View</p>
                 <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "12px" }}>Capturing the soul of {destination.name}</p>
               </div>
             </div>
@@ -185,7 +185,7 @@ export default function DestinationClient({ destination }: { destination: Destin
         <div style={{ maxWidth: "800px", margin: "0 auto", background: "linear-gradient(135deg, rgba(255,194,10,0.1) 0%, transparent 100%)", padding: "60px", borderRadius: "32px", border: "1px solid rgba(255,194,10,0.15)" }}>
           <h2 style={{ fontSize: "32px", fontWeight: 900, color: "white", marginBottom: "16px" }}>Not seeing your perfect trip?</h2>
           <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "16px", marginBottom: "32px" }}>
-            As photographers, we love exploring off-beat tracks. Tell us where you want to go in {destination.name}, and we'll design it for you.
+            As photographers, we love exploring off-beat tracks. Tell us where you want to go in {destination.name}, and we&apos;ll design it for you.
           </p>
           <Link href="/#tour-builder" style={{
             display: "inline-flex", alignItems: "center", gap: "10px",
@@ -204,7 +204,7 @@ export default function DestinationClient({ destination }: { destination: Destin
 
 function ExpeditionSection({
   expedition,
-  name,
+  name: _name,
   tourSlug,
 }: {
   expedition: Expedition;
@@ -349,7 +349,7 @@ function ExpeditionSection({
               padding: "28px 30px",
             }}
           >
-            <h4 style={{ color: "white", fontSize: "18px", fontWeight: 800, margin: "0 0 20px" }}>What's Included</h4>
+            <h4 style={{ color: "white", fontSize: "18px", fontWeight: 800, margin: "0 0 20px" }}>What&apos;s Included</h4>
             <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "12px" }}>
               {expedition.included.map((item, i) => (
                 <li key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start", color: "rgba(255,255,255,0.75)", fontSize: "14px", lineHeight: 1.5 }}>

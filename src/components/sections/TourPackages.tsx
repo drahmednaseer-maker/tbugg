@@ -160,7 +160,7 @@ export default function TourPackages() {
           </div>
           <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "16px", lineHeight: 1.75, maxWidth: "640px", marginTop: "20px" }}>
             TravelBug.pk is run by professional photographers who have spent years exploring every corner of Pakistan.
-            We don't sell packages — we craft every journey uniquely around <em style={{ color: "rgba(255,255,255,0.75)", fontStyle: "normal", fontWeight: 600 }}>your dates, your group, and your vision</em>.
+            We don&apos;t sell packages — we craft every journey uniquely around <em style={{ color: "rgba(255,255,255,0.75)", fontStyle: "normal", fontWeight: 600 }}>your dates, your group, and your vision</em>.
           </p>
         </div>
 
@@ -196,7 +196,7 @@ export default function TourPackages() {
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <Camera style={{ width: 16, height: 16, color: "#FFC20A" }} />
               <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px", fontWeight: 600 }}>
-                Asmar's Photography — Pakistan Through Our Lens
+                Asmar&apos;s Photography — Pakistan Through Our Lens
               </span>
             </div>
             {/* Arrow controls */}
@@ -385,7 +385,7 @@ export default function TourPackages() {
                 Ready to travel Pakistan — your way?
               </p>
               <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "13px" }}>
-                Tell us your dates & preferences. We'll design the perfect itinerary — for free.
+                Tell us your dates & preferences. We&apos;ll design the perfect itinerary — for free.
               </p>
             </div>
             <Link
@@ -400,7 +400,7 @@ export default function TourPackages() {
               }}
             >
               <MessageCircle style={{ width: 16, height: 16 }} />
-              Start Planning — It's Free
+              Start Planning — It&apos;s Free
             </Link>
           </div>
         </div>

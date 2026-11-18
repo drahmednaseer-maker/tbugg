@@ -100,7 +100,7 @@ export default function SearchBar() {
             </span>
           </h2>
           <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "15px", maxWidth: "420px", margin: "0 auto", lineHeight: 1.6 }}>
-            Tell us your travel details and we'll reach out on WhatsApp with a custom itinerary within hours.
+            Tell us your travel details and we&apos;ll reach out on WhatsApp with a custom itinerary within hours.
           </p>
         </m.div>
 
@@ -330,7 +330,7 @@ export default function SearchBar() {
                     </div>
                     <h3 style={{ color: "white", fontWeight: 900, fontSize: "24px", marginBottom: "12px" }}>WhatsApp Opened! 🎉</h3>
                     <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "14px", lineHeight: 1.6 }}>
-                      Your trip details were sent to our team. We'll reply with a custom itinerary within hours.
+                      Your trip details were sent to our team. We&apos;ll reply with a custom itinerary within hours.
                     </p>
                     <button
                       type="button"

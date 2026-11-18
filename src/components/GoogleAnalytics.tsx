@@ -65,14 +65,13 @@ export default function GoogleAnalytics() {
 
   useEffect(() => {
     if (!GA_ID) return;
-    let timer: number;
     const go = () => {
       setStart(true);
       EVENTS.forEach((e) => window.removeEventListener(e, go));
       window.clearTimeout(timer);
     };
+    const timer = window.setTimeout(go, 5000);
     EVENTS.forEach((e) => window.addEventListener(e, go, { once: true, passive: true }));
-    timer = window.setTimeout(go, 5000);
     return () => {
       EVENTS.forEach((e) => window.removeEventListener(e, go));
       window.clearTimeout(timer);

@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { X, MapPin, Moon, Users, Truck, Phone, ChevronDown, ChevronUp, Trash2, MessageCircle } from "lucide-react";
+import { X, MapPin, Phone, ChevronDown, ChevronUp, Trash2, MessageCircle } from "lucide-react";
 import {
   SavedItinerary,
   loadItineraries,
   deleteItinerary,
   recallPhone,
   rememberPhone,
-  normalizePhone,
+
 } from "@/lib/itineraryStore";
 import { trackEvent } from "@/lib/analytics";
 
@@ -329,7 +329,7 @@ export default function MyTripsPanel({ onClose }: { onClose: () => void }) {
                   <div style={{ fontSize: "48px", marginBottom: "16px" }}>🗺️</div>
                   <p style={{ color: "white", fontWeight: 800, fontSize: "15px", margin: "0 0 8px" }}>No trips yet</p>
                   <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "12px", margin: "0 0 24px", lineHeight: 1.5 }}>
-                    Build a tour with the planner below and send it to WhatsApp — it'll appear here automatically.
+                    Build a tour with the planner below and send it to WhatsApp — it&apos;ll appear here automatically.
                   </p>
                   <button
                     onClick={() => {

@@ -20,7 +20,7 @@ const tagColors: Record<string, { bg: string; text: string; glow: string }> = {
 
 // Preload images so hover switching is instant
 
-function DestCard({ dest, index }: { dest: typeof destinations[0]; index: number }) {
+function DestCard({ dest }: { dest: typeof destinations[0]; index: number }) {
   const [imgIdx, setImgIdx] = useState(0);
   const [hovered, setHovered] = useState(false);
 
@@ -258,7 +258,7 @@ export default function FeaturedDestinations() {
             color: "rgba(255,255,255,0.5)", maxWidth: "500px",
             margin: "0 auto", lineHeight: 1.7, fontSize: "15px",
           }}>
-            Pakistan's most extraordinary destinations. Use the arrows on any card to browse its photos.
+            Pakistan&apos;s most extraordinary destinations. Use the arrows on any card to browse its photos.
           </p>
         </div>
 
