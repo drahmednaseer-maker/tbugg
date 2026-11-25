@@ -5,7 +5,7 @@ import { destinations } from "@/data/destinations";
 import { MapPin, ArrowRight, Camera } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Destinations — Photographers-Led Tours | TravelBug.pk",
+  title: "Pakistan Destinations & Travel Guides",
   description: "Explore Pakistan's most extraordinary destinations. From the blossom-filled valleys of Hunza to the granite giants of Charakusa.",
   alternates: { canonical: "/destinations" },
 };
@@ -90,9 +90,9 @@ export default function DestinationsPage() {
           textAlign: "center"
         }}>
           <Camera style={{ width: 40, height: 40, color: "#FFC20A", margin: "0 auto 20px" }} />
-          <h2 style={{ color: "white", fontSize: "32px", fontWeight: 900, marginBottom: "16px" }}>The Photographer's Advantage</h2>
+          <h2 style={{ color: "white", fontSize: "32px", fontWeight: 900, marginBottom: "16px" }}>The Photographer&apos;s Advantage</h2>
           <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "16px", maxWidth: "700px", margin: "0 auto 32px", lineHeight: 1.7 }}>
-            We don't just visit these places; we live in them. Our tours are timed for the best light, the quietest trails, and the most authentic local interactions. Every destination above is a personal recommendation from our own expeditions.
+            We don&apos;t just visit these places; we live in them. Our tours are timed for the best light, the quietest trails, and the most authentic local interactions. Every destination above is a personal recommendation from our own expeditions.
           </p>
           <Link href="/contact" 
             className="hover-bg-white-10"

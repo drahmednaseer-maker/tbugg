@@ -95,8 +95,8 @@ export default function DestinationClient({ destination }: { destination: Destin
                 padding: "20px", textAlign: "center"
               }}>
                 <Camera style={{ width: 32, height: 32, color: "#FFC20A", marginBottom: "12px" }} />
-                <p style={{ color: "white", fontWeight: 700, fontSize: "14px", marginBottom: "4px" }}>Photographer's View</p>
-                <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px" }}>Capturing the soul of {destination.name}</p>
+                <p style={{ color: "white", fontWeight: 700, fontSize: "14px", marginBottom: "4px" }}>Photographer&apos;s View</p>
+                <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "12px" }}>Capturing the soul of {destination.name}</p>
               </div>
             </div>
 
@@ -142,7 +142,7 @@ export default function DestinationClient({ destination }: { destination: Destin
                               <span style={{ color: "white", fontSize: "12px", fontWeight: 700 }}>{tour.rating}</span>
                             </div>
                           </div>
-                          <div style={{ display: "flex", gap: "12px", color: "rgba(255,255,255,0.4)", fontSize: "12px", marginBottom: "12px" }}>
+                          <div style={{ display: "flex", gap: "12px", color: "rgba(255,255,255,0.55)", fontSize: "12px", marginBottom: "12px" }}>
                             <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><Clock style={{ width: 12, height: 12 }} /> {tour.duration} Days</span>
                             <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><Users style={{ width: 12, height: 12 }} /> Max {tour.maxGroupSize}</span>
                           </div>
@@ -155,8 +155,8 @@ export default function DestinationClient({ destination }: { destination: Destin
                   ))
                 ) : (
                   <div style={{ padding: "40px", textAlign: "center", background: "rgba(255,255,255,0.02)", borderRadius: "20px", border: "1px dashed rgba(255,255,255,0.1)" }}>
-                    <Globe style={{ width: 32, height: 32, color: "rgba(255,255,255,0.2)", marginBottom: "12px", margin: "0 auto" }} />
-                    <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "14px" }}>Custom itineraries available upon request</p>
+                    <Globe style={{ width: 32, height: 32, color: "rgba(255,255,255,0.55)", marginBottom: "12px", margin: "0 auto" }} />
+                    <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "14px" }}>Custom itineraries available upon request</p>
                     <Link href="/contact" style={{ color: "#FFC20A", fontSize: "14px", fontWeight: 700, textDecoration: "none", marginTop: "12px", display: "inline-block" }}>
                       Ask for a custom tour →
                     </Link>
@@ -185,7 +185,7 @@ export default function DestinationClient({ destination }: { destination: Destin
         <div style={{ maxWidth: "800px", margin: "0 auto", background: "linear-gradient(135deg, rgba(255,194,10,0.1) 0%, transparent 100%)", padding: "60px", borderRadius: "32px", border: "1px solid rgba(255,194,10,0.15)" }}>
           <h2 style={{ fontSize: "32px", fontWeight: 900, color: "white", marginBottom: "16px" }}>Not seeing your perfect trip?</h2>
           <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "16px", marginBottom: "32px" }}>
-            As photographers, we love exploring off-beat tracks. Tell us where you want to go in {destination.name}, and we'll design it for you.
+            As photographers, we love exploring off-beat tracks. Tell us where you want to go in {destination.name}, and we&apos;ll design it for you.
           </p>
           <Link href="/#tour-builder" style={{
             display: "inline-flex", alignItems: "center", gap: "10px",
@@ -204,7 +204,7 @@ export default function DestinationClient({ destination }: { destination: Destin
 
 function ExpeditionSection({
   expedition,
-  name,
+  name: _name,
   tourSlug,
 }: {
   expedition: Expedition;
@@ -276,7 +276,7 @@ function ExpeditionSection({
                 }}
               >
                 <Icon style={{ width: 20, height: 20, color: "#FFC20A", marginBottom: "14px" }} />
-                <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 6px" }}>
+                <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 6px" }}>
                   {s.label}
                 </p>
                 <p style={{ color: "white", fontSize: "15px", fontWeight: 700, margin: 0, lineHeight: 1.35 }}>
@@ -349,7 +349,7 @@ function ExpeditionSection({
               padding: "28px 30px",
             }}
           >
-            <h4 style={{ color: "white", fontSize: "18px", fontWeight: 800, margin: "0 0 20px" }}>What's Included</h4>
+            <h4 style={{ color: "white", fontSize: "18px", fontWeight: 800, margin: "0 0 20px" }}>What&apos;s Included</h4>
             <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "12px" }}>
               {expedition.included.map((item, i) => (
                 <li key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start", color: "rgba(255,255,255,0.75)", fontSize: "14px", lineHeight: 1.5 }}>
@@ -371,7 +371,7 @@ function ExpeditionSection({
             <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "12px" }}>
               {expedition.excluded.map((item, i) => (
                 <li key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start", color: "rgba(255,255,255,0.55)", fontSize: "14px", lineHeight: 1.5 }}>
-                  <span style={{ color: "rgba(255,255,255,0.35)", fontWeight: 900, flexShrink: 0 }}>✕</span>
+                  <span style={{ color: "rgba(255,255,255,0.55)", fontWeight: 900, flexShrink: 0 }}>✕</span>
                   <span>{item}</span>
                 </li>
               ))}

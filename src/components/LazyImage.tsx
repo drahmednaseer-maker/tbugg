@@ -37,7 +37,7 @@ export default function LazyImage({
 
   return (
     <div ref={ref} style={{ position: "absolute", inset: 0 }}>
-      {near && <Image {...props} />}
+      {near && <Image {...props} alt={props.alt} />}
     </div>
   );
 }

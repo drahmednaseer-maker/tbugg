@@ -20,7 +20,7 @@ const palette = ["#FFC20A", "#4ECDC4", "#FF6B6B", "#A78BFA", "#F472B6", "#38BDF8
 
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(1);
+  const [, setDirection] = useState(1);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
@@ -112,7 +112,7 @@ export default function Testimonials() {
                 <Star key={i} style={{ width: 12, height: 12, fill: "#FBBC05", color: "#FBBC05" }} />
               ))}
             </div>
-            <ExternalLink style={{ width: 12, height: 12, color: "rgba(255,255,255,0.3)" }} />
+            <ExternalLink style={{ width: 12, height: 12, color: "rgba(255,255,255,0.55)" }} />
           </a>
         </div>
 
@@ -154,7 +154,7 @@ export default function Testimonials() {
                   </div>
                   <div>
                     <p style={{ color: "white", fontWeight: 800, fontSize: "16px", marginBottom: "3px" }}>{t.name}</p>
-                    <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px", marginBottom: "6px" }}>{t.location}</p>
+                    <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "12px", marginBottom: "6px" }}>{t.location}</p>
                     <div style={{ display: "flex", gap: "3px" }}>
                       {Array.from({ length: 5 }).map((_, i) => (
                         <Star
@@ -186,7 +186,7 @@ export default function Testimonials() {
               {/* Footer — tour & date */}
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px", flexWrap: "wrap", marginTop: "24px" }}>
                 <p style={{ color: "#FFC20A", fontSize: "11px", fontWeight: 700 }}>{t.tour}</p>
-                <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "11px" }}>{t.date}</span>
+                <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px" }}>{t.date}</span>
               </div>
             </div>
 

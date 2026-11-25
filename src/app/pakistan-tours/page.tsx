@@ -8,7 +8,7 @@ import FAQSection from "@/components/sections/FAQSection";
 export const metadata: Metadata = {
   title: "Pakistan Tours for International Travellers",
   description:
-    "Photographers-led private Pakistan tours for international travellers — from the UK, USA, Canada, Australia, UAE, Germany, Netherlands & Singapore. Flights, seasons, visas & tailored itineraries to Hunza, Skardu & the Karakoram.",
+    "Private, photographer-led Pakistan tours for travellers from the UK, USA, Canada, Australia, UAE, Europe and Singapore: flights, seasons, visas, itineraries.",
   alternates: { canonical: "/pakistan-tours" },
   openGraph: {
     title: "Pakistan Tours for International Travellers | TravelBug.pk",
@@ -23,8 +23,8 @@ export default function PakistanToursHub() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://travelbug.pk" },
-      { "@type": "ListItem", position: 2, name: "Pakistan Tours", item: "https://travelbug.pk/pakistan-tours" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.travelbug.pk" },
+      { "@type": "ListItem", position: 2, name: "Pakistan Tours", item: "https://www.travelbug.pk/pakistan-tours" },
     ],
   };
 
@@ -43,7 +43,7 @@ export default function PakistanToursHub() {
             International Travellers
           </p>
           <h1 style={{ fontSize: "clamp(34px, 6vw, 60px)", fontWeight: 900, color: "white", lineHeight: 1.05, margin: "0 0 22px" }}>
-            Pakistan Tours, Wherever You're Travelling From
+            Pakistan Tours, Wherever You&apos;re Travelling From
           </h1>
           <p style={{ color: "rgba(255,255,255,0.72)", fontSize: "18px", lineHeight: 1.7, maxWidth: "680px", margin: "0 auto" }}>
             Photographers-led, 100% private tours across Pakistan — with country-specific guidance on flights, seasons and visas. Choose your home country to get started.
@@ -60,7 +60,7 @@ export default function PakistanToursHub() {
               <h2 style={{ color: "white", fontSize: "19px", fontWeight: 800, margin: "0 0 6px" }}>
                 From {m.country}
               </h2>
-              <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "13px", margin: "0 0 16px" }}>
+              <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px", margin: "0 0 16px" }}>
                 Flights from {m.gatewayCities[0]}
               </p>
               <span style={{ color: "#FFC20A", fontSize: "13px", fontWeight: 800 }}>Explore →</span>

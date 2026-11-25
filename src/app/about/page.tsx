@@ -3,9 +3,9 @@ import MotionProvider from "@/components/MotionProvider";
 import AboutClient from "./AboutClient";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About Us — Photographer-Led Pakistan Tours",
   description:
-    "Learn the story behind TravelBug — crafting extraordinary, photographers-led journeys across Pakistan since 2018. Meet our team and discover our mission to inspire curious travelers.",
+    "Meet the photographers behind TravelBug — crafting private, photographer-led journeys across Pakistan since 2018, and the mission that drives them.",
   alternates: { canonical: "/about" },
 };
 

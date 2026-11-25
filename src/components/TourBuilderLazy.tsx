@@ -38,7 +38,7 @@ function Placeholder({ state }: { state: "idle" | "loading" | "failed" }) {
           <h2 style={{ color: "white", fontWeight: 900, fontSize: "clamp(28px, 4vw, 48px)", lineHeight: 1.1, marginBottom: "12px" }}>
             Build Your <span style={{ color: "#FFC20A" }}>Custom Tour</span>
           </h2>
-          <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "15px", lineHeight: 1.7, maxWidth: "560px", margin: "0 auto" }}>
+          <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "15px", lineHeight: 1.7, maxWidth: "560px", margin: "0 auto" }}>
             Click destinations → set nights → drag to reorder → choose hotels → we&apos;ll plan it all.
           </p>
         </div>
@@ -76,7 +76,7 @@ function Placeholder({ state }: { state: "idle" | "loading" | "failed" }) {
               </div>
             )}
             {state === "loading" && (
-              <p role="status" style={{ color: "rgba(255,255,255,0.35)", fontSize: "13px", textAlign: "center", marginTop: "20px" }}>
+              <p role="status" style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px", textAlign: "center", marginTop: "20px" }}>
                 Loading the trip planner…
               </p>
             )}

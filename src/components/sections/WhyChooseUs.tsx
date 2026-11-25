@@ -181,7 +181,7 @@ export default function WhyChooseUs() {
             border: "1px solid rgba(255,194,10,0.18)",
             padding: "44px 56px",
           }}>
-          {stats.map(({ value, label, sub }, i) => (
+          {stats.map(({ value, label, sub }) => (
             <div
               className="tb-fade"
               key={label}
@@ -200,7 +200,7 @@ export default function WhyChooseUs() {
                 {label}
               </div>
               <div style={{
-                color: "rgba(255,255,255,0.3)", fontSize: "11px", fontWeight: 400,
+                color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 400,
               }}>
                 {sub}
               </div>

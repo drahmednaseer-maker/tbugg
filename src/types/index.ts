@@ -9,7 +9,7 @@ export interface Tour {
   originalPrice?: number;
   rating: number;
   reviewCount: number;
-  category: "budget" | "luxury" | "adventure";
+  category: "budget" | "luxury" | "adventure" | "cultural";
   image: string;
   images: string[];
   highlights: string[];

@@ -147,7 +147,7 @@ export default function Footer() {
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "16px" }}>
               <li style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
                 <MapPin style={{ width: 15, height: 15, color: "#FFC20A", marginTop: "2px", flexShrink: 0 }} />
-                <span style={{ color: "rgba(255,255,255,0.45)", fontSize: "13px", lineHeight: 1.6 }}>
+                <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px", lineHeight: 1.6 }}>
                   B-89, Post Office Rd, Wah Cantt,<br />Punjab 47040, Pakistan
                 </span>
               </li>

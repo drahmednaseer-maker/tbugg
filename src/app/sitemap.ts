@@ -3,7 +3,7 @@ import { tours } from "@/data/tours";
 import { destinations } from "@/data/destinations";
 import { markets } from "@/data/markets";
 
-const BASE_URL = "https://travelbug.pk";
+const BASE_URL = "https://www.travelbug.pk";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

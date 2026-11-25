@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Script from "next/script";
+import { ensureGtag, trackEvent } from "@/lib/analytics";
 
 /**
  * Google Analytics 4 — LIVE.
@@ -32,16 +33,45 @@ const EVENTS = ["pointerdown", "keydown", "scroll", "touchstart"] as const;
 export default function GoogleAnalytics() {
   const [start, setStart] = useState(false);
 
+  // Queue the GA4 config straight away (no network cost), so events fired
+  // before gtag.js loads — e.g. the click that triggers the load — are kept.
   useEffect(() => {
     if (!GA_ID) return;
-    let timer: number;
+    const w = window as Window & { __gaQueued?: boolean };
+    if (!w.__gaQueued) {
+      const gtag = ensureGtag();
+      gtag("js", new Date());
+      gtag("config", GA_ID);
+      w.__gaQueued = true;
+    }
+
+    // Enquiry intent: WhatsApp, phone and email links anywhere on the site.
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
+      if (!a) return;
+      const href = a.getAttribute("href") || "";
+      const label = (a.textContent || a.getAttribute("aria-label") || "").trim().slice(0, 80);
+      if (/^https?:\/\/(wa\.me|api\.whatsapp\.com|(www\.)?whatsapp\.com)\//i.test(href)) {
+        trackEvent("whatsapp_click", { link_text: label, link_url: href.split("?")[0] });
+      } else if (href.startsWith("tel:")) {
+        trackEvent("phone_click", { link_text: label });
+      } else if (href.startsWith("mailto:")) {
+        trackEvent("email_click", { link_text: label });
+      }
+    };
+    document.addEventListener("click", onClick, { capture: true });
+    return () => document.removeEventListener("click", onClick, { capture: true });
+  }, []);
+
+  useEffect(() => {
+    if (!GA_ID) return;
     const go = () => {
       setStart(true);
       EVENTS.forEach((e) => window.removeEventListener(e, go));
       window.clearTimeout(timer);
     };
+    const timer = window.setTimeout(go, 5000);
     EVENTS.forEach((e) => window.addEventListener(e, go, { once: true, passive: true }));
-    timer = window.setTimeout(go, 5000);
     return () => {
       EVENTS.forEach((e) => window.removeEventListener(e, go));
       window.clearTimeout(timer);
@@ -52,15 +82,8 @@ export default function GoogleAnalytics() {
 
   return (
     <>
+      {/* js + config are already queued on mount; this only loads the library. */}
       <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
-      <Script id="ga4-init" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${GA_ID}');
-        `}
-      </Script>
     </>
   );
 }

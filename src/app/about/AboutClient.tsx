@@ -139,7 +139,7 @@ export default function AboutClient() {
                 textAlign: "center", minWidth: "120px",
               }}>
                 <p style={{ margin: "0 0 4px", fontSize: "24px", fontWeight: 900, color: "#FFC20A" }}>{value}</p>
-                <p style={{ margin: 0, fontSize: "12px", color: "rgba(255,255,255,0.45)", fontWeight: 500 }}>{label}</p>
+                <p style={{ margin: 0, fontSize: "12px", color: "rgba(255,255,255,0.55)", fontWeight: 500 }}>{label}</p>
               </div>
             ))}
           </m.div>
@@ -209,7 +209,7 @@ export default function AboutClient() {
                 
                 {/* Expertise */}
                 <div style={{ padding: "12px 16px", borderRadius: "12px", background: "rgba(255,194,10,0.05)", border: "1px solid rgba(255,194,10,0.1)" }}>
-                  <p style={{ margin: "0 0 4px", color: "rgba(255,255,255,0.4)", fontSize: "10px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em" }}>Expertise</p>
+                  <p style={{ margin: "0 0 4px", color: "rgba(255,255,255,0.55)", fontSize: "10px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em" }}>Expertise</p>
                   <p style={{ margin: 0, color: "rgba(255,255,255,0.8)", fontSize: "13px", fontWeight: 600, lineHeight: 1.4 }}>{expertise}</p>
                 </div>
 
@@ -404,7 +404,7 @@ export default function AboutClient() {
                 </div>
                 <div>
                   <p style={{ margin: 0, color: "white", fontWeight: 700, fontSize: "14px" }}>Ayesha Hassan</p>
-                  <p style={{ margin: 0, color: "rgba(255,255,255,0.4)", fontSize: "12px" }}>Verified Google Review · Skardu Tour, July 2026</p>
+                  <p style={{ margin: 0, color: "rgba(255,255,255,0.55)", fontSize: "12px" }}>Verified Google Review · Skardu Tour, July 2026</p>
                 </div>
               </div>
             </div>
@@ -437,9 +437,9 @@ export default function AboutClient() {
               <Phone style={{ width: "20px", height: "20px", color: "#22c55e" }} />
             </div>
             <div>
-              <p style={{ margin: "0 0 3px", color: "rgba(255,255,255,0.4)", fontSize: "11px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em" }}>Call / WhatsApp</p>
+              <p style={{ margin: "0 0 3px", color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em" }}>Call / WhatsApp</p>
               <p style={{ margin: 0, color: "white", fontWeight: 700, fontSize: "16px" }}>+92 334 4334411</p>
-              <p style={{ margin: "2px 0 0", color: "rgba(255,255,255,0.4)", fontSize: "13px" }}>+92 324 8888889</p>
+              <p style={{ margin: "2px 0 0", color: "rgba(255,255,255,0.55)", fontSize: "13px" }}>+92 324 8888889</p>
             </div>
           </div>
           <div style={{
@@ -451,7 +451,7 @@ export default function AboutClient() {
               <Mail style={{ width: "20px", height: "20px", color: "#FFC20A" }} />
             </div>
             <div>
-              <p style={{ margin: "0 0 3px", color: "rgba(255,255,255,0.4)", fontSize: "11px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em" }}>Email Us</p>
+              <p style={{ margin: "0 0 3px", color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em" }}>Email Us</p>
               <p style={{ margin: 0, color: "white", fontWeight: 700, fontSize: "16px" }}>info@travelbug.pk</p>
             </div>
           </div>

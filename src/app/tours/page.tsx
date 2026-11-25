@@ -1,19 +1,16 @@
 import type { Metadata } from "next";
 import MotionProvider from "@/components/MotionProvider";
-import { Suspense } from "react";
 import ToursClient from "./ToursClient";
+import { tours } from "@/data/tours";
 
 export const metadata: Metadata = {
-  title: "Tours",
-  description:
-    "Browse 120+ handpicked tour packages — luxury, adventure, and budget options with filters by destination, duration, and price. Find your perfect trip.",
+  title: "Pakistan Tour Packages — Custom Private Tours",
+  description: `Browse ${tours.length} photographer-led Pakistan tours — Hunza, Skardu, K2, Fairy Meadows, Chitral and more. Every trip is fully customised to your group and dates.`,
   alternates: { canonical: "/tours" },
 };
 
 export default function ToursPage() {
   return (
-    <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
-      <MotionProvider><ToursClient /></MotionProvider>
-    </Suspense>
+    <MotionProvider><ToursClient /></MotionProvider>
   );
 }

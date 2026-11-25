@@ -41,8 +41,9 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  typescript: { ignoreBuildErrors: true },
-  eslint: { ignoreDuringBuilds: true },
+  // Type and lint errors fail the build, so a broken change can't deploy.
+  typescript: { ignoreBuildErrors: false },
+  eslint: { ignoreDuringBuilds: false },
 };
 
 export default nextConfig;

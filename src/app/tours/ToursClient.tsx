@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback, Suspense } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { m, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
-  Search, X, MapPin, Clock, Users, ChevronDown, ChevronUp,
-  ArrowRight, Phone, Mail, Calendar, CheckCircle2,
-  Home, Utensils, Car, User, MessageSquare, Send, Globe
+  Search, X, MapPin, Clock, Users,
+  ArrowRight, CheckCircle2,
+  Home, Utensils, User, MessageSquare, Send, Globe
 } from "lucide-react";
 import { tours } from "@/data/tours";
 import { Tour } from "@/types";
@@ -125,7 +125,7 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
               ✦ Custom Tour Request
             </div>
             <h2 style={{ margin: 0, fontSize: "22px", fontWeight: 800, color: "white" }}>Plan Your Dream Journey</h2>
-            <p style={{ margin: "6px 0 0", color: "rgba(255,255,255,0.45)", fontSize: "14px" }}>
+            <p style={{ margin: "6px 0 0", color: "rgba(255,255,255,0.55)", fontSize: "14px" }}>
               Fill in your preferences — we&apos;ll craft a 100% personalized itinerary just for you.
             </p>
           </div>
@@ -159,7 +159,7 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
               <p style={{ color: "rgba(255,255,255,0.5)", marginBottom: "8px" }}>
                 Thank you, <strong style={{ color: "white" }}>{form.name}</strong>! Our travel experts will contact you within <strong style={{ color: "#FFC20A" }}>2–4 hours</strong> with your personalized itinerary and quote.
               </p>
-              <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "13px", marginBottom: "28px" }}>
+              <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "13px", marginBottom: "28px" }}>
                 Check your WhatsApp / email for our response.
               </p>
               <button onClick={reset} style={{
@@ -369,7 +369,7 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
 
               {/* Submit */}
               <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "24px" }}>
-                <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "12px", marginBottom: "16px" }}>
+                <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "12px", marginBottom: "16px" }}>
                   By submitting you agree to be contacted by our travel team via your preferred method. Your data is kept private and never shared.
                 </p>
                 <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
@@ -395,7 +395,7 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
                     href={`https://wa.me/923344334411?text=Hi!%20I%27d%20like%20to%20plan%20a%20trip%20to%20${encodeURIComponent(form.destination || "Pakistan")}`}
                     target="_blank" rel="noopener noreferrer"
                     style={{
-                      padding: "16px 20px", borderRadius: "14px", background: "#22c55e",
+                      padding: "16px 20px", borderRadius: "14px", background: "#15803d",
                       color: "white", fontWeight: 700, fontSize: "14px", border: "none",
                       cursor: "pointer", display: "flex", alignItems: "center", gap: "8px",
                       textDecoration: "none", whiteSpace: "nowrap",
@@ -420,7 +420,6 @@ function QuoteModal({ isOpen, onClose, preselectedTour }: {
    DESTINATION CARD
 ───────────────────────────────────────────── */
 function DestinationCard({ tour, onGetQuote }: { tour: Tour; onGetQuote: (title: string) => void }) {
-  const [expanded, setExpanded] = useState(false);
 
   return (
     <m.div
@@ -509,7 +508,7 @@ function DestinationCard({ tour, onGetQuote }: { tour: Tour; onGetQuote: (title:
 
         {/* Places to visit tags */}
         <div style={{ marginBottom: "16px" }}>
-          <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>
+          <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "8px" }}>
             Places to Visit
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
@@ -534,7 +533,7 @@ function DestinationCard({ tour, onGetQuote }: { tour: Tour; onGetQuote: (title:
         marginTop: "18px",
         display: "flex", gap: "10px", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap",
       }}>
-        <p style={{ margin: 0, color: "rgba(255,255,255,0.35)", fontSize: "13px" }}>
+        <p style={{ margin: 0, color: "rgba(255,255,255,0.55)", fontSize: "13px" }}>
           Fully customizable — any duration, group size, budget
         </p>
         <div style={{ display: "flex", gap: "8px" }}>
@@ -569,15 +568,27 @@ function DestinationCard({ tour, onGetQuote }: { tour: Tour; onGetQuote: (title:
 /* ─────────────────────────────────────────────
    MAIN PAGE
 ───────────────────────────────────────────── */
+/* Reads the query string on the client only. Kept in its own Suspense
+   boundary so useSearchParams() doesn't opt the whole page out of static
+   rendering: the H1 and every tour link stay in the server HTML that search
+   engines receive, and filters apply as soon as the page hydrates. */
+function SearchParamsReader({ onChange }: { onChange: (qs: string) => void }) {
+  const sp = useSearchParams();
+  const qs = sp.toString();
+  useEffect(() => { onChange(qs); }, [qs, onChange]);
+  return null;
+}
+
 export default function ToursClient() {
-  const searchParams = useSearchParams();
+  const [qs, setQs] = useState("");
+  const searchParams = useMemo(() => new URLSearchParams(qs), [qs]);
   const themeParam = searchParams.get("theme") || "";
-  const [search, setSearch] = useState(searchParams.get("search") || "");
+  const [search, setSearch] = useState("");
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [preselectedTour, setPreselectedTour] = useState("");
 
-  // Reset search when theme changes
-  useEffect(() => { setSearch(""); }, [themeParam]);
+  // Search box follows the URL: ?search= pre-fills it, a theme change clears it
+  useEffect(() => { setSearch(new URLSearchParams(qs).get("search") || ""); }, [qs]);
 
   const filtered = useMemo(() => {
     let list = tours;
@@ -624,6 +635,7 @@ export default function ToursClient() {
 
   return (
     <div style={{ minHeight: "100vh" }}>
+      <Suspense fallback={null}><SearchParamsReader onChange={setQs} /></Suspense>
       {/* Quote Modal */}
       <AnimatePresence>
         {quoteOpen && <QuoteModal isOpen={quoteOpen} onClose={() => setQuoteOpen(false)} preselectedTour={preselectedTour} />}
@@ -648,7 +660,7 @@ export default function ToursClient() {
                 fontSize: "12px", fontWeight: 800, letterSpacing: "0.08em",
                 textTransform: "uppercase", marginBottom: "8px",
               }}>{themeParam}</span>
-              <h2 style={{ margin: "0 0 4px", color: "white", fontSize: "22px", fontWeight: 900 }}>{activeTheme.label}</h2>
+              <h1 style={{ margin: "0 0 4px", color: "white", fontSize: "22px", fontWeight: 900 }}>{activeTheme.label}</h1>
               <p style={{ margin: 0, color: "rgba(255,255,255,0.5)", fontSize: "14px" }}>{activeTheme.desc}</p>
             </div>
             <Link
@@ -717,7 +729,7 @@ export default function ToursClient() {
             background: "rgba(255,255,255,0.06)", border: "1.5px solid rgba(255,255,255,0.1)",
             borderRadius: "14px", padding: "13px 18px",
           }}>
-            <Search style={{ width: "18px", height: "18px", color: "rgba(255,255,255,0.4)", flexShrink: 0 }} />
+            <Search style={{ width: "18px", height: "18px", color: "rgba(255,255,255,0.55)", flexShrink: 0 }} />
             <input
               value={search} onChange={e => setSearch(e.target.value)}
               placeholder="Search destinations — Hunza, Skardu, Lahore, Neelum Valley..."
@@ -726,13 +738,13 @@ export default function ToursClient() {
             />
             {search && (
               <button onClick={() => setSearch("")} style={{ background: "none", border: "none", cursor: "pointer" }}>
-                <X style={{ width: "16px", height: "16px", color: "rgba(255,255,255,0.4)" }} />
+                <X style={{ width: "16px", height: "16px", color: "rgba(255,255,255,0.55)" }} />
               </button>
             )}
           </div>
-          <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "14px", fontWeight: 500, whiteSpace: "nowrap" }}>
-            {filtered.length} destination{filtered.length !== 1 ? "s" : ""}
-          </span>
+          <h2 style={{ margin: 0, color: "rgba(255,255,255,0.55)", fontSize: "14px", fontWeight: 500, whiteSpace: "nowrap" }}>
+            {filtered.length} tour{filtered.length !== 1 ? "s" : ""}
+          </h2>
           <button
             onClick={() => openQuote()}
             style={{
@@ -753,7 +765,7 @@ export default function ToursClient() {
         <div style={{ maxWidth: "80rem", margin: "0 auto" }}>
           {filtered.length === 0 ? (
             <div style={{ textAlign: "center", padding: "80px 0" }}>
-              <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "18px", marginBottom: "12px" }}>No destinations match your search.</p>
+              <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "18px", marginBottom: "12px" }}>No destinations match your search.</p>
               <button onClick={() => setSearch("")} style={{ padding: "10px 24px", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.15)", background: "transparent", color: "rgba(255,255,255,0.5)", cursor: "pointer" }}>
                 Clear Search
               </button>
