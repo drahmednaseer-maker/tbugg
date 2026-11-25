@@ -1,0 +1,33 @@
+import type { Hotel } from "./types";
+/* Facts collected 25 Nov 2026. Serena, PC and Shangrila come from their own sites; others from booking-site summaries. Photos are added by the team. */
+const K = "Master bed (king)", Q = "Master bed (queen)", D = "Double bed", T = "Twin beds", DT = "Double or twin beds", N = "";
+type R = [name: string, bed: string, sleeps?: number, fac?: string];
+const list = (s = "") => s.split(", ").filter(Boolean);
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+const H = (name: string, city: string, fac: string, rooms: R[], src = ""): Hotel => ({ id: slug(`${name} ${city}`), name, city, stars: 0, facilities: list(fac), photos: [], src, rooms: rooms.map(([n, bed, sleeps = 0, f]) => ({ id: slug(n), name: n, bed, sleeps, facilities: list(f), photos: [] })) });
+export const LIB: Hotel[] = [
+  H("Regalia Hotel", "Islamabad", "Restaurant, Gym, Garden, Airport transfer", [["Deluxe Twin Room", T], ["Deluxe King Room", K], ["King Suite", K], ["Deluxe Family Room", N, 4], ["Executive Room", N]]),
+  H("Khar Hotel", "Skardu", "Air conditioning, Restaurant, Parking, Airport transfer, Family friendly, Garden, 24-hour front desk", [["Family Room", N, 0, "Air conditioning, Attached bathroom, TV"]]),
+  H("Dynasty Hotel", "Skardu", "Heating, Parking, Mountain view", [["Deluxe Twin Room", T, 2, "Mountain view, Heating"], ["Deluxe Double Room", K, 3, "Mountain view, Heating"], ["Executive Double Room", K, 3, "Heating"]]),
+  H("Shangrila Resort", "Skardu", "Wi-Fi, Restaurant, Cafe, Laundry, Airport transfer, Boating", [["Lakeside Deluxe Room", "King or twin beds", 3, "Tea & coffee maker, Attached bathroom"], ["Lakeside Room", N, 3], ["Lakeside Family Deluxe Room", N, 6], ["Swiss Cottage", N, 6], ["Shangrila View Room", N, 3]], "https://www.shangrilaresorts.com.pk/"),
+  H("PC Legacy", "Skardu", "Wi-Fi, Air conditioning, Restaurant, Parking, Room service, Airport transfer, Garden", [["Standard King Room", K, 0, "Mountain view, Air conditioning"], ["Standard Twin Room", T, 0, "Air conditioning"], ["Executive Suite King", K, 0, "Living area, Air conditioning, Safe"], ["Two-Bedroom Chalet", N, 0, "Living area"]], "https://pchotels.com/hotel-and-resort/pc-legacy-skardu/accommodation"),
+  H("Khoj Resort", "Shigar", "Air conditioning, Restaurant, Parking, Garden, Rooftop terrace, Airport transfer, 24-hour front desk", [["Honeymoon Villa", K, 3, "Mountain view"], ["Signature Villa", Q, 5], ["Comfort Villa", N]]),
+  H("Serena Khaplu Palace", "Khaplu", "Restaurant, Parking, Backup power, Garden, Conference rooms", [["Standard Room", DT], ["Deluxe Twin Garden Room", T, 0, "Seating area"], ["Heritage Suite", "King or queen bed", 0, "Sitting area"], ["Executive Suite Garden Room", K], ["Royal Suite (Rani Room)", K, 0, "Private terrace"]], "https://www.serenahotels.com/khaplu-palace/accommodation"),
+  H("Serena Shigar Fort", "Shigar", "Wi-Fi, Restaurant, Parking, Backup power, Room service, Laundry, Garden, 24-hour front desk", [["Standard Room", "Double, twin or single beds", 0, "Room service"], ["Garden House Standard Room", DT, 0, "Balcony, TV"], ["Garden Suite", K, 0, "Balcony, TV, Sitting area"], ["Heritage Suite", "Master bed + 1 single", 0, "Sitting area"], ["Royal Suite", K, 0, "Balcony, River view, Mini fridge"]], "https://www.serenahotels.com/shigar-fort/accommodation"),
+  H("Serena Hotel", "Hunza", "", []),
+  H("Serena Altit Fort Residence", "Altit, Hunza", "Wi-Fi, Air conditioning, Hot water, Cafe, Room service, Laundry, 24-hour front desk, Garden", [["Valley View Hut", K, 0, "Heating, Wi-Fi, Mini fridge, TV"], ["Deluxe Room (Standard)", "Double, twin or single beds", 0, "Room service"], ["Executive Room", "Double, twin or single beds", 0, "Room service"]], "https://www.serenahotels.com/altit-fort/accommodation"),
+  H("Ambiance Resort", "Hunza", "Air conditioning, Restaurant, Parking, Garden", []),
+  H("Offto Resort", "Hunza", "Wi-Fi, Restaurant, Parking, Balcony, Mountain view", [["Deluxe Room, Mountain View", D, 2, "Mountain view"], ["One Bedroom Chalet", N, 2], ["Two-Bedroom Chalet", N, 4], ["The Loft Villa", N, 6]]),
+  H("Moksha Resort", "Gulmit", "Parking, Laundry, 24-hour front desk", [["Deluxe Double Room", D, 2, "TV, Attached bathroom"]]),
+  H("Diwan-e-Hunza", "Gulmit", "Balcony, Mountain view, Garden", []),
+  H("Serena Hotel", "Gilgit", "Wi-Fi, Heating, Air conditioning, Restaurant, Parking, Backup power, Room service, Laundry, Garden", [["Standard King", K, 0, "Balcony, Wi-Fi"], ["Standard Twin", T, 0, "Balcony, Wi-Fi"], ["Deluxe King", K, 0, "Balcony, Wi-Fi"], ["Executive Suite", K, 0, "Balcony, Air conditioning, Sitting area"]], "https://www.serenahotels.com/gilgit/accommodation"),
+  H("Greywalls Hotel", "Naran", "Wi-Fi", []),
+  H("Pearl Continental", "Malam Jabba", "Wi-Fi, Air conditioning, Restaurant, Parking, Gym, Garden, Room service, Mountain view", [["Deluxe King", K, 0, "Air conditioning, Wi-Fi"], ["Deluxe Twin", T, 0, "Air conditioning, Mountain view"], ["Executive King", K, 0, "Mountain view"], ["Family Room King", K, 0, "Living area, Mountain view"], ["Executive Suite", K, 0, "Balcony, Mountain view"]], "https://pchotels.com/hotel-and-resort/pearl-continental-hotel-malam-jabba/accommodation"),
+  H("Swat Palace Hotel", "Swat", "Wi-Fi, Air conditioning, Restaurant, Parking, Room service, Lift, Family friendly", []),
+  H("Rock City Resort", "Swat", "Wi-Fi, Air conditioning, Restaurant, Parking, Garden, Terrace, Family friendly", []),
+  H("Pearl Continental", "Lahore", "Wi-Fi, Air conditioning, Swimming pool, Gym, Spa, Parking, Room service, Laundry, Restaurant", [["Standard King", K, 0, "Wi-Fi, Safe"], ["Standard Twin", T], ["Deluxe King", K, 0, "Seating area"], ["Executive King", K], ["Business Suite", K, 0, "Executive lounge"]], "https://pchotels.com/hotel-and-resort/pearl-continental-hotel-lahore/accommodation"),
+  H("Nishat Hotel", "Lahore", "Wi-Fi, Swimming pool, Gym, Restaurant, Parking, Room service, Airport transfer, Family friendly", [["Deluxe Double Room", K, 2, "City view"]]),
+  H("Avari Hotel", "Lahore", "Swimming pool, Gym", [["Executive Club Room", DT], ["Executive Suite", K, 3, "City view"], ["Deluxe Suite", K, 3]]),
+  H("DoubleTree by Hilton", "Nathia Gali", "Wi-Fi, Air conditioning, Restaurant, Parking, Swimming pool, Gym, Spa, Room service, Balcony", [["Room, 2 Twin Beds (View)", T, 3, "Air conditioning, TV"]]),
+  H("Pearl Continental", "Bhurban", "Wi-Fi, Restaurant, Swimming pool, Spa, Sauna, Room service, Tennis, Playground", [["Standard King", K, 0, "Wi-Fi"], ["Standard Twin", T], ["Deluxe King", K], ["Deluxe Twin", T, 0, "Seating area"], ["Family Suite", N]], "https://pchotels.com/hotel-and-resort/pearl-continental-hotel-bhurban/accommodation"),
+];

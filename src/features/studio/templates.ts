@@ -44,7 +44,7 @@ export function blank(over: Partial<Trip> = {}): Trip {
     client: "", partner: "", market: "", pax: "2", start: "", status: "Proposal", introTitle: "Welcome to Pakistan",
     intro: "Write a warm introduction to this journey.", highlights: [{ title: "Highlights", items: ["Add a highlight"] }], highlightImages: [A.attabad, A.katpana, A.portrait],
     difficulty: "Easy", season: "", days: [d("Arrival in Islamabad", "Islamabad", "Meet and greet at the airport, then transfer to your hotel.", [], { m: "D", img: "faisal", stay: "Regalia Hotel, Islamabad" })],
-    gallery: [A.attabad, A.raka, A.katpana, A.khaplu, A.indus, A.portrait, A.cones, A.polo, A.machlu], fill: {}, collection: [],
+    gallery: [A.attabad, A.raka, A.katpana, A.khaplu, A.indus, A.portrait, A.cones, A.polo, A.machlu], fill: {}, stays: [], hotelCurrency: "PKR", payments: [], guestTotal: "", showBooking: false, showRates: false, showPaid: false, collection: [],
     included: INCLUDED.slice(0, 8), excluded: [...EXCLUDED], currency: "USD", prices: [{ label: "Per person, twin sharing", amount: "" }, { label: "Per person, single room", amount: "" }],
     priceNote: "Prices are per person.", showLocal: "", rate: "", deposit: "20", balanceDays: "30", validUntil: "",
     travel: marketTravel(""), packing: [], packingNote: "", terms: [...TERMS], signature: true, whyTitle: "Why travel with Travel Bug", why: WHY,

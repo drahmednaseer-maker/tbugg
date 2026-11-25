@@ -3,7 +3,8 @@
 import { createContext, Fragment, useContext, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Backpack, Camera, Car, Check, Clock, Compass, Flame, MapPin, Mountain, Moon, Phone, Globe, Mail, Tent, Utensils, X, BedDouble, Route } from "lucide-react";
 import { PLACES, RATES, THEMES } from "./data";
-import type { Company, Day, SectionId, Trip } from "./types";
+import type { Company, Day, SectionId, Stay, Trip } from "./types";
+import { guestDue, paid, sorted, startOf, stayDates } from "./hotels";
 import { addDays, dateRange, duration, fmtDay, fmtFull, fmtShort, metres, money, num, photo } from "./util";
 
 interface Ctx { t: Trip; c: Company; edit: boolean; set: (path: string, v: unknown) => void; pick: (path: string) => void }
@@ -169,11 +170,28 @@ function Elevation() {
     <text x={X(top)} y={Y(hi) - 14} textAnchor="middle" fontWeight="700" fontSize="15" fill="var(--head)">{p[top].d.altitude}</text></svg> },
     ...p.map((x) => ({ k: x.d.id, n: <div className="gl el"><b>{String(x.i + 1).padStart(2, "0")}</b><span className="gl-t">{x.d.title}</span><span>{[x.d.distance, x.d.time].filter(Boolean).join(" / ")}</span><span className="r">{x.d.altitude}</span></div> }))]} />;
 }
+function StayCard({ s }: { s: Stay }) {
+  const { t } = useContext(C); const k = t.stays.indexOf(s); const dt = stayDates(t, s);
+  const pics = [...s.photos.map((_, j) => `stays.${k}.photos.${j}`).slice(0, s.rooms.some((r) => r.photos.length) ? 1 : 3), ...s.rooms.flatMap((r, i) => r.photos.map((_, j) => `stays.${k}.rooms.${i}.photos.${j}`))].slice(0, 3);
+  const fac = [...new Set([...s.facilities, ...s.rooms.flatMap((r) => r.facilities)])].slice(0, 12);
+  return <article className="hs">{pics.length > 0 && <div className={`hs-p n${pics.length}`}>{pics.map((p) => <Ph key={p} p={p} />)}</div>}
+    <div className="hs-h"><div><h3>{s.name}{s.stars > 0 && <span className="hs-s" aria-label={`${s.stars} star`}>{"★".repeat(s.stars)}</span>}</h3>{s.city && <p>{s.city}</p>}</div><div className="r"><b>{s.nights} night{s.nights > 1 ? "s" : ""}</b>{t.showBooking && s.status === "Confirmed" && <p className="hs-c"><Check size={14} strokeWidth={3} />Booking confirmed</p>}</div></div>
+    <div className="hs-d"><span><b>Check-in</b>{dt.in}</span><span><b>Check-out</b>{dt.out}</span>{s.meal && <span><b>Meals</b>{s.meal}</span>}</div>
+    {s.rooms.map((r) => { const rate = num(r.rate), g = num(r.guests); return <div className="hs-r" key={r.id}><BedDouble size={17} /><span><b>{r.qty} x {r.name}</b><br />{[r.bed, g > 0 ? `${g} guest${g > 1 ? "s" : ""} per room` : ""].filter(Boolean).join(" · ")}</span>{t.showRates && rate > 0 && <span className="r"><b>{money(rate, t.hotelCurrency)}</b> per room per night{g > 1 && <><br />{money(rate / g, t.hotelCurrency)} per person</>}</span>}</div>; })}
+    {fac.length > 0 && <ul className="hs-f">{fac.map((x) => <li key={x}>{x}</li>)}</ul>}</article>;
+}
 function Stays() {
-  const { t } = useContext(C); const s: { stay: string; n: number; place: string; img: string; camp: boolean; from: number }[] = [];
-  t.days.forEach((d, i) => { if (!d.stay || i === t.days.length - 1) return; const l = s[s.length - 1]; if (l?.stay === d.stay) l.n++; else s.push({ stay: d.stay, n: 1, place: d.place, img: d.image, camp: d.camp, from: i }); });
-  if (!s.length) return null;
-  return <Flow sec="stays" head={<H sub="Or similar, subject to availability at the time of booking">Where you stay</H>} blocks={s.map((x, i) => ({ k: String(i), n: <div className="stay"><div className="stay-i">{x.camp ? <Tent size={24} /> : <BedDouble size={24} />}</div><div><h3>{x.stay}</h3><p>{x.place}{t.start && `  ·  Check-in ${fmtShort(addDays(t.start, x.from))}`}</p></div><b>{x.n} night{x.n > 1 ? "s" : ""}</b></div> }))} />;
+  const { t } = useContext(C); const out: ReactNode[] = []; let plain: { stay: string; n: number; place: string; camp: boolean; from: number } | null = null;
+  const flush = () => { const x = plain; if (x) out.push(<div className="stay"><div className="stay-i">{x.camp ? <Tent size={24} /> : <BedDouble size={24} />}</div><div><h3>{x.stay}</h3><p>{x.place}{t.start && `  ·  Check-in ${fmtShort(addDays(t.start, x.from))}`}</p></div><b>{x.n} night{x.n > 1 ? "s" : ""}</b></div>); plain = null; };
+  const list = sorted(t).filter((s) => s.status !== "Cancelled" && startOf(t, s) >= 0);
+  t.days.forEach((d, i) => {
+    const here = list.filter((s) => startOf(t, s) === i);
+    if (here.length) { flush(); here.forEach((s) => out.push(<StayCard s={s} />)); return; }
+    if (list.some((s) => i > startOf(t, s) && i < startOf(t, s) + s.nights) || !d.stay || i === t.days.length - 1) { flush(); return; }
+    if (plain?.stay === d.stay) plain.n++; else { flush(); plain = { stay: d.stay, n: 1, place: d.place, camp: d.camp, from: i }; }
+  });
+  flush(); if (!out.length) return null;
+  return <Flow sec="stays" head={<H sub={list.length && t.showBooking ? undefined : "Or similar, subject to availability at the time of booking"}>Where you stay</H>} blocks={out.map((n, i) => ({ k: String(i), n }))} />;
 }
 function Gallery() { const { t } = useContext(C); return t.gallery.length ? <Page sec="gallery"><H>Moments from the road</H><div className={`gal g${Math.min(9, t.gallery.length)}`}>{t.gallery.slice(0, 9).map((_, i) => <Ph key={i} p={`gallery.${i}`} />)}</div></Page> : null; }
 function Collection() {
@@ -189,6 +207,7 @@ function Price() {
   const { t, c } = useContext(C); const dep = num(t.deposit), bal = t.start ? addDays(t.start, -num(t.balanceDays)) : null;
   return <Page sec="price"><H>Price and booking</H><div className={`pr ${t.prices.length > 3 ? "many" : ""}`}>{t.prices.map((p, i) => { const q = quote(t, p.amount); return <div key={i}><Tx p={`prices.${i}.label`} as="span" /><div><b>{q.main}</b>{q.local && <i>{q.local}</i>}</div></div>; })}</div>
     <Tx p="priceNote" as="p" className="note" />{t.prices.some((p) => quote(t, p.amount).local) && <p className="note">Local currency figures are indicative; the {t.currency} price applies.</p>}
+    {t.showPaid && paid(t.payments) > 0 && <div className="paid"><span><b>Total</b>{money(guestDue(t), t.currency)}</span><span><b>Advance received</b>{money(paid(t.payments), t.currency)}</span><span><b>Balance</b>{money(Math.max(0, guestDue(t) - paid(t.payments)), t.currency)}</span></div>}
     <h3 className="inc-h">How to book</h3><ol className="steps"><li><b>Confirm</b>Tell us your dates and guest names. {t.validUntil && <>This offer is valid until {fmtFull(addDays(t.validUntil, 0))}.</>}</li>
       <li><b>{dep ? `${dep}% deposit` : "Deposit"}</b>Secures hotels, flights and vehicle for your group.</li><li><b>Balance</b>{num(t.balanceDays) ? <>{bal ? `By ${fmtFull(bal)}` : "Due"} ({t.balanceDays} days before departure).</> : "Payable before departure."}</li></ol>
     <div className="two"><div><h3 className="inc-h">Payment details</h3><p className="pre">{c.bank || "Account details are sent by our team with your booking confirmation."}</p></div><div><h3 className="inc-h">Your contact</h3><p className="pre">{[c.contact, c.phone, c.email].filter(Boolean).join("\n")}</p></div></div><Fill id="price" /></Page>;

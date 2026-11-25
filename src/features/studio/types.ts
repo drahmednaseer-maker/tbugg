@@ -17,7 +17,17 @@ export interface CostRow { label: string; amount: string; per: "person" | "group
 export interface Card { title: string; meta: string; text: string; image: string }
 export interface Group { title: string; items: string[] }
 
+export interface Room { id: string; name: string; bed: string; sleeps: number; facilities: string[]; photos: string[] }
+export interface Hotel { id: string; name: string; city: string; stars: number; facilities: string[]; photos: string[]; rooms: Room[]; src?: string }
+export interface Payment { date: string; amount: string; note: string }
+export interface StayRoom { id: string; roomId: string; name: string; bed: string; qty: string; guests: string; facilities: string[]; photos: string[]; rate: string }
+export interface Stay {
+  id: string; dayId: string; nights: number; hotelId: string; name: string; city: string; stars: number; facilities: string[]; photos: string[]; rooms: StayRoom[];
+  meal: string; status: "Not booked" | "Requested" | "On hold" | "Confirmed" | "Cancelled"; ref: string; payBy: string; total: string; payments: Payment[]; note: string;
+}
+
 export interface Trip {
+  stays: Stay[]; hotelCurrency: Currency; payments: Payment[]; guestTotal: string; showBooking: boolean; showRates: boolean; showPaid: boolean;
   id: string; updated: number; name: string;
   theme: string; coverLayout: CoverLayout; dayLayout: DayLayout;
   order: SectionId[]; hidden: SectionId[];

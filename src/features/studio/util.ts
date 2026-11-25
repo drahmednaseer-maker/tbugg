@@ -1,6 +1,7 @@
 import { INCLUDED } from "./data";
 import type { Company, Day, Trip } from "./types";
 import { blank } from "./templates";
+import { stayIssues } from "./hotels";
 
 export function setPath<T>(obj: T, path: string, val: unknown): T {
   const [k, ...rest] = path.split(".");
@@ -55,6 +56,7 @@ export function check(t: Trip, c: Company): Issue[] {
       if (/blossoms/i.test(text) && (m < 3 || m > 4)) add("warn", `Day ${i + 1} mentions blossoms, but the date is outside March–April.`, "days");
     }
   });
+  out.push(...stayIssues(t));
   if (t.included.some((x) => t.excluded.some((y) => x.toLowerCase() === y.toLowerCase()))) add("must", "The same service is both included and not included.", "lists");
   if (t.market && !t.included.includes(INCLUDED[17])) add("tip", "Foreign guests usually need an invitation letter. Add it to Included.", "lists");
   return out;
@@ -81,7 +83,8 @@ const b64 = (u: Uint8Array) => { let s = ""; for (const x of u) s += String.from
 const pipe = async (data: BlobPart, tr: CompressionStream | DecompressionStream) => new Uint8Array(await new Response(new Blob([data]).stream().pipeThrough(tr)).arrayBuffer());
 export async function pack(t: Trip, c: Company) {
   let dropped = 0;
-  const clean = JSON.parse(JSON.stringify({ ...t, costs: [], markup: "", commission: "" }), (_k, v) => { if (typeof v === "string" && v.startsWith("data:")) { dropped++; return ""; } return v; });
+  const clean = JSON.parse(JSON.stringify({ ...t, costs: [], markup: "", commission: "", payments: t.showPaid ? t.payments.map((p) => ({ ...p, note: "" })) : [], guestTotal: t.showPaid ? t.guestTotal : "",
+    stays: t.stays.map((s) => ({ ...s, ref: "", payBy: "", total: "", payments: [], note: "", status: t.showBooking || s.status === "Cancelled" ? s.status : "Not booked", rooms: s.rooms.map((r) => ({ ...r, rate: t.showRates ? r.rate : "" })) })) }), (_k, v) => { if (typeof v === "string" && v.startsWith("data:")) { dropped++; return ""; } return v; });
   return { dropped, data: b64(await pipe(JSON.stringify({ t: clean, c: { ...c, bank: "" } }), new CompressionStream("deflate-raw"))) };
 }
 export async function unpack(s: string): Promise<{ t: Trip; c: Company }> {
@@ -95,7 +98,8 @@ export const shrink = (file: File) => new Promise<string>((ok, no) => {
   im.onerror = () => no(new Error("That file is not a readable image.")); im.src = url;
 });
 const save = (url: string, name: string) => { const a = document.createElement("a"); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove(); };
-export const saveJson = (t: Trip) => { const u = URL.createObjectURL(new Blob([JSON.stringify(t)], { type: "application/json" })); save(u, `${t.name}.travelbug.json`); setTimeout(() => URL.revokeObjectURL(u), 2000); };
+export const saveBlob = (text: string, name: string) => { const u = URL.createObjectURL(new Blob([text], { type: "application/json" })); save(u, name); setTimeout(() => URL.revokeObjectURL(u), 2000); };
+export const saveJson = (t: Trip) => saveBlob(JSON.stringify(t), `${t.name}.travelbug.json`);
 /** Renders each page at 2x, one at a time. */
 export async function exportPages(root: HTMLElement, name: string, kind: "pdf" | "images", step: (s: string) => void) {
   const { domToJpeg } = await import("modern-screenshot");
