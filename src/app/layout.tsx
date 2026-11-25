@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import SiteChrome from "@/components/SiteChrome";
 import Providers from "@/components/Providers";
 import ServiceWorkerCleanup from "@/components/ServiceWorkerCleanup";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
@@ -142,10 +143,12 @@ export default function RootLayout({
         />
         <Providers>
           <ServiceWorkerCleanup />
-          <Header />
+          <SiteChrome><Header /></SiteChrome>
           <main>{children}</main>
-          <Footer />
-          <FloatingWhatsApp />
+          <SiteChrome>
+            <Footer />
+            <FloatingWhatsApp />
+          </SiteChrome>
         </Providers>
         {/* Private, owner-only analytics — see ANALYTICS.md */}
         <Analytics />
